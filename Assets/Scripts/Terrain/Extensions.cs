@@ -4,6 +4,7 @@ using UnityEngine;
 public static class Extensions
 {
     public static Vector2Int xy(this Vector3Int value) => new Vector2Int(value.x, value.y);
+    public static Vector3Int Extend(this Vector2Int value) => new Vector3Int(value.x, value.y, 0);
 
     public static bool IsNeighbourOf(this Tile source, Tile tile)
     {

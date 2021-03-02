@@ -1,0 +1,56 @@
+---[Pathfinder.cs/First path reconstruction iteration]---------------------------------------------------------------------------------------------/
+private void TryReconstructPath(Tile tile)
+{
+	var start = path[0];
+	if (tile.x == start.x)
+	{
+		Func<Tile, int> axisPicker = item => item.y;
+		Func<int, Vector2Int> cellMaker = value => new Vector2Int(start.x, value);
+					
+		ReconstructPath(start, tile, axisPicker, cellMaker);
+	}
+	else if (tile.y == start.y)
+	{
+		Func<Tile, int> axisPicker = item => item.x;
+		Func<int, Vector2Int> cellMaker = value => new Vector2Int(value, start.y);
+					
+		ReconstructPath(start, tile, axisPicker, cellMaker);
+	}
+}
+private void ReconstructPath(Tile start, Tile end, Func<Tile, int> axisPicker, Func<int, Vector2Int> cellMaker)
+{
+	var l = axisPicker(start);
+	var r = axisPicker(end);
+
+	var length = Mathf.Abs(l - r);
+	if (length > range + 1) length = range + 1;
+	
+	path.Clear();
+	if (l > r)
+	{
+		for (var i = 0; i < length; i++)
+		{
+			var value = l - i;
+			if (!TryAddTile(value)) break;
+		}
+	}
+	else
+	{
+		for (var i = 0; i < length; i++)
+		{
+			var value = l + i;
+			if (!TryAddTile(value)) break;
+		}
+	}
+	RefreshDisplay();
+
+	bool TryAddTile(int value)
+	{
+		var cell = cellMaker(value);
+			
+		if (!nav.Map.Tiles.TryGetValue(cell, out var tile)) return false;
+						
+		path.Add(tile);
+		return true;
+	}
+}

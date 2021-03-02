@@ -1,1 +1,33 @@
-﻿{}
+{
+    "name": "Controls",
+    "maps": [
+        {
+            "name": "Temp",
+            "id": "08fef985-871f-4746-b6dd-3ec14edc7655",
+            "actions": [
+                {
+                    "name": "OnSpace",
+                    "type": "Button",
+                    "id": "85f5720d-fb69-491d-a826-202bd753be19",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "5a6607dc-5230-4362-bc26-d77404ca4f06",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OnSpace",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        }
+    ],
+    "controlSchemes": []
+}

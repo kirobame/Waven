@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿/*using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Bootstrapper : MonoBehaviour
@@ -28,3 +28,4 @@ public class Bootstrapper : MonoBehaviour
     void OnEnable() => inputs.Enable();
     void OnDisable() => inputs.Disable();
 }
+*/

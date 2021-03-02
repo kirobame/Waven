@@ -10,15 +10,15 @@ public class Bootstrapper : MonoBehaviour
         var match = new Match();
         
         var turn = new TimedTurn(3.5f);
-        turn.AssignTarget(new Player("Jhonny", 5));
+        turn.AssignTarget(new AltPlayer("Jhonny", 5));
         match.Insert(turn);
         
         turn = new TimedTurn(4.5f);
-        turn.AssignTarget(new Player("Schmidt", 2));
+        turn.AssignTarget(new AltPlayer("Schmidt", 2));
         match.Insert(turn);
         
         turn = new TimedTurn(2.5f);
-        turn.AssignTarget(new Player("Hegel", 6));
+        turn.AssignTarget(new AltPlayer("Hegel", 6));
         match.Insert(turn);
         
         var session = new Session();

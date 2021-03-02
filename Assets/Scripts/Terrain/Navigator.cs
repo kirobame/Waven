@@ -3,27 +3,24 @@ using Flux.Data;
 
 public class Navigator : MonoBehaviour
 {
+    public Tile Current { get; private set; }
+    public Map Map { get; private set; }
+    
     [SerializeReference] public Movable target;
-    private Map map;
 
-    private void Start()
-    {
-        map = Repository.Get<Map>(References.Map);
-    }
+    private void Start() => Map = Repository.Get<Map>(References.Map);
 
     public void Place(Vector2Int position)
     {
         if (!IsTileValid(position, out var tile)) return;
-        target.Place(map.Tilemap.CellToWorld(tile.Position));
-        target.lastPosition = target.transform.position;
+        
+        target.Place(Map.Tilemap.CellToWorld(tile.Position));
+        Current = tile;
     }
 
     public bool IsTileValid(Vector2Int pos, out Tile tile)
     {
-        if(map.Tiles.TryGetValue(pos, out tile))
-        {
-            return tile.GetType() == typeof(Tile);
-        }
-        return false;
+        if (!Map.Tiles.TryGetValue(pos, out tile)) return false;
+        return tile.GetType() == typeof(Tile);
     }
 }

@@ -2,14 +2,22 @@
     "name": "Controls",
     "maps": [
         {
-            "name": "Temp",
-            "id": "08fef985-871f-4746-b6dd-3ec14edc7655",
+            "name": "Core",
+            "id": "01208a12-8f32-4684-ba3c-917cd25d1656",
             "actions": [
                 {
-                    "name": "OnSpace",
+                    "name": "Click",
                     "type": "Button",
-                    "id": "85f5720d-fb69-491d-a826-202bd753be19",
+                    "id": "952aee6b-aff6-419c-a9b0-d2e184040569",
                     "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                },
+                {
+                    "name": "MousePosition",
+                    "type": "Value",
+                    "id": "506be128-83f2-4b0c-bc5b-73b6dfc12aa0",
+                    "expectedControlType": "Vector2",
                     "processors": "",
                     "interactions": ""
                 }
@@ -17,12 +25,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "5a6607dc-5230-4362-bc26-d77404ca4f06",
-                    "path": "<Keyboard>/space",
+                    "id": "6e32cd59-e200-42ac-95d1-b662656f30fa",
+                    "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "OnSpace",
+                    "action": "Click",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "f5b74521-1e39-483f-a69f-6016fdc7fad9",
+                    "path": "<Mouse>/position",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MousePosition",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

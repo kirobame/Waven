@@ -1,6 +1,8 @@
 ﻿using Flux.Data;
 using System.Collections;
 using System.Collections.Generic;
+using Flux;
+using Flux.Event;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -18,12 +20,16 @@ public class TilesSelectionner : MonoBehaviour
         Repository.Get<InputAction>(References.Inputs).Enable();
         clickAction.performed += OnClick;
         mousePosAction.performed += OnMouseMove;
+
+        Events.Open(SelectionEvents.OnTileSelected); //Move dans le start ?
     }
 
     private void OnDisable()
     {
         clickAction.performed -= OnClick;
         mousePosAction.performed -= OnMouseMove;
+
+        //Clear events ?
     }
 
     private void Start()
@@ -35,6 +41,7 @@ public class TilesSelectionner : MonoBehaviour
     {
         var mouseToTile = map.Tilemap.WorldToCell(mousePosition);
         Debug.Log(mouseToTile);
+        Events.ZipCall<Vector3Int>(SelectionEvents.OnTileSelected, mouseToTile);
     }
 
     void OnMouseMove(InputAction.CallbackContext context)

@@ -416,6 +416,8 @@ GameObject:
   - component: {fileID: 771954024}
   - component: {fileID: 771954023}
   - component: {fileID: 771954022}
+  - component: {fileID: 771954025}
+  - component: {fileID: 771954026}
   m_Layer: 5
   m_Name: SpellButton2
   m_TagString: Untagged
@@ -485,7 +487,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 771954023}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 771954025}
+        m_TargetAssemblyTypeName: SpellButton, Assembly-CSharp
+        m_MethodName: OnSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &771954023
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -524,6 +538,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 771954020}
   m_CullTransparentMesh: 0
+--- !u!114 &771954025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771954020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualSpell: {fileID: 771954026}
+--- !u!114 &771954026
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 771954020}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  canBeCastAnywhere: 0
 --- !u!1 &1035167674
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +577,8 @@ GameObject:
   - component: {fileID: 1035167678}
   - component: {fileID: 1035167677}
   - component: {fileID: 1035167676}
+  - component: {fileID: 1035167679}
+  - component: {fileID: 1035167680}
   m_Layer: 5
   m_Name: SpellButton1
   m_TagString: Untagged
@@ -605,7 +648,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1035167677}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1035167679}
+        m_TargetAssemblyTypeName: SpellButton, Assembly-CSharp
+        m_MethodName: OnSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1035167677
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -644,6 +699,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1035167674}
   m_CullTransparentMesh: 0
+--- !u!114 &1035167679
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035167674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualSpell: {fileID: 1035167680}
+--- !u!114 &1035167680
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1035167674}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  canBeCastAnywhere: 0
 --- !u!1 &1065295355
 GameObject:
   m_ObjectHideFlags: 0
@@ -656,6 +738,8 @@ GameObject:
   - component: {fileID: 1065295359}
   - component: {fileID: 1065295358}
   - component: {fileID: 1065295357}
+  - component: {fileID: 1065295360}
+  - component: {fileID: 1065295361}
   m_Layer: 5
   m_Name: SpellButton3
   m_TagString: Untagged
@@ -725,7 +809,19 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1065295358}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1065295360}
+        m_TargetAssemblyTypeName: SpellButton, Assembly-CSharp
+        m_MethodName: OnSelected
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
 --- !u!114 &1065295358
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -764,6 +860,33 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1065295355}
   m_CullTransparentMesh: 0
+--- !u!114 &1065295360
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065295355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actualSpell: {fileID: 1065295361}
+--- !u!114 &1065295361
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1065295355}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cost: 0
+  canBeCastAnywhere: 0
 --- !u!1 &1079578920
 GameObject:
   m_ObjectHideFlags: 0
@@ -1293,16 +1416,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 1817476871}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4f231c4fb786f3946a6b90b886c48677, type: 3}
+  m_Script: {fileID: 11500000, guid: 01614664b831546d2ae94a42149d80ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_HorizontalAxis: Horizontal
-  m_VerticalAxis: Vertical
-  m_SubmitButton: Submit
-  m_CancelButton: Cancel
-  m_InputActionsPerSecond: 10
-  m_RepeatDelay: 0.5
-  m_ForceModuleActive: 0
+  m_MoveRepeatDelay: 0.5
+  m_MoveRepeatRate: 0.1
+  m_ActionsAsset: {fileID: -944628639613478452, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_PointAction: {fileID: 1054132383583890850, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MoveAction: {fileID: 3710738434707379630, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_SubmitAction: {fileID: 2064916234097673511, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_CancelAction: {fileID: -1967631576421560919, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_LeftClickAction: {fileID: 8056856818456041789, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_MiddleClickAction: {fileID: 3279352641294131588, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_RightClickAction: {fileID: 3837173908680883260, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_ScrollWheelAction: {fileID: 4502412055082496612, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDevicePositionAction: {fileID: 4754684134866288074, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_TrackedDeviceOrientationAction: {fileID: 1025543830046995696, guid: ca9f5fa95ffab41fb9a615ab714db018, type: 3}
+  m_DeselectOnBackgroundClick: 1
+  m_PointerBehavior: 0
 --- !u!114 &1817476874
 MonoBehaviour:
   m_ObjectHideFlags: 0

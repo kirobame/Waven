@@ -15,6 +15,7 @@ public class TilesSelectionner : MonoBehaviour
 
     private void OnEnable()
     {
+        Repository.Get<InputAction>(References.Inputs).Enable();
         clickAction.performed += OnClick;
         mousePosAction.performed += OnMouseMove;
     }

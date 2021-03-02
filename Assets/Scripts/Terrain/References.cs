@@ -6,5 +6,6 @@ public enum References : byte
     Map,
     Player,
     Camera,
-    Inputs
+    Inputs,
+    FeedbackGrid
 }

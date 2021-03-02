@@ -2,6 +2,7 @@
 using UnityEngine;
 using Flux.Data;
 using Flux;
+using UnityEngine.InputSystem;
 
 public class Bootstrapper : MonoBehaviour
 {
@@ -16,4 +17,7 @@ public class Bootstrapper : MonoBehaviour
         }, new YieldFrame()));
         
     }
+
+    private void OnEnable() => Repository.Get<InputAction>(References.Inputs).Enable();
+    //private void OnDisable() => Repository.Get<InputAction>(References.Inputs).Disable();
 }

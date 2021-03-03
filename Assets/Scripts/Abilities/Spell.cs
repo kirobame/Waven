@@ -4,27 +4,21 @@ using Flux;
 using Flux.Data;
 using UnityEngine;
 
-
-public class Spell : MonoBehaviour
+[CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
+public class Spell : ScriptableObject
 {
-    public delegate void EffectDelegate(List<Vector3Int> tiles);
-    EffectDelegate[] effects = { Effect1, Effect2 };
-    public EffectDelegate[] Effects() { return effects; }
+    //public delegate void EffectDelegate(List<Vector3Int> tiles);
+    //EffectDelegate[] effects = { Effect1, Effect2 };
+    //public EffectDelegate[] Effects() { return effects; }
 
+    [SerializeReference] List<Effect> effects = new List<Effect>();
+    [SerializeField] Effect effect;
+    public List<Effect> Effects() { return effects; }
 
     [SerializeField] uint cost = 0;
     public uint Cost() { return cost; }
 
     [SerializeField] bool canBeCastAnywhere = false;
 
-    static void Effect1(List<Vector3Int> tiles)
-    {
-        //Fonction pour GetEntitiesOnTiles
-
-    }
-    static void Effect2(List<Vector3Int> tiles)
-    {
-
-    }
 
 }

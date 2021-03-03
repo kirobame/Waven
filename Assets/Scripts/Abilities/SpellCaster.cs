@@ -45,11 +45,10 @@ public class SpellCaster : MonoBehaviour
         Debug.Log("Waiting for cible");
     }
 
-    void Cast(Vector3Int pos)
+    void Cast(Vector3Int selectedTile)
     {
         Debug.Log("Spell " + selectedSpell.name + " is casting");
-        List<Vector3Int> castPos = new List<Vector3Int>();
-
+        List<Vector3Int> tiles = new List<Vector3Int>();
         Events.BreakValueRelay<Vector3Int>(SelectionEvents.OnTileSelected, Cast);
 
         //Get affected tiles -> CastPos
@@ -57,10 +56,9 @@ public class SpellCaster : MonoBehaviour
         foreach (var effect in selectedSpell.Effects())
         {
             Debug.Log("Effect " + effect + "launched");
-            effect(castPos);
+            effect.PlayEffect(tiles);
         }
         
-
         //caster.mana -= spell.cost
         Casted();
     }

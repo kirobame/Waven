@@ -1,30 +1,28 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Flux;
-using Flux.Data;
 using UnityEngine;
 
-
-public class Spell : MonoBehaviour
+[CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
+public class Spell : ScriptableObject, ICastable
 {
-    public delegate void EffectDelegate(List<Vector3Int> tiles);
-    EffectDelegate[] effects = { Effect1, Effect2 };
-    public EffectDelegate[] Effects() { return effects; }
+    public string Title => title;
+    [SerializeField] private string title;
 
+    public string Description => description;
+    [SerializeField, TextArea] private string description;
+
+    public Sprite Thumbnail => thumbnail;
+    [SerializeField] private Sprite thumbnail;
+
+
+    [SerializeReference] List<Effect> effects = new List<Effect>();
+    [SerializeField] Effect effect;
+    public List<Effect> Effects() { return effects; }
 
     [SerializeField] uint cost = 0;
     public uint Cost() { return cost; }
 
     [SerializeField] bool canBeCastAnywhere = false;
 
-    static void Effect1(List<Vector3Int> tiles)
-    {
-        //Fonction pour GetEntitiesOnTiles
-
-    }
-    static void Effect2(List<Vector3Int> tiles)
-    {
-
-    }
 
 }

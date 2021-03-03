@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class FakeDeck : MonoBehaviour
 {
-    public List<FakeSpell> deck = new List<FakeSpell>();
+    public List<Spell> deck = new List<Spell>();
 }

@@ -54,8 +54,13 @@ public class Inputs : MonoBehaviour
 
     void OnClick(InputAction.CallbackContext context)
     {
+        Debug.Log("OnClick");
         var cell = GetCellAt(mousePosition).xy();
-        if (cell.TryGetTile(out var tile)) Events.ZipCall(InputEvent.OnTileSelected, tile);
+        if (cell.TryGetTile(out var tile))
+        {
+            Debug.Log("TryGetTile");
+            Events.ZipCall(InputEvent.OnTileSelected, tile);
+        }
     }
     void OnMouseMove(InputAction.CallbackContext context)
     {

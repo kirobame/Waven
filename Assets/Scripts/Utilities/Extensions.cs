@@ -47,7 +47,50 @@ public static class Extensions
 
         return list;
     }
-    
+
+    public static IEnumerable<WalkableTile> GetCellsInLigne(this WalkableTile source, int size, Vector2Int direction)
+    {
+        var list = new List<WalkableTile>();
+
+        for (var i = 0; i < size * 2 + 1; i++)
+        {
+            var posX = source.x + direction.x * i;
+            var posY = source.y + direction.y * i;
+
+            var cell = new Vector2Int(posX, posY);
+            if (!cell.TryGetTile(out var tile)) continue;
+
+            list.Add(tile);
+        }
+
+        return list;
+    }
+
+    public static IEnumerable<WalkableTile> GetCellsInCross(this WalkableTile source, int size)
+    {
+        var list = new List<WalkableTile>();
+
+
+        for (var i = -size; i < size * 2 + 1; i++)
+        {
+            var posX = source.x + i;
+
+            var cell = new Vector2Int(posX, source.y);
+            if (!cell.TryGetTile(out var tile) || list.Contains(tile)) continue;
+            list.Add(tile);
+        }
+        for (var i = -size; i < size * 2 + 1; i++)
+        {
+            var posY = source.y + i;
+
+            var cell = new Vector2Int(source.x, posY);
+            if (!cell.TryGetTile(out var tile) || list.Contains(tile)) continue;
+            list.Add(tile);
+        }
+
+        return list;
+    }
+
     public static bool IsNeighbourOf(this Tile source, Tile tile)
     {
         var sourcePos = source.Position;

@@ -7,6 +7,7 @@ using UnityEngine;
 public class SpellCaster : MonoBehaviour
 {
     Spell selectedSpell;
+    List<Effect> remainingEffects = new List<Effect>();
     object caster;
 
     void Start()
@@ -39,30 +40,35 @@ public class SpellCaster : MonoBehaviour
         }
         Debug.Log("Spell " + selectedSpell.name + " Can be casted");
 
+        remainingEffects = selectedSpell.Effects();
 
         Events.BreakValueRelay<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
-        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, Cast);
+        Events.RelayByValue<WalkableTile>(InputEvent.OnTileSelected, Cast);
         Debug.Log("Waiting for cible");
     }
 
-    void Cast(Tile tile)
+    void Cast(WalkableTile selectedTile)
     {
+        Events.BreakValueRelay<WalkableTile>(InputEvent.OnTileSelected, Cast);
         Debug.Log("Spell " + selectedSpell.name + " is casting");
-        List<Vector3Int> castPos = new List<Vector3Int>();
-
-        Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, Cast);
-
-        //Get affected tiles -> CastPos
         
-        foreach (var effect in selectedSpell.Effects())
+        foreach (var effect in remainingEffects)
         {
+            if (effect.NeedNewSelection())
+                SubCast(effect.GetAffectedTiles(selectedTile));
+
             Debug.Log("Effect " + effect + "launched");
-            effect(castPos);
+            effect.LaunchEffect(selectedTile);
+            remainingEffects.Remove(effect);
         }
         
-
         //caster.mana -= spell.cost
         Casted();
+    }
+
+    void SubCast (List<WalkableTile> tiles)
+    {
+        Events.RelayByValue<WalkableTile>(InputEvent.OnTileSelected, Cast);
     }
 
     void Casted()

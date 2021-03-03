@@ -14,7 +14,7 @@ public class SpellDisplay : MonoBehaviour
         DisplaySpells(Repository.Get<FakeDeck>(References.Deck).deck);
     }
 
-    void DisplaySpells(List<FakeSpell> spells)
+    public void DisplaySpells(List<Spell> spells)
     {
         spellsPanel.sizeDelta = new Vector2(200 * spells.Count, 200);
 
@@ -22,6 +22,7 @@ public class SpellDisplay : MonoBehaviour
         {
             spellsPanel.GetChild(i).gameObject.SetActive(true);
             spellsPanel.GetChild(i).GetComponent<Image>().sprite = spells[i].Thumbnail;
+            spellsPanel.GetChild(i).GetComponent<SpellButton>().actualSpell = spells[i];
         }
     }
 }

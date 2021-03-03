@@ -18,6 +18,9 @@ public class Navigator : MonoBehaviour
     {
         Map = Repository.Get<Map>(References.Map);
         YOffset = Map.Tilemap.layoutGrid.cellSize.y;
+
+        var cell = Map.Tilemap.WorldToCell(transform.position).xy();
+        Place(cell);
     }
 
     //------------------------------------------------------------------------------------------------------------------/

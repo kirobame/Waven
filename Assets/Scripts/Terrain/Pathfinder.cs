@@ -1,94 +1,76 @@
 ﻿using System;
 using UnityEngine;
-using UnityEngine.InputSystem;
 using System.Collections.Generic;
-using Flux.Data;
+using System.Linq;
+using Flux.Event;
+using Sirenix.Utilities;
 
 public class Pathfinder : MonoBehaviour, IActivable
 {
     [SerializeField] private Navigator nav;
     [SerializeField, Range(0,5)] private int range;
 
-    private Tile Current => path[path.Count - 1];
-    private List<Tile> path = new List<Tile>();
+    private WalkableTile Current => path[path.Count - 1];
+    private List<WalkableTile> path = new List<WalkableTile>();
 
-    private InputAction clickAction;
-    private InputAction mousePosAction;
+    private HashSet<WalkableTile> availableTiles = new HashSet<WalkableTile>();
     private bool isActive;
-
-    private Vector2 mousePosition;
-    
+ 
     //------------------------------------------------------------------------------------------------------------------/
-
-    void Start()
-    {
-        var inputs = Repository.Get<InputActionAsset>(References.Inputs);
-        clickAction = inputs["Core/Click"];
-        mousePosAction = inputs["Core/MousePosition"];
-    }
-
+    
     public void Activate()
     {
-        clickAction.performed += OnClick;
-        mousePosAction.performed += OnMouseMove;
+        Events.RelayByValue<WalkableTile>(InputEvent.OnTileSelected, OnTileSelected);
+        Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
     }
     public void Deactivate()
     {
-        clickAction.performed -= OnClick;
-        mousePosAction.performed -= OnMouseMove;
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------/
-
-    private Vector3Int GetCellUnderMouse()
-    {
-        var camera = Repository.Get<Camera>(References.Camera);
-        var position = camera.ScreenToWorldPoint(new Vector3(mousePosition.x, mousePosition.y, -camera.transform.position.z));
-
-        position.y -= nav.YOffset * 0.5f;
-        position.z = 0.0f;
+        isActive = false;
         
-        return nav.Map.Tilemap.WorldToCell(position);
+        path.Clear();
+        availableTiles.Clear();
+        
+        Events.BreakValueRelay<WalkableTile>(InputEvent.OnTileSelected, OnTileSelected);
+        Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
     }
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnClick(InputAction.CallbackContext context)
+    void OnTileSelected(WalkableTile selectedTile)
     {
-        if (isActive)
+        if (isActive && availableTiles.Contains(selectedTile))
         {
-            foreach (var tile in nav.Map.Tiles.Values) tile.SetMark(Mark.None);
+            foreach (var tile in nav.Map.Tiles.Values)
+            {
+                if (tile is WalkableTile walkableTile) walkableTile.SetMark(Mark.None);
+            }
             
             nav.Move(path.ToArray());
             path.Clear();
             
             isActive = false;
         }
-        else if (!nav.Target.IsMoving)
+        else if (!nav.Target.IsMoving && selectedTile == nav.Current)
         {
-            var cell = GetCellUnderMouse();
-            if (cell != nav.Current.Position) return;
-            
-            nav.Map.MarkRange(nav.Current, range, Mark.Inactive);
+            availableTiles = selectedTile.GetCellsAround(range).ToHashSet();
+            availableTiles.Mark(Mark.Inactive);
             
             path.Add(nav.Current);
             isActive = true;
         }
     }
 
-    void OnMouseMove(InputAction.CallbackContext context)
+    void OnMouseMove(Vector2 mousePosition)
     {
-        mousePosition = context.ReadValue<Vector2>();
-        
         if (nav.Target.IsMoving) return;
-        var cell = GetCellUnderMouse();
+        var cell = Inputs.GetCellAt(mousePosition);
         
         if (!isActive)
         {
             if (cell == nav.Current.Position) nav.Current.SetMark(Mark.Active);
             else nav.Current.SetMark(Mark.None);
         }
-        else if (Current.Position != cell && nav.Current.Position != cell && nav.Map.Tiles.TryGetValue(cell.xy(), out var tile))
+        else if (Current.Position != cell && nav.Current.Position != cell && cell.xy().TryGetTile(out var tile) && tile.IsFree())
         {
             var subIndex = -1;
             for (var i = 0; i < path.Count - 1; i++)
@@ -132,7 +114,7 @@ public class Pathfinder : MonoBehaviour, IActivable
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    private bool TryReconstructPath(int startIndex, Tile end)
+    private bool TryReconstructPath(int startIndex, WalkableTile end)
     {
         var start = path[startIndex];
 
@@ -142,7 +124,7 @@ public class Pathfinder : MonoBehaviour, IActivable
             Func<int, Vector2Int> cellMaker = value => new Vector2Int(start.x, value);
             
             path.RemoveRange(startIndex + 1, path.Count - startIndex - 1);
-            path.AddRange(ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
+            path.AddRange((IEnumerable<WalkableTile>) ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
 
             return true;
         }
@@ -152,14 +134,14 @@ public class Pathfinder : MonoBehaviour, IActivable
             Func<int, Vector2Int> cellMaker = value => new Vector2Int(value, start.y);
 
             path.RemoveRange(startIndex + 1, path.Count - startIndex - 1);
-            path.AddRange(ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
+            path.AddRange((IEnumerable<WalkableTile>) ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
 
             return true;
         }
 
         else return false;
     }
-    private IEnumerable<Tile> ReconstructPath(Tile start, Tile end, int range, Func<Tile, int> axisPicker, Func<int, Vector2Int> cellMaker)
+    private IEnumerable<WalkableTile> ReconstructPath(WalkableTile start, WalkableTile end, int range, Func<Tile, int> axisPicker, Func<int, Vector2Int> cellMaker)
     {
         var l = axisPicker(start);
         var r = axisPicker(end);
@@ -167,7 +149,7 @@ public class Pathfinder : MonoBehaviour, IActivable
         var length = Mathf.Abs(l - r);
         if (length > range) length = range;
 
-        var output = new List<Tile>();
+        var output = new List<WalkableTile>();
         if (l > r)
         {
             for (var i = 1; i < length; i++)
@@ -189,7 +171,7 @@ public class Pathfinder : MonoBehaviour, IActivable
         {
             var cell = cellMaker(value);
                 
-            if (!nav.Map.Tiles.TryGetValue(cell, out var tile)) return false;
+            if (!cell.TryGetTile(out var tile) || !tile.IsFree()) return false;
                             
             output.Add(tile);
             return true;
@@ -202,7 +184,7 @@ public class Pathfinder : MonoBehaviour, IActivable
 
     private void RefreshDisplay()
     {
-        nav.Map.MarkRange(nav.Current, range, Mark.Inactive);
+        availableTiles.Mark(Mark.Inactive);
         foreach (var tile in path) tile.SetMark(Mark.Active);
     }
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Tilemaps;
@@ -30,33 +31,11 @@ public class Map : MonoBehaviour
                 switch (prefix)
                 {
                     case "WK":
-                        implementation = new Tile(flatPosition, 0);
+                        implementation = new WalkableTile(flatPosition, 0);
                         break;
                 }
 
                 tiles.Add(flatPosition, implementation);
-            }
-        }
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------/
-
-    public void MarkRange(Tile center, int size, Mark mark)
-    {
-        var startX = center.x - size;
-        for (var i = 0; i < size * 2 + 1; i++)
-        {
-            var x = startX + i;
-            
-            var height = size - Mathf.Abs(x - center.x);
-            var startY = center.y - height;
-
-            for (var j = 0; j < height * 2 + 1; j++)
-            {
-                var cell = new Vector2Int(x, startY + j);
-                if (!tiles.TryGetValue(cell, out var tile)) continue;
-                
-                tile.SetMark(mark);
             }
         }
     }

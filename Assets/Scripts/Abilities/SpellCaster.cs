@@ -41,16 +41,16 @@ public class SpellCaster : MonoBehaviour
 
 
         Events.BreakValueRelay<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
-        Events.RelayByValue<Vector3Int>(SelectionEvents.OnTileSelected, Cast);
+        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, Cast);
         Debug.Log("Waiting for cible");
     }
 
-    void Cast(Vector3Int pos)
+    void Cast(Tile tile)
     {
         Debug.Log("Spell " + selectedSpell.name + " is casting");
         List<Vector3Int> castPos = new List<Vector3Int>();
 
-        Events.BreakValueRelay<Vector3Int>(SelectionEvents.OnTileSelected, Cast);
+        Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, Cast);
 
         //Get affected tiles -> CastPos
         

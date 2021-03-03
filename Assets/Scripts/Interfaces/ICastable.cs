@@ -4,7 +4,7 @@ using UnityEngine;
 
 public interface ICastable 
 {
-    string Name { get; }
+    string Title { get; }
     string Description { get; }
     Sprite Thumbnail { get; }
 }

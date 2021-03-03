@@ -3,7 +3,7 @@
 [CreateAssetMenu(fileName = "NewFakeSpell", menuName = "Waven/FakeSpell")]
 public class FakeSpell : ScriptableObject, ICastable
 {
-    public string Name => title;
+    public string Title => title;
     [SerializeField] private string title;
 
     public string Description => description;

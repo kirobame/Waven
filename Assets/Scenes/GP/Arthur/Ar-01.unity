@@ -417,7 +417,6 @@ GameObject:
   - component: {fileID: 771954023}
   - component: {fileID: 771954022}
   - component: {fileID: 771954025}
-  - component: {fileID: 771954026}
   m_Layer: 5
   m_Name: SpellButton2
   m_TagString: Untagged
@@ -550,21 +549,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualSpell: {fileID: 771954026}
---- !u!114 &771954026
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 771954020}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  canBeCastAnywhere: 0
+  actualSpell: {fileID: 11400000, guid: 3ae2836cf1d12b64dafc7ca324e250fb, type: 2}
 --- !u!1 &1035167674
 GameObject:
   m_ObjectHideFlags: 0
@@ -578,7 +563,6 @@ GameObject:
   - component: {fileID: 1035167677}
   - component: {fileID: 1035167676}
   - component: {fileID: 1035167679}
-  - component: {fileID: 1035167680}
   m_Layer: 5
   m_Name: SpellButton1
   m_TagString: Untagged
@@ -711,21 +695,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualSpell: {fileID: 1035167680}
---- !u!114 &1035167680
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1035167674}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  canBeCastAnywhere: 0
+  actualSpell: {fileID: 11400000, guid: 763ba7718e011eb47b9d8f78fc2765ab, type: 2}
 --- !u!1 &1065295355
 GameObject:
   m_ObjectHideFlags: 0
@@ -739,7 +709,6 @@ GameObject:
   - component: {fileID: 1065295358}
   - component: {fileID: 1065295357}
   - component: {fileID: 1065295360}
-  - component: {fileID: 1065295361}
   m_Layer: 5
   m_Name: SpellButton3
   m_TagString: Untagged
@@ -872,21 +841,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cfbaa7b8e96e8c140a1aadcc69f3c6cb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  actualSpell: {fileID: 1065295361}
---- !u!114 &1065295361
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1065295355}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cost: 0
-  canBeCastAnywhere: 0
+  actualSpell: {fileID: 11400000, guid: cac3b9c635b2ff548bb891322e129947, type: 2}
 --- !u!1 &1079578920
 GameObject:
   m_ObjectHideFlags: 0

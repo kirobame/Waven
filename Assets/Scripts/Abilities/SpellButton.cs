@@ -7,7 +7,7 @@ using UnityEngine;
 
 public class SpellButton : MonoBehaviour, IPointerClickHandler
 {
-    [SerializeField] Spell actualSpell;
+    public Spell actualSpell;
 
     public void OnPointerClick(PointerEventData eventData)
     {

@@ -22,7 +22,7 @@ public class SpellDisplay : MonoBehaviour
         {
             spellsPanel.GetChild(i).gameObject.SetActive(true);
             spellsPanel.GetChild(i).GetComponent<Image>().sprite = spells[i].Thumbnail;
-            spellsPanel.GetChild(i).GetComponent<UISpellData>().spell = spells[i];
+            spellsPanel.GetChild(i).GetComponent<SpellButton>().actualSpell = spells[i];
         }
     }
 }

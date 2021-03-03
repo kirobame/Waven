@@ -10,6 +10,8 @@ public class SpellTooltip : MonoBehaviour
     private Text tooltip;
     private RectTransform background;
 
+    [SerializeField] public float screenMargin;
+
     void Start()
     {
         tooltip = Repository.Get<Text>(References.TooltipText);

@@ -212,21 +212,22 @@ namespace Flux.Event
         private static void BreakRelay<TRelay>(Enum address, object method) where TRelay : EventRelay
         {
             var key = flagTranslator.Translate(address);
-            if (relays.TryGetValue(key, out var possibilities))
-                for (var i = 0; i < possibilities.Count; i++)
+            if (!relays.TryGetValue(key, out var possibilities)) return;
+
+            for (var i = 0; i < possibilities.Count; i++)
+            {
+                var relay = possibilities[i];
+                if (!(relay is TRelay castedRelay)) continue;
+
+                castedRelay.Unsubscribe(method);
+                if (!relay.IsOperational)
                 {
-                    var relay = possibilities[i];
-                    if (!(relay is TRelay castedRelay)) continue;
-
-                    castedRelay.Unsubscribe(method);
-                    if (!relay.IsOperational)
-                    {
-                        Unregister(address, castedRelay.Call);
-                        possibilities.RemoveAt(i);
-                    }
-
-                    return;
+                    Unregister(address, castedRelay.Call);
+                    possibilities.RemoveAt(i);
                 }
+
+                return;
+            }
         }
 
         #region Nested Types
@@ -259,7 +260,7 @@ namespace Flux.Event
             public void Unsubscribe(object method)
             {
                 subscriptions--;
-                OnSubscription(method);
+                OnUnsubscription(method);
             }
 
             protected abstract void OnUnsubscription(object method);

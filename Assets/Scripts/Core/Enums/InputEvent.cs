@@ -4,5 +4,5 @@
 public enum InputEvent : byte
 {
     OnTileSelected,
-    OnMouseMove
+    OnMouseMove,
 }

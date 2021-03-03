@@ -18,12 +18,12 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnTurnStart);
         Events.Open(GameEvent.OnTurnTimer);
         
-        var map = Repository.Get<Map>(References.Map);
-        
+        Events.Open(InterfaceEvent.OnSpellSelected);
+
         var match = new Match();
         foreach (var player in players)
         {
-            var turn = new TimedTurn(5.0f);
+            var turn = new TimedTurn(10.0f);
             turn.AssignTarget(player);
             match.Insert(turn);
         }

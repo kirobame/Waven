@@ -7,5 +7,9 @@ public enum References : byte
     Player,
     Camera,
     Inputs,
-    FeedbackGrid
+    FeedbackGrid,
+    SpellsPanel,
+    Deck,
+    TooltipText,
+    TooltipBackground
 }

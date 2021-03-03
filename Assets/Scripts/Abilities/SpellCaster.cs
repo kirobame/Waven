@@ -43,13 +43,13 @@ public class SpellCaster : MonoBehaviour
         remainingEffects = selectedSpell.Effects();
 
         Events.BreakValueRelay<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
-        Events.RelayByValue<Tile>(SelectionEvents.OnTileSelected, Cast);
+        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, Cast);
         Debug.Log("Waiting for cible");
     }
 
     void Cast(Tile selectedTile)
     {
-        Events.BreakValueRelay<Tile>(SelectionEvents.OnTileSelected, Cast);
+        Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, Cast);
         Debug.Log("Spell " + selectedSpell.name + " is casting");
         
         foreach (var effect in remainingEffects)
@@ -68,7 +68,7 @@ public class SpellCaster : MonoBehaviour
 
     void SubCast (List<Tile> tiles)
     {
-        Events.RelayByValue<Tile>(SelectionEvents.OnTileSelected, Cast);
+        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, Cast);
     }
 
     void Casted()

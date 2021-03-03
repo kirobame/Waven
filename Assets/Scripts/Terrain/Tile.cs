@@ -1,13 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using Flux.Data;
 using UnityEngine;
 
-public class Tile
+public abstract class Tile
 {
-    public Tile(Vector2Int pos, int height) 
+    public Tile(Vector2Int position, int height) 
     {
-        position = pos;
+        this.position = position;
         this.height = height;
     }
     
@@ -19,31 +17,6 @@ public class Tile
     
     public Vector3Int Position => new Vector3Int(position.x, position.y, height);
 
-    private Mark mark;
-    private GameObject marker;
-    
     private Vector2Int position;
     private int height;
-    
-    //------------------------------------------------------------------------------------------------------------------/
-
-    public void SetMark(Mark mark)
-    {
-        if (this.mark != Mark.None)
-        {
-            marker.gameObject.SetActive(false);
-            marker = null;
-        }
-
-        this.mark = mark;
-        if (mark == Mark.None) return;
-
-        var pool = Repository.Get<GenericPool>(Pools.HUD);
-        var key = Repository.Get<GenericPoolable>(mark);
-
-        marker = pool.CastSingle<GameObject>(key);
-        var map = Repository.Get<Map>(References.Map);
-
-        marker.transform.position = map.Tilemap.CellToWorld(Position);
-    }
 }

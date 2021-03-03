@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum SelectionEvents : byte
+public class UISpellData : MonoBehaviour
 {
-    OnTileSelected
+    [SerializeField] public FakeSpell spell;
 }

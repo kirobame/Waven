@@ -7,8 +7,7 @@ using UnityEngine.InputSystem;
 public class Bootstrapper : MonoBehaviour
 {
     [SerializeField] private Player[] players;
-    
-    private InputActionAsset inputs;
+
     private Session session;
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -32,11 +31,6 @@ public class Bootstrapper : MonoBehaviour
             players[0].GetComponent<Navigator>().Place(map.Tiles.First().Key);
             players[1].GetComponent<Navigator>().Place(map.Tiles.Last().Key);
 
-            inputs = Repository.Get<InputActionAsset>(References.Inputs);
-            inputs.Enable();
-
         }, new YieldFrame()));
     }
-
-    void OnDestroy() => inputs.Disable();
 }

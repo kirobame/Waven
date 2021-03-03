@@ -4,5 +4,5 @@ using UnityEngine;
 
 public class UISpellData : MonoBehaviour
 {
-    [SerializeField] public FakeSpell spell;
+    [SerializeField] public Spell spell;
 }

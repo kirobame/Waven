@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
   m_Name: Fireball
   m_EditorClassIdentifier: 
+  title: Fireball
+  description: Fire damage in zone
+  thumbnail: {fileID: 21300000, guid: edf94046bfdf13f46bb1779e9cb58348, type: 3}
   cost: 0
   canBeCastAnywhere: 0

@@ -12,5 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
   m_Name: Teleportation
   m_EditorClassIdentifier: 
+  title: Teleportation
+  description: Teleport to another location
+  thumbnail: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
   cost: 0
   canBeCastAnywhere: 0

@@ -5,8 +5,18 @@ using Flux.Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
-public class Spell : ScriptableObject
+public class Spell : ScriptableObject, ICastable
 {
+    public string Title => title;
+    [SerializeField] private string title;
+
+    public string Description => description;
+    [SerializeField, TextArea] private string description;
+
+    public Sprite Thumbnail => thumbnail;
+    [SerializeField] private Sprite thumbnail;
+
+
     [SerializeReference] List<Effect> effects = new List<Effect>();
     [SerializeField] Effect effect;
     public List<Effect> Effects() { return effects; }

@@ -14,7 +14,7 @@ public class SpellDisplay : MonoBehaviour
         DisplaySpells(Repository.Get<FakeDeck>(References.Deck).deck);
     }
 
-    public void DisplaySpells(List<FakeSpell> spells)
+    public void DisplaySpells(List<Spell> spells)
     {
         spellsPanel.sizeDelta = new Vector2(200 * spells.Count, 200);
 

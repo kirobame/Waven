@@ -8,33 +8,30 @@ using UnityEngine;
 
 public abstract class Effect
 {
-    [SerializeField] object pattern;
-    [SerializeField] bool needNewSelection;
+    [SerializeField] protected Pattern pattern;
+    [SerializeField] protected bool needNewSelection;
     public bool NeedNewSelection() { return needNewSelection; }
 
-    public abstract void LaunchEffect(Tile selectedTile);
-    public abstract List<Tile> GetAffectedTiles(Tile selectedTile);
-    public abstract void PlayEffect(List<Tile> affectedTiles);
+    public abstract void LaunchEffect(WalkableTile selectedTile);
+    public abstract List<WalkableTile> GetAffectedTiles(WalkableTile selectedTile);
+    public abstract void PlayEffect(List<WalkableTile> affectedTiles);
 }
 
 [Serializable]
 public class BasicDamage : Effect
 {
-
     [SerializeField] uint range;
     [SerializeField] int damages;
 
-    public override void LaunchEffect(Tile selectedTile)
+    public override void LaunchEffect(WalkableTile selectedTile)
     {
         PlayEffect(GetAffectedTiles(selectedTile));
     }
-    public override List<Tile> GetAffectedTiles(Tile selectedTile)
+    public override List<WalkableTile> GetAffectedTiles(WalkableTile selectedTile)
     {
-        List<Tile> affectedTiles = new List<Tile>(); //Get tiles en fonction du pattern
-
-        return affectedTiles;
+        return pattern.GetTiles(selectedTile);
     }
-    public override void PlayEffect(List<Tile> affectedTiles)
+    public override void PlayEffect(List<WalkableTile> affectedTiles)
     {
         Debug.Log("Deal so much fire damages");
     }

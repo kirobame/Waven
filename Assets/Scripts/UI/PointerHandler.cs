@@ -36,7 +36,7 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
     void OnMouseMove(Vector2 mousePosition)
     {
-        Debug.Log(mousePosition);
+        //Debug.Log(mousePosition);
         tooltip.transform.position = mousePosition;
     }
 }

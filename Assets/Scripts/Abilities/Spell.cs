@@ -1,7 +1,5 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using Flux;
-using Flux.Data;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]

@@ -2,12 +2,18 @@
 using System.Collections;
 using Flux;
 using Flux.Data;
+using Flux.Event;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class Player : Tileable, ITurnbound
 {
+    public event Action onFree;
     public event Action<Motive> onIntendedTurnStop;
+
+    public string Name => name;
+
+    public bool IsBusy => business > 0;
     
     public Match Match { get; set; }
     public short Initiative => initiative;
@@ -18,6 +24,8 @@ public class Player : Tileable, ITurnbound
     [Space, SerializeField] private short initiative;
 
     private InputAction spacebarAction;
+
+    private ushort business;
     
     private IActivable[] activables;
     private bool isActive;
@@ -41,7 +49,6 @@ public class Player : Tileable, ITurnbound
         
         Routines.Start(Routines.DoAfter(() =>
         {
-            EndTurn();
             onIntendedTurnStop?.Invoke(new IntendedStopMotive());
 
         }, new YieldFrame()));
@@ -51,27 +58,23 @@ public class Player : Tileable, ITurnbound
 
     public void Activate()
     {
-        Debug.Log($"{name} has started his turn.");
-        
         isActive = true;
         foreach (var activable in activables) activable.Activate();
     }
-    public void Interrupt(Motive motive) => EndTurn();
-
-    private void EndTurn()
+    public void Interrupt(Motive motive)
     {
-        Debug.Log($"{name} has ended his turn.");
-        
         isActive = false;
         foreach (var activable in activables) activable.Deactivate();
     }
-    
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public override void Place(Vector2 position) => transform.position = position;
     public override void Move(Vector2[] path)
     {
         IsMoving = true;
+        business++;
+        
         StartCoroutine(MoveRoutine(path));
     }
     
@@ -90,7 +93,10 @@ public class Player : Tileable, ITurnbound
                 {
                     Execute(1.0f);
                     IsMoving = false;
-
+                    
+                    business--;
+                    if (business == 0) onFree?.Invoke();
+                    
                     yield break;
                 }
                 else

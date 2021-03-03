@@ -2,6 +2,7 @@
 using UnityEngine;
 using Flux.Data;
 using Flux;
+using Flux.Event;
 using UnityEngine.InputSystem;
 
 public class Bootstrapper : MonoBehaviour
@@ -14,23 +15,20 @@ public class Bootstrapper : MonoBehaviour
 
     void Start()
     {
+        Events.Open(GameEvent.OnTurnStart);
+        Events.Open(GameEvent.OnTurnTimer);
+        
+        var map = Repository.Get<Map>(References.Map);
+        
         var match = new Match();
         foreach (var player in players)
         {
-            var turn = new TimedTurn(6.5f);
+            var turn = new TimedTurn(5.0f);
             turn.AssignTarget(player);
             match.Insert(turn);
         }
         
         session = new Session();
         session.Add(match);
-        
-        Routines.Start(Routines.DoAfter(() =>
-        {
-            var map = Repository.Get<Map>(References.Map);
-            players[0].GetComponent<Navigator>().Place(map.Tiles.First().Key);
-            players[1].GetComponent<Navigator>().Place(map.Tiles.Last().Key);
-
-        }, new YieldFrame()));
     }
 }

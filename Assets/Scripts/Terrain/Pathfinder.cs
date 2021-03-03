@@ -1,6 +1,7 @@
 ﻿using System;
 using UnityEngine;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Flux.Event;
 using Sirenix.Utilities;
@@ -25,7 +26,8 @@ public class Pathfinder : MonoBehaviour, IActivable
     }
     public void Deactivate()
     {
-        isActive = false;
+        nav.Current.SetMark(Mark.None);
+        if (isActive) Shutdown();
         
         path.Clear();
         availableTiles.Clear();
@@ -33,22 +35,15 @@ public class Pathfinder : MonoBehaviour, IActivable
         Events.BreakValueRelay<WalkableTile>(InputEvent.OnTileSelected, OnTileSelected);
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
     }
-    
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnTileSelected(WalkableTile selectedTile)
     {
         if (isActive && availableTiles.Contains(selectedTile))
         {
-            foreach (var tile in nav.Map.Tiles.Values)
-            {
-                if (tile is WalkableTile walkableTile) walkableTile.SetMark(Mark.None);
-            }
-            
-            nav.Move(path.ToArray());
-            path.Clear();
-            
-            isActive = false;
+            if (path.Count > 1) nav.Move(path.ToArray());
+            Shutdown();
         }
         else if (!nav.Target.IsMoving && selectedTile == nav.Current)
         {
@@ -70,85 +65,69 @@ public class Pathfinder : MonoBehaviour, IActivable
             if (cell == nav.Current.Position) nav.Current.SetMark(Mark.Active);
             else nav.Current.SetMark(Mark.None);
         }
-        else if (Current.Position != cell && nav.Current.Position != cell && cell.xy().TryGetTile(out var tile) && tile.IsFree())
+        else 
         {
-            var subIndex = -1;
-            for (var i = 0; i < path.Count - 1; i++)
+            if (cell == nav.Current.Position)
             {
-                if (!path[i].IsNeighbourOf(tile)) continue;
-
-                subIndex = i + 1;
-                break;
+                path.Clear();
+                path.Add(nav.Current);
+                
+                Refresh();
             }
-
-            if (subIndex == -1)
+            else if (TryGetTile(cell, out var tile))
             {
-                if (tile.IsNeighbourOf(Current))
+                for (var i = 0; i < path.Count; i++)
                 {
-                    if (path.Count <= range)
-                    {
-                        path.Add(tile);
-                        RefreshDisplay();
-                    }
-                    else TryReconstructPath(0, tile);
+                    if (!TryReconstructionBetween(i, tile)) continue;
+                
+                    Refresh();
+                    break;
                 }
-                else 
-                {
-                    if (!TryReconstructPath(0, tile))
-                    {
-                        if (TryReconstructPath(path.Count - 1, tile)) RefreshDisplay();
-                    }
-                    else RefreshDisplay();
-                }
-
-                return;
             }
-            
-            var bracket = path.Count - subIndex;
-            path.RemoveRange(subIndex, bracket);
-
-            if (path.Count <= range) path.Add(tile);
-            RefreshDisplay();
         }
+    }
+
+    private bool TryGetTile(Vector3Int cell, out WalkableTile tile)
+    {
+        var similarity = Current.Position != cell;
+        var validity = cell.xy().TryGetTile(out tile) && tile.IsFree();
+        var availability = availableTiles.Contains(tile);
+
+        return similarity && validity && availability;
     }
     
     //------------------------------------------------------------------------------------------------------------------/
-
-    private bool TryReconstructPath(int startIndex, WalkableTile end)
+    
+    private bool TryReconstructionBetween(int startIndex, WalkableTile end)
     {
         var start = path[startIndex];
 
-        if (start.x == end.x)
-        {
-            Func<Tile, int> axisPicker = item => item.y;
-            Func<int, Vector2Int> cellMaker = value => new Vector2Int(start.x, value);
-            
-            path.RemoveRange(startIndex + 1, path.Count - startIndex - 1);
-            path.AddRange((IEnumerable<WalkableTile>) ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
-
-            return true;
-        }
-        else if (start.y == end.y)
-        {
-            Func<Tile, int> axisPicker = item => item.x;
-            Func<int, Vector2Int> cellMaker = value => new Vector2Int(value, start.y);
-
-            path.RemoveRange(startIndex + 1, path.Count - startIndex - 1);
-            path.AddRange((IEnumerable<WalkableTile>) ReconstructPath(start, end, range - (path.Count - 1), axisPicker, cellMaker));
-
-            return true;
-        }
-
+        if (start.x == end.x) return Try(item => item.y, value => new Vector2Int(start.x, value));
+        else if (start.y == end.y) return Try(item => item.x, value => new Vector2Int(value, start.y));
         else return false;
+
+        bool Try(Func<Tile, int> axisPicker, Func<int, Vector2Int> cellMaker)
+        {
+          
+            var range = this.range - startIndex;
+            var list = ReconstructPath(start, end, range, axisPicker, cellMaker);
+            
+            if (!list.Any()) return false;
+
+            path.RemoveRange(startIndex + 1, path.Count - startIndex - 1);
+            path.AddRange(list);
+
+            return true;
+        }
     }
     private IEnumerable<WalkableTile> ReconstructPath(WalkableTile start, WalkableTile end, int range, Func<Tile, int> axisPicker, Func<int, Vector2Int> cellMaker)
     {
         var l = axisPicker(start);
         var r = axisPicker(end);
 
-        var length = Mathf.Abs(l - r);
-        if (length > range) length = range;
-
+        var length = Mathf.Abs(l - r) + 1;
+        if (length > range + 1) length = range + 1;
+        
         var output = new List<WalkableTile>();
         if (l > r)
         {
@@ -170,21 +149,27 @@ public class Pathfinder : MonoBehaviour, IActivable
         bool TryAddTile(int value)
         {
             var cell = cellMaker(value);
-                
             if (!cell.TryGetTile(out var tile) || !tile.IsFree()) return false;
                             
             output.Add(tile);
             return true;
         }
-
+        
         return output;
     }
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void RefreshDisplay()
+    private void Refresh()
     {
         availableTiles.Mark(Mark.Inactive);
         foreach (var tile in path) tile.SetMark(Mark.Active);
+    }
+    private void Shutdown()
+    { 
+        foreach (var tile in availableTiles) { if (tile is WalkableTile walkableTile) walkableTile.SetMark(Mark.None); }
+
+        path.Clear();
+        isActive = false;
     }
 }

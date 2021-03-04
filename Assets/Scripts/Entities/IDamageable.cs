@@ -1,121 +1,131 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
-public enum DamageTypes
+public enum DamageType
 {
     Base
 }
 
-public class damageablePoints : IComparer<damageablePoints>
+[Serializable]
+public class Life : IComparable<Life>
 {
-    public damageablePoints(string _name, Color _color, int _actualValue, int _maxValue, int _priority, List<DamageTypes> _handeledTypes)
-    { name = _name; color = _color; actualValue = _actualValue; maxValue = _maxValue; priority = _priority; handeledTypes = _handeledTypes; }
+    public Life(string name, Color color, int actualValue, int maxValue, int priority, List<DamageType> handledTypes)
+    {
+        this.name = name;
+        this.color = color;
+        this.actualValue = actualValue;
+        this.maxValue = maxValue; 
+        this.priority = priority; 
+        this.handledTypes = handledTypes;
+    }
     
     public string name;
     public Color color;
+    
     public int actualValue;
     public int maxValue;
+    
     public int priority;
-    public List<DamageTypes> handeledTypes = new List<DamageTypes>();
 
-    public int Compare(damageablePoints a, damageablePoints b)
-    {
-        if (a.priority > b.priority)
-            return 1;
-        else if (a.priority < b.priority)
-            return -1;
-        else
-            return 0;
-    }
+    public IReadOnlyList<DamageType> HandledTypes => handledTypes;
+    public List<DamageType> handledTypes = new List<DamageType>();
+    
+    public int CompareTo(Life other) => priority.CompareTo(other.priority) * -1;
 }
 
 public interface IDamageable
 {
-    bool damageable { get; }
-    List<damageablePoints> lifeValues { get; }
-    void AddLifeValue(damageablePoints value);
-    int TakeDamage(int damage, DamageTypes type);
+    bool IsInvulnerable { get; }
+    
+    List<Life> Lives { get; }
+    void AddLife(Life value);
+    
+    int TakeDamage(int damage, DamageType type);
 }
 
 public abstract class Damageable : MonoBehaviour, IDamageable, ITag
 {
     private void Awake() => tag = GetComponent<Tag>();
 
-    public bool damageable { get; private set; }
-    public List<damageablePoints> lifeValues { get; private set; }
+    public bool IsInvulnerable { get; private set; }
 
+    public List<Life> Lives => lives;
+    [SerializeField] private List<Life> lives;
+    
     public TeamTag Value => tag.Value;
-    private new Tag tag;
+    [SerializeField] private new Tag tag;
 
-    public void AddLifeValue(damageablePoints value)
+    public void AddLife(Life value)
     {
-        lifeValues.Add(value);
-        lifeValues.Sort();
+        lives.Add(value);
+        lives.Sort();
     }
-    public void AddLifeValue(string name, Color color, int actualValue, int maxValue, int priority, List<DamageTypes> handeledTypes)
+    public void AddLifeValue(string name, Color color, int actualValue, int maxValue, int priority, List<DamageType> handeledTypes)
     {
-        lifeValues.Add(new damageablePoints (name, color, actualValue, maxValue, priority, handeledTypes) );
-        lifeValues.Sort();
+        lives.Add(new Life (name, color, actualValue, maxValue, priority, handeledTypes) );
+        lives.Sort();
     }
-    public void AddLifeValue(string name, Color color, int maxValue, int priority, List<DamageTypes> handeledTypes)
+    public void AddLifeValue(string name, Color color, int maxValue, int priority, List<DamageType> handeledTypes)
     {
-        lifeValues.Add(new damageablePoints(name, color, maxValue, maxValue, priority, handeledTypes));
-        lifeValues.Sort();
+        lives.Add(new Life(name, color, maxValue, maxValue, priority, handeledTypes));
+        lives.Sort();
     }
-    public int TakeDamage(int damage, DamageTypes type)
+    public int TakeDamage(int damage, DamageType type)
     {
-        if (!damageable) return 0;
+        if (!IsInvulnerable) return 0;
 
-        for (int i = 0; i < lifeValues.Count; i++)
+        for (int i = 0; i < Lives.Count; i++)
         {
-            if (!lifeValues[i].handeledTypes.Contains(type)) continue;
+            if (!Lives[i].HandledTypes.Contains(type)) continue;
 
-            lifeValues[i].actualValue -= damage;
-            if (lifeValues[i].actualValue < 0)
+            Lives[i].actualValue -= damage;
+            if (Lives[i].actualValue < 0)
             {
-                if (i == lifeValues.Count - 1)
+                if (i == Lives.Count - 1)
                 {
                     //DEAD
                 }
-                lifeValues.RemoveAt(i);
+                Lives.RemoveAt(i);
             }
-            return lifeValues[i].actualValue;
+            return Lives[i].actualValue;
         }
 
         return 1;
     }
     public int TakeDamage(int damage)
     {
-        if (!damageable) return 0;
+        if (!IsInvulnerable) return 0;
 
-        for (int i = 0; i < lifeValues.Count; i++)
+        for (int i = 0; i < Lives.Count; i++)
         {
-            lifeValues[i].actualValue -= damage;
-            if (lifeValues[i].actualValue < 0)
+            Lives[i].actualValue -= damage;
+            if (Lives[i].actualValue < 0)
             {
-                if (i == lifeValues.Count - 1)
+                if (i == Lives.Count - 1)
                 {
                     //DEAD
                 }
-                lifeValues.RemoveAt(i);
+                Lives.RemoveAt(i);
             }
-            return lifeValues[i].actualValue;
+            return Lives[i].actualValue;
         }
 
         return 1;
     }
     public int TakeDirectDamage(int damage)
     {
-        lifeValues[lifeValues.Count-1].actualValue -= damage;
-        if (lifeValues[lifeValues.Count - 1].actualValue < 0)
+        Lives[Lives.Count-1].actualValue -= damage;
+        if (Lives[Lives.Count - 1].actualValue < 0)
         {
-            if (lifeValues.Count - 1 == lifeValues.Count - 1)
+            if (Lives.Count - 1 == Lives.Count - 1)
             {
                 //DEAD
             }
-            lifeValues.RemoveAt(lifeValues.Count - 1);
+            Lives.RemoveAt(Lives.Count - 1);
         }
-        return lifeValues[lifeValues.Count - 1].actualValue;
+        return Lives[Lives.Count - 1].actualValue;
     }
 }

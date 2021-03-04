@@ -19,6 +19,7 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnTurnStart);
         Events.Open(GameEvent.OnTurnTimer);
         Events.Open(GameEvent.OnTileChange);
+        Events.Open(GameEvent.OnSpellUsed);
             
         Events.Open(InterfaceEvent.OnSpellSelected);
     }

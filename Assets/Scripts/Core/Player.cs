@@ -22,11 +22,9 @@ public class Player : Tileable, ITurnbound
     public short Initiative => initiative;
 
     [Space, SerializeField] private short initiative;
-    
+
     private InputAction spacebarAction;
-
-    [SerializeField] private SpellDeck spellDeck;
-
+    
     private ushort business;
     
     private List<ILink> links;
@@ -111,8 +109,6 @@ public class Player : Tileable, ITurnbound
         
         isActive = true;
         foreach (var activable in links) activable.Activate();
-
-        spellDeck.Draw(2);
     }
     public void Interrupt(Motive motive)
     {

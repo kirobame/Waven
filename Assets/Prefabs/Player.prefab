@@ -115,6 +115,7 @@ GameObject:
   - component: {fileID: 9027551625841621808}
   - component: {fileID: 8374689325458404287}
   - component: {fileID: 4097353869914120680}
+  - component: {fileID: 4351303761828844956}
   - component: {fileID: 4097353869914120684}
   - component: {fileID: 4097353869914120685}
   - component: {fileID: 7302012165597437418}
@@ -202,6 +203,28 @@ MonoBehaviour:
   animator: {fileID: 4097353869787670437}
   speed: 0.5
   initiative: 0
+--- !u!114 &4351303761828844956
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097353869914120683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a228f65283d45fc48936554b3ede8dc8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxUse: 2
+  maxSpellInHand: 4
+  deck:
+  - {fileID: 11400000, guid: 8ce8c3e3190e0d54584181f4a571eb5e, type: 2}
+  - {fileID: 11400000, guid: 8c750e60d52a16d4984a1256520c91df, type: 2}
+  - {fileID: 11400000, guid: a45165b1151ed92408319d3a5b716d24, type: 2}
+  - {fileID: 11400000, guid: b43414b2a2b245e4099e3110372016da, type: 2}
+  - {fileID: 11400000, guid: 8bf4feb4c8a6eb645ac21cae0fb9e353, type: 2}
+  - {fileID: 11400000, guid: 8892aba83b1296d42afab1842e2b60ee, type: 2}
+  - {fileID: 11400000, guid: b9239b6c119268447b1d1d32bb2d04bc, type: 2}
 --- !u!114 &4097353869914120684
 MonoBehaviour:
   m_ObjectHideFlags: 0

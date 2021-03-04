@@ -11,6 +11,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
+        if (SpellDeck.RemainingUse <= 0) return;
         Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, actualSpell);
     }
 }

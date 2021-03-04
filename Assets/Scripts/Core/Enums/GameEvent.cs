@@ -6,5 +6,7 @@ public enum GameEvent : byte
     OnTurnStart,
     OnTurnTimer,
     
-    OnTileChange
+    OnTileChange,
+    
+    OnSpellUsed,
 }

@@ -2,20 +2,42 @@
 using System.Collections.Generic;
 using System;
 using Flux.Data;
+using Flux.Event;
 using UnityEngine;
 
-public class SpellDeck : MonoBehaviour
+public class SpellDeck : MonoBehaviour, ILink
 {
-    [SerializeField] List<Spell> deck = new List<Spell>();
-    List<Spell> hand = new List<Spell>();
-    int maxSpellInHand = 4;
+    public static int RemainingUse { get; private set; }
+    public event Action<ILink> onDestroyed;
+    
+    public ITurnbound Owner { get; set; }
+
+    [SerializeField] private int maxUse;
+    [SerializeField] private int maxSpellInHand = 4;
+    [SerializeField] private List<SpellBase> deck = new List<SpellBase>();
+    
+    private List<SpellBase> hand = new List<SpellBase>();
+
+    //------------------------------------------------------------------------------------------------------------------/
 
     private void Awake() => Shuffle();
+    void OnDestroy() => onDestroyed?.Invoke(this);
+    
+    public void Activate()
+    {
+        RemainingUse = maxUse;
+        
+        Draw(2);
+        Events.RelayByValue<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    }
+    public void Deactivate() => Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
     public void RefreshHotbar() => Repository.Get<Hotbar>(References.Hotbar).DisplaySpells(hand);
 
     public void Draw(int nb)
     {
-
         if (nb > deck.Count)
             nb = deck.Count; //Not enough cards in deck
 
@@ -27,14 +49,14 @@ public class SpellDeck : MonoBehaviour
                 return;
             }
 
-            Spell spell = deck[0];
+            var spell = deck[0];
             deck.RemoveAt(0);
             hand.Add(spell);
         }
         RefreshHotbar();
     }
 
-    public void Discard(Spell spell)
+    public void Discard(SpellBase spell)
     {
         hand.Remove(spell);
         deck.Add(spell);
@@ -44,14 +66,24 @@ public class SpellDeck : MonoBehaviour
     private static System.Random rng = new System.Random();
     public void Shuffle()
     {
-        int n = deck.Count;
+        var n = deck.Count;
         while (n > 1)
         {
             n--;
-            int k = rng.Next(n + 1);
-            Spell value = deck[k];
+            
+            var k = rng.Next(n + 1);
+            var value = deck[k];
+            
             deck[k] = deck[n];
             deck[n] = value;
         }
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    void OnSpellUsed(SpellBase spell)
+    {
+        RemainingUse--;
+        Discard(spell);
     }
 }

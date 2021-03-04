@@ -91,8 +91,12 @@ public class Spellcaster : MonoBehaviour, ILink
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
         current.CastFrom(tile, castArgs);
-        
-        if (current.IsDone) Shutdown();
+
+        if (current.IsDone)
+        {
+            Events.ZipCall(GameEvent.OnSpellUsed, current);
+            Shutdown();
+        }
         else Setup();
     }
     void OnMouseMove(Vector2 mousePosition)

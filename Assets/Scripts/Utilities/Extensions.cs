@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using Flux;
 using Flux.Data;
 using Sirenix.Utilities;
 using UnityEngine;
@@ -9,12 +10,13 @@ using UnityEngine.InputSystem;
 
 public static class Extensions
 {
+    public static Vector2 xy(this Vector3 value) => new Vector2(value.x, value.y);
     public static Vector2Int ComputeOrientation(this Vector2 direction)
     {
-        if (direction.x < 0 && direction.y > 0) return Vector2Int.left;
-        else if (direction.x > 0 && direction.y > 0) return Vector2Int.up;
-        else if (direction.x > 0 && direction.y < 0) return Vector2Int.right;
-        else return Vector2Int.down;
+        if (direction.x < 0 && direction.y > 0) return Vector2Int.up;
+        else if (direction.x > 0 && direction.y > 0) return Vector2Int.right;
+        else if (direction.x > 0 && direction.y < 0) return Vector2Int.down;
+        else return Vector2Int.left;
     }
     public static Vector2Int xy(this Vector3Int value) => new Vector2Int(value.x, value.y);
     public static Vector3Int Extend(this Vector2Int value) => new Vector3Int(value.x, value.y, 0);
@@ -127,7 +129,7 @@ public static class Extensions
 
         return xDiff == 1 && yDiff == 0 || xDiff == 0 && yDiff == 1;
     }
-    public static bool IsFree(this Tile tile) => !tile.Entities.Any(tileable => tileable is ITag);
+    public static bool IsFree(this Tile tile) => tile.Entities.All(tileable => ((Component) tileable).GetComponent<Tag>() == null);
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -161,5 +163,19 @@ public static class Extensions
             output = default;
             return false;
         }
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    public static bool TryGet<T>(this IReadOnlyDictionary<Id, CastArgs> args, Id id, out T output)
+    {
+        if (args.TryGetValue(id, out CastArgs raw) && raw is T castedOutput)
+        {
+            output = castedOutput;
+            return true;
+        }
+
+        output = default;
+        return false;
     }
 }

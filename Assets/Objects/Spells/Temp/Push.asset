@@ -29,28 +29,10 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Cross, Assembly-CSharp
-    - Name: allowBoost
-      Entry: 5
-      Data: true
-    - Name: directions
-      Entry: 7
-      Data: Vector4Int, Assembly-CSharp
-    - Name: left
+      Data: 1|Circle, Assembly-CSharp
+    - Name: radius
       Entry: 3
-      Data: 3
-    - Name: right
-      Entry: 3
-      Data: 3
-    - Name: up
-      Entry: 3
-      Data: 3
-    - Name: down
-      Entry: 3
-      Data: 3
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 6
     - Name: 
       Entry: 8
       Data: 
@@ -77,7 +59,25 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 5|Point, Assembly-CSharp
+      Data: 5|Cross, Assembly-CSharp
+    - Name: directions
+      Entry: 7
+      Data: Vector4Int, Assembly-CSharp
+    - Name: left
+      Entry: 3
+      Data: 1
+    - Name: right
+      Entry: 3
+      Data: 0
+    - Name: up
+      Entry: 3
+      Data: 0
+    - Name: down
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -89,7 +89,19 @@ MonoBehaviour:
       Data: 
     - Name: force
       Entry: 3
-      Data: 1
+      Data: 2
+    - Name: direction
+      Entry: 7
+      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
+    - Name: 
+      Entry: 3
+      Data: -1
+    - Name: 
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -100,5 +112,5 @@ MonoBehaviour:
       Entry: 8
       Data: 
   title: Push
-  description: Some description.
-  thumbnail: {fileID: 21300000, guid: 27b88dd5cb3d1f64785aaa649050357a, type: 3}
+  description: Push
+  thumbnail: {fileID: 21300000, guid: a67a947fabeb99e4192c941265c38b05, type: 3}

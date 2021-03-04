@@ -47,6 +47,6 @@ public class Moveable : Navigator, ILink
 
     public void Dirty()
     {
-        if (hasCaster && caster.Args.TryGetValue(new Id('M', 'V', 'T'), out var args) && args is IntCastArgs intArgs) trueMovementPoints += intArgs.Value;
+        if (hasCaster && caster.Args.TryGet<IWrapper<int>>(new Id('M', 'V', 'T'), out var result)) trueMovementPoints += result.Value;
     }
 }

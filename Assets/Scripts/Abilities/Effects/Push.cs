@@ -9,17 +9,13 @@ using UnityEngine;
 public class Push : Effect
 {
     [SerializeField] int force;
-    [SerializeField] private Vector2Int direction;
-    
+
     private int business;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
         var force = this.force;
-        if (args.TryGetValue(new Id('P', 'S', 'H'), out CastArgs speArgs) && speArgs is IntCastArgs floatCastArgs)
-        {
-            force += floatCastArgs.Value;
-        }
+        if (args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var result)) force += result.Value;
         
         business = 0;
         var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);
@@ -32,10 +28,13 @@ public class Push : Effect
         
         foreach(var target in targets.ToArray())
         {
-            var cell = target.Navigator.Current.FlatPosition + direction;
+            var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+            var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+
+            var cell = target.Navigator.Current.FlatPosition + orientation;
             if (!cell.TryGetTile(out var sourceTile)) continue;
 
-            var tuple = sourceTile.GetCellsInLine(force, direction, out var line);
+            var tuple = sourceTile.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
             if (tuple.code != 0)
             {
                 if (tuple.code == 3)

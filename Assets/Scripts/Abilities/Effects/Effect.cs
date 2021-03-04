@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Flux;
 using Flux.Data;
 using Flux.Editor;
@@ -13,7 +14,7 @@ public abstract class Effect
     
     [SerializeField] protected Pattern[] patterns = new Pattern[0];
 
-    public HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public virtual HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
     {
         var output = new HashSet<Tile>();
         foreach (var pattern in patterns) output.UnionWith(pattern.GetTiles(source, args));

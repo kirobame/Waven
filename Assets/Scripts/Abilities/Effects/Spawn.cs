@@ -9,6 +9,7 @@ using Object = UnityEngine.Object;
 public class Spawn : Effect
 {
     [SerializeField] private TileableBase prefab;
+    [SerializeField] private bool ownership;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
@@ -20,16 +21,10 @@ public class Spawn : Effect
             var position = map.Tilemap.CellToWorld(tile.Position);
             var instance = Object.Instantiate(prefab, position, Quaternion.identity);
 
-            if (instance.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
-            
+            if (ownership && instance.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
             Player.Active.AddDependency(instance.gameObject);
         }
 
-        Routines.Start(Routines.DoAfter(()=> 
-        {
-            Debug.Log("Spawn End");
-            End();
-            
-        }, 1.0f));
+        End();
     }
 }

@@ -1,9 +1,7 @@
 ﻿using System;
-using UnityEngine;
 
 [Serializable]
-public class IntCastArgs : CastArgs
+public class IntCastArgs : WrapperCastArgs<int>
 {
-    public int Value => value;
-    [SerializeField] private int value;
+    public IntCastArgs(int value) : base(value) { }
 }

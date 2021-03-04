@@ -49,7 +49,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
                 if (!lives.Any())
                 {
-                    Destroy(gameObject);
+                    OnDeath();
                     return 2;
                 }
             }
@@ -58,4 +58,8 @@ public class Damageable : MonoBehaviour, IDamageable
         
         return 3;
     }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    protected virtual void OnDeath() => Destroy(gameObject);
 }

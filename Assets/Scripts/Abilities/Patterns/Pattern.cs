@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Collections.Generic;
 using Flux;
+using UnityEngine;
 
 public abstract class Pattern
 {

@@ -15,7 +15,6 @@ public class Pathfinder : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     
     [SerializeField] private Moveable nav;
-    //[SerializeField, Range(0,5)] private int range;
 
     private Tile Current => path[path.Count - 1];
     private List<Tile> path = new List<Tile>();
@@ -58,7 +57,7 @@ public class Pathfinder : MonoBehaviour, ILink
 
     void OnTileSelected(Tile selectedTile)
     {
-        if (Inputs.isLocked && !isActive) return;
+        if (Inputs.isLocked && !isActive || nav.PM <= 0) return;
         
         if (isActive && availableTiles.Contains(selectedTile))
         {
@@ -69,15 +68,21 @@ public class Pathfinder : MonoBehaviour, ILink
                 
                 return;
             }
-            
-            if (path.Count > 1) nav.Move(path.ToArray());
+
+            if (path.Count > 1)
+            {
+                nav.PM -= path.Count - 1;
+                
+                nav.Target.onMoveDone += OnMoveDone;
+                nav.Move(path.ToArray());
+            }
             Shutdown();
         }
         else if (!nav.Target.IsMoving && selectedTile == nav.Current)
         {
             Inputs.isLocked = true;
             
-            availableTiles = selectedTile.GetCellsAround(nav.actualMovementPoints).ToHashSet();
+            availableTiles = selectedTile.GetCellsAround(nav.PM).ToHashSet();
             availableTiles.Mark(Mark.Inactive);
             
             path.Add(nav.Current);
@@ -87,7 +92,7 @@ public class Pathfinder : MonoBehaviour, ILink
 
     void OnMouseMove(Vector2 mousePosition)
     {
-        if (Inputs.isLocked && !isActive) return;
+        if (Inputs.isLocked && !isActive || nav.PM <= 0) return;
         
         if (nav.Target.IsMoving) return;
         var cell = Inputs.GetCellAt(mousePosition);
@@ -141,7 +146,7 @@ public class Pathfinder : MonoBehaviour, ILink
         bool Try(Func<TileBase, int> axisPicker, Func<int, Vector2Int> cellMaker)
         {
           
-            var range = this.nav.actualMovementPoints - startIndex;
+            var range = this.nav.PM - startIndex;
             var list = ReconstructPath(start, end, range, axisPicker, cellMaker);
             
             if (!list.Any()) return false;
@@ -203,5 +208,13 @@ public class Pathfinder : MonoBehaviour, ILink
         path.Clear();
         
         isActive = false;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    void OnMoveDone()
+    {
+        nav.Target.onMoveDone -= OnMoveDone;
+        Inputs.isLocked = false;
     }
 }

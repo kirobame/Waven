@@ -16,7 +16,7 @@ MonoBehaviour:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 1170952581575292406, guid: 363c7cc43e08b7446b5765338bb6ffc7, type: 3}
+    - {fileID: 289400031416291377, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -51,7 +51,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|SpawnSummon, Assembly-CSharp
+      Data: 3|Spawn, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp

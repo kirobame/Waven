@@ -1,5 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
+using UnityEngine;
 
 public class Match
 {
@@ -43,6 +45,8 @@ public class Match
     {
         var index = turns.FindIndex(turn => turn.Target == target);
         if (index == -1) return;
+        
+        turns[index].onEnd -= OnTurnEnd;
 
         var cachedCurrent = Current;
         turns.RemoveAt(index);
@@ -52,8 +56,6 @@ public class Match
             index--;
             
             var stopMotive = new DeathMotive(target);
-
-            cachedCurrent.onEnd -= OnTurnEnd;
             cachedCurrent.Interrupt(stopMotive);
 
             OnTurnEnd(stopMotive);
@@ -65,6 +67,12 @@ public class Match
 
     void OnTurnEnd(Motive motive)
     {
+        if (!turns.Any())
+        {
+            End(new IntendedStopMotive());
+            return;
+        }
+        
         if (index + 1 >= turns.Count) index = 0;
         else index++;
         

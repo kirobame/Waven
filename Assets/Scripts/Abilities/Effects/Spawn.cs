@@ -6,9 +6,9 @@ using UnityEngine;
 using Object = UnityEngine.Object;
 
 [Serializable]
-public class SpawnSummon : Effect
+public class Spawn : Effect
 {
-    [SerializeField] private Summon prefab;
+    [SerializeField] private TileableBase prefab;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
@@ -19,14 +19,15 @@ public class SpawnSummon : Effect
             
             var position = map.Tilemap.CellToWorld(tile.Position);
             var instance = Object.Instantiate(prefab, position, Quaternion.identity);
-            instance.Team = Player.Active.Team;
+
+            if (instance.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
             
             Player.Active.AddDependency(instance.gameObject);
         }
 
         Routines.Start(Routines.DoAfter(()=> 
         {
-            Debug.Log("Summon End");
+            Debug.Log("Spawn End");
             End();
             
         }, 1.0f));

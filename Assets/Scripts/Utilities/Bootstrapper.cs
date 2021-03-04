@@ -8,22 +8,27 @@ using UnityEngine.InputSystem;
 public class Bootstrapper : MonoBehaviour
 {
     [SerializeField] private Player[] players;
+    [SerializeField] private float turnDuration;
 
     private Session session;
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Start()
+    void Awake()
     {
         Events.Open(GameEvent.OnTurnStart);
         Events.Open(GameEvent.OnTurnTimer);
-        
+        Events.Open(GameEvent.OnTileChange);
+            
         Events.Open(InterfaceEvent.OnSpellSelected);
-
+    }
+    
+    void Start()
+    {
         var match = new Match();
         foreach (var player in players)
         {
-            var turn = new TimedTurn(5.0f);
+            var turn = new TimedTurn(turnDuration);
             turn.AssignTarget(player);
             match.Insert(turn);
         }

@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using Flux.Data;
+using Flux.Event;
 
 public class Navigator : MonoBehaviour
 {
@@ -8,9 +9,9 @@ public class Navigator : MonoBehaviour
     public Tile Current { get; private set; }
     public Map Map { get; private set; }
     
-    public Tileable Target => target;
+    public ITileable Target => target;
     
-    [SerializeReference] private Tileable target;
+    [SerializeReference] private TileableBase target;
     
     //------------------------------------------------------------------------------------------------------------------/
 
@@ -37,15 +38,17 @@ public class Navigator : MonoBehaviour
         var positions = new Vector2[path.Length];
         for (var i = 0; i < path.Length; i++) positions[i] = Map.Tilemap.CellToWorld(path[i].Position);
 
-        SetCurrent(path[path.Length - 1]);
         target.Move(positions);
     }
 
-    private void SetCurrent(Tile tile)
+    public void SetCurrent(Tile tile)
     {
-        Current?.Unregister(target);
+        RemoveFromBoard();
         
         Current = tile;
         tile.Register(target);
+        
+        Events.ZipCall(GameEvent.OnTileChange, Target);
     }
+    public void RemoveFromBoard() => Current?.Unregister(target);
 }

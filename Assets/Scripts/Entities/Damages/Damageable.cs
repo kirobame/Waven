@@ -2,7 +2,7 @@
 using System.Linq;
 using UnityEngine;
 
-public class Damageable : MonoBehaviour, IDamageable, ITag
+public class Damageable : MonoBehaviour, IDamageable
 {
     public bool IsInvulnerable { get; private set; }
 
@@ -18,7 +18,11 @@ public class Damageable : MonoBehaviour, IDamageable, ITag
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => tag = GetComponent<Tag>();
+    void Awake()
+    {
+        tag = GetComponent<Tag>();
+        lives.Sort();
+    }
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -30,25 +34,28 @@ public class Damageable : MonoBehaviour, IDamageable, ITag
 
     public int Inflict(int damage, DamageType type)
     {
+        var index = 0;
         if (IsInvulnerable) return 0;
-
-        for (int i = 0; i < Lives.Count; i++)
+        
+        while (damage > 0)
         {
-            if (!Lives[i].HandledTypes.Contains(type)) continue;
-
-            Lives[i].actualValue -= damage;
-            if (Lives[i].actualValue < 0)
+            if (!lives[index].HandledTypes.Contains(type)) return 1;
+            
+            lives[index].actualValue -= damage;
+            if (lives[index].actualValue <= 0)
             {
-                if (i == Lives.Count - 1)
+                damage = -lives[index].actualValue;
+                lives.RemoveAt(index);
+
+                if (!lives.Any())
                 {
                     Destroy(gameObject);
                     return 2;
                 }
-                Lives.RemoveAt(i);
             }
-            return Lives[i].actualValue;
+            else return 3;
         }
-
-        return 1;
+        
+        return 3;
     }
 }

@@ -13,6 +13,8 @@ public class Spellcaster : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     
     [SerializeField] private Navigator nav;
+
+    private bool isActive;
     
     private SpellBase current;
     private HashSet<Tile> availableTiles;
@@ -22,6 +24,12 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
+        if (isActive)
+        {
+            isActive = false;
+            Inputs.isLocked = false;
+        }
+        
         Shutdown();
         Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
@@ -43,6 +51,8 @@ public class Spellcaster : MonoBehaviour, ILink
     void OnSpellSelected(SpellBase spell)
     {
         if (Inputs.isLocked) return;
+
+        isActive = true;
         Inputs.isLocked = true;
         
         Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
@@ -68,7 +78,7 @@ public class Spellcaster : MonoBehaviour, ILink
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
         current.CastFrom(tile);
-
+        
         if (current.IsDone) Shutdown();
         else Setup();
     }
@@ -88,7 +98,11 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         current.onCastDone -= OnCastDone;
         Owner.DecreaseBusiness();
-        
-        Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
+
+        if (current.IsDone)
+        {
+            isActive = false;
+            Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
+        }
     }
 }

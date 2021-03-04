@@ -11,7 +11,6 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        Debug.Log("Spell " + actualSpell.name + " Selected");
         Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, actualSpell);
     }
 }

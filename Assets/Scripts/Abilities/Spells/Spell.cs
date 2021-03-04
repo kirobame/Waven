@@ -16,7 +16,11 @@ public class Spell : SpellBase
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    public override void Prepare() => isDone = false;
+    public override void Prepare()
+    {
+        lastingEffects = 0;
+        isDone = false;
+    }
 
     public override HashSet<Tile> GetAffectedTilesFor(Tile source)
     {
@@ -28,6 +32,7 @@ public class Spell : SpellBase
     public override void CastFrom(Tile source)
     {
         isDone = true;
+
         foreach (var effect in effects)
         {
             lastingEffects++;

@@ -248,11 +248,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120687, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120687, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5765
+      value: -1.153
       objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120687, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1096,6 +1096,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Panel
       objectReference: {fileID: 0}
+    - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: deck.Array.size
+      value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: deck.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 0b6d579114f4c3447be4b7bfd851b979, type: 2}
     - target: {fileID: 6602528447113073718, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_Sprite
       value: 

@@ -12,12 +12,16 @@ public class Summon : Tileable, ILink
     [SerializeField] private int lifetime;
     private int countdown;
 
-    void Awake() => countdown = lifetime;
-    
+    protected override void Awake()
+    {
+        base.Awake();
+        countdown = lifetime;
+    }
+
     public void Activate()
     {
-        countdown--;
-        if (countdown <= 0) Destroy(gameObject);
+        /*countdown--;
+        if (countdown <= 0) Destroy(gameObject);*/
     }
     public void Deactivate() { }
 

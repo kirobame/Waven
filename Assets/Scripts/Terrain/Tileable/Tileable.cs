@@ -1,24 +1,26 @@
 ﻿using System.Collections;
 using UnityEngine;
 
-public interface ITileable 
-{
-    Navigator Navigator { get; }
-    bool IsMoving { get; }
-    
-    void Place(Vector2 position);
-    void Move(Vector2[] path);
-}
-
-public abstract class Tileable : MonoBehaviour, ITileable
+public abstract class Tileable : MonoBehaviour, ITileable, ITag
 {
     public Navigator Navigator => navigator;
     public bool IsMoving { get; protected set; }
-
+    
     [SerializeField] protected Navigator navigator;
     
     [Space, SerializeField] private Animator animator;
     [SerializeField] private float speed;
+
+    public TeamTag Team
+    {
+        get => tag.Team;
+        set => tag.Team = value;
+    }
+    private new Tag tag;
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    protected virtual void Awake() => tag = GetComponent<Tag>();
     
     //------------------------------------------------------------------------------------------------------------------/
     

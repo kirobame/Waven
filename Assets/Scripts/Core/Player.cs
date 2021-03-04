@@ -20,11 +20,9 @@ public class Player : Tileable, ITurnbound
     
     public Match Match { get; set; }
     public short Initiative => initiative;
-    public short TeamId => teamId;
-    
-    [Space, SerializeField] private short initiative;
-    [SerializeField] private short teamId;
 
+    [Space, SerializeField] private short initiative;
+    
     private InputAction spacebarAction;
 
     private ushort business;

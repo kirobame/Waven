@@ -19,6 +19,7 @@ public class SpawnSummon : Effect
             
             var position = map.Tilemap.CellToWorld(tile.Position);
             var instance = Object.Instantiate(prefab, position, Quaternion.identity);
+            instance.Team = Player.Active.Team;
             
             Player.Active.AddDependency(instance.gameObject);
         }

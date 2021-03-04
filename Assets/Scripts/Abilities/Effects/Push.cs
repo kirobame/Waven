@@ -22,7 +22,7 @@ public class Push : Effect
         }
         
         business = 0;
-        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Player player && player.TeamId != Player.Active.TeamId);
+        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);
 
         if (!targets.Any())
         {

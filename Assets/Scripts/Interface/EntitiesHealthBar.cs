@@ -1,43 +1,61 @@
 ﻿using Flux;
+using Flux.Data;
 using Flux.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Object = UnityEngine.Object;
 
 public class EntitiesHealthBar : MonoBehaviour
 {
-    
+    public Transform group;
+    public GameObject prefab;
+    private List<GameObject> prefabList = new List<GameObject>();
+
+    private Vector3 position = new Vector3(-182, 1000, 0);
+    [SerializeField] private float heightOffset;
+
     void Start()
     {
         Events.Open(InterfaceEvent.OnSpellCast);
-        Events.RelayByValue<Spell, Tile, HashSet<Tile>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
-        Events.RelayByValue<Spell>(InterfaceEvent.OnSpellCast, OnSpellCast);
+        Events.RelayByValue<HashSet<Tile>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellCast, OnSpellCast);
     }
 
-    private void OnSpellSelected(Spell actualSpell, Tile source, HashSet<Tile> castZone)
+    private void OnSpellSelected(HashSet<Tile> castZone)
     {
-        foreach(var tile in castZone)
+        foreach(Tile tile in castZone)
         {
             if (tile.IsFree()) continue;
 
             foreach(var entity in tile.Entities)
             {
+                var instance = Instantiate(prefab, position, Quaternion.identity, group);
+                prefabList.Add(instance);
 
+                entity.TryGet<Damageable>(out Damageable output);
+                var life = output.Lives[0];
+
+                prefab.GetComponent<Slider>().value = life.actualValue / life.maxValue;
+
+                var camera = Repository.Get<Camera>(References.Camera);
+                var entityPos = camera.WorldToScreenPoint(output.transform.position);
+
+                instance.TryGetComponent<RectTransform>(out RectTransform tr);
+                tr.position = entityPos + (Vector3.up * heightOffset);
             }
         }
     }
 
-    private void OnSpellCast(Spell acutalSpell)
+    private void OnSpellCast(SpellBase acutalSpell)
     {
-        throw new NotImplementedException();
-    }
-
-    
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        foreach(var prefab in prefabList)
+        {
+            Destroy(prefab);
+            Events.BreakValueRelay<HashSet<Tile>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+            Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellCast, OnSpellCast);
+        }
     }
 }

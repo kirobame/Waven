@@ -63,6 +63,7 @@ MonoBehaviour:
   navigator: {fileID: 1170952581575292405}
   animator: {fileID: 1170952581700563897}
   speed: 0.75
+  lifetime: 2
 --- !u!114 &1170952581575292400
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -11,16 +11,9 @@ public struct Vector4Int
         this.up = up;
         this.down = down;
     }
-    
-    public int Left => left;
-    [SerializeField] private int left;
-    
-    public int Right => right;
-    [SerializeField] private int right;
-    
-    public int Up => up;
-    [SerializeField] private int up;
-    
-    public int Down => down;
-    [SerializeField] private int down;
+
+    public int left;
+    public int right;
+    public int up;
+    public int down;
 }

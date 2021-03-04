@@ -9,16 +9,6 @@ using UnityEngine.InputSystem;
 
 public static class Extensions
 {
-    public static HashSet<Tile> Accumulate(this IEnumerable<Pattern> patterns, Tile source)
-    {
-        var tiles = new HashSet<Tile>();
-        foreach (var pattern in patterns) tiles.AddRange(pattern.GetTiles(source));
-
-        return tiles;
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------/
-
     public static Vector2Int ComputeOrientation(this Vector2 direction)
     {
         if (direction.x < 0 && direction.y > 0) return Vector2Int.left;
@@ -106,10 +96,10 @@ public static class Extensions
     {
         var list = new List<Tile>();
         
-        list.AddRange(source.GetCellsInLine(directions.Left, Vector2Int.left));
-        list.AddRange(source.GetCellsInLine(directions.Right, Vector2Int.right));
-        list.AddRange(source.GetCellsInLine(directions.Up, Vector2Int.up));
-        list.AddRange(source.GetCellsInLine(directions.Down, Vector2Int.down));
+        list.AddRange(source.GetCellsInLine(directions.left, Vector2Int.left));
+        list.AddRange(source.GetCellsInLine(directions.right, Vector2Int.right));
+        list.AddRange(source.GetCellsInLine(directions.up, Vector2Int.up));
+        list.AddRange(source.GetCellsInLine(directions.down, Vector2Int.down));
 
         return list;
     }

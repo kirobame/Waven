@@ -10,7 +10,7 @@ public class SpawnSummon : Effect
 {
     [SerializeField] private Summon prefab;
 
-    protected override void ApplyTo(IEnumerable<Tile> tiles)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
         var map = Repository.Get<Map>(References.Map);
         foreach (var tile in tiles)

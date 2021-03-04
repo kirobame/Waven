@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: Teleportation
+  m_Name: Summon
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -60,25 +60,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 5|Cross, Assembly-CSharp
-    - Name: directions
-      Entry: 7
-      Data: Vector4Int, Assembly-CSharp
-    - Name: left
-      Entry: 3
-      Data: 1
-    - Name: right
-      Entry: 3
-      Data: 1
-    - Name: up
-      Entry: 3
-      Data: 1
-    - Name: down
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
+      Data: 5|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

@@ -11,14 +11,12 @@ public class EntitiesHealthBar : MonoBehaviour
     void Start()
     {
         Events.Open(InterfaceEvent.OnSpellCast);
-        Events.RelayByValue<Spell, Tile, IReadOnlyDictionary<Id, CastArgs>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        Events.RelayByValue<Spell, Tile, HashSet<Tile>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         Events.RelayByValue<Spell>(InterfaceEvent.OnSpellCast, OnSpellCast);
     }
 
-    private void OnSpellSelected(Spell actualSpell, Tile source, IReadOnlyDictionary<Id, CastArgs> castArgs)
+    private void OnSpellSelected(Spell actualSpell, Tile source, HashSet<Tile> castZone)
     {
-        var castZone = actualSpell.GetTilesForCasting(source, castArgs);
-
         foreach(var tile in castZone)
         {
             if (tile.IsFree()) continue;

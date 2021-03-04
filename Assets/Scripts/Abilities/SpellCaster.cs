@@ -87,7 +87,7 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         if (!availableTiles.Contains(tile)) return;
 
-        Events.ZipCall<SpellBase, IReadOnlyDictionary<Id, CastArgs>>(InterfaceEvent.OnSpellCast, current, castArgs);
+        Events.ZipCall<SpellBase, HashSet<Tile>>(InterfaceEvent.OnSpellCast, current, availableTiles);
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
         current.CastFrom(tile, castArgs);

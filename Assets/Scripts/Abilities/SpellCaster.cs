@@ -8,6 +8,8 @@ using UnityEngine;
 
 public class Spellcaster : MonoBehaviour, ILink
 {
+    public static IReadOnlyDictionary<Id, CastArgs> EmptyArgs { get; } = new Dictionary<Id, CastArgs>();
+    
     public event Action<ILink> onDestroyed; 
     
     public ITurnbound Owner { get; set; }
@@ -20,25 +22,25 @@ public class Spellcaster : MonoBehaviour, ILink
     private HashSet<Tile> availableTiles;
     
     private bool hasCaster;
-    private ITempCaster caster;
-    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : new Dictionary<Id, CastArgs>();
+    private IAttributeHolder caster;
+    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => hasCaster = TryGetComponent<ITempCaster>(out caster);
+    void Awake() => hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
+        Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         if (!isActive) return;
         
         isActive = false;
         Inputs.isLocked = false;
 
         Shutdown();
-        Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
 
     private void Shutdown()

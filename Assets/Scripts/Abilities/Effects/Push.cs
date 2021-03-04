@@ -9,20 +9,16 @@ using UnityEngine;
 public class Push : Effect
 {
     [SerializeField] int force;
-    [SerializeField] private Vector2Int direction;
+
     private int business;
-    private bool damage;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
         var force = this.force;
-        if (args.TryGetValue(new Id('P', 'S', 'H'), out CastArgs speArgs) && speArgs is IntCastArgs floatCastArgs)
-        {
-            force += floatCastArgs.Value;
-        }
+        if (args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var result)) force += result.Value;
         
         business = 0;
-        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Player player && player.TeamId != Player.Active.TeamId);
+        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);
 
         if (!targets.Any())
         {
@@ -32,57 +28,34 @@ public class Push : Effect
         
         foreach(var target in targets.ToArray())
         {
-            var cell = target.Navigator.Current.FlatPosition + direction;
+            var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+            var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+
+            var cell = target.Navigator.Current.FlatPosition + orientation;
             if (!cell.TryGetTile(out var sourceTile)) continue;
 
-            var code = sourceTile.GetCellsInLine(force, direction, out var line);
-            if (code != 0)
+            var tuple = sourceTile.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
+            if (tuple.code != 0)
             {
-                Debug.Log($"CANNOT PÜSH BECAUSE : {code}");
+                if (tuple.code == 3)
+                {
+                    if (target.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
+                    foreach (var entity in tuple.tile.Entities)
+                    {
+                        if (entity.TryGet<IDamageable>(out damageable)) damageable.Inflict(1, DamageType.Base);
+                    }
+                }
             }
             
-            if (!line.Any())
-            {
-                Debug.Log("Push Damage");
-                continue;
-            }
+            if (!line.Any()) continue;
 
             line.Insert(0, target.Navigator.Current);
             target.Navigator.Move(line.ToArray());
+            
             Routines.Start(WaitForPushEnd(target));
         }
         
         if (business == 0) End();
-    }
-
-    private void SetPushPath(ITileable player, IEnumerable<Tile> path)
-    {
-        var walkableTiles = new List<Tile>();
-
-        for (int i = 1; i < path.Count(); i++)
-        {
-            if (path.ElementAt(i).IsFree() || (path.ElementAt(i).Entities.Contains(player)))
-            {
-                damage = false;
-                walkableTiles.Add(path.ElementAt(i));
-                continue;
-            }
-
-            if(path.ElementAt(i) == null)
-            {
-                damage = true;
-                break;
-            }
-
-            if (!path.ElementAt(i).IsFree())
-            {
-                damage = true;
-                break;
-            }
-        }
-
-        player.Navigator.Move(walkableTiles.ToArray());
-        Routines.Start(WaitForPushEnd(player));
     }
 
     private IEnumerator WaitForPushEnd(ITileable player)
@@ -90,8 +63,6 @@ public class Push : Effect
         business++;
 
         while (player.IsMoving) yield return new WaitForSeconds(0.1f);
-
-        if(damage) Debug.Log("Push Damage");
 
         business--;
         if (business == 0) End();

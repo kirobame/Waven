@@ -234,6 +234,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097353869787670436, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: teamId
       value: 1
@@ -286,6 +290,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5400220359739966530, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: tag
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
 --- !u!114 &306325345 stripped
@@ -304,7 +312,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
   m_PrefabInstance: {fileID: 4097353870069418690}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500790707}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1623ddee9d78e724b9b7aaadca37d2f2, type: 3}
@@ -936,6 +944,7 @@ MonoBehaviour:
   players:
   - {fileID: 398650154}
   - {fileID: 306325345}
+  turnDuration: 7.5
 --- !u!4 &678709353
 Transform:
   m_ObjectHideFlags: 0
@@ -1098,8 +1107,20 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: deck.Array.size
-      value: 4
+      value: 3
       objectReference: {fileID: 0}
+    - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: deck.Array.data[0]
+      value: 
+      objectReference: {fileID: 11400000, guid: a45165b1151ed92408319d3a5b716d24, type: 2}
+    - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: deck.Array.data[1]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8c750e60d52a16d4984a1256520c91df, type: 2}
+    - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: deck.Array.data[2]
+      value: 
+      objectReference: {fileID: 11400000, guid: 8bf4feb4c8a6eb645ac21cae0fb9e353, type: 2}
     - target: {fileID: 6602528446932361902, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: deck.Array.data[3]
       value: 
@@ -1477,40 +1498,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1 &1500790707 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-  m_PrefabInstance: {fileID: 4097353870069418690}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1500790708
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1500790707}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 720020f2a86d5dd47989308bc2631ff4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  args:
-  - id: 0
-  - id: 1
-  references:
-    version: 1
-    00000000:
-      type: {class: IntCastArgs, ns: , asm: Assembly-CSharp}
-      data:
-        id:
-          value: PSH
-        value: 1
-    00000001:
-      type: {class: IntCastArgs, ns: , asm: Assembly-CSharp}
-      data:
-        id:
-          value: EXT
-        value: 2
 --- !u!1 &1562322999
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2719,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097353869787670436, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: m_SpriteSortPoint
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

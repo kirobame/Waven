@@ -82,7 +82,7 @@ SpriteRenderer:
   m_SpriteTileMode: 0
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
-  m_SpriteSortPoint: 0
+  m_SpriteSortPoint: 1
 --- !u!95 &4097353869787670437
 Animator:
   serializedVersion: 3
@@ -111,11 +111,13 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4097353869914120687}
+  - component: {fileID: 5400220359739966530}
+  - component: {fileID: 9027551625841621808}
   - component: {fileID: 8374689325458404287}
   - component: {fileID: 4097353869914120680}
   - component: {fileID: 4097353869914120684}
   - component: {fileID: 4097353869914120685}
-  - component: {fileID: 8015354723397776349}
+  - component: {fileID: 7302012165597437418}
   m_Layer: 0
   m_Name: Player
   m_TagString: Untagged
@@ -138,6 +140,38 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5400220359739966530
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097353869914120683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2cffa9f8146c4796b93eb2368d849ca2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  tag: 0
+--- !u!114 &9027551625841621808
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097353869914120683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0a2caa6fe7f44736a22bde8e2dfda301, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives:
+  - name: Health
+    color: {r: 0.28123888, g: 0.754717, b: 0.30310896, a: 1}
+    actualValue: 10
+    maxValue: 10
+    priority: 0
+    handledTypes: 00000000
 --- !u!114 &8374689325458404287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -168,8 +202,6 @@ MonoBehaviour:
   animator: {fileID: 4097353869787670437}
   speed: 0.5
   initiative: 0
-  teamId: 0
-  spellDeck: {fileID: 8015354723397776349}
 --- !u!114 &4097353869914120684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -196,7 +228,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav: {fileID: 8374689325458404287}
---- !u!114 &8015354723397776349
+--- !u!114 &7302012165597437418
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -205,11 +237,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 4097353869914120683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a228f65283d45fc48936554b3ede8dc8, type: 3}
+  m_Script: {fileID: 11500000, guid: 720020f2a86d5dd47989308bc2631ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  deck:
-  - {fileID: 11400000, guid: 763ba7718e011eb47b9d8f78fc2765ab, type: 2}
-  - {fileID: 11400000, guid: 0b6d579114f4c3447be4b7bfd851b979, type: 2}
-  - {fileID: 11400000, guid: 3ae2836cf1d12b64dafc7ca324e250fb, type: 2}
-  - {fileID: 11400000, guid: cac3b9c635b2ff548bb891322e129947, type: 2}
+  args: []
+  references:
+    version: 1

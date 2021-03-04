@@ -7,31 +7,46 @@ using Flux;
 using Flux.Data;
 using Flux.Event;
 using Sirenix.Utilities;
-/*
-public interface IMoveable
-{
-    int movementPoints { get; }
-    int actualMovementPoints { get; }
 
-}*/
-
-public class Moveable : Navigator//, IMoveable
+public class Moveable : Navigator, ILink
 {
+    public event Action<ILink> onDestroyed;
+    
     [SerializeField, Range(0, 5)] int movementPoints;
-    public int actualMovementPoints { get; private set; }
-    List<int> movementPointsBoosts = new List<int>();
-    private void Awake() => actualMovementPoints = movementPoints;
 
-    public void BoostPM(int boostValue)
+    public ITurnbound Owner { get; set; }
+    public int PM
     {
-        movementPointsBoosts.Add(boostValue);
-        actualMovementPoints += boostValue;
+        get => trueMovementPoints;
+        set => trueMovementPoints = value;
     }
-    public void UnBoostPM(int boostValue)
+    private int trueMovementPoints;
+
+    private bool hasCaster;
+    private IAttributeHolder caster;
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    void Awake()
     {
-        movementPointsBoosts.Remove(boostValue);
-        actualMovementPoints -= boostValue;
+        PM = movementPoints;
+        hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     }
+    void OnDestroy() => onDestroyed?.Invoke(this);
+    
+    //------------------------------------------------------------------------------------------------------------------/
 
+    public void Activate()
+    {
+        trueMovementPoints = movementPoints;
+        Dirty();
+    }
+    public void Deactivate() { }
+    
+    //------------------------------------------------------------------------------------------------------------------/
 
+    public void Dirty()
+    {
+        if (hasCaster && caster.Args.TryGet<IWrapper<int>>(new Id('M', 'V', 'T'), out var result)) trueMovementPoints += result.Value;
+    }
 }

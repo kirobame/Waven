@@ -58,6 +58,14 @@ public class Pathfinder : MonoBehaviour, ILink
         
         if (isActive && availableTiles.Contains(selectedTile))
         {
+            if (selectedTile == nav.Current)
+            {
+                Inputs.isLocked = false;
+                Shutdown();
+                
+                return;
+            }
+            
             if (path.Count > 1) nav.Move(path.ToArray());
             Shutdown();
         }

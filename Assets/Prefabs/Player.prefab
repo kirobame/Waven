@@ -111,7 +111,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4097353869914120687}
-  - component: {fileID: 4097353869914120681}
+  - component: {fileID: 8374689325458404287}
   - component: {fileID: 4097353869914120680}
   - component: {fileID: 4097353869914120684}
   - component: {fileID: 4097353869914120685}
@@ -137,7 +137,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &4097353869914120681
+--- !u!114 &8374689325458404287
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -146,10 +146,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 4097353869914120683}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 690ab2552f184ba4688ca71ab8d8d8a2, type: 3}
+  m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4097353869914120680}
+  movementPoints: 4
 --- !u!114 &4097353869914120680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -162,7 +163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1623ddee9d78e724b9b7aaadca37d2f2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigator: {fileID: 4097353869914120681}
+  navigator: {fileID: 8374689325458404287}
   animator: {fileID: 4097353869787670437}
   speed: 0.5
   initiative: 0
@@ -179,8 +180,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5cebc352363c6e648ad0c72db5b0232d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 4097353869914120681}
-  range: 4
+  nav: {fileID: 8374689325458404287}
 --- !u!114 &4097353869914120685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,4 +193,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b20f75bfc4e4340bb42ed2d59f455d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  nav: {fileID: 4097353869914120681}
+  nav: {fileID: 8374689325458404287}

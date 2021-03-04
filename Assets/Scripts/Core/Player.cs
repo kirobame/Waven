@@ -65,6 +65,7 @@ public class Player : Tileable, ITurnbound
     public void DecreaseBusiness()
     {
         business--;
+        Debug.Log($"Business {business}");
         if (business <= 0) onFree?.Invoke();
     }
 

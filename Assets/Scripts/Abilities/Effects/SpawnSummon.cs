@@ -23,6 +23,11 @@ public class SpawnSummon : Effect
             Player.Active.AddDependency(instance.gameObject);
         }
 
-        Routines.Start(Routines.DoAfter(End, 1.0f));
+        Routines.Start(Routines.DoAfter(()=> 
+        {
+            Debug.Log("Summon End");
+            End();
+            
+        }, 1.0f));
     }
 }

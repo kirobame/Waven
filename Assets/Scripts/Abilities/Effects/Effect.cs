@@ -9,7 +9,7 @@ using UnityEngine;
 
 public abstract class Effect
 {
-    public Action<Effect> onDone;
+    public event Action<Effect> onDone;
     
     public IReadOnlyList<Pattern> Patterns => patterns;
     [SerializeField] protected Pattern[] patterns = new Pattern[0];

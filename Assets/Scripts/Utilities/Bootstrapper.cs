@@ -23,7 +23,7 @@ public class Bootstrapper : MonoBehaviour
         var match = new Match();
         foreach (var player in players)
         {
-            var turn = new TimedTurn(10.0f);
+            var turn = new TimedTurn(5.0f);
             turn.AssignTarget(player);
             match.Insert(turn);
         }

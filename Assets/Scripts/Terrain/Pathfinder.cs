@@ -15,7 +15,7 @@ public class Pathfinder : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     
     [SerializeField] private Moveable nav;
-    [SerializeField, Range(0,5)] private int range;
+    //[SerializeField, Range(0,5)] private int range;
 
     private Tile Current => path[path.Count - 1];
     private List<Tile> path = new List<Tile>();

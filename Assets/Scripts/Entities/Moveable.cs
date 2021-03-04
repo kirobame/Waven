@@ -15,11 +15,12 @@ public interface IMoveable
 
 }*/
 
-public abstract class Moveable : Navigator//, IMoveable
+public class Moveable : Navigator//, IMoveable
 {
     [SerializeField, Range(0, 5)] int movementPoints;
     public int actualMovementPoints { get; private set; }
     List<int> movementPointsBoosts = new List<int>();
+    private void Awake() => actualMovementPoints = movementPoints;
 
     public void BoostPM(int boostValue)
     {

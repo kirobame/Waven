@@ -48,8 +48,12 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnDestroy() => onDestroyed?.Invoke(this);
-    
+    void OnDestroy()
+    {
+        Deactivate();
+        onDestroyed?.Invoke(this);
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnTileSelected(Tile selectedTile)

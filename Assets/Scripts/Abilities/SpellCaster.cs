@@ -18,9 +18,10 @@ public class Spellcaster : MonoBehaviour, ILink
     
     private SpellBase current;
     private HashSet<Tile> availableTiles;
-
+    
     private bool hasCaster;
     private ITempCaster caster;
+    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : new Dictionary<Id, CastArgs>();
 
     //------------------------------------------------------------------------------------------------------------------/
 
@@ -31,12 +32,11 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
-        if (isActive)
-        {
-            isActive = false;
-            Inputs.isLocked = false;
-        }
+        if (!isActive) return;
         
+        isActive = false;
+        Inputs.isLocked = false;
+
         Shutdown();
         Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
@@ -51,7 +51,11 @@ public class Spellcaster : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnDestroy() => onDestroyed?.Invoke(this);
+    void OnDestroy()
+    {
+        Deactivate();
+        onDestroyed?.Invoke(this);
+    }
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -71,8 +75,8 @@ public class Spellcaster : MonoBehaviour, ILink
     private void Setup()
     {
         current.Prepare();
-        
-        availableTiles = current.CastingPatterns.Accumulate(nav.Current);
+
+        availableTiles = current.GetTilesForCasting(nav.Current, castArgs);
         availableTiles.Mark(Mark.Inactive);
     }
     
@@ -84,9 +88,7 @@ public class Spellcaster : MonoBehaviour, ILink
 
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
-
-        var args = hasCaster ? caster.Args : new Dictionary<Id, CastArgs>();
-        current.CastFrom(tile, args);
+        current.CastFrom(tile, castArgs);
         
         if (current.IsDone) Shutdown();
         else Setup();
@@ -99,7 +101,8 @@ public class Spellcaster : MonoBehaviour, ILink
         var cell = Inputs.GetCellAt(mousePosition);
         if (!cell.xy().TryGetTile(out var tile) || !availableTiles.Contains(tile)) return;
 
-        var affectedTiles = current.GetAffectedTilesFor(tile);
+        
+        var affectedTiles = current.GetAffectedTilesFor(tile, castArgs);
         affectedTiles.Mark(Mark.Active);
     }
 

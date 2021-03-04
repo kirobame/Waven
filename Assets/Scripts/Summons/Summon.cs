@@ -8,8 +8,17 @@ public class Summon : Tileable, ILink
     public event Action<ILink> onDestroyed;
     
     public ITurnbound Owner { get; set; }
+
+    [SerializeField] private int lifetime;
+    private int countdown;
+
+    void Awake() => countdown = lifetime;
     
-    public void Activate() { }
+    public void Activate()
+    {
+        countdown--;
+        if (countdown <= 0) Destroy(gameObject);
+    }
     public void Deactivate() { }
 
     void OnDestroy() => onDestroyed?.Invoke(this);

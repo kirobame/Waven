@@ -96,6 +96,8 @@ public class Player : Tileable, ITurnbound
     
     public void Activate()
     {
+        Inputs.isLocked = false;
+        
         Active = this;
         
         isActive = true;

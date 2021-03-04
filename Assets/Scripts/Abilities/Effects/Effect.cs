@@ -11,14 +11,20 @@ public abstract class Effect
 {
     public event Action<Effect> onDone;
     
-    public IReadOnlyList<Pattern> Patterns => patterns;
     [SerializeField] protected Pattern[] patterns = new Pattern[0];
 
-    public virtual bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args) => true;
+    public HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    {
+        var output = new HashSet<Tile>();
+        foreach (var pattern in patterns) output.UnionWith(pattern.GetTiles(source, args));
+
+        return output;
+    }
     
+    public virtual bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args) => true;
     public void PlayOn(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
     {
-        var tiles = patterns.Accumulate(source);
+        var tiles = GetAffectedTiles(source, args);
         ApplyTo(source, tiles, args);
     }
 

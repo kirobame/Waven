@@ -7,11 +7,11 @@ using UnityEngine.Tilemaps;
 public class Map : MonoBehaviour
 {
     public Tilemap Tilemap => tilemap;
-    public IReadOnlyDictionary<Vector2Int, Tile> Tiles => tiles;
+    public IReadOnlyDictionary<Vector2Int, TileBase> Tiles => tiles;
     
     [SerializeField] private Tilemap tilemap;
     
-    private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
+    private Dictionary<Vector2Int, TileBase> tiles = new Dictionary<Vector2Int, TileBase>();
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -26,12 +26,12 @@ public class Map : MonoBehaviour
             {
                 var tile = tilemap.GetTile(localPosition);
                 var prefix = tile.name.Substring(0, 2).ToUpper();
-                Tile implementation = default;
+                TileBase implementation = default;
 
                 switch (prefix)
                 {
                     case "WK":
-                        implementation = new WalkableTile(flatPosition, 0);
+                        implementation = new Tile(flatPosition, 0);
                         break;
                 }
 

@@ -1,80 +1,84 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Flux;
+using Flux.Data;
 using Flux.Event;
 using UnityEngine;
 
-public class SpellCaster : MonoBehaviour
+public class Spellcaster : MonoBehaviour, ILink
 {
-    Spell selectedSpell;
-    List<Effect> remainingEffects = new List<Effect>();
-    object caster;
-
-    void Start()
+    public event Action<ILink> onDestroyed; 
+    
+    public ITileable Owner { get; set; }
+    
+    private SpellBase current;
+    private HashSet<Tile> availableTiles;
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+    public void Deactivate()
     {
-        Events.Open(SpellEvents.OnSpellSelected);
-        Events.Open(SpellEvents.OnSpellCasted);
-
-        Events.RelayByValue<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
+        Shutdown();
+        Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
 
-    bool CanBeCasted(uint casterMana)
+    private void Shutdown()
     {
-        if (casterMana >= selectedSpell.Cost())
-            return true;
-        else
-            return false;
-    }
-
-    void PrepareCast(Spell _selectedSpell)
-    {
-        caster = default;                   //get current caster
-        selectedSpell = _selectedSpell;
-        uint casterMana = 10;                // -> caster.mana
-
-        if (!CanBeCasted(casterMana))
-        {
-            Debug.Log("Spell " + selectedSpell.name + " Can't be casted");
-            Events.ZipCall<bool>(SpellEvents.OnSpellCasted, false);
-            return;
-        }
-        Debug.Log("Spell " + selectedSpell.name + " Can be casted");
-
-        remainingEffects = selectedSpell.Effects();
-
-        Events.BreakValueRelay<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
-        Events.RelayByValue<WalkableTile>(InputEvent.OnTileSelected, Cast);
-        Debug.Log("Waiting for cible");
-    }
-
-    void Cast(WalkableTile selectedTile)
-    {
-        Events.BreakValueRelay<WalkableTile>(InputEvent.OnTileSelected, Cast);
-        Debug.Log("Spell " + selectedSpell.name + " is casting");
+        Extensions.ClearMarks();
         
-        foreach (var effect in remainingEffects)
-        {
-            if (effect.NeedNewSelection())
-                SubCast(effect.GetAffectedTiles(selectedTile));
+        Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
+        Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
 
-            Debug.Log("Effect " + effect + "launched");
-            effect.LaunchEffect(selectedTile);
-            remainingEffects.Remove(effect);
-        }
+        Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    void OnDestroy() => onDestroyed?.Invoke(this);
+
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    void OnSpellSelected(SpellBase spell)
+    {
+        if (Inputs.isLocked) return;
+        Inputs.isLocked = true;
         
-        //caster.mana -= spell.cost
-        Casted();
+        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
+        Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
+        
+        current = spell;
+        Setup();
     }
-
-    void SubCast (List<WalkableTile> tiles)
+    private void Setup()
     {
-        Events.RelayByValue<WalkableTile>(InputEvent.OnTileSelected, Cast);
+        current.Prepare();
+        
+        availableTiles = current.CastingPatterns.Accumulate(Owner.Navigator.Current);
+        availableTiles.Mark(Mark.Inactive);
     }
-
-    void Casted()
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    void OnTileSelected(Tile tile)
     {
-        Debug.Log(selectedSpell.name + " casted");
-        Events.RelayByValue<Spell>(SpellEvents.OnSpellSelected, PrepareCast);
-        Events.ZipCall<bool>(SpellEvents.OnSpellCasted, true);
+        if (!availableTiles.Contains(tile)) return;
+        
+        current.CastFrom(tile);
+
+        if (current.IsDone) Shutdown();
+        else Setup();
+    }
+    void OnMouseMove(Vector2 mousePosition)
+    {
+        Extensions.ClearMarks();
+        availableTiles.Mark(Mark.Inactive);
+        
+        var cell = Inputs.GetCellAt(mousePosition);
+        if (!cell.xy().TryGetTile(out var tile) || !availableTiles.Contains(tile)) return;
+
+        var affectedTiles = current.GetAffectedTilesFor(tile);
+        affectedTiles.Mark(Mark.Active);
     }
 }

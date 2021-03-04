@@ -3,7 +3,7 @@ using System.Linq;
 using Flux;
 using UnityEngine;
 
-public class TempCaster : MonoBehaviour, ITempCaster
+public class AttributeHolder : MonoBehaviour, IAttributeHolder
 {
     public IReadOnlyDictionary<Id, CastArgs> Args => registry;
     [SerializeReference] private CastArgs[] args = new CastArgs[0];

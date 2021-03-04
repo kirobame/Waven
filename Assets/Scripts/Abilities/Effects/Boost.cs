@@ -14,7 +14,7 @@ public class Boost : Effect
         {
             foreach (var entity in tile.Entities)
             {
-                if (!((Component) entity).TryGetComponent<ITempCaster>(out var caster)) continue;
+                if (!((Component) entity).TryGetComponent<IAttributeHolder>(out var caster)) continue;
                 caster.Add(value);
             }
         }

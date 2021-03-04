@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using Flux;
 
-public interface ITempCaster
+public interface IAttributeHolder
 {
     IReadOnlyDictionary<Id, CastArgs> Args { get; }
 

@@ -23,14 +23,14 @@ public class Moveable : Navigator, ILink
     private int trueMovementPoints;
 
     private bool hasCaster;
-    private ITempCaster caster;
+    private IAttributeHolder caster;
     
     //------------------------------------------------------------------------------------------------------------------/
     
     void Awake()
     {
         PM = movementPoints;
-        hasCaster = TryGetComponent<ITempCaster>(out caster);
+        hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     }
     void OnDestroy() => onDestroyed?.Invoke(this);
     

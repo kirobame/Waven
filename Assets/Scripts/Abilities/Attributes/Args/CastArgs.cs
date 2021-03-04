@@ -8,9 +8,9 @@ public abstract class CastArgs
     public Id Id => id;
     [SerializeField] private Id id;
 
-    protected ITempCaster owner;
+    protected IAttributeHolder owner;
 
-    public virtual void Initialize(ITempCaster owner) => this.owner = owner;
+    public virtual void Initialize(IAttributeHolder owner) => this.owner = owner;
 
     public abstract CastArgs Copy();
 }

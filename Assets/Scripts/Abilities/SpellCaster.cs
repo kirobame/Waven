@@ -22,12 +22,12 @@ public class Spellcaster : MonoBehaviour, ILink
     private HashSet<Tile> availableTiles;
     
     private bool hasCaster;
-    private ITempCaster caster;
+    private IAttributeHolder caster;
     private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => hasCaster = TryGetComponent<ITempCaster>(out caster);
+    void Awake() => hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     
     //------------------------------------------------------------------------------------------------------------------/
     

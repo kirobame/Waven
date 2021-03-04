@@ -11,7 +11,6 @@ GameObject:
   - component: {fileID: 6602528446932361892}
   - component: {fileID: 6602528446932361889}
   - component: {fileID: 6602528446932361893}
-  - component: {fileID: 6602528446932361902}
   - component: {fileID: 6602528446932361888}
   - component: {fileID: 6602528446932361891}
   - component: {fileID: 6602528446932361890}
@@ -75,22 +74,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9a98388e6d5389c4480d0dddd3ec0fbc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &6602528446932361902
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6602528446932361895}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7943221046dca7b45b2922a8a59c9781, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  deck:
-  - {fileID: 11400000, guid: 763ba7718e011eb47b9d8f78fc2765ab, type: 2}
-  - {fileID: 11400000, guid: 3ae2836cf1d12b64dafc7ca324e250fb, type: 2}
-  - {fileID: 11400000, guid: cac3b9c635b2ff548bb891322e129947, type: 2}
+  spellUIs:
+  - {fileID: 6602528447384807666}
+  - {fileID: 6602528448586394614}
+  - {fileID: 6602528447113074637}
+  - {fileID: 6602528448049997008}
+  - {fileID: 6602528448472493526}
+  - {fileID: 6602528447853475829}
 --- !u!222 &6602528446932361888
 CanvasRenderer:
   m_ObjectHideFlags: 0

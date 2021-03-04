@@ -8,8 +8,7 @@ public interface ICaster
     int actualForce { get; }
     int attack { get; }
     int actualAttack { get; }
-
-    List<Spell> spellDeck { get; }
+    SpellDeck spellDeck { get; }
 }
 public abstract class Caster : MonoBehaviour, ICaster
 {
@@ -42,5 +41,5 @@ public abstract class Caster : MonoBehaviour, ICaster
     }
 
 
-    public List<Spell> spellDeck { get; private set; } = new List<Spell>();
+    [SerializeField]public SpellDeck spellDeck { get; private set; }
 }

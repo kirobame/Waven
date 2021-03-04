@@ -11,6 +11,7 @@ public class damageablePoints : IComparer<damageablePoints>
 {
     public damageablePoints(string _name, Color _color, int _actualValue, int _maxValue, int _priority, List<DamageTypes> _handeledTypes)
     { name = _name; color = _color; actualValue = _actualValue; maxValue = _maxValue; priority = _priority; handeledTypes = _handeledTypes; }
+    
     public string name;
     public Color color;
     public int actualValue;
@@ -37,10 +38,15 @@ public interface IDamageable
     int TakeDamage(int damage, DamageTypes type);
 }
 
-public abstract class Damageable : MonoBehaviour, IDamageable
+public abstract class Damageable : MonoBehaviour, IDamageable, ITag
 {
+    private void Awake() => tag = GetComponent<Tag>();
+
     public bool damageable { get; private set; }
     public List<damageablePoints> lifeValues { get; private set; }
+
+    public TeamTag Value => tag.Value;
+    private new Tag tag;
 
     public void AddLifeValue(damageablePoints value)
     {

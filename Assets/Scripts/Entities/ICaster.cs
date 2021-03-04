@@ -20,7 +20,7 @@ public abstract class Caster : MonoBehaviour, ICaster
     {
         forceBoosts.Add(boostValue);
         actualForce += boostValue;
-    }
+    } //Add event registery pour le unboost
     public void UnBoostForce(int boostValue)
     {
         forceBoosts.Remove(boostValue);

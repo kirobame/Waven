@@ -7,14 +7,19 @@ using UnityEngine;
 [Serializable]
 public class BasicDamage : Effect
 {
-    [SerializeField] int damages;
+    [SerializeField] private int amount;
+    [SerializeField] private DamageType type;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args) 
     {
-        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Player player && player.TeamId != Player.Active.TeamId);
-        foreach (var target in targets) Debug.Log($"Dealing {damages} damage to : {target}");
-        
+        foreach (var target in tiles.SelectMany(tile => tile.Entities))
+        {
+            Debug.Log($"LOOKING AT : {target}");
+            
+            if (!target.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue; ;
+            damageable.Inflict(amount, type);
+        }
+
         End();
-        Debug.Log("Deal so much fire damages");
     }
 }

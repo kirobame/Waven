@@ -20,11 +20,9 @@ public class Player : Tileable, ITurnbound
     
     public Match Match { get; set; }
     public short Initiative => initiative;
-    public short TeamId => teamId;
-    
-    [Space, SerializeField] private short initiative;
-    [SerializeField] private short teamId;
 
+    [Space, SerializeField] private short initiative;
+    
     private InputAction spacebarAction;
 
     private ushort business;
@@ -46,7 +44,16 @@ public class Player : Tileable, ITurnbound
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
     }
-    void OnDestroy() => spacebarAction.performed -= OnSpacebarPressed;
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        
+        Match.Remove(this);
+        foreach (var link in links) link.Owner = null;
+        links.Clear();
+        
+        spacebarAction.performed -= OnSpacebarPressed;
+    }
 
     void OnSpacebarPressed(InputAction.CallbackContext context)
     {

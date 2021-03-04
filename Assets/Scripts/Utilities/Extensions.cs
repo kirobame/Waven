@@ -19,6 +19,12 @@ public static class Extensions
     public static Vector2Int xy(this Vector3Int value) => new Vector2Int(value.x, value.y);
     public static Vector3Int Extend(this Vector2Int value) => new Vector3Int(value.x, value.y, 0);
 
+    public static Vector3 GetWorldPosition(this Tile tile)
+    {
+        var map = Repository.Get<Map>(References.Map);
+        return map.Tilemap.CellToWorld(tile.Position);
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public static bool TryGetTile(this Vector2Int cell, out Tile tile)
@@ -32,6 +38,11 @@ public static class Extensions
 
         tile = null;
         return false;
+    }
+    public static Tile ToTile(this Vector3Int cell)
+    {
+        var map = Repository.Get<Map>(References.Map);
+        return map.Tiles[cell.xy()] as Tile;
     }
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -73,7 +84,7 @@ public static class Extensions
 
         return list;
     }
-    public static byte GetCellsInLine(this Tile source, int length, Vector2Int direction, out List<Tile> output)
+    public static (byte code, Tile tile) GetCellsInLine(this Tile source, int length, Vector2Int direction, out List<Tile> output)
     {
         var map = Repository.Get<Map>(References.Map);
         output = new List<Tile>();
@@ -81,16 +92,16 @@ public static class Extensions
         for (var i = 0; i < length; i++)
         {
             var cell = source.FlatPosition + direction * i;
-            if (!map.Tiles.TryGetValue(cell, out var gottenTile)) return 1;
+            if (!map.Tiles.TryGetValue(cell, out var gottenTile)) return (1, null);
 
-            if (!(gottenTile is Tile tile)) return 2;
+            if (!(gottenTile is Tile tile)) return (2, null);
 
-            if (!tile.IsFree()) return 3;
+            if (!tile.IsFree()) return (3, tile);
 
             output.Add(tile);
         }
 
-        return 0;
+        return (0, output[output.Count - 1]);
     }
     public static IEnumerable<Tile> GetCellsInCross(this Tile source, Vector4Int directions)
     {
@@ -116,7 +127,7 @@ public static class Extensions
 
         return xDiff == 1 && yDiff == 0 || xDiff == 0 && yDiff == 1;
     }
-    public static bool IsFree(this Tile tile) => !tile.Entities.Any();
+    public static bool IsFree(this Tile tile) => !tile.Entities.Any(tileable => tileable is ITag);
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -129,8 +140,26 @@ public static class Extensions
             tile.Mark(global::Mark.None);
         }
     }
-    public static void Mark(this IEnumerable<Tile> tiles, Mark mark)
+    public static void Mark(this IEnumerable<Tile> tiles, Mark mark) { foreach (var tile in tiles) tile.Mark(mark); }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    public static bool TryGet<T>(this ITileable tileable, out T output) where T : ITag
     {
-        foreach (var tile in tiles) tile.Mark(mark);
+        if (tileable is Component component && component.TryGetComponent<T>(out output)) return true;
+        else
+        {
+            output = default;
+            return false;
+        }
+    }
+    public static bool TryGet<T>(this ITileable tileable, TeamTag tag, out T output) where T : ITag
+    {
+        if (tileable is Component component && component.TryGetComponent<T>(out output) && output.Team != tag) return true;
+        else
+        {
+            output = default;
+            return false;
+        }
     }
 }

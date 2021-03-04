@@ -1,55 +1,57 @@
 ﻿using System.Collections;
+using Flux.Data;
 using UnityEngine;
 
-public interface ITileable 
+public abstract class Tileable : TileableBase, ITag
 {
-    Navigator Navigator { get; }
-    bool IsMoving { get; }
-    
-    void Place(Vector2 position);
-    void Move(Vector2[] path);
-}
-
-public abstract class Tileable : MonoBehaviour, ITileable
-{
-    public Navigator Navigator => navigator;
-    public bool IsMoving { get; protected set; }
-
-    [SerializeField] protected Navigator navigator;
-    
     [Space, SerializeField] private Animator animator;
     [SerializeField] private float speed;
+
+    private Coroutine moveRoutine;
+
+    public TeamTag Team
+    {
+        get => tag.Team;
+        set => tag.Team = value;
+    }
+    private new Tag tag;
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
+    protected virtual void Awake() => tag = GetComponent<Tag>();
     
     //------------------------------------------------------------------------------------------------------------------/
     
-    public virtual void Place(Vector2 position) => transform.position = position;
-    
-    //------------------------------------------------------------------------------------------------------------------/
-    
-    public virtual void Move(Vector2[] path)
+    public override void Place(Vector2 position) => transform.position = position;
+
+    public override void Move(Vector2[] path)
     {
         IsMoving = true;
-        StartCoroutine(MoveRoutine(path));
+        moveRoutine = StartCoroutine(MoveRoutine(path));
     }
     protected virtual IEnumerator MoveRoutine(Vector2[] path)
     {
+        var map = Repository.Get<Map>(References.Map);
+        
         var index = 0;
         var time = 0.0f;
 
-        SetOrientation(( path[index + 1] - path[index]).ComputeOrientation());
+        SetOrientation((path[index + 1] - path[index]).ComputeOrientation());
         while (true)
         {
             time += Time.deltaTime;
             if (time >= speed)
             {
+                navigator.SetCurrent(map.Tilemap.WorldToCell(path[index + 1]).ToTile());
+
                 if (index + 1 >= path.Length - 1)
                 {
                     transform.position = Vector2.Lerp(path[index], path[index + 1], 1.0f);
-                    IsMoving = false;
                     
+                    EndMove();
                     OnMoveCompleted();
-
-                    Inputs.isLocked = false;
+                    
+                    moveRoutine = null;
                     yield break;
                 }
                 else
@@ -66,6 +68,19 @@ public abstract class Tileable : MonoBehaviour, ITileable
         }
     }
     protected virtual void OnMoveCompleted() { }
+
+    public void InterruptMove()
+    {
+        if (moveRoutine == null) return;
+        
+        StopCoroutine(moveRoutine);
+        moveRoutine = null;
+
+        transform.position = navigator.Current.GetWorldPosition();
+        
+        EndMove();
+        OnMoveCompleted();
+    }
     
     //------------------------------------------------------------------------------------------------------------------/
 

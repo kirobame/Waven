@@ -10,11 +10,13 @@ public class Spellcaster : MonoBehaviour, ILink
 {
     public event Action<ILink> onDestroyed; 
     
-    public ITileable Owner { get; set; }
+    public ITurnbound Owner { get; set; }
+    
+    [SerializeField] private Navigator nav;
     
     private SpellBase current;
     private HashSet<Tile> availableTiles;
-    
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
@@ -30,8 +32,6 @@ public class Spellcaster : MonoBehaviour, ILink
         
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
-
-        Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
     }
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -55,7 +55,7 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         current.Prepare();
         
-        availableTiles = current.CastingPatterns.Accumulate(Owner.Navigator.Current);
+        availableTiles = current.CastingPatterns.Accumulate(nav.Current);
         availableTiles.Mark(Mark.Inactive);
     }
     
@@ -64,7 +64,9 @@ public class Spellcaster : MonoBehaviour, ILink
     void OnTileSelected(Tile tile)
     {
         if (!availableTiles.Contains(tile)) return;
-        
+
+        Owner.IncreaseBusiness();
+        current.onCastDone += OnCastDone;
         current.CastFrom(tile);
 
         if (current.IsDone) Shutdown();
@@ -80,5 +82,13 @@ public class Spellcaster : MonoBehaviour, ILink
 
         var affectedTiles = current.GetAffectedTilesFor(tile);
         affectedTiles.Mark(Mark.Active);
+    }
+
+    void OnCastDone()
+    {
+        current.onCastDone -= OnCastDone;
+        Owner.DecreaseBusiness();
+        
+        Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
     }
 }

@@ -62,7 +62,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigator: {fileID: 1170952581575292405}
   animator: {fileID: 1170952581700563897}
-  speed: 0.3
+  speed: 0.75
 --- !u!114 &1170952581575292400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89,6 +89,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4b20f75bfc4e4340bb42ed2d59f455d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  nav: {fileID: 1170952581575292405}
 --- !u!1 &1170952581700563898
 GameObject:
   m_ObjectHideFlags: 0

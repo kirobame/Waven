@@ -61,6 +61,15 @@ public class Player : Tileable, ITurnbound
     
     //------------------------------------------------------------------------------------------------------------------/
 
+    public void IncreaseBusiness() => business++;
+    public void DecreaseBusiness()
+    {
+        business--;
+        if (business <= 0) onFree?.Invoke();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------/
+
     private void SetupLink(ILink link)
     {
         link.Owner = this;
@@ -102,13 +111,9 @@ public class Player : Tileable, ITurnbound
 
     public override void Move(Vector2[] path)
     {
-        business++;
+        IncreaseBusiness();
         base.Move(path);
     }
 
-    protected override void OnMoveCompleted()
-    {
-        business--;
-        if (business <= 0) onFree?.Invoke();
-    }
+    protected override void OnMoveCompleted() => DecreaseBusiness();
 }

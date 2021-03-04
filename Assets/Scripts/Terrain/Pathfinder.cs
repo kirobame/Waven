@@ -33,7 +33,11 @@ public class Pathfinder : MonoBehaviour, ILink
     public void Deactivate()
     {
         nav.Current.Mark(Mark.None);
-        if (isActive) Shutdown();
+        if (isActive)
+        {
+            Inputs.isLocked = false;
+            Shutdown();
+        }
         
         path.Clear();
         availableTiles.Clear();

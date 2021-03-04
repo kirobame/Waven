@@ -72,6 +72,7 @@ public class Spellcaster : MonoBehaviour, ILink
         current = spell;
         Setup();
     }
+
     private void Setup()
     {
         current.Prepare();
@@ -86,6 +87,7 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         if (!availableTiles.Contains(tile)) return;
 
+        Events.ZipCall<SpellBase, IReadOnlyDictionary<Id, CastArgs>>(InterfaceEvent.OnSpellCast, current, castArgs);
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
         current.CastFrom(tile, castArgs);

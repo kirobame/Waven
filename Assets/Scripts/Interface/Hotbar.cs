@@ -8,11 +8,12 @@ public class Hotbar : MonoBehaviour
 {
     private RectTransform rectTransform => (RectTransform)transform;
     [SerializeField] List<GameObject> spellUIs = new List<GameObject>();
+    [SerializeField] List<GameObject> staticUis = new List<GameObject>();
 
     public void DisplaySpells(List<SpellBase> spells)
     {
         ClearSpells();
-        rectTransform.sizeDelta = new Vector2(200 * spells.Count, 200);
+        rectTransform.sizeDelta = new Vector2(200 * (spells.Count + staticUis.Count), 200);
 
         for (var i = 0; i < spells.Count; i++)
         {

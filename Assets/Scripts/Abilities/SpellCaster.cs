@@ -19,6 +19,13 @@ public class Spellcaster : MonoBehaviour, ILink
     private SpellBase current;
     private HashSet<Tile> availableTiles;
 
+    private bool hasCaster;
+    private ITempCaster caster;
+
+    //------------------------------------------------------------------------------------------------------------------/
+
+    void Awake() => hasCaster = TryGetComponent<ITempCaster>(out caster);
+    
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
@@ -77,7 +84,9 @@ public class Spellcaster : MonoBehaviour, ILink
 
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
-        current.CastFrom(tile);
+
+        var args = hasCaster ? caster.Args : new Dictionary<Id, CastArgs>();
+        current.CastFrom(tile, args);
         
         if (current.IsDone) Shutdown();
         else Setup();

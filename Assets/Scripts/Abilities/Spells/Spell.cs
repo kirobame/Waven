@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using Flux;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
@@ -22,6 +24,7 @@ public class Spell : SpellBase
         isDone = false;
     }
 
+    public override bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args) => effects.All(effect => effect.CanBeCasted(args));
     public override HashSet<Tile> GetAffectedTilesFor(Tile source)
     {
         var tiles = new HashSet<Tile>();
@@ -29,7 +32,8 @@ public class Spell : SpellBase
 
         return tiles;
     }
-    public override void CastFrom(Tile source)
+    
+    public override void CastFrom(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
     {
         isDone = true;
 
@@ -38,7 +42,7 @@ public class Spell : SpellBase
             lastingEffects++;
             effect.onDone += OnEffectDone;
             
-            effect.PlayOn(source);
+            effect.PlayOn(source, args);
         }
     }
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Flux;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
@@ -21,8 +22,9 @@ public abstract class SpellBase : SerializedScriptableObject, ICastable
     
     public abstract void Prepare();
 
+    public abstract bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args);
     public abstract HashSet<Tile> GetAffectedTilesFor(Tile source); 
-    public abstract void CastFrom(Tile source);
+    public abstract void CastFrom(Tile source, IReadOnlyDictionary<Id, CastArgs> args);
 
     protected void EndCast() => onCastDone?.Invoke();
 }

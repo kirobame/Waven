@@ -11,8 +11,14 @@ public class Push : Effect
     [SerializeField] int force;
     private int business;
 
-    protected override void ApplyTo(IEnumerable<Tile> tiles)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
+        var force = this.force;
+        if (args.TryGetValue(new Id('P', 'S', 'H'), out CastArgs speArgs) && speArgs is IntCastArgs floatCastArgs)
+        {
+            force += floatCastArgs.Value;
+        }
+        
         business = 0;
         var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Player player && player.TeamId != Player.Active.TeamId);
 

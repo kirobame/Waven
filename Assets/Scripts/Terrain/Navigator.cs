@@ -5,7 +5,7 @@ public class Navigator : MonoBehaviour
 {
     public static float YOffset { get; private set; }
     
-    public WalkableTile Current { get; private set; }
+    public Tile Current { get; private set; }
     public Map Map { get; private set; }
     
     public Tileable Target => target;
@@ -28,11 +28,11 @@ public class Navigator : MonoBehaviour
     public void Place(Vector2Int position)
     {
         if (!position.TryGetTile(out var tile)) return;
-        
+
         target.Place(Map.Tilemap.CellToWorld(tile.Position));
         SetCurrent(tile);
     }
-    public void Move(WalkableTile[] path)
+    public void Move(Tile[] path)
     {
         var positions = new Vector2[path.Length];
         for (var i = 0; i < path.Length; i++) positions[i] = Map.Tilemap.CellToWorld(path[i].Position);
@@ -41,7 +41,7 @@ public class Navigator : MonoBehaviour
         target.Move(positions);
     }
 
-    private void SetCurrent(WalkableTile tile)
+    private void SetCurrent(Tile tile)
     {
         Current?.Unregister(target);
         

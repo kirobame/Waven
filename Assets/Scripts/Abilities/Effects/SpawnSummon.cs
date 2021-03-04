@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using Flux;
 using Flux.Data;
 using UnityEngine;
 using Object = UnityEngine.Object;
@@ -14,10 +15,14 @@ public class SpawnSummon : Effect
         var map = Repository.Get<Map>(References.Map);
         foreach (var tile in tiles)
         {
+            if (!tile.IsFree()) continue;
+            
             var position = map.Tilemap.CellToWorld(tile.Position);
             var instance = Object.Instantiate(prefab, position, Quaternion.identity);
             
             Player.Active.AddDependency(instance.gameObject);
         }
+
+        Routines.Start(Routines.DoAfter(End, 1.0f));
     }
 }

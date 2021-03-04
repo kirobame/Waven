@@ -12,7 +12,7 @@ public class Pathfinder : MonoBehaviour, ILink
 {
     public event Action<ILink> onDestroyed; 
     
-    public ITileable Owner { get; set; }
+    public ITurnbound Owner { get; set; }
     
     [SerializeField] private Navigator nav;
     [SerializeField, Range(0,5)] private int range;

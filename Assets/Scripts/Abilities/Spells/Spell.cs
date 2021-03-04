@@ -11,6 +11,7 @@ public class Spell : SpellBase
     [Space, SerializeField] private List<Pattern> castingPatterns = new List<Pattern>();
     [SerializeField] private List<Effect> effects = new List<Effect>();
 
+    private int lastingEffects;
     private bool isDone;
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -27,6 +28,20 @@ public class Spell : SpellBase
     public override void CastFrom(Tile source)
     {
         isDone = true;
-        foreach (var effect in effects) effect.PlayOn(source);
+        foreach (var effect in effects)
+        {
+            lastingEffects++;
+            effect.onDone += OnEffectDone;
+            
+            effect.PlayOn(source);
+        }
+    }
+
+    void OnEffectDone(Effect effect)
+    {
+        effect.onDone -= OnEffectDone;
+        
+        lastingEffects--;
+        if (lastingEffects == 0) EndCast();
     }
 }

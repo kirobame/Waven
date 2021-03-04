@@ -1,9 +1,12 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public abstract class SpellBase : SerializedScriptableObject, ICastable
 {
+    public event Action onCastDone;
+    
     public abstract bool IsDone { get; }
     public abstract IReadOnlyList<Pattern> CastingPatterns { get; }
     
@@ -20,4 +23,6 @@ public abstract class SpellBase : SerializedScriptableObject, ICastable
 
     public abstract HashSet<Tile> GetAffectedTilesFor(Tile source); 
     public abstract void CastFrom(Tile source);
+
+    protected void EndCast() => onCastDone?.Invoke();
 }

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using Flux;
 using Flux.Data;
@@ -8,6 +9,8 @@ using UnityEngine;
 
 public abstract class Effect
 {
+    public Action<Effect> onDone;
+    
     public IReadOnlyList<Pattern> Patterns => patterns;
     [SerializeField] protected Pattern[] patterns = new Pattern[0];
 
@@ -18,4 +21,5 @@ public abstract class Effect
     }
 
     protected abstract void ApplyTo(IEnumerable<Tile> tiles);
+    protected void End() => onDone?.Invoke(this);
 }

@@ -4,7 +4,7 @@ public interface ILink
 {
     event Action<ILink> onDestroyed;
     
-    ITileable Owner { get; set; }
+    ITurnbound Owner { get; set; }
     
     void Activate();
     void Deactivate();

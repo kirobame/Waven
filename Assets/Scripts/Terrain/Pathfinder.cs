@@ -14,7 +14,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     public ITurnbound Owner { get; set; }
     
-    [SerializeField] private Navigator nav;
+    [SerializeField] private Moveable nav;
     [SerializeField, Range(0,5)] private int range;
 
     private Tile Current => path[path.Count - 1];
@@ -73,7 +73,7 @@ public class Pathfinder : MonoBehaviour, ILink
         {
             Inputs.isLocked = true;
             
-            availableTiles = selectedTile.GetCellsAround(range).ToHashSet();
+            availableTiles = selectedTile.GetCellsAround(nav.actualMovementPoints).ToHashSet();
             availableTiles.Mark(Mark.Inactive);
             
             path.Add(nav.Current);
@@ -137,7 +137,7 @@ public class Pathfinder : MonoBehaviour, ILink
         bool Try(Func<TileBase, int> axisPicker, Func<int, Vector2Int> cellMaker)
         {
           
-            var range = this.range - startIndex;
+            var range = this.nav.actualMovementPoints - startIndex;
             var list = ReconstructPath(start, end, range, axisPicker, cellMaker);
             
             if (!list.Any()) return false;

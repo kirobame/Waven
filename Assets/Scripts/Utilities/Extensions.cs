@@ -83,6 +83,25 @@ public static class Extensions
 
         return list;
     }
+    public static byte GetCellsInLine(this Tile source, int length, Vector2Int direction, out List<Tile> output)
+    {
+        var map = Repository.Get<Map>(References.Map);
+        output = new List<Tile>();
+
+        for (var i = 0; i < length; i++)
+        {
+            var cell = source.FlatPosition + direction * i;
+            if (!map.Tiles.TryGetValue(cell, out var gottenTile)) return 1;
+
+            if (!(gottenTile is Tile tile)) return 2;
+
+            if (!tile.IsFree()) return 3;
+
+            output.Add(tile);
+        }
+
+        return 0;
+    }
     public static IEnumerable<Tile> GetCellsInCross(this Tile source, Vector4Int directions)
     {
         var list = new List<Tile>();

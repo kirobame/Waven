@@ -366,6 +366,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 496631169}
+  - component: {fileID: 496631175}
   - component: {fileID: 496631172}
   - component: {fileID: 496631171}
   - component: {fileID: 496631170}
@@ -540,6 +541,22 @@ MonoBehaviour:
   group: {fileID: 1734895684}
   prefab: {fileID: 3489248594739063015, guid: 6ae8fd9943446c44eaee71f0b2e1cc3e, type: 3}
   heightOffset: 300
+--- !u!114 &496631175
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 496631168}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d216697145d84c4f93cd2d64adf5c24a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  flag:
+    type: References, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
+    value: 4
+  value: {fileID: 496631174}
 --- !u!1 &505976019
 GameObject:
   m_ObjectHideFlags: 0
@@ -1548,7 +1565,7 @@ Camera:
   near clip plane: 0.3
   far clip plane: 1000
   field of view: 60
-  orthographic: 1
+  orthographic: 0
   orthographic size: 3
   m_Depth: -1
   m_CullingMask:

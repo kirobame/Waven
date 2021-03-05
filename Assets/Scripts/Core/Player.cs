@@ -126,6 +126,8 @@ public class Player : Tileable, ITurnbound
         
         if (speed <= 0 || !overrideSpeed) speed = this.speed;
         base.Move(path, speed, overrideSpeed);
+
+        animator.SetBool("isMoving", true);
     }
 
     protected override void ProcessMoveDirection(Vector2 direction) => SetOrientation(direction.ComputeOrientation());
@@ -133,7 +135,13 @@ public class Player : Tileable, ITurnbound
     {
         animator.SetFloat("X", value.x);
         animator.SetFloat("Y", value.y);
+        Debug.Log($"X value : {animator.GetFloat("X")}");
+        Debug.Log($"Y value : {animator.GetFloat("Y")}");
     }
 
-    protected override void OnMoveCompleted() => DecreaseBusiness();
+    protected override void OnMoveCompleted()
+    {
+        DecreaseBusiness();
+        animator.SetBool("isMoving", false);
+    }
 }

@@ -204,7 +204,7 @@ MonoBehaviour:
   navigator: {fileID: 8374689325458404287}
   animator: {fileID: 4097353869787670437}
   initiative: 0
-  speed: 0.5
+  speed: 0.35
 --- !u!114 &4351303761828844956
 MonoBehaviour:
   m_ObjectHideFlags: 0

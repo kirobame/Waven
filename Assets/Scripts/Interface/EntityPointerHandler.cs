@@ -41,8 +41,6 @@ public class EntityPointerHandler : MonoBehaviour
         var hit = collider.OverlapPoint(camera.ScreenToWorldPoint(mousePos));
         if (previousHit == false && hit == true)
         {
-            Debug.Log($"ACTIVATION FOR {this} // {life}");
-            
             var instance = Instantiate(prefab, position, Quaternion.identity, group);
             prefabList.Add(instance);
 

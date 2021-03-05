@@ -7,7 +7,11 @@ public class BordermapTrap : Trap
     protected override void ApplyOn(ITileable source)
     {
 
-        if (source.TryGet<IDamageable>(out var damageable) && damageable.Team != TeamTag.Neutral) damageable.Inflict(10, DamageType.Base);
+        if (source.TryGet<IDamageable>(out var damageable) && damageable.Team != TeamTag.Neutral)
+        {
+            Debug.Log($"DAMAGING : {damageable}");
+            damageable.Inflict(10, DamageType.Base);
+        }
         /*
         Debug.Log(source == this);
         if (((Component)source).gameObject.GetComponent<Tag>().Team != TeamTag.Neutral)

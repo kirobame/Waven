@@ -24,10 +24,16 @@ public class StaticSpellButton : SpellButton, IPointerClickHandler
     {
         Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, actualSpell);
     }
+    
+    void OnDestroy()
+    {
+        Events.Unregister(GameEvent.OnTurnStart, OnTurnStart);
+        Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    }
 
     private void OnTurnStart(EventArgs obj)
     {
-        if (!this.gameObject.activeSelf)
-            this.gameObject.SetActive(true);
+        if (this.gameObject == null) return;
+        if (!this.gameObject.activeSelf) this.gameObject.SetActive(true);
     }
 }

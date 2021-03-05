@@ -51,14 +51,14 @@ public class EntitiesHealthBar : MonoBehaviour
                 entity.TryGet<Damageable>(out Damageable output);
                 var life = output.Lives[0];
 
-                prefab.GetComponent<Slider>().value = life.actualValue / life.maxValue;
+                prefab.GetComponent<Slider>().value = (float)life.actualValue / life.maxValue;
                 healthText.text = $"{life.actualValue} / {life.maxValue}";
 
                 var camera = Repository.Get<Camera>(References.Camera);
-                var entityPos = camera.WorldToScreenPoint(output.transform.position);
+                var entityPos = camera.WorldToScreenPoint(output.transform.position+ Vector3.up * heightOffset);
 
                 instance.TryGetComponent<RectTransform>(out RectTransform tr);
-                tr.position = entityPos + (Vector3.up * heightOffset);
+                tr.position = entityPos;
             }
         }
     }

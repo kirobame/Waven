@@ -31,9 +31,9 @@ public class TurnIndicator : MonoBehaviour
         if (!hasTarget) return;
 
         var camera = Repository.Get<Camera>(References.Camera);
-        var screenPosition = camera.WorldToScreenPoint(target.position);
+        var screenPosition = camera.WorldToScreenPoint(target.position + Vector3.up * heightOffset);
 
-        subIndicator.rectTransform.position = screenPosition + Vector3.up * heightOffset;
+        subIndicator.rectTransform.position = screenPosition;
     }
     
     //------------------------------------------------------------------------------------------------------------------/

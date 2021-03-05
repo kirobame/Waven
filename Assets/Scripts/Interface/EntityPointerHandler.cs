@@ -26,7 +26,7 @@ public class EntityPointerHandler : MonoBehaviour
         prefab = Repository.Get<EntitiesHealthBar>(References.Healthbar).prefab;
         group = Repository.Get<EntitiesHealthBar>(References.Healthbar).group;
 
-        life = gameObject.GetComponent<Damageable>();
+        life = GetComponent<Damageable>();
 
         camera = Repository.Get<Camera>(References.Camera);
 
@@ -41,17 +41,19 @@ public class EntityPointerHandler : MonoBehaviour
         var hit = collider.OverlapPoint(camera.ScreenToWorldPoint(mousePos));
         if (previousHit == false && hit == true)
         {
+            Debug.Log($"ACTIVATION FOR {this} // {life}");
+            
             var instance = Instantiate(prefab, position, Quaternion.identity, group);
             prefabList.Add(instance);
 
-            prefab.GetComponent<Slider>().value = life.Lives[0].actualValue / life.Lives[0].maxValue;
-            healthText.text = $"{life.Lives[0].actualValue} / {life.Lives[0].maxValue}";
+            instance.GetComponent<Slider>().value = (float)life.Lives[0].actualValue / life.Lives[0].maxValue;
+            instance.GetComponentInChildren<Text>().text = $"{life.Lives[0].actualValue} / {life.Lives[0].maxValue}";
 
             var camera = Repository.Get<Camera>(References.Camera);
-            var entityPos = camera.WorldToScreenPoint(gameObject.transform.position);
+            var entityPos = camera.WorldToScreenPoint(gameObject.transform.position + Vector3.up * heightOffset);
 
             instance.TryGetComponent<RectTransform>(out RectTransform tr);
-            tr.position = entityPos + (Vector3.up * heightOffset);
+            tr.position = entityPos;
         }
         else if (previousHit == true && hit == false)
         {

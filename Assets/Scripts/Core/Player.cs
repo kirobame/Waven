@@ -36,7 +36,7 @@ public class Player : Tileable, ITurnbound
     
     void Start()
     {
-        SetOrientation(Vector2Int.right);
+        ProcessMoveDirection(Vector2Int.right);
         
         links = new List<ILink>();
         links.AddRange(GetComponentsInChildren<ILink>());
@@ -130,13 +130,11 @@ public class Player : Tileable, ITurnbound
         animator.SetBool("isMoving", true);
     }
 
-    protected override void ProcessMoveDirection(Vector2 direction) => SetOrientation(direction.ComputeOrientation());
-    protected void SetOrientation(Vector2Int value)
+    protected override void ProcessMoveDirection(Vector2 direction)
     {
-        animator.SetFloat("X", value.x);
-        animator.SetFloat("Y", value.y);
-        Debug.Log($"X value : {animator.GetFloat("X")}");
-        Debug.Log($"Y value : {animator.GetFloat("Y")}");
+        var orientation = direction.ComputeOrientation();
+        animator.SetFloat("X", orientation.x);
+        animator.SetFloat("Y", orientation.y);
     }
 
     protected override void OnMoveCompleted()

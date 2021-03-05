@@ -227,11 +227,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!61 &133593751 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4162275367574529809, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-  m_PrefabInstance: {fileID: 4097353870069418690}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &306325344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1315,6 +1310,22 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7113845222078887730, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113845222078887730, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113845222078887730, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7113845222078887730, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
 --- !u!224 &827884205 stripped
@@ -2070,8 +2081,8 @@ Tilemap:
   - first: {x: -3, y: -5, z: 0}
     second:
       serializedVersion: 2
-      m_TileIndex: 0
-      m_TileSpriteIndex: 0
+      m_TileIndex: 2
+      m_TileSpriteIndex: 2
       m_TileMatrixIndex: 0
       m_TileColorIndex: 0
       m_TileObjectToInstantiateIndex: 65535
@@ -2559,19 +2570,19 @@ Tilemap:
       m_AllTileFlags: 1073741825
   m_AnimatedTiles: {}
   m_TileAssetArray:
-  - m_RefCount: 49
+  - m_RefCount: 48
     m_Data: {fileID: 11400000, guid: e3ff9cca5a6c52c46a5807c0fd9fb80f, type: 2}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 11400000, guid: f88471335056cd54bae836f3b1ba7998, type: 2}
   m_TileSpriteArray:
-  - m_RefCount: 49
+  - m_RefCount: 48
     m_Data: {fileID: 21300000, guid: 9f9949efab472764db48339540f455c2, type: 3}
   - m_RefCount: 0
     m_Data: {fileID: 0}
-  - m_RefCount: 0
-    m_Data: {fileID: 0}
+  - m_RefCount: 1
+    m_Data: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
   m_TileMatrixArray:
   - m_RefCount: 49
     m_Data:
@@ -2631,6 +2642,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1811880519}
+  borderTrapPrefab: {fileID: 0}
+  borderObstaclePrefab: {fileID: 0}
 --- !u!114 &1811880521
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2746,10 +2759,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 1500592893475506057, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-      propertyPath: collider
-      value: 
-      objectReference: {fileID: 133593751}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

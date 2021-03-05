@@ -239,6 +239,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1150042061}
     - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: speed
+      value: 0.175
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: teamId
       value: 1
       objectReference: {fileID: 0}
@@ -3079,6 +3083,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: speed
+      value: 0.175
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

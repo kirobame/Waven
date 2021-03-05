@@ -12,8 +12,8 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var tooltipMessage = data.actualSpell.Title + "\n" + data.actualSpell.Description;
-        Events.ZipCall(InterfaceEvent.OnTooltipUsed, tooltipMessage);
+        var message = $"<size=100%><b>{data.actualSpell.Title}</size></b>\n<size=65%>{data.actualSpell.Description}</size>";
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
     }
 
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);

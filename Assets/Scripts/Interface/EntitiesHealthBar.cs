@@ -1,16 +1,10 @@
-﻿using Flux;
-using Flux.Data;
-using Flux.Event;
-using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
-using UnityEngine.UI;
 using Object = UnityEngine.Object;
 
 public class EntitiesHealthBar : MonoBehaviour
 {
-    public Transform group;
+    /*public Transform group;
     public GameObject prefab;
     private List<GameObject> prefabList = new List<GameObject>();
 
@@ -73,5 +67,5 @@ public class EntitiesHealthBar : MonoBehaviour
             Events.BreakValueRelay<HashSet<Tile>>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
             Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellCast, OnSpellCast);
         }
-    }
+    }*/
 }

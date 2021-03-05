@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Flux.Event;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour, IDamageable
@@ -26,6 +27,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
     //------------------------------------------------------------------------------------------------------------------/
     
+    public Life Get(string name) => lives.First(life => life.name.ToLower().Equals(name.ToLower()));
     public void AddLife(Life value)
     {
         lives.Add(value);
@@ -35,7 +37,9 @@ public class Damageable : MonoBehaviour, IDamageable
     public int Inflict(int damage, DamageType type)
     {
         var index = 0;
+        
         if (IsInvulnerable) return 0;
+        if (!lives.Any()) return 2;
         
         while (damage > 0)
         {
@@ -53,9 +57,15 @@ public class Damageable : MonoBehaviour, IDamageable
                     return 2;
                 }
             }
-            else return 3;
+            else
+            {
+                Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+                return 3;
+            }
         }
         
+
+        Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;
     }
     

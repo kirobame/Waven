@@ -14,6 +14,8 @@ public class Life : IComparable<Life>
         this.priority = priority; 
         this.handledTypes = handledTypes;
     }
+
+    public float Ratio => (float)actualValue / maxValue;
     
     public string name;
     public Color color;

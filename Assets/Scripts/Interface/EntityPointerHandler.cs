@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class EntityPointerHandler : MonoBehaviour
 {
-    private GameObject prefab;
+    /*private GameObject prefab;
     private Transform group;
     private List<GameObject> prefabList = new List<GameObject>();
     private Vector3 position = new Vector3(-182, 1000, 0);
@@ -94,7 +94,7 @@ public class EntityPointerHandler : MonoBehaviour
 
             instance.TryGetComponent<RectTransform>(out RectTransform tr);
             tr.position = entityPos + (Vector3.up * heightOffset);
-        }*/
+        }
     }
 
  //private void OnMouseEnter()
@@ -110,5 +110,5 @@ public class EntityPointerHandler : MonoBehaviour
  //
  //    instance.TryGetComponent<RectTransform>(out RectTransform tr);
  //    tr.position = entityPos + (Vector3.up * heightOffset);
- //}
+ //}*/
 }

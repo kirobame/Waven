@@ -10,6 +10,19 @@ using UnityEngine.InputSystem;
 
 public static class Extensions
 {
+    public static bool TryGet<T>(this GameObject gameObject, out T output)
+    {
+        output = gameObject.GetComponentInChildren<T>();
+        return output != null;
+    }
+    public static bool TryGet<T>(this Component component, out T output)
+    {
+        output = component.GetComponentInChildren<T>();
+        return output != null;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
     public static Vector2 xy(this Vector3 value) => new Vector2(value.x, value.y);
     public static Vector2Int ComputeOrientation(this Vector2 direction)
     {

@@ -64,7 +64,7 @@ public class Map : MonoBehaviour
                 if (!neighbour.IsValidTile())
                 {
                     if (!borderCells.Contains(neighbour))
-                        borderCells.Add(neighbour);
+                        borderCells.Add(cell);
                 }
             }
         }

@@ -2562,10 +2562,6 @@ PrefabInstance:
       propertyPath: m_SpriteSortPoint
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-      propertyPath: speed
-      value: 0.4
-      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

@@ -188,7 +188,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 4097353869914120680}
-  movementPoints: 4
+  movementPoints: 3
 --- !u!114 &4097353869914120680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -204,7 +204,7 @@ MonoBehaviour:
   navigator: {fileID: 8374689325458404287}
   animator: {fileID: 4097353869787670437}
   initiative: 0
-  speed: 0.35
+  speed: 0.175
 --- !u!114 &4351303761828844956
 MonoBehaviour:
   m_ObjectHideFlags: 0

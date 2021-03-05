@@ -22,6 +22,7 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnSpellUsed);
             
         Events.Open(InterfaceEvent.OnSpellSelected);
+
     }
     
     void Start()
@@ -36,5 +37,9 @@ public class Bootstrapper : MonoBehaviour
         
         session = new Session();
         session.Add(match);
+
+        Repository.Get<Map>(References.Map).SpawnBordermap();
     }
+
+
 }

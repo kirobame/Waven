@@ -41,6 +41,16 @@ public static class Extensions
         tile = null;
         return false;
     }
+    public static bool IsValidTile(this Vector2Int cell)
+    {
+        var map = Repository.Get<Map>(References.Map);
+        if (map.Tiles.TryGetValue(cell, out var gottenTile) && gottenTile is Tile output)
+        {
+            return true;
+        }
+
+        return false;
+    }
     public static Tile ToTile(this Vector3Int cell)
     {
         var map = Repository.Get<Map>(References.Map);

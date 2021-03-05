@@ -227,6 +227,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!61 &133593751 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4162275367574529809, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+  m_PrefabInstance: {fileID: 4097353870069418690}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &306325344
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -234,6 +239,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1500592893475506057, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 1150042061}
     - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: teamId
       value: 1
@@ -1392,6 +1401,11 @@ MonoBehaviour:
     type: References, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     value: 2
   value: {fileID: -944628639613478452, guid: b3706750c6c41dc40a65e53d31bd826c, type: 3}
+--- !u!61 &1150042061 stripped
+BoxCollider2D:
+  m_CorrespondingSourceObject: {fileID: 4162275367574529809, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+  m_PrefabInstance: {fileID: 306325344}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1211593983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2732,6 +2746,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1500592893475506057, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: collider
+      value: 
+      objectReference: {fileID: 133593751}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

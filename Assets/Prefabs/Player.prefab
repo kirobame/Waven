@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   heightOffset: 300
+  collider: {fileID: 4162275367574529809}
 --- !u!61 &4162275367574529809
 BoxCollider2D:
   m_ObjectHideFlags: 0

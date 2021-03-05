@@ -13,10 +13,12 @@ public class EntityPointerHandler : MonoBehaviour
     private Vector3 position = new Vector3(-182, 1000, 0);
 
     private Damageable life;
+    private Text healthText;
 
     [SerializeField] private float heightOffset;
+    [SerializeField] private new Collider2D collider;
 
-    RaycastHit2D hit;
+    private bool previousHit;
     Camera camera;
 
     private void Start()
@@ -27,12 +29,46 @@ public class EntityPointerHandler : MonoBehaviour
         life = gameObject.GetComponent<Damageable>();
 
         camera = Repository.Get<Camera>(References.Camera);
+
+        healthText = prefab.transform.GetChild(0).GetComponent<Text>();
     }
 
     private void Update()
     {
         Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = -camera.transform.position.z;
+
+        var hit = collider.OverlapPoint(camera.ScreenToWorldPoint(mousePos));
+        if (previousHit == false && hit == true)
+        {
+            var instance = Instantiate(prefab, position, Quaternion.identity, group);
+            prefabList.Add(instance);
+
+            prefab.GetComponent<Slider>().value = life.Lives[0].actualValue / life.Lives[0].maxValue;
+            healthText.text = $"{life.Lives[0].actualValue} / {life.Lives[0].maxValue}";
+
+            var camera = Repository.Get<Camera>(References.Camera);
+            var entityPos = camera.WorldToScreenPoint(gameObject.transform.position);
+
+            instance.TryGetComponent<RectTransform>(out RectTransform tr);
+            tr.position = entityPos + (Vector3.up * heightOffset);
+        }
+        else if (previousHit == true && hit == false)
+        {
+            foreach (var prefab in prefabList)
+            {
+                Destroy(prefab);
+            }
+        }
+        previousHit = hit;
+
+        /*Vector3 mousePos = Mouse.current.position.ReadValue();
+        mousePos.z = -camera.transform.position.z;
         hit = Physics2D.Raycast(mousePos, mousePos - camera.ScreenToWorldPoint(mousePos), Mathf.Infinity);
+
+        Debug.DrawRay(camera.ScreenToWorldPoint())
+
+        Debug.DrawLine(Repository.Get<Camera>(References.Camera).ScreenToWorldPoint(mousePos), hit.point, Color.green, 3f);
         if (hit)
         {
             Debug.Log("pouet");
@@ -58,21 +94,21 @@ public class EntityPointerHandler : MonoBehaviour
 
             instance.TryGetComponent<RectTransform>(out RectTransform tr);
             tr.position = entityPos + (Vector3.up * heightOffset);
-        }
+        }*/
     }
 
-    private void OnMouseEnter()
-    {
-        Debug.Log("pouet");
-        var instance = Instantiate(prefab, position, Quaternion.identity, group);
-        prefabList.Add(instance);
-
-        prefab.GetComponent<Slider>().value = life.Lives[0].actualValue / life.Lives[0].maxValue;
-
-        var camera = Repository.Get<Camera>(References.Camera);
-        var entityPos = camera.WorldToScreenPoint(gameObject.transform.position);
-
-        instance.TryGetComponent<RectTransform>(out RectTransform tr);
-        tr.position = entityPos + (Vector3.up * heightOffset);
-    }
+ //private void OnMouseEnter()
+ //{
+ //    Debug.Log("pouet");
+ //    var instance = Instantiate(prefab, position, Quaternion.identity, group);
+ //    prefabList.Add(instance);
+ //
+ //    prefab.GetComponent<Slider>().value = life.Lives[0].actualValue / life.Lives[0].maxValue;
+ //
+ //    var camera = Repository.Get<Camera>(References.Camera);
+ //    var entityPos = camera.WorldToScreenPoint(gameObject.transform.position);
+ //
+ //    instance.TryGetComponent<RectTransform>(out RectTransform tr);
+ //    tr.position = entityPos + (Vector3.up * heightOffset);
+ //}
 }

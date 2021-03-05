@@ -111,7 +111,10 @@ public class Player : Tileable, ITurnbound
         
         isActive = true;
         foreach (var activable in links) activable.Activate();
+        Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
     }
+    
+
     public void Interrupt(Motive motive)
     {
         isActive = false;
@@ -144,4 +147,8 @@ public class Player : Tileable, ITurnbound
         DecreaseBusiness();
         animator.SetBool("isMoving", false);
     }
+
+    //------------------------------------------------------------------------------------------------------------------/
+
+    private void OnSpellUsed(EventArgs obj) => animator.SetTrigger("isCastingSpell");
 }

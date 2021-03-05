@@ -936,7 +936,7 @@ MonoBehaviour:
   players:
   - {fileID: 398650154}
   - {fileID: 306325345}
-  turnDuration: 5
+  turnDuration: 10
 --- !u!4 &678709353
 Transform:
   m_ObjectHideFlags: 0
@@ -2463,6 +2463,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1811880519}
+  borderTrapPrefab: {fileID: 7793877521601505687, guid: 9f90e99f1d1c493498cbf7a79c33fbe0, type: 3}
+  borderObstaclePrefab: {fileID: 539701715701859322, guid: 5de11ab10ef1cb841874acd5805d004f, type: 3}
 --- !u!114 &1811880521
 MonoBehaviour:
   m_ObjectHideFlags: 0

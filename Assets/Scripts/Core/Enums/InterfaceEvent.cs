@@ -5,4 +5,5 @@ public enum InterfaceEvent : byte
 {
     OnTooltipUsed,
     OnSpellSelected,
+    OnSpellCast
 }

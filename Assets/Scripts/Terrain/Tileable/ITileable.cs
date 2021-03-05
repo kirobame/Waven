@@ -9,5 +9,5 @@ public interface ITileable
     bool IsMoving { get; }
     
     void Place(Vector2 position);
-    void Move(Vector2[] path);
+    void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false);
 }

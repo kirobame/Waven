@@ -1,5 +1,6 @@
 ﻿using Flux;
 using Flux.Event;
+using UnityEngine;
 
 public class Trap : TileableBase
 {
@@ -27,9 +28,8 @@ public class Trap : TileableBase
         ApplyOn(source);
     }
 
-    private void ApplyOn(ITileable source)
+    protected virtual void ApplyOn(ITileable source)
     {
-        if (source is Tileable tileable) tileable.InterruptMove();
         if (source.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
     }
 }

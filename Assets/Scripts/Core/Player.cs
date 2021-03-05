@@ -21,7 +21,9 @@ public class Player : Tileable, ITurnbound
     public Match Match { get; set; }
     public short Initiative => initiative;
 
-    [Space, SerializeField] private short initiative;
+    [Space, SerializeField] private Animator animator;
+    [SerializeField] private short initiative;
+    [SerializeField] private float speed;
 
     private InputAction spacebarAction;
     
@@ -118,10 +120,19 @@ public class Player : Tileable, ITurnbound
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    public override void Move(Vector2[] path)
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
         IncreaseBusiness();
-        base.Move(path);
+        
+        if (speed <= 0 || !overrideSpeed) speed = this.speed;
+        base.Move(path, speed, overrideSpeed);
+    }
+
+    protected override void ProcessMoveDirection(Vector2 direction) => SetOrientation(direction.ComputeOrientation());
+    protected void SetOrientation(Vector2Int value)
+    {
+        animator.SetFloat("X", value.x);
+        animator.SetFloat("Y", value.y);
     }
 
     protected override void OnMoveCompleted() => DecreaseBusiness();

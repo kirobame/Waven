@@ -7,6 +7,7 @@ using UnityEngine;
 public class Dash : Effect
 {
     [SerializeField] private int range;
+    [SerializeField] private float speed;
     
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
@@ -34,7 +35,7 @@ public class Dash : Effect
         }
 
         Player.Active.onMoveDone += OnMoveDone;
-        Player.Active.Navigator.Move(list.ToArray());
+        Player.Active.Navigator.Move(list.ToArray(), speed, true);
     }
 
     void OnMoveDone()

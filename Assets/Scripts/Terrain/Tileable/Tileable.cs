@@ -2,19 +2,16 @@
 using Flux.Data;
 using UnityEngine;
 
-public abstract class Tileable : TileableBase, ITag
+public class Tileable : TileableBase, ITag
 {
-    [Space, SerializeField] private Animator animator;
-    [SerializeField] private float speed;
-
-    private Coroutine moveRoutine;
-
     public TeamTag Team
     {
         get => tag.Team;
         set => tag.Team = value;
     }
     private new Tag tag;
+    
+    private Coroutine moveRoutine;
     
     //------------------------------------------------------------------------------------------------------------------/
 
@@ -24,19 +21,25 @@ public abstract class Tileable : TileableBase, ITag
     
     public override void Place(Vector2 position) => transform.position = position;
 
-    public override void Move(Vector2[] path)
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
+        if (speed <= 0)
+        {
+            Debug.LogError($"Trying to move : {this} with a negative speed!");
+            return;
+        }
+        
         IsMoving = true;
-        moveRoutine = StartCoroutine(MoveRoutine(path));
+        moveRoutine = StartCoroutine(MoveRoutine(path, speed));
     }
-    protected virtual IEnumerator MoveRoutine(Vector2[] path)
+    protected virtual IEnumerator MoveRoutine(Vector2[] path, float speed)
     {
         var map = Repository.Get<Map>(References.Map);
         
         var index = 0;
         var time = 0.0f;
 
-        SetOrientation((path[index + 1] - path[index]).ComputeOrientation());
+        ProcessMoveDirection(path[index + 1] - path[index]);
         while (true)
         {
             time += Time.deltaTime;
@@ -46,6 +49,8 @@ public abstract class Tileable : TileableBase, ITag
 
                 if (index + 1 >= path.Length - 1)
                 {
+                    if (!IsMoving) yield break;
+
                     transform.position = Vector2.Lerp(path[index], path[index + 1], 1.0f);
                     
                     EndMove();
@@ -59,7 +64,7 @@ public abstract class Tileable : TileableBase, ITag
                     time -= speed;
                     index++;
 
-                    SetOrientation(( path[index + 1] - path[index]).ComputeOrientation());
+                    ProcessMoveDirection(path[index + 1] - path[index]);
                 }
             }
 
@@ -69,24 +74,19 @@ public abstract class Tileable : TileableBase, ITag
     }
     protected virtual void OnMoveCompleted() { }
 
+    protected virtual void ProcessMoveDirection(Vector2 direction) { }
+    
     public void InterruptMove()
     {
         if (moveRoutine == null) return;
-        
-        StopCoroutine(moveRoutine);
-        moveRoutine = null;
-
-        transform.position = navigator.Current.GetWorldPosition();
+        IsMoving = false;
         
         EndMove();
         OnMoveCompleted();
-    }
-    
-    //------------------------------------------------------------------------------------------------------------------/
-
-    protected void SetOrientation(Vector2Int value)
-    {
-        animator.SetFloat("X", value.x);
-        animator.SetFloat("Y", value.y);
+        
+        transform.position = navigator.Current.GetWorldPosition();
+        
+        StopCoroutine(moveRoutine);
+        moveRoutine = null;
     }
 }

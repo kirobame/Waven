@@ -53,14 +53,14 @@ public class Match
         
         if (this.index == index)
         {
-            index--;
+            this.index--;
             
             var stopMotive = new DeathMotive(target);
             cachedCurrent.Interrupt(stopMotive);
 
             OnTurnEnd(stopMotive);
         }
-        else if (this.index > index) index--;
+        else if (this.index > index) this.index--;
     }
     
     //---[Callbacks]----------------------------------------------------------------------------------------------------/

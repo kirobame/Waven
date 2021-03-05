@@ -9,6 +9,7 @@ using UnityEngine;
 public class Push : Effect
 {
     [SerializeField] int force;
+    [SerializeField] private float speed;
 
     private int business;
 
@@ -50,7 +51,7 @@ public class Push : Effect
             if (!line.Any()) continue;
 
             line.Insert(0, target.Navigator.Current);
-            target.Navigator.Move(line.ToArray());
+            target.Navigator.Move(line.ToArray(), speed, true);
             
             Routines.Start(WaitForPushEnd(target));
         }

@@ -33,12 +33,12 @@ public class Navigator : MonoBehaviour
         target.Place(Map.Tilemap.CellToWorld(tile.Position));
         SetCurrent(tile);
     }
-    public void Move(Tile[] path)
+    public void Move(Tile[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
         var positions = new Vector2[path.Length];
         for (var i = 0; i < path.Length; i++) positions[i] = Map.Tilemap.CellToWorld(path[i].Position);
 
-        target.Move(positions);
+        target.Move(positions, speed, overrideSpeed);
     }
 
     public void SetCurrent(Tile tile)

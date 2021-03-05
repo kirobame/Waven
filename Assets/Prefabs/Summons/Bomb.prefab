@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3911202999486199488}
   - component: {fileID: 3911202999486199491}
   - component: {fileID: 5688924659215800969}
-  - component: {fileID: 3911202999486199490}
+  - component: {fileID: 2158062817916909005}
   m_Layer: 0
   m_Name: Bomb
   m_TagString: Untagged
@@ -67,7 +67,7 @@ MonoBehaviour:
     maxValue: 1
     priority: 0
     handledTypes: 00000000
-  tileable: {fileID: 3911202999486199490}
+  tileable: {fileID: 2158062817916909005}
 --- !u!114 &5688924659215800969
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -80,9 +80,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 3911202999486199490}
+  target: {fileID: 2158062817916909005}
   movementPoints: 0
---- !u!114 &3911202999486199490
+--- !u!114 &2158062817916909005
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 3911202999486199501}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0847b76f2ae348df873b5a88f3610b0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62fe4951a6e54d39a70d72f489ec2238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   navigator: {fileID: 5688924659215800969}

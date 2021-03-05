@@ -118,6 +118,8 @@ public class Spellcaster : MonoBehaviour, ILink
     void OnCastDone()
     {
         current.onCastDone -= OnCastDone;
+
+        Debug.Log($"For : {this} // {Owner}");
         Owner.DecreaseBusiness();
 
         if (current.IsDone)

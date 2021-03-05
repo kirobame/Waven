@@ -29,6 +29,8 @@ public class TimedTurn : Turn
 
     public override void Interrupt(Motive motive)
     {
+        if (routine == null) return;
+        
         Routines.Stop(routine);
         routine = null;
     }

@@ -94,7 +94,7 @@ GameObject:
   - component: {fileID: 539701715701859319}
   - component: {fileID: 539701715701859325}
   - component: {fileID: 9207921047016419262}
-  - component: {fileID: 539701715701859317}
+  - component: {fileID: 6990536576719373466}
   m_Layer: 0
   m_Name: Obstacle
   m_TagString: Untagged
@@ -161,9 +161,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 539701715701859317}
+  target: {fileID: 6990536576719373466}
   movementPoints: 0
---- !u!114 &539701715701859317
+--- !u!114 &6990536576719373466
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -172,7 +172,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 539701715701859322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0847b76f2ae348df873b5a88f3610b0c, type: 3}
+  m_Script: {fileID: 11500000, guid: 62fe4951a6e54d39a70d72f489ec2238, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   navigator: {fileID: 9207921047016419262}

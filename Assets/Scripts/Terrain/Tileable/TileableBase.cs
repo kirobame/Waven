@@ -13,7 +13,7 @@ public class TileableBase : MonoBehaviour, ITileable
     protected virtual void OnDestroy() => navigator.RemoveFromBoard();
     
     public virtual void Place(Vector2 position) => transform.position = position;
-    public virtual void Move(Vector2[] path) => throw new NotImplementedException();
+    public virtual void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false) => throw new NotImplementedException();
 
     protected void EndMove()
     {

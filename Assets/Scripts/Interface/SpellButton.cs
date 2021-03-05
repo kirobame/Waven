@@ -9,7 +9,7 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
 {
     public SpellBase actualSpell;
 
-    public void OnPointerClick(PointerEventData eventData)
+    public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (SpellDeck.RemainingUse <= 0) return;
         Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, actualSpell);

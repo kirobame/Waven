@@ -30,21 +30,24 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|Cross, Assembly-CSharp
+    - Name: allowBoost
+      Entry: 5
+      Data: false
     - Name: directions
       Entry: 7
       Data: Vector4Int, Assembly-CSharp
     - Name: left
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: right
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: up
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: down
       Entry: 3
-      Data: 0
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -84,7 +87,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: damages
+    - Name: amount
+      Entry: 3
+      Data: 1
+    - Name: type
       Entry: 3
       Data: 0
     - Name: 
@@ -114,18 +120,6 @@ MonoBehaviour:
     - Name: force
       Entry: 3
       Data: 1
-    - Name: direction
-      Entry: 7
-      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 

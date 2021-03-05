@@ -45,10 +45,12 @@ public class EntitiesHealthBar : MonoBehaviour
 
             foreach(var entity in tile.Entities)
             {
+                if (((Component)entity).name.Contains("Bordermap")) continue;
+                if (!entity.TryGet<Damageable>(out Damageable output)) continue;
+
                 var instance = Instantiate(prefab, position, Quaternion.identity, group);
                 prefabList.Add(instance);
-
-                entity.TryGet<Damageable>(out Damageable output);
+                
                 var life = output.Lives[0];
 
                 prefab.GetComponent<Slider>().value = (float)life.actualValue / life.maxValue;

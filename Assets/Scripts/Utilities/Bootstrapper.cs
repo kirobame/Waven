@@ -40,6 +40,4 @@ public class Bootstrapper : MonoBehaviour
 
         Repository.Get<Map>(References.Map).SpawnBordermap();
     }
-
-
 }

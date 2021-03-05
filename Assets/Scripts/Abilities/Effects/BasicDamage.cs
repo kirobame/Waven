@@ -14,8 +14,6 @@ public class BasicDamage : Effect
     {
         foreach (var target in tiles.SelectMany(tile => tile.Entities))
         {
-            Debug.Log($"LOOKING AT : {target}");
-            
             if (!target.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue; ;
             damageable.Inflict(amount, type);
         }

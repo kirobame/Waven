@@ -38,9 +38,9 @@ public class Push : Effect
             var tuple = sourceTile.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
             if (tuple.code != 0)
             {
+                if (target.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
                 if (tuple.code == 3)
                 {
-                    if (target.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
                     foreach (var entity in tuple.tile.Entities)
                     {
                         if (entity.TryGet<IDamageable>(out damageable)) damageable.Inflict(1, DamageType.Base);

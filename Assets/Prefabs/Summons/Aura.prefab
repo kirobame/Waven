@@ -91,10 +91,10 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7793877521601505683}
-  - component: {fileID: 1485368732944434643}
+  - component: {fileID: 7590760963577159697}
   - component: {fileID: 289400031416291377}
   m_Layer: 0
-  m_Name: Trap
+  m_Name: Aura
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -115,7 +115,7 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1485368732944434643
+--- !u!114 &7590760963577159697
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -124,11 +124,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 7793877521601505687}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
+  m_Script: {fileID: 11500000, guid: 690ab2552f184ba4688ca71ab8d8d8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 289400031416291377}
-  movementPoints: 0
 --- !u!114 &289400031416291377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,7 +140,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a1a2c98d9e465ebbdc1a9c6b698fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigator: {fileID: 1485368732944434643}
-  vec:
-  - {x: 0, y: 0}
-  - {x: 0, y: 0}
+  navigator: {fileID: 7590760963577159697}

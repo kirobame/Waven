@@ -1,10 +1,15 @@
 ﻿using Flux;
+using System.Collections.Generic;
 using Flux.Event;
 using UnityEngine;
 
 public class Trap : TileableBase
 {
+    [SerializeField] private List<Effect> effects = new List<Effect>();
+    [SerializeField] private List<Vector2> vec = new List<Vector2>();
+
     void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
+
     void Start()
     {
         Routines.Start(Routines.DoAfter(() =>

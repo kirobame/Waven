@@ -17,6 +17,8 @@ namespace Flux
 
         public int CompareTo(Id other) => string.Compare(value, other.value, StringComparison.Ordinal);
 
+        public override string ToString() => value;
+
         public override int GetHashCode() => value[0] * value[1] / 2 * value[2] / 3;
         public override bool Equals(object obj)
         {

@@ -13,6 +13,9 @@ public abstract class SpellBase : SerializedScriptableObject, ICastable
 
     public SpellCategory Category => category;
     [SerializeField] private SpellCategory category;
+
+    public Id Id => id;
+    [SerializeField] private Id id;
     
     public string Title => title;
     [Space, SerializeField] private string title;

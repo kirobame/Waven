@@ -11,23 +11,23 @@ public class StaticSpellButton : SpellButton, IPointerClickHandler
     private void Start()
     {
         Events.Register(GameEvent.OnTurnStart, OnTurnStart);
-        Events.RelayByValue<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
 
-    private void OnSpellUsed(SpellBase spell)
+    private void OnSpellUsed(SpellBase spell, bool isStatic)
     {
         if (Spell == spell) gameObject.SetActive(false);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, Spell);
+        Events.ZipCall<SpellBase,bool>(InterfaceEvent.OnSpellSelected, Spell, true);
     }
     
     void OnDestroy()
     {
         Events.Unregister(GameEvent.OnTurnStart, OnTurnStart);
-        Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
 
     private void OnTurnStart(EventArgs obj)

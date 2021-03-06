@@ -10,22 +10,31 @@ using UnityEngine;
 public class SpellDeck : MonoBehaviour, ILink
 {
     public static int RemainingUse { get; private set; }
+    
     public event Action<ILink> onDestroyed;
     
     public ITurnbound Owner { get; set; }
+    public IEnumerable<SpellBase> Spells => deck.Concat(hand);
 
-    [SerializeField] private int maxUse;
+    [ShowInInspector] public SpellBase[] GNEGNE => Spells.ToArray();
+    
+    [Space, SerializeField] private int maxUse;
     [SerializeField] private int maxSpellInHand = 4;
     
-    [ShowInInspector] private List<SpellBase> deck;
+    private List<SpellBase> deck;
     private List<SpellBase> hand = new List<SpellBase>();
 
+    private Player player;
     private bool hasBeenBootedUp;
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => hasBeenBootedUp = false;
-    
+    void Awake()
+    {
+        player = GetComponent<Player>();
+        hasBeenBootedUp = false;
+    }
+
     public void Activate()
     {
         RemainingUse = maxUse;
@@ -33,7 +42,13 @@ public class SpellDeck : MonoBehaviour, ILink
         if (hasBeenBootedUp) Draw(2);
         else
         {
-            deck = Repository.Get<Spells>(References.Spells).GetDeck(6).ToList();
+            var data = Repository.GetAt<PlayerData>(References.Data, player.Index);
+            if (!data.IsValid || !data.Deck.Any()) deck = Repository.Get<Spells>(References.Spells).GetDeck(6).ToList();
+            else
+            {
+                deck = data.Deck.ToList();
+                deck.Shuffle();
+            }
             
             Draw(3);
             hasBeenBootedUp = true;
@@ -59,7 +74,7 @@ public class SpellDeck : MonoBehaviour, ILink
 
         for (int i = 0; i < nb; i++)
         {
-            if (hand.Count >= maxSpellInHand)//Hand full
+            if (hand.Count >= maxSpellInHand) //Hand full
             {
                 RefreshHotbar();
                 return;

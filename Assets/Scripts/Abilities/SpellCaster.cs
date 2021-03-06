@@ -17,7 +17,8 @@ public class Spellcaster : MonoBehaviour, ILink
     [SerializeField] private Navigator nav;
 
     private bool isActive;
-    
+
+    private bool isStatic;
     private SpellBase current;
     private HashSet<Tile> availableTiles;
     
@@ -31,10 +32,10 @@ public class Spellcaster : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
     
-    public void Activate() => Events.RelayByValue<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+    public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
-        Events.BreakValueRelay<SpellBase>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         if (!isActive) return;
         
         isActive = false;
@@ -61,11 +62,13 @@ public class Spellcaster : MonoBehaviour, ILink
 
     //------------------------------------------------------------------------------------------------------------------/
     
-    void OnSpellSelected(SpellBase spell)
+    void OnSpellSelected(SpellBase spell, bool isStatic)
     {
         if (Inputs.isLocked) return;
 
+        this.isStatic = isStatic;
         isActive = true;
+        
         Inputs.isLocked = true;
         
         Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
@@ -81,7 +84,6 @@ public class Spellcaster : MonoBehaviour, ILink
 
         availableTiles = current.GetTilesForCasting(nav.Current, castArgs);
         availableTiles.Mark(Mark.Inactive);
-        Events.ZipCall<HashSet<Tile>>(InterfaceEvent.OnSpellSelected, availableTiles);
     }
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -96,7 +98,7 @@ public class Spellcaster : MonoBehaviour, ILink
 
         if (current.IsDone)
         {
-            Events.ZipCall(GameEvent.OnSpellUsed, current);
+            if (!isStatic) Events.ZipCall(GameEvent.OnSpellUsed, current);
             Shutdown();
         }
         else Setup();
@@ -108,7 +110,6 @@ public class Spellcaster : MonoBehaviour, ILink
         
         var cell = Inputs.GetCellAt(mousePosition);
         if (!cell.xy().TryGetTile(out var tile) || !availableTiles.Contains(tile)) return;
-
         
         var affectedTiles = current.GetAffectedTilesFor(tile, castArgs);
         affectedTiles.Mark(Mark.Active);

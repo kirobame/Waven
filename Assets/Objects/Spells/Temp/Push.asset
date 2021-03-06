@@ -30,6 +30,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|Circle, Assembly-CSharp
+    - Name: allowBoost
+      Entry: 5
+      Data: false
     - Name: radius
       Entry: 3
       Data: 6
@@ -60,6 +63,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 5|Cross, Assembly-CSharp
+    - Name: allowBoost
+      Entry: 5
+      Data: false
     - Name: directions
       Entry: 7
       Data: Vector4Int, Assembly-CSharp
@@ -90,18 +96,9 @@ MonoBehaviour:
     - Name: force
       Entry: 3
       Data: 2
-    - Name: direction
-      Entry: 7
-      Data: UnityEngine.Vector2Int, UnityEngine.CoreModule
-    - Name: 
-      Entry: 3
-      Data: -1
-    - Name: 
-      Entry: 3
+    - Name: speed
+      Entry: 4
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -111,6 +108,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  category: 0
+  id:
+    value: NNN
   title: Push
   description: Push
   thumbnail: {fileID: 21300000, guid: a67a947fabeb99e4192c941265c38b05, type: 3}

@@ -9,4 +9,6 @@ public enum References : byte
     Hotbar,
     Stats,
     Spells,
+    Data,
+    Players
 }

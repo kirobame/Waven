@@ -1,14 +1,28 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using Flux;
 using UnityEngine;
 
 [CreateAssetMenu(fileName = "Spells", menuName = "Waven/Spells")]
-public class Spells : ScriptableObject
+public class Spells : ScriptableObject, IBootable
 {
     [SerializeField] private SpellBase[] source;
     [SerializeField] private SpellBase[] mustHave;
     [SerializeField] private SpellCategory[] constraints;
 
+    public IReadOnlyDictionary<Id, SpellBase> Registry => registry;
+    private Dictionary<Id, SpellBase> registry;
+
+    public void Bootup()
+    {
+        registry = new Dictionary<Id, SpellBase>();
+        foreach (var spell in source.Concat(mustHave))
+        {
+            if (registry.ContainsKey(spell.Id)) continue;
+            registry.Add(spell.Id, spell);
+        }
+    }
+    
     public IEnumerable<SpellBase> GetDeck(int count)
     {
         if (count < mustHave.Length) count = mustHave.Length;

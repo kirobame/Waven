@@ -18,6 +18,8 @@ public class EntityInfo : MonoBehaviour
     void OnEnable() => Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
     void OnDisable()
     {
+        if (isActive) anchor.onDestroyed -= OnAnchorDestroyed;
+        
         isActive = false;
         Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
     }
@@ -32,6 +34,7 @@ public class EntityInfo : MonoBehaviour
     {
         isActive = true;
 
+        anchor.onDestroyed += OnAnchorDestroyed;
         this.anchor = anchor;
         Place();
 
@@ -42,7 +45,7 @@ public class EntityInfo : MonoBehaviour
     private void Refresh()
     {
         if (!isActive) return;
-
+        
         if (source == null)
         {
             gameObject.SetActive(false);
@@ -103,5 +106,19 @@ public class EntityInfo : MonoBehaviour
 
         var position = camera.WorldToScreenPoint(anchor.Position);
         RectTransform.position = position;
+    }
+
+    void OnAnchorDestroyed()
+    {
+        anchor.onDestroyed -= OnAnchorDestroyed;
+        
+        if (HoverSignal.activeId != 0 && HoverSignal.activeId != int.MaxValue)
+        {
+            HoverSignal.activeId = int.MaxValue;
+            Events.EmptyCall(InterfaceEvent.OnHoverEnd);
+        }
+        
+        isActive = false;
+        gameObject.SetActive(false);
     }
 }

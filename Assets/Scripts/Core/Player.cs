@@ -45,7 +45,10 @@ public class Player : Tileable, ITurnbound
         var inputs = Repository.Get<InputActionAsset>(References.Inputs);
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
+
+        Events.Register(GameEvent.OnDamageTaken, OnDamageTaken);
     }
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -153,5 +156,10 @@ public class Player : Tileable, ITurnbound
     private void OnSpellUsed(EventArgs obj)
     {
         if(isActive) animator.SetTrigger("isCastingSpell");
+    }
+
+    private void OnDamageTaken(EventArgs obj)
+    {
+        animator.SetTrigger("isTakingDamage");
     }
 }

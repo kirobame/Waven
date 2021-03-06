@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Flux.Event;
+using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 
@@ -20,6 +21,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
     void Awake()
     {
+        Events.Open(GameEvent.OnDamageTaken);
         tag = GetComponent<Tag>();
         lives.Sort();
     }
@@ -36,7 +38,8 @@ public class Damageable : MonoBehaviour, IDamageable
     {
         var index = 0;
         if (IsInvulnerable) return 0;
-        
+
+        Events.ZipCall(GameEvent.OnDamageTaken, damage);
         while (damage > 0)
         {
             if (!lives[index].HandledTypes.Contains(type)) return 1;

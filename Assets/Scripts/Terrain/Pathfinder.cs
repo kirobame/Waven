@@ -31,6 +31,8 @@ public class Pathfinder : MonoBehaviour, ILink
     }
     public void Deactivate()
     {
+        Debug.Log($"DEACTIVATING PATHFINDER : {this}");
+        
         nav.Current.Mark(Mark.None);
         if (isActive)
         {
@@ -212,7 +214,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnMoveDone()
+    void OnMoveDone(ITileable tileable)
     {
         nav.Target.onMoveDone -= OnMoveDone;
         Inputs.isLocked = false;

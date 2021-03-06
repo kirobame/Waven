@@ -49,9 +49,9 @@ public class Spell : SpellBase
         {
             lastingEffects++;
             effect.onDone += OnEffectDone;
-            
-            effect.PlayOn(source, args);
         }
+        
+        foreach (var effect in effects) effect.PlayOn(source, args);
     }
 
     void OnEffectDone(Effect effect)

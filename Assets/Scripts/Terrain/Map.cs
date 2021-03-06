@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
 using Object = UnityEngine.Object;
@@ -11,7 +12,6 @@ public class Map : MonoBehaviour
     public IReadOnlyDictionary<Vector2Int, TileBase> Tiles => tiles;
     
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private GameObject borderTrapPrefab;
     [SerializeField] private GameObject borderObstaclePrefab;
 
     private Dictionary<Vector2Int, TileBase> tiles = new Dictionary<Vector2Int, TileBase>();
@@ -34,7 +34,7 @@ public class Map : MonoBehaviour
                 switch (prefix)
                 {
                     case "WK":
-                        implementation = new Tile(flatPosition, 0);
+                        implementation = new WalkableTile(flatPosition, 0);
                         break;
                 }
 
@@ -54,26 +54,17 @@ public class Map : MonoBehaviour
             Vector2Int.right
         };
 
-        var borderCells = new List<Vector2Int>();
-
-        foreach (var cell in tiles.Keys)
+        var keys = tiles.Keys.ToArray();
+        foreach (var cell in keys)
         {
             foreach (var direction in Directions)
             {
                 var neighbour = cell + direction;
-                if (!neighbour.IsValidTile())
-                {
-                    if (!borderCells.Contains(neighbour))
-                        borderCells.Add(cell);
-                }
+                if (neighbour.IsValidTile()) continue;
+                
+                tiles.Add(neighbour, new DeathTile(neighbour, 0));
+                Instantiate(borderObstaclePrefab, tilemap.CellToWorld(neighbour.Extend()), Quaternion.identity);
             }
-        }
-
-        foreach (var cell in borderCells)
-        {
-            var position = this.Tilemap.CellToWorld((Vector3Int)cell);
-            Object.Instantiate(borderTrapPrefab, position, Quaternion.identity);
-            Object.Instantiate(borderObstaclePrefab, position, Quaternion.identity);
         }
     }
 }

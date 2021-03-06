@@ -43,6 +43,12 @@ public class EntityInfo : MonoBehaviour
     {
         if (!isActive) return;
 
+        if (source == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         var index = 0;
         if (!source.TryGet<IDamageable>(out var damageable))
         {

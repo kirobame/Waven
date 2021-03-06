@@ -246,11 +246,15 @@ namespace Flux.Event
         {
             private short subscriptions;
             public bool IsOperational => subscriptions > 0;
+            
+            private HashSet<int> ids = new HashSet<int>();
 
             public abstract void Call(EventArgs args);
 
             public void Subscribe(object method)
             {
+                if (!ids.Add(method.GetHashCode())) return;
+                
                 subscriptions++;
                 OnSubscription(method);
             }
@@ -259,6 +263,8 @@ namespace Flux.Event
 
             public void Unsubscribe(object method)
             {
+                if (!ids.Remove(method.GetHashCode())) return;
+                
                 subscriptions--;
                 OnUnsubscription(method);
             }
@@ -277,12 +283,12 @@ namespace Flux.Event
 
             protected override void OnSubscription(object method)
             {
-                callback += (Action) method;
+                callback += (Action)method;
             }
 
             protected override void OnUnsubscription(object method)
             {
-                callback -= (Action) method;
+                callback -= (Action)method;
             }
         }
 

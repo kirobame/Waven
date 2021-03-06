@@ -165,6 +165,11 @@ public static class Extensions
             tile.Mark(global::Mark.None);
         }
     }
+
+    public static void Mark(this Tile tile, Mark mark)
+    {
+        if (tile is IMarkable markable) markable.Mark(mark);
+    }
     public static void Mark(this IEnumerable<Tile> tiles, Mark mark) { foreach (var tile in tiles) tile.Mark(mark); }
     
     //------------------------------------------------------------------------------------------------------------------/

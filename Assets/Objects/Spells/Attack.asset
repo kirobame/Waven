@@ -89,7 +89,7 @@ MonoBehaviour:
       Data: 
     - Name: amount
       Entry: 3
-      Data: 1
+      Data: 10
     - Name: type
       Entry: 3
       Data: 0

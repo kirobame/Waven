@@ -46,7 +46,7 @@ public class Dash : Effect
         Player.Active.Navigator.Move(list.ToArray(), speed, true);
     }
 
-    void OnMoveDone()
+    void OnMoveDone(ITileable tileable)
     {
         Player.Active.onMoveDone -= OnMoveDone;
         End();

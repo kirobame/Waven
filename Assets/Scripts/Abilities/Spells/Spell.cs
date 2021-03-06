@@ -8,8 +8,10 @@ using UnityEngine;
 public class Spell : SpellBase
 {
     public override bool IsDone => isDone;
+    public override bool ConsumeSpellRemainingUse => consumeSpellRemainingUse;
     public override IReadOnlyList<Pattern> CastingPatterns => castingPatterns;
-    
+
+    [SerializeField] public bool consumeSpellRemainingUse;
     [Space, SerializeField] private List<Pattern> castingPatterns = new List<Pattern>();
     [SerializeField] private List<Effect> effects = new List<Effect>();
 

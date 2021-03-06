@@ -150,5 +150,8 @@ public class Player : Tileable, ITurnbound
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void OnSpellUsed(EventArgs obj) => animator.SetTrigger("isCastingSpell"); //Check if player is active
+    private void OnSpellUsed(EventArgs obj)
+    {
+        if(isActive) animator.SetTrigger("isCastingSpell");
+    }
 }

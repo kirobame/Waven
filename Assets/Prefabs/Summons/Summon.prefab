@@ -12,8 +12,8 @@ GameObject:
   - component: {fileID: 406753703736991506}
   - component: {fileID: 5440674179621835104}
   - component: {fileID: 7562796781936482739}
-  - component: {fileID: 1170952581575292406}
   - component: {fileID: 1170952581575292400}
+  - component: {fileID: 1170952581575292406}
   m_Layer: 0
   m_Name: Summon
   m_TagString: Untagged
@@ -82,21 +82,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1170952581575292406}
   movementPoints: 3
---- !u!114 &1170952581575292406
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1170952581575292407}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dd716afd0e8c1dd45bafb6802ffa0fe0, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navigator: {fileID: 7562796781936482739}
-  animator: {fileID: 1170952581700563897}
-  speed: 0.75
 --- !u!114 &1170952581575292400
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -110,6 +95,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav: {fileID: 7562796781936482739}
+--- !u!114 &1170952581575292406
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1170952581575292407}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd716afd0e8c1dd45bafb6802ffa0fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  navigator: {fileID: 7562796781936482739}
 --- !u!1 &1170952581700563898
 GameObject:
   m_ObjectHideFlags: 0

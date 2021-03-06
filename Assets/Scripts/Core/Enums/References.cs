@@ -8,4 +8,5 @@ public enum References : byte
     Inputs,
     Hotbar,
     Stats,
+    Spells,
 }

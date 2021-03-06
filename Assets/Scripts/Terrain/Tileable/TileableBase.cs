@@ -21,8 +21,6 @@ public class TileableBase : MonoBehaviour, ITileable
 
     protected void EndMove()
     {
-        Debug.Log($"ENDING MOVE FOR : {this}");
-        
         IsMoving = false;
         onMoveDone?.Invoke(this);
     }

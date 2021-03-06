@@ -65,10 +65,6 @@ public class Push : Effect
         tileable.onMoveDone -= OnMoveEnd;
         
         business--;
-        if (business == 0)
-        {
-            Debug.Log("PUSH END");
-            End();
-        }
+        if (business == 0) End();
     }
 }

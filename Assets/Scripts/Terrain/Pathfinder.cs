@@ -31,8 +31,6 @@ public class Pathfinder : MonoBehaviour, ILink
     }
     public void Deactivate()
     {
-        Debug.Log($"DEACTIVATING PATHFINDER : {this}");
-        
         nav.Current.Mark(Mark.None);
         if (isActive)
         {

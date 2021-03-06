@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using Flux.Data;
 using Flux.Event;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SpellDeck : MonoBehaviour, ILink
@@ -14,23 +16,34 @@ public class SpellDeck : MonoBehaviour, ILink
 
     [SerializeField] private int maxUse;
     [SerializeField] private int maxSpellInHand = 4;
-    [SerializeField] private List<SpellBase> deck = new List<SpellBase>();
     
+    [ShowInInspector] private List<SpellBase> deck;
     private List<SpellBase> hand = new List<SpellBase>();
+
+    private bool hasBeenBootedUp;
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void Awake() => Shuffle();
-    void OnDestroy() => onDestroyed?.Invoke(this);
+    void Awake() => hasBeenBootedUp = false;
     
     public void Activate()
     {
         RemainingUse = maxUse;
         
-        Draw(2);
+        if (hasBeenBootedUp) Draw(2);
+        else
+        {
+            deck = Repository.Get<Spells>(References.Spells).GetDeck(6).ToList();
+            
+            Draw(3);
+            hasBeenBootedUp = true;
+        }
+        
         Events.RelayByValue<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
     public void Deactivate() => Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    
+    void OnDestroy() => onDestroyed?.Invoke(this);
     
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -42,8 +55,7 @@ public class SpellDeck : MonoBehaviour, ILink
 
     public void Draw(int nb)
     {
-        if (nb > deck.Count)
-            nb = deck.Count; //Not enough cards in deck
+        if (nb > deck.Count) nb = deck.Count; //Not enough cards in deck
 
         for (int i = 0; i < nb; i++)
         {
@@ -67,22 +79,6 @@ public class SpellDeck : MonoBehaviour, ILink
         RefreshHotbar();
     }
 
-    private static System.Random rng = new System.Random();
-    public void Shuffle()
-    {
-        var n = deck.Count;
-        while (n > 1)
-        {
-            n--;
-            
-            var k = rng.Next(n + 1);
-            var value = deck[k];
-            
-            deck[k] = deck[n];
-            deck[n] = value;
-        }
-    }
-    
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnSpellUsed(SpellBase spell)

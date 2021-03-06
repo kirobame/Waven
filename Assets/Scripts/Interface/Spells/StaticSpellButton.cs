@@ -16,13 +16,12 @@ public class StaticSpellButton : SpellButton, IPointerClickHandler
 
     private void OnSpellUsed(SpellBase spell)
     {
-        if (actualSpell == spell)
-            this.gameObject.SetActive(false);
+        if (Spell == spell) gameObject.SetActive(false);
     }
 
     public override void OnPointerClick(PointerEventData eventData)
     {
-        Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, actualSpell);
+        Events.ZipCall<SpellBase>(InterfaceEvent.OnSpellSelected, Spell);
     }
     
     void OnDestroy()

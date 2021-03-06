@@ -96,6 +96,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  category: 1
   title: DamageBoost
   description: Some decription.
   thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}

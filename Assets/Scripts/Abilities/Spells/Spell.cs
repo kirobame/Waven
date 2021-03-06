@@ -4,6 +4,14 @@ using System.Linq;
 using Flux;
 using UnityEngine;
 
+public enum SpellCategory
+{
+    Neutral,
+    Iop,
+    Sram,
+    Osamodas
+}
+
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
 public class Spell : SpellBase
 {

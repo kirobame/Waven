@@ -94,7 +94,6 @@ GameObject:
   - component: {fileID: 539701715701859319}
   - component: {fileID: 539701715701859325}
   - component: {fileID: 9207921047016419262}
-  - component: {fileID: 6990536576719373466}
   - component: {fileID: 3917707982563241014}
   - component: {fileID: 6566219122458013161}
   m_Layer: 0
@@ -163,21 +162,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 6990536576719373466}
-  movementPoints: 0
---- !u!114 &6990536576719373466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 539701715701859322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 62fe4951a6e54d39a70d72f489ec2238, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  navigator: {fileID: 9207921047016419262}
+  target: {fileID: 6566219122458013161}
+  movementPoints: 4
 --- !u!114 &3917707982563241014
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -203,3 +189,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1598ad47297991c49aa49304d474489c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  navigator: {fileID: 9207921047016419262}

@@ -5,22 +5,18 @@ using UnityEngine;
 
 public class Golem : Tileable, ILink
 {
+    [SerializeField] float speed = 0.3f;
     public event Action<ILink> onDestroyed;
     public ITurnbound Owner { get; set; }
     public void ChangeOwner()
     {
-
+        if (this.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
+        Player.Active.AddDependency(this.gameObject);
     }
 
-    public void Activate()
-    {
-        throw new NotImplementedException();
-    }
+    public virtual void Activate() { }
+    public virtual void Deactivate() { }
 
-    public void Deactivate()
-    {
-        throw new NotImplementedException();
-    }
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -29,6 +25,7 @@ public class Golem : Tileable, ILink
 
     public void RockToGolem()
     {
+        ChangeOwner();
         Activate();
     }
     public void GolemToRock()
@@ -38,8 +35,10 @@ public class Golem : Tileable, ILink
 
     public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
-        Owner.IncreaseBusiness();
+        if (speed <= 0 || !overrideSpeed) speed = this.speed;
+
         base.Move(path, speed, overrideSpeed);
+        Owner.IncreaseBusiness();
     }
     protected override void OnMoveCompleted() => Owner.DecreaseBusiness();
 

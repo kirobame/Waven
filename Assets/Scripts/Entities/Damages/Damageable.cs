@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using Flux.Event;
+using System.Collections.Generic;
 using System.Linq;
 using Flux;
 using Flux.Event;
@@ -17,13 +18,16 @@ public class Damageable : MonoBehaviour, IDamageable
         set => tag.Team = value;
     }
     private new Tag tag;
+    private new Player player;
     
     //------------------------------------------------------------------------------------------------------------------/
 
     void Awake()
     {
+        Events.Open(GameEvent.OnDamageTaken);
         tag = GetComponent<Tag>();
         lives.Sort();
+        player = gameObject.GetComponent<Player>();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -42,6 +46,10 @@ public class Damageable : MonoBehaviour, IDamageable
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
         
+
+        player.isTakingDamage = true;
+        Events.ZipCall(GameEvent.OnDamageTaken, damage);
+
         while (damage > 0)
         {
             if (!lives[index].HandledTypes.Contains(type)) return 1;
@@ -64,7 +72,7 @@ public class Damageable : MonoBehaviour, IDamageable
                 return 3;
             }
         }
-        
+        player.isTakingDamage = false;
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;

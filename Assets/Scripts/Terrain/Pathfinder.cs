@@ -212,7 +212,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnMoveDone()
+    void OnMoveDone(ITileable tileable)
     {
         nav.Target.onMoveDone -= OnMoveDone;
         Inputs.isLocked = false;

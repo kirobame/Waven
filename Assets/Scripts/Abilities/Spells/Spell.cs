@@ -4,6 +4,14 @@ using System.Linq;
 using Flux;
 using UnityEngine;
 
+public enum SpellCategory
+{
+    Neutral,
+    Iop,
+    Sram,
+    Osamodas
+}
+
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
 public class Spell : SpellBase
 {
@@ -51,9 +59,9 @@ public class Spell : SpellBase
         {
             lastingEffects++;
             effect.onDone += OnEffectDone;
-            
-            effect.PlayOn(source, args);
         }
+        
+        foreach (var effect in effects) effect.PlayOn(source, args);
     }
 
     void OnEffectDone(Effect effect)

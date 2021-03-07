@@ -13,11 +13,11 @@ namespace Flux.Data
         private Enum cachedFlag;
         private bool hasAwoke;
         
-        void Awake()
+        protected virtual void Awake()
         {
             flag.Bootup();
             cachedFlag = flag.Value;
-
+            
             Repository.Register(Flag, Value);
         }
 

@@ -9,4 +9,6 @@ public enum GameEvent : byte
     OnTileChange,
     
     OnSpellUsed,
+    
+    OnPlayerDeath
 }

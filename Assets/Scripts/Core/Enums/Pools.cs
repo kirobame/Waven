@@ -4,4 +4,5 @@
 public enum Pools : byte
 {
     HUD,
+    Info
 }

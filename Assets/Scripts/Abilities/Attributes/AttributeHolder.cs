@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
 using Flux;
+using Flux.Event;
 using UnityEngine;
 
 public class AttributeHolder : MonoBehaviour, IAttributeHolder
@@ -25,6 +26,16 @@ public class AttributeHolder : MonoBehaviour, IAttributeHolder
         
         args.Initialize(this);
         registry.Add(args.Id, args);
+        
+        Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
     }
-    public bool Remove(CastArgs args) => registry.Remove(args.Id);
+    public bool Remove(CastArgs args)
+    {
+        if (registry.Remove(args.Id))
+        {
+            Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+            return true;
+        }
+        else return false;
+    }
 }

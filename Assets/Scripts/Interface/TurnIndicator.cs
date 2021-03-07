@@ -20,7 +20,7 @@ public class TurnIndicator : MonoBehaviour
     
     //------------------------------------------------------------------------------------------------------------------/
     
-    void Start()
+    void Awake()
     {
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.Register(GameEvent.OnTurnTimer, OnTurnTimer);

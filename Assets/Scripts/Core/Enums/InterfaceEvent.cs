@@ -4,6 +4,11 @@
 public enum InterfaceEvent : byte
 {
     OnTooltipUsed,
+    
     OnSpellSelected,
-    OnSpellCast
+
+    OnHoverStart,
+    OnHoverEnd,
+    
+    OnInfoRefresh,
 }

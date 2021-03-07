@@ -18,17 +18,24 @@ public class Moveable : Navigator, ILink
     public int PM
     {
         get => trueMovementPoints;
-        set => trueMovementPoints = value;
+        set
+        {
+            trueMovementPoints = value;
+            Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+        }
     }
+
     private int trueMovementPoints;
 
     private bool hasCaster;
     private IAttributeHolder caster;
     
     //------------------------------------------------------------------------------------------------------------------/
-    
-    void Awake()
+
+    protected override void Start()
     {
+        base.Start();
+        
         PM = movementPoints;
         hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     }

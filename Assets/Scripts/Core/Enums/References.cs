@@ -7,5 +7,8 @@ public enum References : byte
     Camera,
     Inputs,
     Hotbar,
-    Healthbar
+    Stats,
+    Spells,
+    Data,
+    Players
 }

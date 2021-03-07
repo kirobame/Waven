@@ -15,7 +15,7 @@ public class Navigator : MonoBehaviour
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void Start()
+    protected virtual void Start()
     {
         Map = Repository.Get<Map>(References.Map);
         YOffset = Map.Tilemap.layoutGrid.cellSize.y;

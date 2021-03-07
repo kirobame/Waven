@@ -34,8 +34,7 @@ public class Player : Tileable, ITurnbound
     
     private List<ILink> links;
     private bool isActive;
-    public bool isTakingDamage;
-    
+
     //------------------------------------------------------------------------------------------------------------------/
     
     void Start()
@@ -51,8 +50,6 @@ public class Player : Tileable, ITurnbound
         spacebarAction.performed += OnSpacebarPressed;
         
         ProcessMoveDirection(Vector2Int.right);
-
-        Events.Register(GameEvent.OnDamageTaken, OnDamageTaken);
     }
 
     protected override void OnDestroy()
@@ -158,13 +155,8 @@ public class Player : Tileable, ITurnbound
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void OnSpellUsed(EventArgs obj)
+    void OnSpellUsed(EventArgs obj)
     {
-        if(isActive) animator.SetTrigger("isCastingSpell");
-    }
-
-    private void OnDamageTaken(EventArgs obj)
-    {
-        if(isTakingDamage) animator.SetTrigger("isTakingDamage");
+        if (isActive) animator.SetTrigger("isCastingSpell");
     }
 }

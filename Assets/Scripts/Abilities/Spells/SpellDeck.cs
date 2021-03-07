@@ -16,8 +16,6 @@ public class SpellDeck : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     public IEnumerable<SpellBase> Spells => deck.Concat(hand);
 
-    [ShowInInspector] public SpellBase[] GNEGNE => Spells.ToArray();
-    
     [Space, SerializeField] private int maxUse;
     [SerializeField] private int maxSpellInHand = 4;
     

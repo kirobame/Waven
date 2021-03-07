@@ -4,22 +4,12 @@ using System.Linq;
 using Flux;
 using UnityEngine;
 
-public enum SpellCategory
-{
-    Neutral,
-    Iop,
-    Sram,
-    Osamodas
-}
-
 [CreateAssetMenu(fileName = "NewSpell", menuName = "Waven/Spell")]
 public class Spell : SpellBase
 {
     public override bool IsDone => isDone;
-    public override bool ConsumeSpellRemainingUse => consumeSpellRemainingUse;
     public override IReadOnlyList<Pattern> CastingPatterns => castingPatterns;
-
-    [SerializeField] public bool consumeSpellRemainingUse;
+    
     [Space, SerializeField] private List<Pattern> castingPatterns = new List<Pattern>();
     [SerializeField] private List<Effect> effects = new List<Effect>();
 

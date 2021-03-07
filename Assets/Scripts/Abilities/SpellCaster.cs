@@ -98,7 +98,7 @@ public class Spellcaster : MonoBehaviour, ILink
 
         if (current.IsDone)
         {
-            if (!isStatic) Events.ZipCall(GameEvent.OnSpellUsed, current);
+            Events.ZipCall(GameEvent.OnSpellUsed, current, isStatic);
             Shutdown();
         }
         else Setup();

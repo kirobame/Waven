@@ -5,9 +5,25 @@ using UnityEngine;
 
 public class Golem : Tileable, ILink
 {
-    [SerializeField] float speed = 0.3f;
     public event Action<ILink> onDestroyed;
-    public ITurnbound Owner { get; set; }
+
+    public ITurnbound Owner
+    {
+        get => owner;
+        set
+        {
+            if (hasOwner && value == null) hasOwner = false;
+            else if (!hasOwner && value != null) hasOwner = true;
+
+            owner = value;
+        }
+    }
+    private ITurnbound owner;
+    
+    [SerializeField] float speed = 0.3f;
+
+    private bool hasOwner;
+    
     public void ChangeOwner()
     {
         if (this.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
@@ -38,8 +54,11 @@ public class Golem : Tileable, ILink
         if (speed <= 0 || !overrideSpeed) speed = this.speed;
 
         base.Move(path, speed, overrideSpeed);
-        Owner.IncreaseBusiness();
+        if (hasOwner) Owner.IncreaseBusiness();
     }
-    protected override void OnMoveCompleted() => Owner.DecreaseBusiness();
-
+    protected override void OnMoveCompleted()
+    {
+        if (!hasOwner) return;
+        Owner.DecreaseBusiness();
+    }
 }

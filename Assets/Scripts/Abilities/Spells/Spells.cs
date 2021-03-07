@@ -48,6 +48,8 @@ public class Spells : ScriptableObject, IBootable
         }
 
         for (var i = 0; i < count - index; i++) deck[index + i] = source[i];
+        
+        deck.Shuffle();
         return deck;
     }
 }

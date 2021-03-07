@@ -98,7 +98,10 @@ public class SpellDeck : MonoBehaviour, ILink
 
     void OnSpellUsed(SpellBase spell)
     {
-        RemainingUse--;
-        Discard(spell);
+        if (spell.ConsumeSpellRemainingUse)
+        {
+            RemainingUse--;
+            Discard(spell);
+        }
     }
 }

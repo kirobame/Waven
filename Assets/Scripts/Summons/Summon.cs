@@ -6,6 +6,7 @@ using UnityEngine;
 public class Summon : Tileable, ILink
 {
     public event Action<ILink> onDestroyed;
+    [SerializeField] float speed = 0.3f;
     
     public ITurnbound Owner { get; set; }
     
@@ -24,6 +25,8 @@ public class Summon : Tileable, ILink
 
     public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
+        if (speed <= 0 || !overrideSpeed) speed = this.speed;
+        base.Move(path, speed, overrideSpeed);
         Owner.IncreaseBusiness();
         base.Move(path, speed, overrideSpeed);
     }

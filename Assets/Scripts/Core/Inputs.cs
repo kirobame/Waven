@@ -33,6 +33,7 @@ public class Inputs : MonoBehaviour
         
         Events.Open(InputEvent.OnTileSelected);
         Events.Open(InputEvent.OnMouseMove);
+        Events.Open(InputEvent.OnInterrupt);
 
         Routines.Start(Routines.DoAfter(() =>
         {

@@ -15,17 +15,27 @@ public class Pathfinder : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     
     [SerializeField] private Moveable nav;
+    
+    [Space, SerializeField] private Spell attack;
+    [SerializeField] private int attackCount;
 
     private Tile Current => path[path.Count - 1];
     private List<Tile> path = new List<Tile>();
 
     private HashSet<Tile> availableTiles = new HashSet<Tile>();
     private bool isActive;
- 
+    private bool isWaiting;
+
+    private bool shouldAttack;
+    private int attackCounter;
+    private Tile tileToAttack;
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate()
     {
+        attackCounter = attackCount;
+        
         Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
         Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
     }
@@ -53,15 +63,29 @@ public class Pathfinder : MonoBehaviour, ILink
         onDestroyed?.Invoke(this);
     }
 
+    void OnInterrupt()
+    {
+        if (isWaiting) return;
+        
+        Inputs.isLocked = false;
+        Shutdown();
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnTileSelected(Tile selectedTile)
     {
-        if (Inputs.isLocked && !isActive || nav.PM <= 0) return;
+        if (nav.PM <= 0) return;
         
-        if (isActive && availableTiles.Contains(selectedTile))
+        if (!isActive && Inputs.isLocked)
         {
-            if (selectedTile == nav.Current)
+            Events.EmptyCall(InputEvent.OnInterrupt);
+            if (Inputs.isLocked) return;
+        }
+
+        if (isActive)
+        {
+            if (selectedTile == nav.Current || !availableTiles.Contains(selectedTile))
             {
                 Inputs.isLocked = false;
                 Shutdown();
@@ -69,19 +93,44 @@ public class Pathfinder : MonoBehaviour, ILink
                 return;
             }
 
+            if (shouldAttack)
+            {
+                attackCounter--;
+                
+                var lastIndex = path.Count - 1;
+                tileToAttack = path[lastIndex];
+                
+                path.RemoveAt(lastIndex);
+                    
+                if (path.Count == 1)
+                {
+                    attack.Prepare();
+                    attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
+
+                    shouldAttack = false;
+                }
+            }
+            
             if (path.Count > 1)
             {
                 nav.PM -= path.Count - 1;
-                
+
+                isWaiting = true;
                 nav.Target.onMoveDone += OnMoveDone;
                 nav.Move(path.ToArray());
             }
+            else Inputs.isLocked = false;
+            
             Shutdown();
         }
         else if (!nav.Target.IsMoving && selectedTile == nav.Current)
         {
             Inputs.isLocked = true;
-            
+            Events.RelayByVoid(InputEvent.OnInterrupt, OnInterrupt);
+
+            isWaiting = false;
+            shouldAttack = false;
+
             availableTiles = selectedTile.GetCellsAround(nav.PM).ToHashSet();
             availableTiles.Mark(Mark.Inactive);
             
@@ -115,7 +164,7 @@ public class Pathfinder : MonoBehaviour, ILink
             {
                 for (var i = 0; i < path.Count; i++)
                 {
-                    if (!TryReconstructionBetween(i, tile)) continue;
+                    if (i != 0 && !path[i].IsFree() || !TryReconstructionBetween(i, tile)) continue;
                 
                     Refresh();
                     break;
@@ -127,7 +176,7 @@ public class Pathfinder : MonoBehaviour, ILink
     private bool TryGetTile(Vector3Int cell, out Tile tile)
     {
         var similarity = Current.Position != cell;
-        var validity = cell.xy().TryGetTile(out tile) && tile.IsFree();
+        var validity = cell.xy().TryGetTile(out tile);
         var availability = availableTiles.Contains(tile);
 
         return similarity && validity && availability;
@@ -186,10 +235,28 @@ public class Pathfinder : MonoBehaviour, ILink
         bool TryAddTile(int value)
         {
             var cell = cellMaker(value);
-            if (!cell.TryGetTile(out var tile) || !tile.IsFree()) return false;
-                            
-            output.Add(tile);
-            return true;
+            if (!cell.TryGetTile(out var tile) || tile is DeathTile) return false;
+
+            if (attackCounter > 0)
+            {
+                shouldAttack = false;
+                foreach (var entity in tile.Entities)
+                {
+                    if (!entity.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue;
+
+                    shouldAttack = true;
+                    output.Add(tile);
+                
+                    return false;
+                }
+            }
+
+            if (tile.IsFree())
+            {
+                output.Add(tile);
+                return true;
+            }
+            else return false;
         }
         
         return output;
@@ -204,6 +271,8 @@ public class Pathfinder : MonoBehaviour, ILink
     }
     private void Shutdown()
     { 
+        Events.BreakVoidRelay(InputEvent.OnInterrupt, OnInterrupt);
+        
         foreach (var tile in availableTiles) { if (tile is Tile walkableTile) walkableTile.Mark(Mark.None); }
         path.Clear();
         
@@ -214,6 +283,14 @@ public class Pathfinder : MonoBehaviour, ILink
 
     void OnMoveDone(ITileable tileable)
     {
+        isWaiting = false;
+        
+        if (shouldAttack)
+        {
+            attack.Prepare();
+            attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
+        }
+        
         nav.Target.onMoveDone -= OnMoveDone;
         Inputs.isLocked = false;
     }

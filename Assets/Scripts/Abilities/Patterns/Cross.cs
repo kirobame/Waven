@@ -1,12 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Flux;
+using Sirenix.Utilities;
 using UnityEngine;
 
 [Serializable]
 public class Cross : Pattern
 {
     [SerializeField] protected bool allowBoost;
+    [SerializeField] private bool includeSource;
     [SerializeField] private Vector4Int directions;
     
     public override IEnumerable<Tile> GetTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
@@ -20,6 +23,9 @@ public class Cross : Pattern
             directions.right += result.Value;
         }
         
-        return source.GetCellsInCross(directions);
+        var output = source.GetCellsInCross(directions).ToHashSet();
+        if (!includeSource) output.Remove(source);
+
+        return output;
     }
 }

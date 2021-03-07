@@ -233,6 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav: {fileID: 8374689325458404287}
+  attack: {fileID: 11400000, guid: 412913623ccdb9f4fb151fb55611c77b, type: 2}
+  attackCount: 1
 --- !u!114 &4097353869914120685
 MonoBehaviour:
   m_ObjectHideFlags: 0

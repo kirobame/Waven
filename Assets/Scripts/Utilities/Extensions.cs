@@ -90,10 +90,7 @@ public static class Extensions
     public static bool IsValidTile(this Vector2Int cell)
     {
         var map = Repository.Get<Map>(References.Map);
-        if (map.Tiles.TryGetValue(cell, out var gottenTile) && gottenTile is Tile output)
-        {
-            return true;
-        }
+        if (map.Tiles.TryGetValue(cell, out var gottenTile) && gottenTile is Tile) return true;
 
         return false;
     }
@@ -185,7 +182,10 @@ public static class Extensions
 
         return xDiff == 1 && yDiff == 0 || xDiff == 0 && yDiff == 1;
     }
-    public static bool IsFree(this Tile tile) => tile.Entities.All(tileable => ((Component) tileable).GetComponent<Tag>() == null);
+    public static bool IsFree(this Tile tile)
+    {
+        return tile.Entities.All(tileable => ((Component) tileable).GetComponent<Tag>() == null);
+    }
 
     //------------------------------------------------------------------------------------------------------------------/
     

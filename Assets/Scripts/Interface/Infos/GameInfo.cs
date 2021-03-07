@@ -69,7 +69,7 @@ public class GameInfo : MonoBehaviour
     }
     void OnHoverEnd()
     {
-        hoverInfo.gameObject.SetActive(false);
+        if (hoverInfo != null) hoverInfo.gameObject.SetActive(false);
         hoverInfo = null;
         
         hasHoverInfo = false;

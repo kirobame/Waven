@@ -1,12 +1,13 @@
 ﻿using Flux;
 using System.Collections.Generic;
 using Flux.Event;
+using Flux.Data;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Trap : TileableBase
 {
     [SerializeField] private List<Effect> effects = new List<Effect>();
-    [SerializeField] private List<Vector2> vec = new List<Vector2>();
 
     void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
 
@@ -29,12 +30,20 @@ public class Trap : TileableBase
 
     void OnTileChange(ITileable source)
     {
+        //Debug.Log("OnTileChange");
+
         if (source.Navigator.Current != Navigator.Current) return;
         ApplyOn(source);
     }
 
     protected virtual void ApplyOn(ITileable source)
     {
-        if (source.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
+        var map = Repository.Get<Map>(References.Map);
+        Tile tile = map.Tilemap.WorldToCell(transform.position).ToTile();
+        
+        foreach (var effect in effects)
+        {
+            effect.PlayOn(tile, Spellcaster.EmptyArgs);
+        }
     }
 }

@@ -9,44 +9,24 @@ using Object = UnityEngine.Object;
 [Serializable]
 public class SpawnAura : Effect
 {
-    [SerializeField] private Trap prefab;
+    [SerializeField] private Aura prefab;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
     {
         foreach (var tile in tiles)
-        {
-            if (!tile.Entities.Any(tileable => tileable is Trap)) SpawnAt(tile);
-            else
-            {
-                TryFindSpawnPoint(tile, Vector2Int.down);
-                TryFindSpawnPoint(tile, Vector2Int.right);
-                TryFindSpawnPoint(tile, Vector2Int.left);
-                TryFindSpawnPoint(tile, Vector2Int.up);
-            }
-        }
+            SpawnAt(tile);
 
         End();
-    }
-
-    private void TryFindSpawnPoint(Tile source, Vector2Int direction)
-    {
-        var match = (source.FlatPosition + direction).TryGetTile(out var tile);
-        while (match)
-        {
-            if (!tile.Entities.Any(tileable => tileable is Trap))
-            {
-                SpawnAt(tile);
-                break;
-            }
-            
-            match = (tile.FlatPosition + direction).TryGetTile(out tile);
-        }
     }
     private void SpawnAt(Tile tile)
     {
         var map = Repository.Get<Map>(References.Map);
-        
         var position = map.Tilemap.CellToWorld(tile.Position);
-        Object.Instantiate(prefab, position, Quaternion.identity);
+        foreach (var target in tile.Entities)
+        {
+            if (!target.TryGet<IDamageable>(out var damageable)) continue; ;
+            Aura Aura = Object.Instantiate(prefab, position, Quaternion.identity);
+            Aura.Spawn(target.Navigator.GetComponent<Tileable>()); //Try to get cible
+        }
     }
 }

@@ -135,8 +135,8 @@ public class Player : Tileable, ITurnbound
     {
         animator.SetFloat("X", value.x);
         animator.SetFloat("Y", value.y);
-        Debug.Log($"X value : {animator.GetFloat("X")}");
-        Debug.Log($"Y value : {animator.GetFloat("Y")}");
+        //Debug.Log($"X value : {animator.GetFloat("X")}");
+        //Debug.Log($"Y value : {animator.GetFloat("Y")}");
     }
 
     protected override void OnMoveCompleted()

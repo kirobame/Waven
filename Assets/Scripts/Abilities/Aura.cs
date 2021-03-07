@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using Flux.Data;
 using UnityEngine;
 
-public class Aura : MonoBehaviour
+public class Aura : TileableBase
 {
     Tileable owner;
     [SerializeField] Trap prefab;
@@ -21,14 +21,18 @@ public class Aura : MonoBehaviour
         var map = Repository.Get<Map>(References.Map);
 
         owner = _owner;
-        Vector3Int position = map.Tilemap.WorldToCell(owner.transform.position);
-
 
         foreach (var direction in Directions)
         {
-            position += direction;
+            Vector3Int cell = map.Tilemap.WorldToCell(owner.transform.position);
+            cell += direction;
+            Vector2 position = map.Tilemap.CellToWorld(cell);
             traps.Add(SpawnTrap(position), direction);
         }
+
+        owner.onMoveStart += Deactive;
+        owner.onMoveDone += Active;
+        owner.onDestroy += OnOwnerDestroyed;
     }
     public void Active()
     {
@@ -40,12 +44,13 @@ public class Aura : MonoBehaviour
             Vector3Int.right
         };
         var map = Repository.Get<Map>(References.Map);
-        Vector3Int position = map.Tilemap.WorldToCell(owner.transform.position);
 
         foreach (var trap in traps)
         {
-            position += trap.Value;
-            trap.Key.Place(map.Tilemap.CellToWorld(position));
+            Vector3Int cell = map.Tilemap.WorldToCell(owner.transform.position);
+            cell += trap.Value;
+            Vector2 position = map.Tilemap.CellToWorld(cell);
+            trap.Key.Place(position);
             trap.Key.gameObject.SetActive(true);
         }
     }
@@ -56,16 +61,28 @@ public class Aura : MonoBehaviour
             trap.Key.gameObject.SetActive(false);
         }
     }
-    public void OnOwnerDestroyed()
+    public void OnOwnerDestroyed(ITileable tileable)
     {
         foreach (var trap in traps)
         {
-            Destroy(trap.Key.gameObject);
+            if (trap.Key)
+                Destroy(trap.Key.gameObject);
         }
-        Destroy(this.gameObject);
+        DestroyAura();
     }
-    private Trap SpawnTrap(Vector3Int position)
+    private Trap SpawnTrap(Vector2 position)
     {
         return Object.Instantiate(prefab, position, Quaternion.identity, this.transform);
+    }
+
+    public void DestroyAura()
+    {
+        if (owner)
+        {
+            owner.onMoveStart -= Deactive;
+            owner.onMoveDone -= Active;
+            owner.onDestroy -= OnOwnerDestroyed;
+        }
+        Destroy(this);
     }
 }

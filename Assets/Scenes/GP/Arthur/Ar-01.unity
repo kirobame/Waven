@@ -242,6 +242,10 @@ PrefabInstance:
       propertyPath: teamId
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-02
@@ -2574,6 +2578,10 @@ PrefabInstance:
       propertyPath: speed
       value: 0.4
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01
@@ -2627,17 +2635,21 @@ PrefabInstance:
       value: 4
       objectReference: {fileID: 0}
     - target: {fileID: 4351303761828844956, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-      propertyPath: deck.Array.data[1]
+      propertyPath: deck.Array.data[0]
       value: 
       objectReference: {fileID: 11400000, guid: b9239b6c119268447b1d1d32bb2d04bc, type: 2}
     - target: {fileID: 4351303761828844956, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-      propertyPath: deck.Array.data[2]
+      propertyPath: deck.Array.data[1]
       value: 
       objectReference: {fileID: 11400000, guid: eded6a37aa962174fb36fd368f68e919, type: 2}
     - target: {fileID: 4351303761828844956, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-      propertyPath: deck.Array.data[3]
+      propertyPath: deck.Array.data[2]
       value: 
       objectReference: {fileID: 11400000, guid: 9e020f0aa0c3ee64e8f49c60da92c98d, type: 2}
+    - target: {fileID: 4351303761828844956, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: deck.Array.data[3]
+      value: 
+      objectReference: {fileID: 11400000, guid: 4512cb4886247c7468bcf08c14400712, type: 2}
     - target: {fileID: 4351303761828844956, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: deck.Array.data[4]
       value: 
@@ -2660,7 +2672,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9027551625841621808, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: lives.Array.data[0].actualValue
-      value: 9
+      value: 10
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}

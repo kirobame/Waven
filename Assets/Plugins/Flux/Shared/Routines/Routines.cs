@@ -7,6 +7,7 @@ namespace Flux
 {
     public static class Routines
     {
+        private static bool hasHook;
         private static Hook hook;
 
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.AfterSceneLoad)]
@@ -15,11 +16,24 @@ namespace Flux
             var hookObject = new GameObject("RoutineHook");
             Object.DontDestroyOnLoad(hookObject);
             hook = hookObject.AddComponent<Hook>();
+
+            hasHook = true;
+            hook.onDestroyed += () => hasHook = false;
         }
 
-        public static Coroutine Start(IEnumerator routine) => hook.StartCoroutine(routine);
-        public static void Stop(Coroutine routine) => hook.StopCoroutine(routine);
-        
+        public static Coroutine Start(IEnumerator routine)
+        {
+            if (!hasHook) return null;
+            return hook.StartCoroutine(routine);
+        }
+        public static bool Stop(Coroutine routine)
+        {
+            if (!hasHook) return false;
+            
+            hook.StopCoroutine(routine);
+            return true;
+        }
+
         public static IEnumerator Chain(this IEnumerator source, IEnumerator routine)
         {
             yield return source;

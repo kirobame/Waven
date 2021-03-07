@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections;
+using System.Collections.Generic;
 using Flux;
 using Flux.Data;
 using Flux.Event;
@@ -8,40 +9,63 @@ using UnityEngine.InputSystem;
 
 public class Player : Tileable, ITurnbound
 {
+    public static Player Active { get; private set; }
+    
     public event Action onFree;
     public event Action<Motive> onIntendedTurnStop;
 
     public string Name => name;
+    public int Index => index;
 
     public bool IsBusy => business > 0;
     
     public Match Match { get; set; }
     public short Initiative => initiative;
+
+    [Space, SerializeField] private int index;
     
+    [Space, SerializeField] private Animator animator;
+    [SerializeField] private short initiative;
     [SerializeField] private float speed;
-    [SerializeField] private Animator animator;
-    
-    [Space, SerializeField] private short initiative;
 
     private InputAction spacebarAction;
-
+    
     private ushort business;
     
-    private IActivable[] activables;
+    private List<ILink> links;
     private bool isActive;
+    public bool isTakingDamage;
     
     //------------------------------------------------------------------------------------------------------------------/
     
     void Start()
     {
-        SetOrientation(Vector2Int.right);
-        activables = GetComponentsInChildren<IActivable>();
+        Repository.SetAt(References.Players, index, this);
+        
+        links = new List<ILink>();
+        links.AddRange(GetComponentsInChildren<ILink>());
+        foreach (var link in links) SetupLink(link);
         
         var inputs = Repository.Get<InputActionAsset>(References.Inputs);
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
+        
+        ProcessMoveDirection(Vector2Int.right);
+
+        Events.Register(GameEvent.OnDamageTaken, OnDamageTaken);
     }
-    void OnDestroy() => spacebarAction.performed -= OnSpacebarPressed;
+
+    protected override void OnDestroy()
+    {
+        base.OnDestroy();
+        Events.ZipCall(GameEvent.OnPlayerDeath, index);
+        
+        Match.Remove(this);
+        foreach (var link in links) link.Owner = null;
+        links.Clear();
+        
+        spacebarAction.performed -= OnSpacebarPressed;
+    }
 
     void OnSpacebarPressed(InputAction.CallbackContext context)
     {
@@ -56,79 +80,91 @@ public class Player : Tileable, ITurnbound
     
     //------------------------------------------------------------------------------------------------------------------/
 
+    public void IncreaseBusiness() => business++;
+    public void DecreaseBusiness()
+    {
+        business--;
+        if (business <= 0 && isActive) onFree?.Invoke();
+    }
+
+    //------------------------------------------------------------------------------------------------------------------/
+
+    private void SetupLink(ILink link)
+    {
+        link.Owner = this;
+        link.onDestroyed += OnLinkDestruction;
+        
+        if (isActive) link.Activate();
+    }
+    
+    public void AddDependency(GameObject source)
+    {
+        var links = source.GetComponentsInChildren<ILink>();
+        foreach (var link in links) SetupLink(link);
+        
+        this.links.AddRange(links);
+    }
+
+    void OnLinkDestruction(ILink link)
+    {
+        link.onDestroyed -= OnLinkDestruction;
+        links.Remove(link);
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
     public void Activate()
     {
+        Inputs.isLocked = false;
+        
+        Active = this;
+        
         isActive = true;
-        foreach (var activable in activables) activable.Activate();
+        foreach (var activable in links) activable.Activate();
+        Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
     }
+    
+
     public void Interrupt(Motive motive)
     {
         isActive = false;
-        foreach (var activable in activables) activable.Deactivate();
+        foreach (var activable in links) activable.Deactivate();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
-    
-    public override void Place(Vector2 position) => transform.position = position;
-    public override void Move(Vector2[] path)
+
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
     {
-        IsMoving = true;
-        business++;
+        IncreaseBusiness();
         
-        StartCoroutine(MoveRoutine(path));
+        if (speed <= 0 || !overrideSpeed) speed = this.speed;
+        base.Move(path, speed, overrideSpeed);
+
+        animator.SetBool("isMoving", true);
     }
-    
-    private IEnumerator MoveRoutine(Vector2[] path)
+
+    protected override void ProcessMoveDirection(Vector2 direction)
     {
-        var index = 0;
-        var time = 0.0f;
-
-        ComputeOrientation();
-        while (true)
-        {
-            time += Time.deltaTime;
-            if (time >= speed)
-            {
-                if (index + 1 >= path.Length - 1)
-                {
-                    Execute(1.0f);
-                    IsMoving = false;
-                    
-                    business--;
-                    if (business == 0) onFree?.Invoke();
-                    
-                    yield break;
-                }
-                else
-                {
-                    time -= speed;
-                    index++;
-
-                    ComputeOrientation();
-                }
-            }
-
-            Execute(time / speed);
-            yield return new WaitForEndOfFrame();
-        }
-
-        void Execute(float ratio) => transform.position = Vector2.Lerp(path[index], path[index + 1], ratio);
-        void ComputeOrientation()
-        {
-            var direction = path[index + 1] - path[index];
-            
-            if (direction.x < 0 && direction.y > 0) SetOrientation(Vector2Int.left);
-            else if (direction.x > 0 && direction.y > 0) SetOrientation(Vector2Int.up);
-            else if (direction.x > 0 && direction.y < 0) SetOrientation(Vector2Int.right);
-            else SetOrientation(Vector2Int.down);
-        }
+        var orientation = direction.ComputeOrientation();
+        animator.SetFloat("X", orientation.x);
+        animator.SetFloat("Y", orientation.y);
     }
-    
+
+    protected override void OnMoveCompleted()
+    {
+        DecreaseBusiness();
+        animator.SetBool("isMoving", false);
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void SetOrientation(Vector2Int value)
+    private void OnSpellUsed(EventArgs obj)
     {
-        animator.SetFloat("X", value.x);
-        animator.SetFloat("Y", value.y);
+        if(isActive) animator.SetTrigger("isCastingSpell");
+    }
+
+    private void OnDamageTaken(EventArgs obj)
+    {
+        if(isTakingDamage) animator.SetTrigger("isTakingDamage");
     }
 }

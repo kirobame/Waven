@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.Tilemaps;
+using Object = UnityEngine.Object;
 
 public class Map : MonoBehaviour
 {
     public Tilemap Tilemap => tilemap;
-    public IReadOnlyDictionary<Vector2Int, Tile> Tiles => tiles;
+    public IReadOnlyDictionary<Vector2Int, TileBase> Tiles => tiles;
     
     [SerializeField] private Tilemap tilemap;
-    
-    private Dictionary<Vector2Int, Tile> tiles = new Dictionary<Vector2Int, Tile>();
+    [SerializeField] private GameObject borderObstaclePrefab;
+
+    private Dictionary<Vector2Int, TileBase> tiles = new Dictionary<Vector2Int, TileBase>();
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -26,7 +29,7 @@ public class Map : MonoBehaviour
             {
                 var tile = tilemap.GetTile(localPosition);
                 var prefix = tile.name.Substring(0, 2).ToUpper();
-                Tile implementation = default;
+                TileBase implementation = default;
 
                 switch (prefix)
                 {
@@ -36,6 +39,31 @@ public class Map : MonoBehaviour
                 }
 
                 tiles.Add(flatPosition, implementation);
+            }
+        }
+    }
+
+
+    public void SpawnBordermap()
+    {
+        var Directions = new Vector2Int[]
+        {
+            Vector2Int.up,
+            Vector2Int.down,
+            Vector2Int.left,
+            Vector2Int.right
+        };
+
+        var keys = tiles.Keys.ToArray();
+        foreach (var cell in keys)
+        {
+            foreach (var direction in Directions)
+            {
+                var neighbour = cell + direction;
+                if (neighbour.IsValidTile()) continue;
+                
+                tiles.Add(neighbour, new DeathTile(neighbour, 0));
+                Instantiate(borderObstaclePrefab, tilemap.CellToWorld(neighbour.Extend()), Quaternion.identity);
             }
         }
     }

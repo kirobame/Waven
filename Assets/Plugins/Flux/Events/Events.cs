@@ -212,21 +212,22 @@ namespace Flux.Event
         private static void BreakRelay<TRelay>(Enum address, object method) where TRelay : EventRelay
         {
             var key = flagTranslator.Translate(address);
-            if (relays.TryGetValue(key, out var possibilities))
-                for (var i = 0; i < possibilities.Count; i++)
+            if (!relays.TryGetValue(key, out var possibilities)) return;
+
+            for (var i = 0; i < possibilities.Count; i++)
+            {
+                var relay = possibilities[i];
+                if (!(relay is TRelay castedRelay)) continue;
+
+                castedRelay.Unsubscribe(method);
+                if (!relay.IsOperational)
                 {
-                    var relay = possibilities[i];
-                    if (!(relay is TRelay castedRelay)) continue;
-
-                    castedRelay.Unsubscribe(method);
-                    if (!relay.IsOperational)
-                    {
-                        Unregister(address, castedRelay.Call);
-                        possibilities.RemoveAt(i);
-                    }
-
-                    return;
+                    Unregister(address, castedRelay.Call);
+                    possibilities.RemoveAt(i);
                 }
+
+                return;
+            }
         }
 
         #region Nested Types
@@ -245,11 +246,15 @@ namespace Flux.Event
         {
             private short subscriptions;
             public bool IsOperational => subscriptions > 0;
+            
+            private HashSet<int> ids = new HashSet<int>();
 
             public abstract void Call(EventArgs args);
 
             public void Subscribe(object method)
             {
+                if (!ids.Add(method.GetHashCode())) return;
+                
                 subscriptions++;
                 OnSubscription(method);
             }
@@ -258,8 +263,10 @@ namespace Flux.Event
 
             public void Unsubscribe(object method)
             {
+                if (!ids.Remove(method.GetHashCode())) return;
+                
                 subscriptions--;
-                OnSubscription(method);
+                OnUnsubscription(method);
             }
 
             protected abstract void OnUnsubscription(object method);
@@ -276,12 +283,12 @@ namespace Flux.Event
 
             protected override void OnSubscription(object method)
             {
-                callback += (Action) method;
+                callback += (Action)method;
             }
 
             protected override void OnUnsubscription(object method)
             {
-                callback -= (Action) method;
+                callback -= (Action)method;
             }
         }
 

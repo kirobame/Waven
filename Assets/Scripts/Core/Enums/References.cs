@@ -4,12 +4,11 @@
 public enum References : byte
 {
     Map,
-    Player,
     Camera,
     Inputs,
-    FeedbackGrid,
-    SpellsPanel,
-    Deck,
-    TooltipText,
-    TooltipBackground
+    Hotbar,
+    Stats,
+    Spells,
+    Data,
+    Players
 }

@@ -6,6 +6,8 @@ using UnityEngine.InputSystem;
 
 public class Inputs : MonoBehaviour
 {
+    public static bool isLocked;
+
     public static Vector3Int GetCellAt(Vector2 screenPosition)
     {
         var camera = Repository.Get<Camera>(References.Camera);
@@ -27,9 +29,11 @@ public class Inputs : MonoBehaviour
     
     void Start()
     {
+        isLocked = false;
+        
         Events.Open(InputEvent.OnTileSelected);
         Events.Open(InputEvent.OnMouseMove);
-        
+
         Routines.Start(Routines.DoAfter(() =>
         {
             value = Repository.Get<InputActionAsset>(References.Inputs);
@@ -43,7 +47,6 @@ public class Inputs : MonoBehaviour
 
         }, new YieldFrame()));
     }
-
     void OnDestroy()
     {
         clickAction.performed -= OnClick;
@@ -52,14 +55,12 @@ public class Inputs : MonoBehaviour
         value.Disable();
     }
 
+    void Update() => Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
+
     void OnClick(InputAction.CallbackContext context)
     {
         var cell = GetCellAt(mousePosition).xy();
         if (cell.TryGetTile(out var tile)) Events.ZipCall(InputEvent.OnTileSelected, tile);
     }
-    void OnMouseMove(InputAction.CallbackContext context)
-    {
-        mousePosition = context.ReadValue<Vector2>();
-        Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
-    }
+    void OnMouseMove(InputAction.CallbackContext context) => mousePosition = context.ReadValue<Vector2>();
 }

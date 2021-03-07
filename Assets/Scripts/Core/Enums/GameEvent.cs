@@ -4,5 +4,12 @@
 public enum GameEvent : byte
 {
     OnTurnStart,
-    OnTurnTimer
+    OnTurnTimer,
+    
+    OnTileChange,
+    
+    OnSpellUsed,
+    OnDamageTaken
+    
+    OnPlayerDeath
 }

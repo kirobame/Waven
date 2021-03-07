@@ -30,6 +30,9 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 1|Circle, Assembly-CSharp
+    - Name: allowBoost
+      Entry: 5
+      Data: false
     - Name: radius
       Entry: 3
       Data: 5
@@ -66,6 +69,9 @@ MonoBehaviour:
     - Name: prefab
       Entry: 6
       Data: 
+    - Name: ownership
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -75,6 +81,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  category: 0
+  id:
+    value: NNN
   title: Summon
   description: Spawn stuff
   thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}

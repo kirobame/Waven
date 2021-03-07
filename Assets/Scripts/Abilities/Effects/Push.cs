@@ -52,19 +52,18 @@ public class Push : Effect
 
             line.Insert(0, target.Navigator.Current);
             target.Navigator.Move(line.ToArray(), speed, true);
-            
-            Routines.Start(WaitForPushEnd(target));
+
+            business++;
+            target.onMoveDone += OnMoveEnd;
         }
         
         if (business == 0) End();
     }
 
-    private IEnumerator WaitForPushEnd(ITileable player)
+    void OnMoveEnd(ITileable tileable)
     {
-        business++;
-
-        while (player.IsMoving) yield return new WaitForSeconds(0.1f);
-
+        tileable.onMoveDone -= OnMoveEnd;
+        
         business--;
         if (business == 0) End();
     }

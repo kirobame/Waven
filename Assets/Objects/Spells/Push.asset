@@ -102,6 +102,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  category: 0
+  id:
+    value: PSH
   title: Push
   description: Some description.
   thumbnail: {fileID: 21300000, guid: 27b88dd5cb3d1f64785aaa649050357a, type: 3}

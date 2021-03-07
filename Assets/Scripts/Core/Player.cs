@@ -15,12 +15,15 @@ public class Player : Tileable, ITurnbound
     public event Action<Motive> onIntendedTurnStop;
 
     public string Name => name;
+    public int Index => index;
 
     public bool IsBusy => business > 0;
     
     public Match Match { get; set; }
     public short Initiative => initiative;
 
+    [Space, SerializeField] private int index;
+    
     [Space, SerializeField] private Animator animator;
     [SerializeField] private short initiative;
     [SerializeField] private float speed;
@@ -37,7 +40,7 @@ public class Player : Tileable, ITurnbound
     
     void Start()
     {
-        SetOrientation(Vector2Int.right);
+        Repository.SetAt(References.Players, index, this);
         
         links = new List<ILink>();
         links.AddRange(GetComponentsInChildren<ILink>());
@@ -46,6 +49,8 @@ public class Player : Tileable, ITurnbound
         var inputs = Repository.Get<InputActionAsset>(References.Inputs);
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
+        
+        ProcessMoveDirection(Vector2Int.right);
 
         Events.Register(GameEvent.OnDamageTaken, OnDamageTaken);
     }
@@ -53,6 +58,7 @@ public class Player : Tileable, ITurnbound
     protected override void OnDestroy()
     {
         base.OnDestroy();
+        Events.ZipCall(GameEvent.OnPlayerDeath, index);
         
         Match.Remove(this);
         foreach (var link in links) link.Owner = null;
@@ -137,11 +143,11 @@ public class Player : Tileable, ITurnbound
         animator.SetBool("isMoving", true);
     }
 
-    protected override void ProcessMoveDirection(Vector2 direction) => SetOrientation(direction.ComputeOrientation());
-    protected void SetOrientation(Vector2Int value)
+    protected override void ProcessMoveDirection(Vector2 direction)
     {
-        animator.SetFloat("X", value.x);
-        animator.SetFloat("Y", value.y);
+        var orientation = direction.ComputeOrientation();
+        animator.SetFloat("X", orientation.x);
+        animator.SetFloat("Y", orientation.y);
     }
 
     protected override void OnMoveCompleted()

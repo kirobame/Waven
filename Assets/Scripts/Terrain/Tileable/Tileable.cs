@@ -39,7 +39,7 @@ public class Tileable : TileableBase, ITag
         var index = 0;
         var time = 0.0f;
 
-        ProcessMoveDirection(path[index + 1] - path[index]);
+        ProcessMoveDirection((path[index + 1] - path[index]).normalized);
         while (true)
         {
             time += Time.deltaTime;
@@ -64,7 +64,7 @@ public class Tileable : TileableBase, ITag
                     time -= speed;
                     index++;
 
-                    ProcessMoveDirection(path[index + 1] - path[index]);
+                    ProcessMoveDirection((path[index + 1] - path[index]).normalized);
                 }
             }
 

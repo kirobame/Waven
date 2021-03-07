@@ -1,36 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using System;
+using System.Linq;
 using Flux.Data;
 using Flux.Event;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class SpellDeck : MonoBehaviour, ILink
 {
     public static int RemainingUse { get; private set; }
+    
     public event Action<ILink> onDestroyed;
     
     public ITurnbound Owner { get; set; }
+    public IEnumerable<SpellBase> Spells => deck.Concat(hand);
 
-    [SerializeField] private int maxUse;
-    [SerializeField] private int maxSpellInHand = 4;
-    [SerializeField] private List<SpellBase> deck = new List<SpellBase>();
+    [ShowInInspector] public SpellBase[] GNEGNE => Spells.ToArray();
     
+    [Space, SerializeField] private int maxUse;
+    [SerializeField] private int maxSpellInHand = 4;
+    
+    private List<SpellBase> deck;
     private List<SpellBase> hand = new List<SpellBase>();
+
+    private Player player;
+    private bool hasBeenBootedUp;
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    private void Awake() => Shuffle();
-    void OnDestroy() => onDestroyed?.Invoke(this);
-    
+    void Awake()
+    {
+        player = GetComponent<Player>();
+        hasBeenBootedUp = false;
+    }
+
     public void Activate()
     {
         RemainingUse = maxUse;
         
-        Draw(2);
-        Events.RelayByValue<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+        if (hasBeenBootedUp) Draw(2);
+        else
+        {
+            var data = Repository.GetAt<PlayerData>(References.Data, player.Index);
+            if (!data.IsValid || !data.Deck.Any()) deck = Repository.Get<Spells>(References.Spells).GetDeck(6).ToList();
+            else
+            {
+                deck = data.Deck.ToList();
+                deck.Shuffle();
+            }
+            
+            Draw(3);
+            hasBeenBootedUp = true;
+        }
+        
+        Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
-    public void Deactivate() => Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    public void Deactivate() => Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
+    
+    void OnDestroy() => onDestroyed?.Invoke(this);
     
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -42,12 +70,11 @@ public class SpellDeck : MonoBehaviour, ILink
 
     public void Draw(int nb)
     {
-        if (nb > deck.Count)
-            nb = deck.Count; //Not enough cards in deck
+        if (nb > deck.Count) nb = deck.Count; //Not enough cards in deck
 
         for (int i = 0; i < nb; i++)
         {
-            if (hand.Count >= maxSpellInHand)//Hand full
+            if (hand.Count >= maxSpellInHand) //Hand full
             {
                 RefreshHotbar();
                 return;
@@ -67,27 +94,14 @@ public class SpellDeck : MonoBehaviour, ILink
         RefreshHotbar();
     }
 
-    private static System.Random rng = new System.Random();
-    public void Shuffle()
-    {
-        var n = deck.Count;
-        while (n > 1)
-        {
-            n--;
-            
-            var k = rng.Next(n + 1);
-            var value = deck[k];
-            
-            deck[k] = deck[n];
-            deck[n] = value;
-        }
-    }
-    
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnSpellUsed(SpellBase spell)
+    void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        RemainingUse--;
-        Discard(spell);
+        if (!isStatic)
+        {
+            RemainingUse--;
+            Discard(spell);
+        }
     }
 }

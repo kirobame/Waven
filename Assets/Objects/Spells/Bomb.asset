@@ -88,6 +88,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+  category: 3
+  id:
+    value: BMB
   title: Bomb
   description: Some decription.
   thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}

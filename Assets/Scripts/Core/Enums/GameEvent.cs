@@ -10,4 +10,6 @@ public enum GameEvent : byte
     
     OnSpellUsed,
     OnDamageTaken
+    
+    OnPlayerDeath
 }

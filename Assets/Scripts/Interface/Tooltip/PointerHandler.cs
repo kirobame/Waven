@@ -1,0 +1,31 @@
+﻿using System;
+using Flux.Data;
+using Flux.Event;
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+
+public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
+{
+    public event Action<PointerHandler> onEnter;
+    public event Action<PointerHandler> onExit;
+
+    public SpellBase Spell => relay.Value;
+    [SerializeField] private SpellHolder relay;
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        onEnter?.Invoke(this);
+        
+        var message = $"<size=100%><b>{Spell.Title}</size></b>\n<size=65%>{Spell.Description}</size>";
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
+    }
+
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        onExit?.Invoke(this);
+        Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
+    }
+}

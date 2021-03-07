@@ -1,1 +1,6 @@
-﻿public enum TeamTag { Player1, Player2, Neutral }
+﻿public enum TeamTag
+{
+    Player1,
+    Player2, 
+    Neutral
+}

@@ -7,9 +7,55 @@ using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using Random = UnityEngine.Random;
 
 public static class Extensions
 {
+    public static void Shuffle<T>(this IList<T> collection)
+    {
+        var n = collection.Count;
+        while (n > 1)
+        {
+            n--;
+            
+            var k = Random.Range(0, n + 1);
+            var value = collection[k];
+            
+            collection[k] = collection[n];
+            collection[n] = value;
+        }
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    public static void Activate(this CanvasGroup group)
+    {
+        group.alpha = 1.0f;
+        group.interactable = true;
+        group.blocksRaycasts = true;
+    }
+    public static void Deactivate(this CanvasGroup group)
+    {
+        group.alpha = 0.0f;
+        group.interactable = false;
+        group.blocksRaycasts = false;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
+    public static bool TryGet<T>(this GameObject gameObject, out T output)
+    {
+        output = gameObject.GetComponentInChildren<T>();
+        return output != null;
+    }
+    public static bool TryGet<T>(this Component component, out T output)
+    {
+        output = component.GetComponentInChildren<T>();
+        return output != null;
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
     public static Vector2 xy(this Vector3 value) => new Vector2(value.x, value.y);
     public static Vector2Int ComputeOrientation(this Vector2 direction)
     {
@@ -151,6 +197,11 @@ public static class Extensions
             if (!(value is Tile tile)) continue;
             tile.Mark(global::Mark.None);
         }
+    }
+
+    public static void Mark(this Tile tile, Mark mark)
+    {
+        if (tile is IMarkable markable) markable.Mark(mark);
     }
     public static void Mark(this IEnumerable<Tile> tiles, Mark mark) { foreach (var tile in tiles) tile.Mark(mark); }
     

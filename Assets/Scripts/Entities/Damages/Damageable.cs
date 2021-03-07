@@ -1,6 +1,8 @@
 ﻿using Flux.Event;
 using System.Collections.Generic;
 using System.Linq;
+using Flux;
+using Flux.Event;
 using UnityEngine;
 
 public class Damageable : MonoBehaviour, IDamageable
@@ -30,6 +32,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
     //------------------------------------------------------------------------------------------------------------------/
     
+    public Life Get(string name) => lives.First(life => life.name.ToLower().Equals(name.ToLower()));
     public void AddLife(Life value)
     {
         lives.Add(value);
@@ -39,7 +42,10 @@ public class Damageable : MonoBehaviour, IDamageable
     public int Inflict(int damage, DamageType type)
     {
         var index = 0;
+        
         if (IsInvulnerable) return 0;
+        if (!lives.Any()) return 2;
+        
 
         player.isTakingDamage = true;
         Events.ZipCall(GameEvent.OnDamageTaken, damage);
@@ -60,14 +66,15 @@ public class Damageable : MonoBehaviour, IDamageable
                     return 2;
                 }
             }
-            else 
+            else
             {
-                //player.isTakingDamage = false;
+                Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
                 return 3;
             }
-            
         }
         player.isTakingDamage = false;
+
+        Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;
     }
     

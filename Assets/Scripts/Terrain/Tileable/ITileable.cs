@@ -3,7 +3,7 @@ using UnityEngine;
 
 public interface ITileable
 {
-    event Action onMoveDone;
+    event Action<ITileable> onMoveDone;
     
     Navigator Navigator { get; }
     bool IsMoving { get; }

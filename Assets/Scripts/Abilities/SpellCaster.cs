@@ -37,11 +37,8 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         if (!isActive) return;
-        
-        isActive = false;
-        Inputs.isLocked = false;
 
-        Shutdown();
+        End();
     }
 
     private void Shutdown()
@@ -51,7 +48,14 @@ public class Spellcaster : MonoBehaviour, ILink
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
     }
-    
+    private void End()
+    {
+        isActive = false;
+        Inputs.isLocked = false;
+
+        Shutdown();
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnDestroy()
@@ -64,15 +68,19 @@ public class Spellcaster : MonoBehaviour, ILink
     
     void OnSpellSelected(SpellBase spell, bool isStatic)
     {
-        if (Inputs.isLocked) return;
-
+        if (Inputs.isLocked && !isActive) return;
+        
         this.isStatic = isStatic;
-        isActive = true;
-        
         Inputs.isLocked = true;
-        
-        Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
-        Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
+
+        if (!isActive)
+        {
+            isActive = true;
+            
+            Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
+            Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
+        }
+        Extensions.ClearMarks();
         
         current = spell;
         Setup();
@@ -90,7 +98,11 @@ public class Spellcaster : MonoBehaviour, ILink
     
     void OnTileSelected(Tile tile)
     {
-        if (!availableTiles.Contains(tile)) return;
+        if (!availableTiles.Contains(tile))
+        {
+            End();
+            return;
+        }
         
         Owner.IncreaseBusiness();
         current.onCastDone += OnCastDone;
@@ -98,7 +110,7 @@ public class Spellcaster : MonoBehaviour, ILink
 
         if (current.IsDone)
         {
-            if (!isStatic) Events.ZipCall(GameEvent.OnSpellUsed, current);
+            Events.ZipCall(GameEvent.OnSpellUsed, current, isStatic);
             Shutdown();
         }
         else Setup();

@@ -54,9 +54,9 @@ public class SpellDeck : MonoBehaviour, ILink
             hasBeenBootedUp = true;
         }
         
-        Events.RelayByValue<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
-    public void Deactivate() => Events.BreakValueRelay<SpellBase>(GameEvent.OnSpellUsed, OnSpellUsed);
+    public void Deactivate() => Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     
     void OnDestroy() => onDestroyed?.Invoke(this);
     
@@ -96,9 +96,9 @@ public class SpellDeck : MonoBehaviour, ILink
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void OnSpellUsed(SpellBase spell)
+    void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        if (spell.ConsumeSpellRemainingUse)
+        if (!isStatic)
         {
             RemainingUse--;
             Discard(spell);

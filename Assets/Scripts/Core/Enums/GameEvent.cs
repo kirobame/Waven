@@ -8,7 +8,9 @@ public enum GameEvent : byte
     
     OnTileChange,
     
+    OnBaseAttack,
     OnSpellUsed,
+    OnDamageTaken,
 
     OnPlayerDeath
 }

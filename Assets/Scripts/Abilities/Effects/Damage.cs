@@ -17,7 +17,7 @@ public class Damage : Effect
         
         foreach (var target in tiles.SelectMany(tile => tile.Entities))
         {
-            if (!target.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue; ;
+            if (!target.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue;
             damageable.Inflict(amount, type);
         }
 

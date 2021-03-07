@@ -10,7 +10,10 @@ public class Damageable : MonoBehaviour, IDamageable
     public bool IsInvulnerable { get; private set; }
 
     public List<Life> Lives => lives;
-    [SerializeField] private List<Life> lives;
+    [SerializeField] private List<Life> lives= new List<Life>()
+    {
+        new Life("Health", new Color(0.2812389f, 0.754717f, 0.303109f, 1.0f), 10, 10, 0, new List<DamageType>() { DamageType.Base })
+    };
     
     public TeamTag Team
     {
@@ -18,16 +21,13 @@ public class Damageable : MonoBehaviour, IDamageable
         set => tag.Team = value;
     }
     private new Tag tag;
-    private new Player player;
-    
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void Awake()
     {
-        Events.Open(GameEvent.OnDamageTaken);
         tag = GetComponent<Tag>();
         lives.Sort();
-        player = gameObject.GetComponent<Player>();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -46,9 +46,7 @@ public class Damageable : MonoBehaviour, IDamageable
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
         
-
-        player.isTakingDamage = true;
-        Events.ZipCall(GameEvent.OnDamageTaken, damage);
+        OnDamageTaken();
 
         while (damage > 0)
         {
@@ -72,13 +70,14 @@ public class Damageable : MonoBehaviour, IDamageable
                 return 3;
             }
         }
-        player.isTakingDamage = false;
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;
     }
     
     //------------------------------------------------------------------------------------------------------------------/
+    
+    protected virtual void OnDamageTaken() { }
     
     protected virtual void OnDeath() => Destroy(gameObject);
 }

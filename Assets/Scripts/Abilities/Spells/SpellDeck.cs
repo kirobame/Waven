@@ -16,8 +16,6 @@ public class SpellDeck : MonoBehaviour, ILink
     public ITurnbound Owner { get; set; }
     public IEnumerable<SpellBase> Spells => deck.Concat(hand);
 
-    [ShowInInspector] public SpellBase[] GNEGNE => Spells.ToArray();
-    
     [Space, SerializeField] private int maxUse;
     [SerializeField] private int maxSpellInHand = 4;
     
@@ -42,14 +40,8 @@ public class SpellDeck : MonoBehaviour, ILink
         if (hasBeenBootedUp) Draw(2);
         else
         {
-            var data = Repository.GetAt<PlayerData>(References.Data, player.Index);
-            if (!data.IsValid || !data.Deck.Any()) deck = Repository.Get<Spells>(References.Spells).GetDeck(6).ToList();
-            else
-            {
-                deck = data.Deck.ToList();
-                deck.Shuffle();
-            }
-            
+            if (Repository.TryGet<Spells>(References.Spells, out var spells)) deck = spells.GetDeck(6).ToList();
+
             Draw(3);
             hasBeenBootedUp = true;
         }

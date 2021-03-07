@@ -8,11 +8,25 @@ using Object = UnityEngine.Object;
 
 public class Map : MonoBehaviour
 {
+    #region Nested Types
+
+    [Serializable]
+    private class BorderPrefab
+    {
+        public GameObject Value => value;
+        [SerializeField] private GameObject value;
+
+        public Vector2Int Direction => direction;
+        [SerializeField] private Vector2Int direction;
+    }
+
+    #endregion
+    
     public Tilemap Tilemap => tilemap;
     public IReadOnlyDictionary<Vector2Int, TileBase> Tiles => tiles;
     
     [SerializeField] private Tilemap tilemap;
-    [SerializeField] private GameObject borderObstaclePrefab;
+    [SerializeField] private BorderPrefab[] borderPrefabs;
 
     private Dictionary<Vector2Int, TileBase> tiles = new Dictionary<Vector2Int, TileBase>();
 
@@ -24,13 +38,13 @@ public class Map : MonoBehaviour
         {
             var localPosition = new Vector3Int(pos.x, pos.y, pos.z);
             var flatPosition = new Vector2Int(localPosition.x, localPosition.y);
-
+            
             if (tilemap.HasTile(localPosition))
             {
                 var tile = tilemap.GetTile(localPosition);
                 var prefix = tile.name.Substring(0, 2).ToUpper();
                 TileBase implementation = default;
-
+                
                 switch (prefix)
                 {
                     case "WK":
@@ -46,24 +60,16 @@ public class Map : MonoBehaviour
 
     public void SpawnBordermap()
     {
-        var Directions = new Vector2Int[]
-        {
-            Vector2Int.up,
-            Vector2Int.down,
-            Vector2Int.left,
-            Vector2Int.right
-        };
-
         var keys = tiles.Keys.ToArray();
         foreach (var cell in keys)
         {
-            foreach (var direction in Directions)
+            foreach (var borderPrefab in borderPrefabs)
             {
-                var neighbour = cell + direction;
-                if (neighbour.IsValidTile()) continue;
+                var neighbour = cell + borderPrefab.Direction;
+                if (neighbour.IsValidTile() || tiles.ContainsKey(neighbour)) continue;
                 
                 tiles.Add(neighbour, new DeathTile(neighbour, 0));
-                Instantiate(borderObstaclePrefab, tilemap.CellToWorld(neighbour.Extend()), Quaternion.identity);
+                Instantiate(borderPrefab.Value, tilemap.CellToWorld(neighbour.Extend()), Quaternion.identity);
             }
         }
     }

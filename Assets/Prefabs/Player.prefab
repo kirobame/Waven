@@ -26,7 +26,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 4097353869787670438}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -0.057, y: 0.565, z: 0}
+  m_LocalPosition: {x: 0, y: 0.615, z: 0}
   m_LocalScale: {x: 0.15, y: 0.15, z: 0.9}
   m_Children: []
   m_Father: {fileID: 4097353869914120687}
@@ -112,8 +112,8 @@ GameObject:
   m_Component:
   - component: {fileID: 4097353869914120687}
   - component: {fileID: 5400220359739966530}
-  - component: {fileID: 9027551625841621808}
   - component: {fileID: 8374689325458404287}
+  - component: {fileID: 7289168568735440103}
   - component: {fileID: 4097353869914120680}
   - component: {fileID: 4351303761828844956}
   - component: {fileID: 4097353869914120684}
@@ -154,26 +154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cffa9f8146c4796b93eb2368d849ca2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tag: 1
---- !u!114 &9027551625841621808
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4097353869914120683}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a2caa6fe7f44736a22bde8e2dfda301, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lives:
-  - name: Health
-    color: {r: 0.28123888, g: 0.754717, b: 0.30310896, a: 1}
-    actualValue: 10
-    maxValue: 10
-    priority: 0
-    handledTypes: 00000000
+  tag: 0
 --- !u!114 &8374689325458404287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -188,6 +169,26 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 4097353869914120680}
   movementPoints: 3
+--- !u!114 &7289168568735440103
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4097353869914120683}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 55b1c2d184dc47c985cb8b8c033975d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  lives:
+  - name: Health
+    color: {r: 0.2812389, g: 0.754717, b: 0.303109, a: 1}
+    actualValue: 10
+    maxValue: 10
+    priority: 0
+    handledTypes: 00000000
+  animator: {fileID: 4097353869787670437}
 --- !u!114 &4097353869914120680
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,6 +202,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   navigator: {fileID: 8374689325458404287}
+  index: 0
   animator: {fileID: 4097353869787670437}
   initiative: 0
   speed: 0.175
@@ -218,15 +220,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxUse: 2
   maxSpellInHand: 4
-  deck:
-  - {fileID: 11400000, guid: 8ce8c3e3190e0d54584181f4a571eb5e, type: 2}
-  - {fileID: 11400000, guid: 8c750e60d52a16d4984a1256520c91df, type: 2}
-  - {fileID: 11400000, guid: 2a60df82163a8eb41838f80def521209, type: 2}
-  - {fileID: 11400000, guid: a45165b1151ed92408319d3a5b716d24, type: 2}
-  - {fileID: 11400000, guid: b43414b2a2b245e4099e3110372016da, type: 2}
-  - {fileID: 11400000, guid: 8bf4feb4c8a6eb645ac21cae0fb9e353, type: 2}
-  - {fileID: 11400000, guid: 8892aba83b1296d42afab1842e2b60ee, type: 2}
-  - {fileID: 11400000, guid: b9239b6c119268447b1d1d32bb2d04bc, type: 2}
 --- !u!114 &4097353869914120684
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -240,6 +233,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   nav: {fileID: 8374689325458404287}
+  attack: {fileID: 11400000, guid: 412913623ccdb9f4fb151fb55611c77b, type: 2}
+  attackCount: 1
 --- !u!114 &4097353869914120685
 MonoBehaviour:
   m_ObjectHideFlags: 0

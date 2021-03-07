@@ -17,6 +17,7 @@ public class Spellcaster : MonoBehaviour, ILink
     [SerializeField] private Navigator nav;
 
     private bool isActive;
+    private bool isWaiting;
 
     private bool isStatic;
     private SpellBase current;
@@ -45,6 +46,7 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         Extensions.ClearMarks();
         
+        Events.BreakVoidRelay(InputEvent.OnInterrupt, OnInterrupt);
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
     }
@@ -64,18 +66,31 @@ public class Spellcaster : MonoBehaviour, ILink
         onDestroyed?.Invoke(this);
     }
 
+    void OnInterrupt()
+    {
+        if (isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+        End();
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
     
     void OnSpellSelected(SpellBase spell, bool isStatic)
     {
-        if (Inputs.isLocked && !isActive) return;
+        if (!isActive && Inputs.isLocked)
+        {
+            Events.EmptyCall(InputEvent.OnInterrupt);
+            if (Inputs.isLocked) return;
+        }
         
         this.isStatic = isStatic;
         Inputs.isLocked = true;
 
         if (!isActive)
         {
+            Events.RelayByVoid(InputEvent.OnInterrupt, OnInterrupt);
+            
             isActive = true;
+            isWaiting = false;
             
             Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
             Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
@@ -105,6 +120,8 @@ public class Spellcaster : MonoBehaviour, ILink
         }
         
         Owner.IncreaseBusiness();
+
+        isWaiting = true;
         current.onCastDone += OnCastDone;
         current.CastFrom(tile, castArgs);
 
@@ -129,11 +146,12 @@ public class Spellcaster : MonoBehaviour, ILink
 
     void OnCastDone()
     {
+        isWaiting = false;
         current.onCastDone -= OnCastDone;
+        
         if (this == null) return; // TO DEBUG
         
         Owner.DecreaseBusiness();
-
         if (current.IsDone)
         {
             isActive = false;

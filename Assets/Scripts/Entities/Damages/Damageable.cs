@@ -22,12 +22,15 @@ public class Damageable : MonoBehaviour, IDamageable
     }
     private new Tag tag;
 
+    private Player player;
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void Awake()
     {
         tag = GetComponent<Tag>();
         lives.Sort();
+        player = gameObject.GetComponent<Player>();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -45,13 +48,16 @@ public class Damageable : MonoBehaviour, IDamageable
         
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
-        
+
+        player.isTakingDamage = true;
+        Events.ZipCall(GameEvent.OnDamageTaken, damage);
+
         OnDamageTaken();
 
         while (damage > 0)
         {
             if (!lives[index].HandledTypes.Contains(type)) return 1;
-            
+
             lives[index].actualValue -= damage;
             if (lives[index].actualValue <= 0)
             {
@@ -71,6 +77,7 @@ public class Damageable : MonoBehaviour, IDamageable
             }
         }
 
+        player.isTakingDamage = false;
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;
     }

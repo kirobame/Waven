@@ -16,6 +16,7 @@ public class Damageable : MonoBehaviour, IDamageable
         set => tag.Team = value;
     }
     private new Tag tag;
+    private new Player player;
     
     //------------------------------------------------------------------------------------------------------------------/
 
@@ -24,6 +25,7 @@ public class Damageable : MonoBehaviour, IDamageable
         Events.Open(GameEvent.OnDamageTaken);
         tag = GetComponent<Tag>();
         lives.Sort();
+        player = gameObject.GetComponent<Player>();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -39,7 +41,9 @@ public class Damageable : MonoBehaviour, IDamageable
         var index = 0;
         if (IsInvulnerable) return 0;
 
+        player.isTakingDamage = true;
         Events.ZipCall(GameEvent.OnDamageTaken, damage);
+
         while (damage > 0)
         {
             if (!lives[index].HandledTypes.Contains(type)) return 1;
@@ -56,9 +60,14 @@ public class Damageable : MonoBehaviour, IDamageable
                     return 2;
                 }
             }
-            else return 3;
+            else 
+            {
+                //player.isTakingDamage = false;
+                return 3;
+            }
+            
         }
-        
+        player.isTakingDamage = false;
         return 3;
     }
     

@@ -9,8 +9,11 @@ using UnityEngine.UI;
 
 public class TurnIndicator : MonoBehaviour
 {
-    [SerializeField] private TMP_Text title;
-    [SerializeField] private Slider timer;
+    //[SerializeField] private TMP_Text title;
+    [SerializeField] private Image timer;
+    [SerializeField] private TMP_Text timerValue;
+
+    private Bootstrapper boot;
     
     [Space, SerializeField] private Image subIndicator;
     [SerializeField] private float heightOffset;
@@ -22,6 +25,7 @@ public class TurnIndicator : MonoBehaviour
     
     void Awake()
     {
+        boot = Repository.Get<Bootstrapper>(References.Bootstrapper);
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.Register(GameEvent.OnTurnTimer, OnTurnTimer);
     }
@@ -40,7 +44,7 @@ public class TurnIndicator : MonoBehaviour
 
     void OnTurnStart(Turn turn)
     {
-        title.text = turn.Target.Name;
+        //title.text = turn.Target.Name;
         
         if (turn.Target is Component component)
         {
@@ -53,9 +57,16 @@ public class TurnIndicator : MonoBehaviour
     {
         if (args is WrapperArgs<bool> boolArgs)
         {
-            if (boolArgs.ArgOne) timer.value = 1.0f;
-            else timer.value = 0.0f;
+            if (boolArgs.ArgOne) timer.fillAmount = 1.0f;
+            else timer.fillAmount = 0.0f;
         }
-        else if (args is WrapperArgs<float> floatArgs) timer.value = 1.0f - floatArgs.ArgOne;
+        else if (args is WrapperArgs<float> floatArgs)
+        {
+            Debug.Log(floatArgs.ArgOne);
+            timer.fillAmount = 1.0f - floatArgs.ArgOne;
+
+            var remainingTime = (int)(boot.turnDuration - (floatArgs.ArgOne * boot.turnDuration));
+            timerValue.text = $"{remainingTime}";
+        }
     }
 }

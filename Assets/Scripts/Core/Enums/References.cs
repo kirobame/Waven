@@ -10,5 +10,6 @@ public enum References : byte
     Stats,
     Spells,
     Data,
-    Players
+    Players,
+    Bootstrapper
 }

@@ -12,5 +12,7 @@ public class BaseAttackAnim : Effect
     {
         Events.Open(GameEvent.OnBaseAttack);
         Events.EmptyCall(GameEvent.OnBaseAttack);
+
+        End();
     }
 }

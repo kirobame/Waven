@@ -6,7 +6,9 @@ using UnityEngine;
 public class Aura : TileableBase
 {
     Tileable owner;
+    
     [SerializeField] Trap prefab;
+    
     Dictionary<Trap, Vector3Int> traps = new Dictionary<Trap, Vector3Int>();
 
     public void Spawn(Tileable _owner)
@@ -21,20 +23,20 @@ public class Aura : TileableBase
         var map = Repository.Get<Map>(References.Map);
 
         owner = _owner;
-
         foreach (var direction in Directions)
         {
-            Vector3Int cell = map.Tilemap.WorldToCell(owner.transform.position);
+            var cell = map.Tilemap.WorldToCell(owner.transform.position);
             cell += direction;
-            Vector2 position = map.Tilemap.CellToWorld(cell);
-            traps.Add(SpawnTrap(position), direction);
+
+            if (!cell.xy().TryGetTile(out var tile)) continue;
+            traps.Add(SpawnTrap(tile.GetWorldPosition()), direction);
         }
 
-        owner.onMoveStart += Deactive;
-        owner.onMoveDone += Active;
+        owner.onMoveStart += Deactivate;
+        owner.onMoveDone += Activate;
         owner.onDestroy += OnOwnerDestroyed;
     }
-    public void Active()
+    public void Activate(ITileable tileable)
     {
         var Directions = new Vector3Int[]
         {
@@ -47,42 +49,45 @@ public class Aura : TileableBase
 
         foreach (var trap in traps)
         {
-            Vector3Int cell = map.Tilemap.WorldToCell(owner.transform.position);
+            var cell = map.Tilemap.WorldToCell(owner.transform.position);
             cell += trap.Value;
-            Vector2 position = map.Tilemap.CellToWorld(cell);
-            trap.Key.Place(position);
+
+            if (!cell.xy().TryGetTile(out var tile))
+            {
+                trap.Key.Navigator.RemoveFromBoard();
+                trap.Key.gameObject.SetActive(false);
+                
+                continue;
+            }
+
+            trap.Key.Place(tile.FlatPosition);
             trap.Key.gameObject.SetActive(true);
         }
     }
-    public void Deactive()
-    {
-        foreach (var trap in traps)
-        {
-            trap.Key.gameObject.SetActive(false);
-        }
-    }
+    public void Deactivate(ITileable tileable) { foreach (var trap in traps) trap.Key.gameObject.SetActive(false); }
+    
     public void OnOwnerDestroyed(ITileable tileable)
     {
         foreach (var trap in traps)
         {
-            if (trap.Key)
-                Destroy(trap.Key.gameObject);
+            if (!trap.Key) continue;
+            Destroy(trap.Key.gameObject);
         }
+        
         DestroyAura();
     }
-    private Trap SpawnTrap(Vector2 position)
-    {
-        return Object.Instantiate(prefab, position, Quaternion.identity, this.transform);
-    }
+    
+    private Trap SpawnTrap(Vector2 position) => Instantiate(prefab, position, Quaternion.identity, transform);
 
     public void DestroyAura()
     {
         if (owner)
         {
-            owner.onMoveStart -= Deactive;
-            owner.onMoveDone -= Active;
+            owner.onMoveStart -= Deactivate;
+            owner.onMoveDone -= Activate;
             owner.onDestroy -= OnOwnerDestroyed;
         }
+        
         Destroy(this);
     }
 }

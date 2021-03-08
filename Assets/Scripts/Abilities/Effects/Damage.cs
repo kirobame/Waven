@@ -9,6 +9,7 @@ public class Damage : Effect
 {
     [SerializeField] private int amount;
     [SerializeField] private DamageType type;
+    [SerializeField] private bool ownership;
 
     private int business;
     
@@ -16,12 +17,12 @@ public class Damage : Effect
     {
         business = 0;
  
-        var amount = this.amount; 
+        var amount = this.amount;
         if (args.TryGet<IWrapper<int>>(new Id('D', 'M', 'G'), out var intArgs)) amount += intArgs.Value;
         
         foreach (var target in tiles.SelectMany(tile => tile.Entities))
         {
-            if (!target.TryGet<IDamageable>(Player.Active.Team, out var damageable)) continue;
+            if (!TryGetDamageable(target, out var damageable) || !damageable.IsAlive) continue;
 
             business++;
             damageable.onFeedbackDone += OnTargetFeedbackDone;
@@ -32,6 +33,17 @@ public class Damage : Effect
         if (business == 0) End();
     }
 
+    private bool TryGetDamageable(ITileable target, out IDamageable damageable)
+    {
+        if (ownership && target.TryGet<IDamageable>(Player.Active.Team, out damageable)) return true;
+        else if (!ownership && target.TryGet<IDamageable>(out damageable)) return true;
+        else
+        {
+            damageable = null;
+            return false;
+        }
+    }
+    
     void OnTargetFeedbackDone(IDamageable damageable)
     {
         damageable.onFeedbackDone -= OnTargetFeedbackDone;

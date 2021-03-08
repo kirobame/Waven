@@ -9,7 +9,8 @@ using UnityEngine;
 public class Damageable : MonoBehaviour, IDamageable
 {
     public event Action<IDamageable> onFeedbackDone;
-    
+
+    public bool IsAlive => lives.Any();
     public bool IsInvulnerable { get; private set; }
 
     public List<Life> Lives => lives;
@@ -35,7 +36,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
     //------------------------------------------------------------------------------------------------------------------/
     
-    public Life Get(string name) => lives.First(life => life.name.ToLower().Equals(name.ToLower()));
+    public Life Get(string name) => lives.FirstOrDefault(life => life.name.ToLower().Equals(name.ToLower()));
     public void AddLife(Life value)
     {
         lives.Add(value);
@@ -48,7 +49,7 @@ public class Damageable : MonoBehaviour, IDamageable
         
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
-
+        
         OnDamageTaken();
 
         while (damage > 0)
@@ -63,9 +64,7 @@ public class Damageable : MonoBehaviour, IDamageable
 
                 if (!lives.Any())
                 {
-                    EndFeedback();
                     OnDeath();
-
                     return 2;
                 }
             }

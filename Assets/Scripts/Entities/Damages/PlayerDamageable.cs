@@ -6,6 +6,7 @@ using UnityEngine;
 public class PlayerDamageable : Damageable
 {
     [SerializeField] private Sequencer sequencer;
+    [SerializeField] private Tileable tileable;
 
     private SendbackArgs args;
     
@@ -17,7 +18,15 @@ public class PlayerDamageable : Damageable
         args.onDone += OnFeedbackDone;
     }
 
-    protected override void OnLogicDone() => sequencer.Play(args);
+    protected override void OnLogicDone()
+    {
+        if (tileable.IsMoving) tileable.PauseMove();
+        sequencer.Play(args);
+    }
 
-    void OnFeedbackDone(EventArgs args) => EndFeedback();
+    void OnFeedbackDone(EventArgs args)
+    {
+        tileable.ResumeMove();
+        EndFeedback();
+    }
 }

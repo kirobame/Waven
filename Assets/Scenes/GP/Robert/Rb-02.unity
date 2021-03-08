@@ -247,6 +247,10 @@ PrefabInstance:
       propertyPath: orientation.x
       value: -1
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-02
@@ -3180,6 +3184,10 @@ PrefabInstance:
       propertyPath: orientation.x
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: serializationData.Prefab
+      value: 
+      objectReference: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

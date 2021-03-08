@@ -7,18 +7,9 @@ using UnityEngine;
 
 public class Trap : TileableBase
 {
-    [SerializeField] private List<Effect> effects = new List<Effect>();
+    [SerializeField] private Spell spell;
 
     void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
-
-    void Start()
-    {
-        Routines.Start(Routines.DoAfter(() =>
-        {
-            foreach (var entity in navigator.Current.Entities) ApplyOn(entity);
-            
-        }, new YieldFrame()));
-    }
     
     protected override void OnDestroy()
     {
@@ -30,20 +21,16 @@ public class Trap : TileableBase
 
     void OnTileChange(ITileable source)
     {
-        //Debug.Log("OnTileChange");
-
         if (source.Navigator.Current != Navigator.Current) return;
-        ApplyOn(source);
+        Apply();
     }
 
-    protected virtual void ApplyOn(ITileable source)
+    protected virtual void Apply()
     {
         var map = Repository.Get<Map>(References.Map);
-        Tile tile = map.Tilemap.WorldToCell(transform.position).ToTile();
+        var tile = map.Tilemap.WorldToCell(transform.position).ToTile();
         
-        foreach (var effect in effects)
-        {
-            effect.PlayOn(tile, Spellcaster.EmptyArgs);
-        }
+        spell.Prepare();
+        spell.CastFrom(tile, Spellcaster.EmptyArgs);
     }
 }

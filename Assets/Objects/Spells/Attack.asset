@@ -71,7 +71,7 @@ MonoBehaviour:
       Data: 3
     - Name: 
       Entry: 7
-      Data: 3|Damage, Assembly-CSharp
+      Data: 3|SelfAnim, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -90,18 +90,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: amount
-      Entry: 3
-      Data: 1
-    - Name: type
-      Entry: 3
-      Data: 0
+    - Name: id
+      Entry: 7
+      Data: Flux.Id, Flux
+    - Name: value
+      Entry: 1
+      Data: ATK
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|Push, Assembly-CSharp
+      Data: 6|Damage, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 7|Pattern[], Assembly-CSharp
@@ -120,18 +123,21 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: force
+    - Name: amount
       Entry: 3
       Data: 1
-    - Name: speed
-      Entry: 4
-      Data: 0.125
+    - Name: type
+      Entry: 3
+      Data: 0
+    - Name: ownership
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|SelfAnim, Assembly-CSharp
+      Data: 9|Push, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 10|Pattern[], Assembly-CSharp
@@ -150,15 +156,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: id
-      Entry: 7
-      Data: Flux.Id, Flux
-    - Name: value
-      Entry: 1
-      Data: ATK
-    - Name: 
-      Entry: 8
-      Data: 
+    - Name: force
+      Entry: 3
+      Data: 1
+    - Name: speed
+      Entry: 4
+      Data: 0.125
     - Name: 
       Entry: 8
       Data: 

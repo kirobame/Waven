@@ -91,8 +91,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7793877521601505683}
-  - component: {fileID: 1485368732944434643}
   - component: {fileID: 289400031416291377}
+  - component: {fileID: 3445481064324813813}
   m_Layer: 0
   m_Name: Trap
   m_TagString: Untagged
@@ -115,20 +115,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1485368732944434643
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7793877521601505687}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f121ee3158a4e6a49af22454c0275b82, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 289400031416291377}
-  movementPoints: 0
 --- !u!114 &289400031416291377
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -141,13 +127,18 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 52a1a2c98d9e465ebbdc1a9c6b698fed, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  serializationData:
-    SerializedFormat: 0
-    SerializedBytes: 01010700000065006600660065006300740073002f000000000146000000530079007300740065006d002e0043006f006c006c0065006300740069006f006e0073002e00470065006e0065007200690063002e004c00690073007400600031005b005b004500660066006500630074002c00200041007300730065006d0062006c0079002d004300530068006100720070005d005d002c0020006d00730063006f0072006c006900620000000000060100000000000000022f01000000011c00000042006100730069006300440061006d006100670065002c00200041007300730065006d0062006c0079002d00430053006800610072007000010000000101080000007000610074007400650072006e0073002f02000000011a0000005000610074007400650072006e005b005d002c00200041007300730065006d0062006c0079002d0043005300680061007200700002000000060100000000000000022f03000000011600000050006f0069006e0074002c00200041007300730065006d0062006c0079002d004300530068006100720070000300000005070517010600000061006d006f0075006e007400010000001d010400000074007900700065000000000000000000050705
-    ReferencedUnityObjects: []
-    SerializedBytesString: 
-    Prefab: {fileID: 0}
-    PrefabModificationsReferencedUnityObjects: []
-    PrefabModifications: []
-    SerializationNodes: []
-  navigator: {fileID: 1485368732944434643}
+  navigator: {fileID: 3445481064324813813}
+  spell: {fileID: 11400000, guid: 84ff3311bc529d24bae83ae03fafcb43, type: 2}
+--- !u!114 &3445481064324813813
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7793877521601505687}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 690ab2552f184ba4688ca71ab8d8d8a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 289400031416291377}

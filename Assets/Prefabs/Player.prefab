@@ -192,6 +192,7 @@ MonoBehaviour:
     priority: 0
     handledTypes: 00000000
   sequencer: {fileID: 6422497535397277062}
+  tileable: {fileID: 4097353869914120680}
 --- !u!114 &4097353869914120680
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -6,6 +6,7 @@ public interface IDamageable : ITag
 {
     event Action<IDamageable> onFeedbackDone;
     
+    bool IsAlive { get; }
     bool IsInvulnerable { get; }
     
     List<Life> Lives { get; }

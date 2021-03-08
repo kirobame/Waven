@@ -10,7 +10,8 @@ public class Tileable : TileableBase, ITag
         set => tag.Team = value;
     }
     private new Tag tag;
-    
+
+    private bool isPaused;
     private Coroutine moveRoutine;
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -28,8 +29,9 @@ public class Tileable : TileableBase, ITag
             Debug.LogError($"Trying to move : {this} with a negative speed!");
             return;
         }
+        
         StartMove();
-        moveRoutine = StartCoroutine(MoveRoutine(path, speed));
+        moveRoutine = StartCoroutine(MoveRoutine(path, speed, processDir));
     }
 
     protected virtual IEnumerator MoveRoutine(Vector2[] path, float speed, bool processDir)
@@ -43,6 +45,12 @@ public class Tileable : TileableBase, ITag
         
         while (true)
         {
+            if (isPaused)
+            {
+                yield return new WaitForEndOfFrame();
+                continue;
+            }
+            
             time += Time.deltaTime;
             if (time >= speed)
             {
@@ -73,9 +81,12 @@ public class Tileable : TileableBase, ITag
             yield return new WaitForEndOfFrame();
         }
     }
+    
     protected virtual void OnMoveCompleted() { }
-
     protected virtual void ProcessMoveDirection(Vector2 direction) { }
+
+    public void PauseMove() => isPaused = true;
+    public bool ResumeMove() => isPaused = false;
     
     public void InterruptMove()
     {

@@ -24,9 +24,15 @@ public class TurnIndicator : MonoBehaviour
     
     void Awake()
     {
-        boot = Repository.Get<Bootstrapper>(References.Bootstrapper);
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.Register(GameEvent.OnTurnTimer, OnTurnTimer);
+    }
+    void Start() => boot = Repository.Get<Bootstrapper>(References.Bootstrapper);
+
+    void OnDestroy()
+    {
+        Events.BreakValueRelay<Turn>(GameEvent.OnTurnStart, OnTurnStart);
+        Events.Unregister(GameEvent.OnTurnTimer, OnTurnTimer);
     }
 
     void Update()

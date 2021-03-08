@@ -70,7 +70,7 @@ public class EntityInfo : MonoBehaviour
         var ratio = health.Ratio;
 
         slider.value = ratio;
-        infos[index].Assign(stats.Values[StatType.Health], $"{health.actualValue} / {health.maxValue}");
+        infos[index].Assign(stats.Values[StatType.Health], $"{health.actualValue}");
         
         index++;
 

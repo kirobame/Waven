@@ -9,7 +9,7 @@ using UnityEngine.InputSystem;
 public class Bootstrapper : MonoBehaviour
 {
     [SerializeField] private Player[] players;
-    [SerializeField] private float turnDuration;
+    [SerializeField] public float turnDuration;
 
     private Session session;
     

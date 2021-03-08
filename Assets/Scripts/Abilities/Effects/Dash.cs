@@ -42,8 +42,11 @@ public class Dash : Effect
             return;
         }
 
+        Buffer.consumeTriggerSpell = false;
+
         Player.Active.onMoveDone += OnMoveDone;
-        Player.Active.Navigator.Move(list.ToArray(), speed, true);
+        Player.Active.SetOrientation(orientation);
+        Player.Active.Navigator.Move(list.ToArray(), speed, true, false);
     }
 
     void OnMoveDone(ITileable tileable)

@@ -131,13 +131,14 @@ public class Spellcaster : MonoBehaviour, ILink
             End();
             return;
         }
-        
+
+        Buffer.consumeTriggerSpell = true;
         Owner.IncreaseBusiness();
         isWaiting = true;
         
         current.onCastDone += OnCastDone;
         
-        Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        if (Player.Active.Navigator.Current != tile) Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
         current.CastFrom(tile, castArgs);
 
         if (current.IsDone)

@@ -49,9 +49,6 @@ public class Damageable : MonoBehaviour, IDamageable
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
 
-        player.isTakingDamage = true;
-        Events.ZipCall(GameEvent.OnDamageTaken, damage);
-
         OnDamageTaken();
 
         while (damage > 0)
@@ -77,7 +74,6 @@ public class Damageable : MonoBehaviour, IDamageable
             }
         }
 
-        player.isTakingDamage = false;
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         return 3;
     }

@@ -28,9 +28,8 @@ public class Tileable : TileableBase, ITag
             Debug.LogError($"Trying to move : {this} with a negative speed!");
             return;
         }
-        
-        IsMoving = true;
-        moveRoutine = StartCoroutine(MoveRoutine(path, speed, processDir));
+        StartMove();
+        moveRoutine = StartCoroutine(MoveRoutine(path, speed));
     }
 
     protected virtual IEnumerator MoveRoutine(Vector2[] path, float speed, bool processDir)

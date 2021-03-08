@@ -4,7 +4,8 @@ using UnityEngine;
 public interface ITileable
 {
     event Action<ITileable> onMoveDone;
-    
+    event Action onMoveStart;
+
     Navigator Navigator { get; }
     bool IsMoving { get; }
     

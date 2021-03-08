@@ -14,6 +14,30 @@ TextureImporter:
   - first:
       213: 1336042106719238819
     second: _it_FL_01_3
+  - first:
+      213: -6937027981680954696
+    second: Hit_FL_01_0
+  - first:
+      213: 2533157363865554240
+    second: Hit_FL_01_1
+  - first:
+      213: -4390551232558974535
+    second: Hit_FL_01_2
+  - first:
+      213: -7014336816094237471
+    second: Hit_FL_01_3
+  - first:
+      213: 1097601320026342451
+    second: Hit_FL_01_0
+  - first:
+      213: -9148852477684692737
+    second: Hit_FL_01_1
+  - first:
+      213: 440844111742487572
+    second: Hit_FL_01_2
+  - first:
+      213: 9022313183645106448
+    second: Hit_FL_01_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -149,85 +173,85 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _it_FL_01_0
+      name: Hit_FL_01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 620
-        height: 909
+        height: 966
       alignment: 9
-      pivot: {x: 0.5, y: 0.16}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: fbd31356e0b7efec0800000000000000
-      internalID: -3531249756054405697
+      spriteID: 3348b21d5967b3f00800000000000000
+      internalID: 1097601320026342451
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FL_01_1
+      name: Hit_FL_01_1
       rect:
         serializedVersion: 2
         x: 620
         y: 0
         width: 620
-        height: 909
+        height: 966
       alignment: 9
-      pivot: {x: 0.5, y: 0.16}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 5f87abb8cbb9c1c20800000000000000
-      internalID: 3178586671117138165
+      spriteID: ff8c62de42fb80180800000000000000
+      internalID: -9148852477684692737
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FL_01_2
+      name: Hit_FL_01_2
       rect:
         serializedVersion: 2
         x: 1240
         y: 0
         width: 620
-        height: 909
+        height: 966
       alignment: 9
-      pivot: {x: 0.5, y: 0.16}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: feacdeba7943b1150800000000000000
-      internalID: 5844322767472544495
+      spriteID: 41ccbb942613e1600800000000000000
+      internalID: 440844111742487572
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FL_01_3
+      name: Hit_FL_01_3
       rect:
         serializedVersion: 2
         x: 1860
         y: 0
         width: 620
-        height: 909
+        height: 966
       alignment: 9
-      pivot: {x: 0.5, y: 0.16}
+      pivot: {x: 0.5, y: 0.2}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 3aaf6f7a7339a8210800000000000000
-      internalID: 1336042106719238819
+      spriteID: 0118d7bc902b53d70800000000000000
+      internalID: 9022313183645106448
       vertices: []
       indices: 
       edges: []

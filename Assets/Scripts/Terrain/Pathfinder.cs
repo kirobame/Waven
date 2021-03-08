@@ -81,7 +81,7 @@ public class Pathfinder : MonoBehaviour, ILink
     void OnTileSelected(Tile selectedTile)
     {
         if (nav.PM <= 0) return;
-
+        
         if (isActive && Inputs.isLocked)
         {
             if (selectedTile == nav.Current || !availableTiles.Contains(selectedTile))
@@ -91,7 +91,7 @@ public class Pathfinder : MonoBehaviour, ILink
                 
                 return;
             }
-
+            
             if (shouldAttack)
             {
                 attackCounter--;

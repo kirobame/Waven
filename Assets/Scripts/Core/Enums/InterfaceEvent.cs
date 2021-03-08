@@ -6,6 +6,8 @@ public enum InterfaceEvent : byte
     OnTooltipUsed,
     
     OnSpellSelected,
+    OnSpellTilesAffect,
+    OnSpellEnd,
 
     OnHoverStart,
     OnHoverEnd,

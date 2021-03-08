@@ -30,13 +30,15 @@ public class GameInfo : MonoBehaviour
         Events.Open(InterfaceEvent.OnInfoRefresh);
         Events.Open(InterfaceEvent.OnHoverStart);
         Events.Open(InterfaceEvent.OnHoverEnd);
+        Events.Open(InterfaceEvent.OnSpellTilesAffect);
+        Events.Open(InterfaceEvent.OnSpellEnd);
         
         Events.RelayByValue<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.RelayByVoid(InterfaceEvent.OnHoverEnd, OnHoverEnd);
         
-        Events.RelayByVoid(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        Events.RelayByValue<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
 
-        Events.RelayByVoid(GameEvent.OnSpellUsed, Shutdown);
+        Events.RelayByVoid(InterfaceEvent.OnSpellEnd, Shutdown);
         Events.RelayByVoid(GameEvent.OnTurnStart, Shutdown);
     }
     void Start() => infoPool = Repository.Get<GenericPool>(Pools.Info);
@@ -46,9 +48,9 @@ public class GameInfo : MonoBehaviour
         Events.BreakValueRelay<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.BreakVoidRelay(InterfaceEvent.OnHoverEnd, OnHoverEnd);
         
-        Events.BreakVoidRelay(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        Events.BreakValueRelay<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
 
-        Events.BreakVoidRelay(GameEvent.OnSpellUsed, Shutdown);
+        Events.BreakVoidRelay(InterfaceEvent.OnSpellEnd, Shutdown);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, Shutdown);
     }
 
@@ -75,16 +77,13 @@ public class GameInfo : MonoBehaviour
         hasHoverInfo = false;
     }
 
-    void OnSpellSelected()
+    void OnSpellTilesAffect(Spellcaster caster)
     {
         HoverSignal.activeId = int.MaxValue;
         if (hasHoverInfo) OnHoverEnd();
 
-        var map = Repository.Get<Map>(References.Map);
-        foreach (var tileBase in map.Tiles.Values)
+        foreach (var tile in caster.AvailableTiles)
         {
-            if (!(tileBase is Tile tile)) continue;
-
             foreach (var entity in tile.Entities)
             {
                 var component = (Component)entity;

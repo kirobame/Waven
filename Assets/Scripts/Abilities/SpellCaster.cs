@@ -9,7 +9,7 @@ using UnityEngine;
 public class Spellcaster : MonoBehaviour, ILink
 {
     public static Spellcaster Active { get; private set; }
-    public static IReadOnlyDictionary<Id, CastArgs> EmptyArgs { get; } = new Dictionary<Id, CastArgs>();
+    public static IReadOnlyDictionary<Id, List<CastArgs>> EmptyArgs { get; } = new Dictionary<Id, List<CastArgs>>();
     
     public event Action<ILink> onDestroyed; 
     
@@ -29,7 +29,7 @@ public class Spellcaster : MonoBehaviour, ILink
     
     private bool hasCaster;
     private IAttributeHolder caster;
-    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : EmptyArgs;
+    private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
 

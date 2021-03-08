@@ -35,11 +35,8 @@ public class GameInfo : MonoBehaviour
         
         Events.RelayByValue<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.RelayByVoid(InterfaceEvent.OnHoverEnd, OnHoverEnd);
-        
         Events.RelayByValue<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
-
         Events.RelayByVoid(InterfaceEvent.OnSpellEnd, Shutdown);
-        Events.RelayByVoid(GameEvent.OnTurnStart, Shutdown);
     }
     void Start() => infoPool = Repository.Get<GenericPool>(Pools.Info);
     
@@ -47,11 +44,8 @@ public class GameInfo : MonoBehaviour
     {
         Events.BreakValueRelay<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.BreakVoidRelay(InterfaceEvent.OnHoverEnd, OnHoverEnd);
-        
         Events.BreakValueRelay<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
-
         Events.BreakVoidRelay(InterfaceEvent.OnSpellEnd, Shutdown);
-        Events.BreakVoidRelay(GameEvent.OnTurnStart, Shutdown);
     }
 
     private EntityInfo SetupInfoFor(InfoAnchor anchor, GameObject source)
@@ -96,6 +90,8 @@ public class GameInfo : MonoBehaviour
     
     void Shutdown()
     {
+        if (hasHoverInfo) OnHoverEnd();
+        
         HoverSignal.activeId = 0;
 
         foreach (var spellInfo in spellInfos) spellInfo.gameObject.SetActive(false);

@@ -11,13 +11,13 @@ public class Dash : Effect
     [SerializeField] private int range;
     [SerializeField] private float speed;
 
-    public override HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public override HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var tiles = base.GetAffectedTiles(source, args);
         return tiles.Where(tile => tile.IsFree()).ToHashSet();
     }
 
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var start = Player.Active.Navigator.Current;
         

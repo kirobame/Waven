@@ -9,14 +9,22 @@ using UnityEngine;
 public class Push : Effect
 {
     [SerializeField] int force;
+    [SerializeField] private int direction;
     [SerializeField] private float speed;
 
     private int business;
 
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var force = this.force;
-        if (args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var result)) force += result.Value;
+        if (args.TryAggregate(new Id('P', 'S', 'H'), out var output)) force += output;
+        force *= direction;
+
+        if (force == 0)
+        {
+            End();
+            return;
+        }
         
         business = 0;
         var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);

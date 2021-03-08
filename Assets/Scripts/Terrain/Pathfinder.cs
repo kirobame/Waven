@@ -32,7 +32,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     private bool hasCaster;
     private IAttributeHolder caster;
-    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
+    private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
     

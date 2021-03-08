@@ -285,9 +285,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 720020f2a86d5dd47989308bc2631ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  args: []
+  args:
+  - id: 0
+  - id: 1
   references:
     version: 1
+    00000000:
+      type: {class: FoundingIntCastArgs, ns: , asm: Assembly-CSharp}
+      data:
+        id:
+          value: PSH
+        value: 1
+    00000001:
+      type: {class: FoundingIntCastArgs, ns: , asm: Assembly-CSharp}
+      data:
+        id:
+          value: DMG
+        value: 1
 --- !u!1 &8594391786095481121
 GameObject:
   m_ObjectHideFlags: 0

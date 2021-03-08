@@ -125,7 +125,7 @@ MonoBehaviour:
       Data: 
     - Name: amount
       Entry: 3
-      Data: 1
+      Data: 0
     - Name: type
       Entry: 3
       Data: 0
@@ -157,6 +157,9 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: force
+      Entry: 3
+      Data: 0
+    - Name: direction
       Entry: 3
       Data: 1
     - Name: speed

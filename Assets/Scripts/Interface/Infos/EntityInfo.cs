@@ -11,6 +11,10 @@ public class EntityInfo : MonoBehaviour
     [SerializeField] private Slider slider;
     [SerializeField] private StatInfo[] infos;
 
+    [Space, SerializeField] private Color normal;
+    [SerializeField] private Color bonus;
+    [SerializeField] private Color malus;
+    
     private bool isActive;
     private InfoAnchor anchor;
     private GameObject source;
@@ -70,6 +74,7 @@ public class EntityInfo : MonoBehaviour
         var ratio = health.Ratio;
 
         slider.value = ratio;
+        infos[index].TextMesh.color = normal;
         infos[index].Assign(stats.Values[StatType.Health], $"{health.actualValue}");
         
         index++;
@@ -79,24 +84,22 @@ public class EntityInfo : MonoBehaviour
         {
             hasAttributes = true;
             
-            var damage = 1;
-            if (attributes.Args.TryGet<IWrapper<int>>(new Id('D', 'M', 'G'), out var damageArgs)) damage += damageArgs.Value;
-            
-            infos[index].Assign(stats.Values[StatType.Damage], $"{damage}");
-            index++;
-            
-            var push = 1;
-            if (attributes.Args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var pushArgs)) push += pushArgs.Value;
-            
-            infos[index].Assign(stats.Values[StatType.Force], $"{push}");
-            index++;
+            if (HandleStat(index, attributes, new Id('D', 'M', 'G'), stats.Values[StatType.Damage])) index++;
+            if (HandleStat(index, attributes, new Id('P', 'S', 'H'), stats.Values[StatType.Force])) index++;
         }
         
         if (source.TryGet<Moveable>(out var moveable))
         {
+            moveable.Dirty();
             var move = moveable.PM;
-            if (hasAttributes && attributes.Args.TryGet<IWrapper<int>>(new Id('M', 'V', 'T'), out var moveArgs)) move += moveArgs.Value;
-                
+
+            if (hasAttributes && attributes.Args.TryGetValue(new Id('M', 'V', 'T'), out var baseValue, out var value))
+            {
+                if (value == 0) infos[index].TextMesh.color = normal;
+                else if (value > 0) infos[index].TextMesh.color = bonus;
+                else infos[index].TextMesh.color = malus;
+            }
+            
             infos[index].Assign(stats.Values[StatType.Movement], $"{move}");
             index++;
         }
@@ -105,6 +108,21 @@ public class EntityInfo : MonoBehaviour
     }
     private void ClearFrom(int index) { for (var i = index; i < infos.Length; i++) infos[i].Clear(); }
 
+    private bool HandleStat(int index, IAttributeHolder attributes, Id id, Stats.Info info)
+    {
+        if (attributes.Args.TryGetValue(id, out var baseValue, out var value))
+        {
+            if (value == 0) infos[index].TextMesh.color = normal;
+            else if (value > 0) infos[index].TextMesh.color = bonus;
+            else infos[index].TextMesh.color = malus;
+            
+            infos[index].Assign(info, $"{baseValue + value}");
+            
+            return true;
+        }
+
+        return false;
+    }
     private void Place()
     {
         var camera = Repository.Get<Camera>(References.Camera);

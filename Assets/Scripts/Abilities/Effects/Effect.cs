@@ -14,7 +14,7 @@ public abstract class Effect
     
     [SerializeField] protected Pattern[] patterns = new Pattern[0];
 
-    public virtual HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public virtual HashSet<Tile> GetAffectedTiles(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var output = new HashSet<Tile>();
         foreach (var pattern in patterns) output.UnionWith(pattern.GetTiles(source, args));
@@ -22,13 +22,13 @@ public abstract class Effect
         return output;
     }
     
-    public virtual bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args) => true;
-    public void PlayOn(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public virtual bool CanBeCasted(IReadOnlyDictionary<Id, List<CastArgs>> args) => true;
+    public void PlayOn(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var tiles = GetAffectedTiles(source, args);
         ApplyTo(source, tiles, args);
     }
 
-    protected abstract void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args);
+    protected abstract void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args);
     protected void End() => onDone?.Invoke(this);
 }

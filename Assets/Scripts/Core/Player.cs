@@ -23,10 +23,11 @@ public class Player : Tileable, ITurnbound
     public short Initiative => initiative;
 
     [Space, SerializeField] private int index;
+    [SerializeField] private short initiative;
     
     [Space, SerializeField] private Animator animator;
-    [SerializeField] private short initiative;
     [SerializeField] private float speed;
+    [SerializeField] private Vector2Int orientation;
 
     private InputAction spacebarAction;
     
@@ -49,7 +50,7 @@ public class Player : Tileable, ITurnbound
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
         
-        ProcessMoveDirection(Vector2Int.right);
+        SetOrientation(orientation);
     }
 
     protected override void OnDestroy()
@@ -131,21 +132,25 @@ public class Player : Tileable, ITurnbound
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
         IncreaseBusiness();
         
         if (speed <= 0 || !overrideSpeed) speed = this.speed;
-        base.Move(path, speed, overrideSpeed);
+        base.Move(path, speed, overrideSpeed, processDir);
 
-        animator.SetBool("isMoving", true);
+        if (processDir) animator.SetBool("isMoving", true);
     }
 
     protected override void ProcessMoveDirection(Vector2 direction)
     {
         var orientation = direction.ComputeOrientation();
-        animator.SetFloat("X", orientation.x);
-        animator.SetFloat("Y", orientation.y);
+        SetOrientation(orientation);
+    }
+    public override void SetOrientation(Vector2Int direction)
+    {
+        animator.SetFloat("X", direction.x);
+        animator.SetFloat("Y", direction.y);
     }
 
     protected override void OnMoveCompleted()

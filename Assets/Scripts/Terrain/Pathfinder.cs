@@ -104,9 +104,7 @@ public class Pathfinder : MonoBehaviour, ILink
                     
                 if (path.Count == 1)
                 {
-                    attack.Prepare();
-                    attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
-
+                    Attack();
                     shouldAttack = false;
                 }
             }
@@ -281,15 +279,19 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
+    private void Attack()
+    {
+        Player.Active.SetOrientation((tileToAttack.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        
+        attack.Prepare();
+        attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
+    }
+    
     void OnMoveDone(ITileable tileable)
     {
         isWaiting = false;
-        
-        if (shouldAttack)
-        {
-            attack.Prepare();
-            attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
-        }
+
+        if (shouldAttack) Attack();
         
         nav.Target.onMoveDone -= OnMoveDone;
         Inputs.isLocked = false;

@@ -243,6 +243,10 @@ PrefabInstance:
       propertyPath: index
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: orientation.x
+      value: -1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-02
@@ -2016,7 +2020,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 3.5
+  orthographic size: 4.63
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -3172,6 +3176,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: orientation.x
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120683, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Name
       value: Player-01

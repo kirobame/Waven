@@ -31,7 +31,8 @@ public class Push : Effect
         {
             var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
             var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
-
+            target.SetOrientation(-orientation);
+            
             var cell = target.Navigator.Current.FlatPosition + orientation;
             if (!cell.TryGetTile(out var sourceTile)) continue;
 
@@ -49,9 +50,9 @@ public class Push : Effect
             }
             
             if (!line.Any()) continue;
-
+            
             line.Insert(0, target.Navigator.Current);
-            target.Navigator.Move(line.ToArray(), speed, true);
+            target.Navigator.Move(line.ToArray(), speed, true, false);
 
             business++;
             target.onMoveDone += OnMoveEnd;

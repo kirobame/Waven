@@ -17,8 +17,10 @@ public class TileableBase : MonoBehaviour, ITileable
     }
 
     public virtual void Place(Vector2 position) => transform.position = position;
-    public virtual void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false) => throw new NotImplementedException();
+    public virtual void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true) => throw new NotImplementedException();
 
+    public virtual void SetOrientation(Vector2Int direction) { }
+    
     protected void EndMove()
     {
         IsMoving = false;

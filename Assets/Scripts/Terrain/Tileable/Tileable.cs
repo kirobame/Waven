@@ -21,7 +21,7 @@ public class Tileable : TileableBase, ITag
     
     public override void Place(Vector2 position) => transform.position = position;
 
-    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
         if (speed <= 0)
         {
@@ -30,16 +30,18 @@ public class Tileable : TileableBase, ITag
         }
         
         IsMoving = true;
-        moveRoutine = StartCoroutine(MoveRoutine(path, speed));
+        moveRoutine = StartCoroutine(MoveRoutine(path, speed, processDir));
     }
-    protected virtual IEnumerator MoveRoutine(Vector2[] path, float speed)
+
+    protected virtual IEnumerator MoveRoutine(Vector2[] path, float speed, bool processDir)
     {
         var map = Repository.Get<Map>(References.Map);
         
         var index = 0;
         var time = 0.0f;
 
-        ProcessMoveDirection((path[index + 1] - path[index]).normalized);
+        if (processDir) ProcessMoveDirection((path[index + 1] - path[index]).normalized);
+        
         while (true)
         {
             time += Time.deltaTime;
@@ -64,7 +66,7 @@ public class Tileable : TileableBase, ITag
                     time -= speed;
                     index++;
 
-                    ProcessMoveDirection((path[index + 1] - path[index]).normalized);
+                    if (processDir) ProcessMoveDirection((path[index + 1] - path[index]).normalized);
                 }
             }
 

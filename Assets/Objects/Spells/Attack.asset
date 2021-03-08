@@ -33,6 +33,9 @@ MonoBehaviour:
     - Name: allowBoost
       Entry: 5
       Data: true
+    - Name: includeSource
+      Entry: 5
+      Data: false
     - Name: directions
       Entry: 7
       Data: Vector4Int, Assembly-CSharp
@@ -65,7 +68,7 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 3|Damage, Assembly-CSharp
@@ -123,6 +126,24 @@ MonoBehaviour:
     - Name: speed
       Entry: 4
       Data: 0.125
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|BaseAttackAnim, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 10|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 0
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

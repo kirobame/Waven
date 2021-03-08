@@ -14,6 +14,18 @@ TextureImporter:
   - first:
       213: -4486783645245527261
     second: _it_FR_01_3
+  - first:
+      213: -400281904236767911
+    second: Hit_FR_01_0
+  - first:
+      213: 1504977225869328569
+    second: Hit_FR_01_1
+  - first:
+      213: 1108138947504515239
+    second: Hit_FR_01_2
+  - first:
+      213: 8653760425790797295
+    second: Hit_FR_01_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -149,13 +161,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: _it_FR_01_0
+      name: Hit_FR_01_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
         width: 620
-        height: 912
+        height: 966
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -163,20 +175,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 12b1beb14ee613d50800000000000000
-      internalID: 6715270445386111777
+      spriteID: 95553f79ab9e17af0800000000000000
+      internalID: -400281904236767911
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FR_01_1
+      name: Hit_FR_01_1
       rect:
         serializedVersion: 2
         x: 620
         y: 0
         width: 620
-        height: 912
+        height: 966
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -184,20 +196,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a3629da351c12f020800000000000000
-      internalID: 2373990831084873274
+      spriteID: 9b08efe20d0c2e410800000000000000
+      internalID: 1504977225869328569
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FR_01_2
+      name: Hit_FR_01_2
       rect:
         serializedVersion: 2
         x: 1240
         y: 0
         width: 620
-        height: 912
+        height: 966
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -205,20 +217,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8afdf83b2c0eebda0800000000000000
-      internalID: -5927052932732166232
+      spriteID: 7a828c76086e06f00800000000000000
+      internalID: 1108138947504515239
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: _it_FR_01_3
+      name: Hit_FR_01_3
       rect:
         serializedVersion: 2
         x: 1860
         y: 0
         width: 620
-        height: 912
+        height: 966
       alignment: 9
       pivot: {x: 0.5, y: 0.16}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -226,8 +238,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 32bab11fb0ebbb1c0800000000000000
-      internalID: -4486783645245527261
+      spriteID: fe5f796f145581870800000000000000
+      internalID: 8653760425790797295
       vertices: []
       indices: 
       edges: []

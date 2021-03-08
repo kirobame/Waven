@@ -237,7 +237,7 @@ PrefabInstance:
     - target: {fileID: 1500592893475506057, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: collider
       value: 
-      objectReference: {fileID: 1150042061}
+      objectReference: {fileID: 0}
     - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: speed
       value: 0.175
@@ -546,9 +546,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 862600918ad59fc43afad07d3f978f7c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  group: {fileID: 1734895684}
-  prefab: {fileID: 3489248594739063015, guid: 6ae8fd9943446c44eaee71f0b2e1cc3e, type: 3}
-  heightOffset: 300
 --- !u!114 &496631175
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -748,6 +745,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tooltip
       objectReference: {fileID: 0}
+    - target: {fileID: 3928492061984195531, guid: 251333084b8d46b4ca4eb59dfaa843fe, type: 3}
+      propertyPath: canvas
+      value: 
+      objectReference: {fileID: 1734895684}
+    - target: {fileID: 3928492061984195531, guid: 251333084b8d46b4ca4eb59dfaa843fe, type: 3}
+      propertyPath: tooltip
+      value: 
+      objectReference: {fileID: 1083285396}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 251333084b8d46b4ca4eb59dfaa843fe, type: 3}
 --- !u!224 &575463411 stripped
@@ -1046,6 +1051,22 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1734895684}
     m_Modifications:
+    - target: {fileID: 3631785426569222044, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631785426569222044, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631785426569222044, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3631785426569222044, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6602528446932361891, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_PixelsPerUnitMultiplier
       value: 0.275
@@ -1416,11 +1437,17 @@ MonoBehaviour:
     type: References, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     value: 2
   value: {fileID: -944628639613478452, guid: b3706750c6c41dc40a65e53d31bd826c, type: 3}
---- !u!61 &1150042061 stripped
-BoxCollider2D:
-  m_CorrespondingSourceObject: {fileID: 4162275367574529809, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
-  m_PrefabInstance: {fileID: 306325344}
+--- !u!114 &1083285396 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 6537006237813467208, guid: 251333084b8d46b4ca4eb59dfaa843fe, type: 3}
+  m_PrefabInstance: {fileID: 575463410}
   m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4688fdb7df04437aeb418b961361dc5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1211593983
 GameObject:
   m_ObjectHideFlags: 0
@@ -2966,8 +2993,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tilemap: {fileID: 1811880519}
-  borderTrapPrefab: {fileID: 7793877521601505687, guid: 9f90e99f1d1c493498cbf7a79c33fbe0, type: 3}
-  borderObstaclePrefab: {fileID: 539701715701859322, guid: 86b5b34c6a179d244b18defd638ef61c, type: 3}
+  borderPrefabs: []
 --- !u!114 &1811880521
 MonoBehaviour:
   m_ObjectHideFlags: 0

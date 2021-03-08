@@ -119,6 +119,7 @@ public class Player : Tileable, ITurnbound
         isActive = true;
         foreach (var activable in links) activable.Activate();
         Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
     }
     
 
@@ -154,6 +155,11 @@ public class Player : Tileable, ITurnbound
     }
 
     //------------------------------------------------------------------------------------------------------------------/
+
+    void OnBaseAttack(EventArgs obj)
+    {
+        if (isActive) animator.SetTrigger("isBaseAttack");
+    }
 
     void OnSpellUsed(EventArgs obj)
     {

@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class StatInfo : MonoBehaviour, IComparable<StatInfo>
 {
     public RectTransform RectTransform => (RectTransform)transform;
+    [SerializeField] private RectTransform background;
 
     [SerializeField] private float spacing;
     
@@ -20,6 +21,12 @@ public class StatInfo : MonoBehaviour, IComparable<StatInfo>
     {
         hasSource = true;
         current = source;
+
+        float statSize = 0f;
+        statSize += transform.GetComponentInChildren<RectTransform>().sizeDelta.x;
+
+        var bgSize = background.sizeDelta;
+        bgSize.x += (statSize + spacing);
         
         gameObject.SetActive(true);
         

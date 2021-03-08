@@ -65,10 +65,11 @@ public class Player : Tileable, ITurnbound
         spacebarAction.performed -= OnSpacebarPressed;
     }
 
-    void OnSpacebarPressed(InputAction.CallbackContext context)
+    void OnSpacebarPressed(InputAction.CallbackContext context) => OnEndTurn();
+
+    public void OnEndTurn()
     {
         if (!isActive) return;
-        
         Routines.Start(Routines.DoAfter(() =>
         {
             onIntendedTurnStop?.Invoke(new IntendedStopMotive());

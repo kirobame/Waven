@@ -49,12 +49,12 @@ public class Golem : Tileable, ILink
         Deactivate();
     }
 
-    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false)
+    public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
         if (speed <= 0 || !overrideSpeed) speed = this.speed;
 
-        base.Move(path, speed, overrideSpeed);
         if (hasOwner) Owner.IncreaseBusiness();
+        base.Move(path, speed, overrideSpeed, processDir);
     }
     protected override void OnMoveCompleted()
     {

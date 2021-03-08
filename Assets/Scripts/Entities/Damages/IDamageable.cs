@@ -1,8 +1,12 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 
 public interface IDamageable : ITag
 {
+    event Action<IDamageable> onFeedbackDone;
+    
+    bool IsAlive { get; }
     bool IsInvulnerable { get; }
     
     List<Life> Lives { get; }

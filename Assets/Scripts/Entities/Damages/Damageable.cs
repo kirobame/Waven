@@ -1,4 +1,5 @@
-﻿using Flux.Event;
+﻿using System;
+using Flux.Event;
 using System.Collections.Generic;
 using System.Linq;
 using Flux;
@@ -7,6 +8,9 @@ using UnityEngine;
 
 public class Damageable : MonoBehaviour, IDamageable
 {
+    public event Action<IDamageable> onFeedbackDone;
+
+    public bool IsAlive => lives.Any();
     public bool IsInvulnerable { get; private set; }
 
     public List<Life> Lives => lives;
@@ -21,21 +25,18 @@ public class Damageable : MonoBehaviour, IDamageable
         set => tag.Team = value;
     }
     private new Tag tag;
-
-    private Player player;
-
+    
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake()
+    protected virtual void Awake()
     {
         tag = GetComponent<Tag>();
         lives.Sort();
-        player = gameObject.GetComponent<Player>();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
     
-    public Life Get(string name) => lives.First(life => life.name.ToLower().Equals(name.ToLower()));
+    public Life Get(string name) => lives.FirstOrDefault(life => life.name.ToLower().Equals(name.ToLower()));
     public void AddLife(Life value)
     {
         lives.Add(value);
@@ -48,7 +49,7 @@ public class Damageable : MonoBehaviour, IDamageable
         
         if (IsInvulnerable) return 0;
         if (!lives.Any()) return 2;
-
+        
         OnDamageTaken();
 
         while (damage > 0)
@@ -70,17 +71,24 @@ public class Damageable : MonoBehaviour, IDamageable
             else
             {
                 Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+                OnLogicDone();
+                
                 return 3;
             }
         }
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+        OnLogicDone();
+        
         return 3;
     }
     
     //------------------------------------------------------------------------------------------------------------------/
     
     protected virtual void OnDamageTaken() { }
+
+    protected virtual void OnLogicDone() => EndFeedback();
+    protected void EndFeedback() => onFeedbackDone?.Invoke(this);
     
     protected virtual void OnDeath() => Destroy(gameObject);
 }

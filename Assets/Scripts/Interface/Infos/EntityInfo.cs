@@ -62,6 +62,11 @@ public class EntityInfo : MonoBehaviour
         var stats = Repository.Get<Stats>(References.Stats);
 
         var health = damageable.Get("Health");
+        if (health == null)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
         var ratio = health.Ratio;
 
         slider.value = ratio;
@@ -81,7 +86,7 @@ public class EntityInfo : MonoBehaviour
             index++;
             
             var push = 1;
-            if (attributes.Args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var pushArgs)) push += damageArgs.Value;
+            if (attributes.Args.TryGet<IWrapper<int>>(new Id('P', 'S', 'H'), out var pushArgs)) push += pushArgs.Value;
             
             infos[index].Assign(stats.Values[StatType.Force], $"{push}");
             index++;

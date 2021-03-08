@@ -1,18 +1,15 @@
 ﻿using Flux;
+using System.Collections.Generic;
 using Flux.Event;
+using Flux.Data;
+using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Trap : TileableBase
 {
+    [SerializeField] private Spell spell;
+
     void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
-    void Start()
-    {
-        Routines.Start(Routines.DoAfter(() =>
-        {
-            foreach (var entity in navigator.Current.Entities) ApplyOn(entity);
-            
-        }, new YieldFrame()));
-    }
     
     protected override void OnDestroy()
     {
@@ -25,11 +22,15 @@ public class Trap : TileableBase
     void OnTileChange(ITileable source)
     {
         if (source.Navigator.Current != Navigator.Current) return;
-        ApplyOn(source);
+        Apply();
     }
 
-    protected virtual void ApplyOn(ITileable source)
+    protected virtual void Apply()
     {
-        if (source.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
+        var map = Repository.Get<Map>(References.Map);
+        var tile = map.Tilemap.WorldToCell(transform.position).ToTile();
+        
+        spell.Prepare();
+        spell.CastFrom(tile, Spellcaster.EmptyArgs);
     }
 }

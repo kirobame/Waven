@@ -9,7 +9,6 @@ using UnityEngine.UI;
 
 public class TurnIndicator : MonoBehaviour
 {
-    //[SerializeField] private TMP_Text title;
     [SerializeField] private Image timer;
     [SerializeField] private TMP_Text timerValue;
 
@@ -44,8 +43,6 @@ public class TurnIndicator : MonoBehaviour
 
     void OnTurnStart(Turn turn)
     {
-        //title.text = turn.Target.Name;
-        
         if (turn.Target is Component component)
         {
             hasTarget = true;
@@ -62,7 +59,6 @@ public class TurnIndicator : MonoBehaviour
         }
         else if (args is WrapperArgs<float> floatArgs)
         {
-            Debug.Log(floatArgs.ArgOne);
             timer.fillAmount = 1.0f - floatArgs.ArgOne;
 
             var remainingTime = (int)(boot.turnDuration - (floatArgs.ArgOne * boot.turnDuration));

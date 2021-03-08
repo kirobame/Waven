@@ -29,6 +29,10 @@ public class Pathfinder : MonoBehaviour, ILink
     private bool shouldAttack;
     private int attackCounter;
     private Tile tileToAttack;
+    
+    private bool hasCaster;
+    private IAttributeHolder caster;
+    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -57,6 +61,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
+    void Awake() => hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     void OnDestroy()
     {
         Deactivate();
@@ -76,14 +81,8 @@ public class Pathfinder : MonoBehaviour, ILink
     void OnTileSelected(Tile selectedTile)
     {
         if (nav.PM <= 0) return;
-        
-        if (!isActive && Inputs.isLocked)
-        {
-            Events.EmptyCall(InputEvent.OnInterrupt);
-            if (Inputs.isLocked) return;
-        }
 
-        if (isActive)
+        if (isActive && Inputs.isLocked)
         {
             if (selectedTile == nav.Current || !availableTiles.Contains(selectedTile))
             {
@@ -104,9 +103,7 @@ public class Pathfinder : MonoBehaviour, ILink
                     
                 if (path.Count == 1)
                 {
-                    attack.Prepare();
-                    attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
-
+                    Attack();
                     shouldAttack = false;
                 }
             }
@@ -125,6 +122,12 @@ public class Pathfinder : MonoBehaviour, ILink
         }
         else if (!nav.Target.IsMoving && selectedTile == nav.Current)
         {
+            if (Inputs.isLocked)
+            {
+                Events.EmptyCall(InputEvent.OnInterrupt);
+                if (Inputs.isLocked) return;
+            }
+            
             Inputs.isLocked = true;
             Events.RelayByVoid(InputEvent.OnInterrupt, OnInterrupt);
 
@@ -281,15 +284,19 @@ public class Pathfinder : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
 
+    private void Attack()
+    {
+        Player.Active.SetOrientation((tileToAttack.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        
+        attack.Prepare();
+        attack.CastFrom(tileToAttack, castArgs);
+    }
+    
     void OnMoveDone(ITileable tileable)
     {
         isWaiting = false;
-        
-        if (shouldAttack)
-        {
-            attack.Prepare();
-            attack.CastFrom(tileToAttack, Spellcaster.EmptyArgs);
-        }
+
+        if (shouldAttack) Attack();
         
         nav.Target.onMoveDone -= OnMoveDone;
         Inputs.isLocked = false;

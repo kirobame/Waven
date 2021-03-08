@@ -54,3 +54,7 @@ private void ReconstructPath(Tile start, Tile end, Func<Tile, int> axisPicker, F
 		return true;
 	}
 }
+
+Debug.Log($"Inflicting damage on {this}");
+foreach (var life in lives) Debug.Log($"Life : {life.actualValue} // {life.maxValue}");
+        

@@ -1,27 +1,32 @@
-﻿using UnityEngine;
+﻿using System.Collections;
+using Flux;
+using UnityEngine;
 
 public class Bomb : Damageable
 {
     [SerializeField] private TileableBase tileable;
+    [SerializeField] private Spell spell;
+    [SerializeField] private SpriteRenderer graph;
     
     protected override void OnDeath()
     {
-        var cells = new Vector2Int[]
-        {
-            tileable.Navigator.Current.FlatPosition + Vector2Int.down,
-            tileable.Navigator.Current.FlatPosition + Vector2Int.right,
-            tileable.Navigator.Current.FlatPosition + Vector2Int.left,
-            tileable.Navigator.Current.FlatPosition + Vector2Int.up,
-        };
-        foreach (var cell in cells)
-        {
-            if (!cell.TryGetTile(out var tile)) continue;
+        graph.enabled = false;
+        StartCoroutine(WaitRoutine());
+    }
 
-            foreach (var entity in tile.Entities)
-            {
-                if (entity.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
-            }
-        }
+    private IEnumerator WaitRoutine()
+    {
+        for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
+        
+        spell.Prepare();
+        spell.onCastDone += Die;
+        spell.CastFrom(tileable.Navigator.Current, Spellcaster.EmptyArgs);
+    }
+
+    void Die()
+    {
+        spell.onCastDone -= Die;
+        EndFeedback();
         
         base.OnDeath();
     }

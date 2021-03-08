@@ -70,7 +70,7 @@ public class Pathfinder : MonoBehaviour, ILink
 
     void OnInterrupt()
     {
-        if (isWaiting) return;
+        if (!isActive || isWaiting) return;
         
         Inputs.isLocked = false;
         Shutdown();

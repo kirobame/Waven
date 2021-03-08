@@ -40,9 +40,10 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
+        current = null;
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        
         if (!isActive) return;
-
         End();
     }
 
@@ -52,7 +53,7 @@ public class Spellcaster : MonoBehaviour, ILink
         
         Events.EmptyCall(InterfaceEvent.OnSpellEnd);
         
-        Events.BreakVoidRelay(InputEvent.OnInterrupt, OnInterrupt);
+        Events.Unregister(InputEvent.OnInterrupt, OnInterrupt);
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
     }
@@ -74,10 +75,26 @@ public class Spellcaster : MonoBehaviour, ILink
         onDestroyed?.Invoke(this);
     }
 
-    void OnInterrupt()
+    void OnInterrupt(EventArgs args)
     {
-        if (isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
-        End();
+        if (args is IWrapper<bool> wrapper)
+        {
+            if (wrapper.Value)
+            {
+                if (!isActive || isWaiting) return;
+                End();
+            }
+            else
+            {
+                if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+                End();
+            }
+        }
+        else
+        {
+            if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+            End();
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -106,7 +123,7 @@ public class Spellcaster : MonoBehaviour, ILink
             isActive = true;
             isWaiting = false;
             
-            Events.RelayByVoid(InputEvent.OnInterrupt, OnInterrupt);
+            Events.Register(InputEvent.OnInterrupt, OnInterrupt);
             Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
             Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         }

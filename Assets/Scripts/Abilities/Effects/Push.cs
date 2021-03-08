@@ -34,44 +34,62 @@ public class Push : Effect
             End();
             return;
         }
-        
-        foreach(var target in targets.ToArray())
+
+        foreach (var target in targets)
         {
             var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
             var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
             target.SetOrientation(-orientation);
             
             var cell = target.Navigator.Current.FlatPosition + orientation;
-            if (!cell.TryGetTile(out var sourceTile)) continue;
+            if (!cell.TryGetTile(out var start)) continue;
 
-            var tuple = sourceTile.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
-            if (tuple.code != 0)
+            var result = start.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
+            if (result.code != 0 && !line.Any())
             {
-                if (target.TryGet<IDamageable>(out var damageable)) damageable.Inflict(1, DamageType.Base);
-                if (tuple.code == 3)
+                if (target.TryGet<IDamageable>(out var damageable)) RegisterDamageable(damageable);
+                
+                if (result.code == 3)
                 {
-                    foreach (var entity in tuple.tile.Entities)
+                    foreach (var entity in result.tile.Entities)
                     {
-                        if (entity.TryGet<IDamageable>(out damageable)) damageable.Inflict(1, DamageType.Base);
+                        if (!entity.TryGet<IDamageable>(out damageable)) continue;
+                        RegisterDamageable(damageable);
                     }
                 }
+
+                continue;
             }
             
-            if (!line.Any()) continue;
-            
             line.Insert(0, target.Navigator.Current);
+            if (result.code == 3) line.Add(result.tile);
             target.Navigator.Move(line.ToArray(), speed, true, false);
 
             business++;
             target.onMoveDone += OnMoveEnd;
         }
-        
+
         if (business == 0) End();
     }
 
     void OnMoveEnd(ITileable tileable)
     {
         tileable.onMoveDone -= OnMoveEnd;
+        
+        business--;
+        if (business == 0) End();
+    }
+
+    private void RegisterDamageable(IDamageable damageable)
+    {
+        business++;
+        damageable.onFeedbackDone += OnDamageDone;
+                        
+        damageable.Inflict(1, DamageType.Base);
+    }
+    void OnDamageDone(IDamageable damageable)
+    {
+        damageable.onFeedbackDone -= OnDamageDone;
         
         business--;
         if (business == 0) End();

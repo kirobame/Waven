@@ -6,7 +6,17 @@ using UnityEngine.InputSystem;
 
 public class Inputs : MonoBehaviour
 {
-    public static bool isLocked;
+    private static bool trueLock;
+
+    public static bool isLocked
+    {
+        get => trueLock;
+        set
+        {
+            Events.ZipCall(InputEvent.OnInputLock, value);
+            trueLock = value;
+        }
+    }
 
     public static Vector3Int GetCellAt(Vector2 screenPosition)
     {
@@ -25,16 +35,21 @@ public class Inputs : MonoBehaviour
     
     private InputActionAsset value;
 
-    private Vector2 mousePosition;
+    private bool hasHoveredTile;
+    private Tile hoveredTile;
     
+    private Vector2 mousePosition;
+
     void Start()
     {
-        isLocked = false;
-        
         Events.Open(InputEvent.OnTileSelected);
         Events.Open(InputEvent.OnMouseMove);
         Events.Open(InputEvent.OnInterrupt);
+        Events.Open(InputEvent.OnTileHover);
+        Events.Open(InputEvent.OnInputLock);
 
+        isLocked = false;
+        
         Routines.Start(Routines.DoAfter(() =>
         {
             value = Repository.Get<InputActionAsset>(References.Inputs);
@@ -56,7 +71,28 @@ public class Inputs : MonoBehaviour
         value.Disable();
     }
 
-    void Update() => Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
+    void Update()
+    {
+        Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
+        
+        var cell = GetCellAt(mousePosition).xy();
+        if (!cell.TryGetTile(out var output) || output is DeathTile)
+        {
+            if (!hasHoveredTile) return;
+
+            hasHoveredTile = false;
+            Events.ZipCall(InputEvent.OnTileHover, false);
+        }
+        else
+        {
+            if (output == hoveredTile) return;
+
+            hasHoveredTile = true;
+            Events.ZipCall(InputEvent.OnTileHover, output);
+        }
+
+        hoveredTile = output;
+    }
 
     void OnClick(InputAction.CallbackContext context)
     {

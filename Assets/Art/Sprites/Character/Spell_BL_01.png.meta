@@ -1,7 +1,25 @@
 fileFormatVersion: 2
 guid: bd5bb371a90fcd14982ce473a4c1d364
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 7620643736546719412
+    second: Spell_BL_01_0
+  - first:
+      213: 2164622864453789241
+    second: Spell_BL_01_1
+  - first:
+      213: -2924978668770647344
+    second: Spell_BL_01_2
+  - first:
+      213: 7818726537638477842
+    second: Spell_BL_01_3
+  - first:
+      213: -3551201179305950737
+    second: Spell_BL_01_4
+  - first:
+      213: -6377237754773894295
+    second: Spell_BL_01_5
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -41,7 +59,7 @@ TextureImporter:
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
-  spriteMode: 1
+  spriteMode: 2
   spriteExtrude: 1
   spriteMeshType: 1
   alignment: 0
@@ -135,7 +153,133 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: Spell_BL_01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4b63cac3a17f1c960800000000000000
+      internalID: 7620643736546719412
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell_BL_01_1
+      rect:
+        serializedVersion: 2
+        x: 546
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 936e47cc6094a0e10800000000000000
+      internalID: 2164622864453789241
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell_BL_01_2
+      rect:
+        serializedVersion: 2
+        x: 1092
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0d2a450e5636867d0800000000000000
+      internalID: -2924978668770647344
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell_BL_01_3
+      rect:
+        serializedVersion: 2
+        x: 1638
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2108cdf4c52b18c60800000000000000
+      internalID: 7818726537638477842
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell_BL_01_4
+      rect:
+        serializedVersion: 2
+        x: 2184
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fe1458da75997bec0800000000000000
+      internalID: -3551201179305950737
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: Spell_BL_01_5
+      rect:
+        serializedVersion: 2
+        x: 2730
+        y: 0
+        width: 546
+        height: 966
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 96b0e72dc008f77a0800000000000000
+      internalID: -6377237754773894295
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

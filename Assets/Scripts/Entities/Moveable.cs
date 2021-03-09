@@ -20,12 +20,16 @@ public class Moveable : Navigator, ILink
         get => trueMovementPoints;
         set
         {
+            var localDifference = value - trueMovementPoints;
+            difference += localDifference;
+            
             trueMovementPoints = value;
             Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
         }
     }
 
     private int trueMovementPoints;
+    private int difference;
 
     private bool hasCaster;
     private IAttributeHolder caster;
@@ -45,7 +49,9 @@ public class Moveable : Navigator, ILink
 
     public void Activate()
     {
+        difference = 0;
         trueMovementPoints = movementPoints;
+        
         Dirty();
     }
     public void Deactivate() { }
@@ -54,6 +60,7 @@ public class Moveable : Navigator, ILink
 
     public void Dirty()
     {
-        if (hasCaster && caster.Args.TryGet<IWrapper<int>>(new Id('M', 'V', 'T'), out var result)) trueMovementPoints += result.Value;
+        trueMovementPoints = movementPoints + difference;
+        if (hasCaster && caster.Args.TryAggregate(new Id('M', 'V', 'T'), out var result)) trueMovementPoints += result;
     }
 }

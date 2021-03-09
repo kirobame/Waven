@@ -11,7 +11,7 @@ public class SpawnTrap : Effect
 {
     [SerializeField] private Trap prefab;
 
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         foreach (var tile in tiles)
         {

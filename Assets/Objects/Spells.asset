@@ -13,13 +13,10 @@ MonoBehaviour:
   m_Name: Spells
   m_EditorClassIdentifier: 
   source:
-  - {fileID: 11400000, guid: eded6a37aa962174fb36fd368f68e919, type: 2}
   - {fileID: 11400000, guid: 8892aba83b1296d42afab1842e2b60ee, type: 2}
-  - {fileID: 11400000, guid: 8c750e60d52a16d4984a1256520c91df, type: 2}
-  - {fileID: 11400000, guid: b9239b6c119268447b1d1d32bb2d04bc, type: 2}
-  - {fileID: 11400000, guid: 2a60df82163a8eb41838f80def521209, type: 2}
-  - {fileID: 11400000, guid: 8ce8c3e3190e0d54584181f4a571eb5e, type: 2}
   - {fileID: 11400000, guid: a45165b1151ed92408319d3a5b716d24, type: 2}
+  - {fileID: 11400000, guid: 8ce8c3e3190e0d54584181f4a571eb5e, type: 2}
+  - {fileID: 11400000, guid: eded6a37aa962174fb36fd368f68e919, type: 2}
   mustHave:
   - {fileID: 11400000, guid: b43414b2a2b245e4099e3110372016da, type: 2}
   - {fileID: 11400000, guid: 8bf4feb4c8a6eb645ac21cae0fb9e353, type: 2}

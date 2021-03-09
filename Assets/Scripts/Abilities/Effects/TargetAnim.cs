@@ -12,7 +12,7 @@ public class TargetAnim : Effect
 
     private int business;
     
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         foreach (var entity in tiles.SelectMany(tile => tile.Entities))
         {

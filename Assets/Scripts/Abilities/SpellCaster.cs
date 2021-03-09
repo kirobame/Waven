@@ -8,11 +8,15 @@ using UnityEngine;
 
 public class Spellcaster : MonoBehaviour, ILink
 {
-    public static IReadOnlyDictionary<Id, CastArgs> EmptyArgs { get; } = new Dictionary<Id, CastArgs>();
+    public static Spellcaster Active { get; private set; }
+    public static IReadOnlyDictionary<Id, List<CastArgs>> EmptyArgs { get; } = new Dictionary<Id, List<CastArgs>>();
     
     public event Action<ILink> onDestroyed; 
     
     public ITurnbound Owner { get; set; }
+
+    public SpellBase Current => current;
+    public IEnumerable<Tile> AvailableTiles => availableTiles;
     
     [SerializeField] private Navigator nav;
 
@@ -25,7 +29,7 @@ public class Spellcaster : MonoBehaviour, ILink
     
     private bool hasCaster;
     private IAttributeHolder caster;
-    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : EmptyArgs;
+    private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
 
@@ -36,9 +40,10 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
+        current = null;
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+        
         if (!isActive) return;
-
         End();
     }
 
@@ -46,15 +51,19 @@ public class Spellcaster : MonoBehaviour, ILink
     {
         Extensions.ClearMarks();
         
-        Events.BreakVoidRelay(InputEvent.OnInterrupt, OnInterrupt);
+        Events.EmptyCall(InterfaceEvent.OnSpellEnd);
+        
+        Events.Unregister(InputEvent.OnInterrupt, OnInterrupt);
         Events.BreakValueRelay<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         Events.BreakValueRelay<Tile>(InputEvent.OnTileSelected, OnTileSelected);
     }
     private void End()
     {
+        Active = null;
+        
         isActive = false;
         Inputs.isLocked = false;
-
+        
         Shutdown();
     }
 
@@ -66,10 +75,26 @@ public class Spellcaster : MonoBehaviour, ILink
         onDestroyed?.Invoke(this);
     }
 
-    void OnInterrupt()
+    void OnInterrupt(EventArgs args)
     {
-        if (isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
-        End();
+        if (args is IWrapper<bool> wrapper)
+        {
+            if (wrapper.Value)
+            {
+                if (!isActive || isWaiting) return;
+                End();
+            }
+            else
+            {
+                if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+                End();
+            }
+        }
+        else
+        {
+            if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+            End();
+        }
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -83,22 +108,25 @@ public class Spellcaster : MonoBehaviour, ILink
         }
         
         this.isStatic = isStatic;
-        Inputs.isLocked = true;
 
+        Inputs.isLocked = true;
+        Extensions.ClearMarks();
+
+        Active = this;
+        current = spell;
+        Setup();
+        
         if (!isActive)
         {
-            Events.RelayByVoid(InputEvent.OnInterrupt, OnInterrupt);
+            Events.ZipCall(InterfaceEvent.OnSpellTilesAffect, this);
             
             isActive = true;
             isWaiting = false;
             
+            Events.Register(InputEvent.OnInterrupt, OnInterrupt);
             Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
             Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
         }
-        Extensions.ClearMarks();
-        
-        current = spell;
-        Setup();
     }
 
     private void Setup()
@@ -113,18 +141,21 @@ public class Spellcaster : MonoBehaviour, ILink
     
     void OnTileSelected(Tile tile)
     {
+        if (!isActive) return;
+        
         if (!availableTiles.Contains(tile))
         {
             End();
             return;
         }
-        
+
+        Buffer.consumeTriggerSpell = true;
         Owner.IncreaseBusiness();
         isWaiting = true;
         
         current.onCastDone += OnCastDone;
         
-        Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        if (Player.Active.Navigator.Current != tile) Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
         current.CastFrom(tile, castArgs);
 
         if (current.IsDone)

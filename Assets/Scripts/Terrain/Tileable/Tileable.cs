@@ -11,13 +11,20 @@ public class Tileable : TileableBase, ITag
     }
     private new Tag tag;
 
+    private bool hasDamageable;
+    private IDamageable damageable;
+
     private bool isPaused;
     private Coroutine moveRoutine;
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    protected virtual void Awake() => tag = GetComponent<Tag>();
-    
+    protected virtual void Awake()
+    {
+        tag = GetComponent<Tag>();
+        hasDamageable = TryGetComponent<IDamageable>(out damageable);
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public override void Place(Vector2 position) => transform.position = position;
@@ -55,17 +62,31 @@ public class Tileable : TileableBase, ITag
             if (time >= speed)
             {
                 navigator.SetCurrent(map.Tilemap.WorldToCell(path[index + 1]).ToTile());
+                
+                if (hasDamageable && index + 1 < path.Length - 1)
+                {
+                    var nextTile = map.Tilemap.WorldToCell(path[index + 2]).ToTile();
+                    if (!nextTile.IsFree())
+                    {
+                        damageable.Inflict(1, DamageType.Base);
+                        foreach (var entity in nextTile.Entities)
+                        {
+                            if (!entity.TryGet<IDamageable>(out damageable)) continue;
+                            damageable.Inflict(1, DamageType.Base);
+                        }
+                        
+                        if (!IsMoving) yield break;
+                        LocalEnd();
+                    
+                        yield break;
+                    }
+                }
 
                 if (index + 1 >= path.Length - 1)
                 {
                     if (!IsMoving) yield break;
-
-                    transform.position = Vector2.Lerp(path[index], path[index + 1], 1.0f);
+                    LocalEnd();
                     
-                    EndMove();
-                    OnMoveCompleted();
-                    
-                    moveRoutine = null;
                     yield break;
                 }
                 else
@@ -79,6 +100,16 @@ public class Tileable : TileableBase, ITag
 
             transform.position = Vector2.Lerp(path[index], path[index + 1], time / speed);
             yield return new WaitForEndOfFrame();
+        }
+
+        void LocalEnd()
+        {
+            transform.position = Vector2.Lerp(path[index], path[index + 1], 1.0f);
+                    
+            EndMove();
+            OnMoveCompleted();
+                    
+            moveRoutine = null;
         }
     }
     

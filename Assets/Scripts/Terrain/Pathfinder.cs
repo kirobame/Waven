@@ -32,7 +32,7 @@ public class Pathfinder : MonoBehaviour, ILink
     
     private bool hasCaster;
     private IAttributeHolder caster;
-    private IReadOnlyDictionary<Id, CastArgs> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
+    private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
 
     //------------------------------------------------------------------------------------------------------------------/
     
@@ -70,7 +70,7 @@ public class Pathfinder : MonoBehaviour, ILink
 
     void OnInterrupt()
     {
-        if (isWaiting) return;
+        if (!isActive || isWaiting) return;
         
         Inputs.isLocked = false;
         Shutdown();
@@ -81,7 +81,7 @@ public class Pathfinder : MonoBehaviour, ILink
     void OnTileSelected(Tile selectedTile)
     {
         if (nav.PM <= 0) return;
-
+        
         if (isActive && Inputs.isLocked)
         {
             if (selectedTile == nav.Current || !availableTiles.Contains(selectedTile))
@@ -91,7 +91,7 @@ public class Pathfinder : MonoBehaviour, ILink
                 
                 return;
             }
-
+            
             if (shouldAttack)
             {
                 attackCounter--;

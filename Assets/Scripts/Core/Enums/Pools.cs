@@ -4,5 +4,6 @@
 public enum Pools : byte
 {
     HUD,
-    Info
+    Info,
+    Popup,
 }

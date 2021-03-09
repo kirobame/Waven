@@ -12,7 +12,7 @@ public class SelfAnim : Effect
     
     private SendbackArgs sendback;
     
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         sendback = new SendbackArgs();
         sendback.onDone += OnFeedbackDone;

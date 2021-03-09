@@ -24,16 +24,16 @@ public class Spell : SpellBase
         isDone = false;
     }
 
-    public override bool CanBeCasted(IReadOnlyDictionary<Id, CastArgs> args) => effects.All(effect => effect.CanBeCasted(args));
+    public override bool CanBeCasted(IReadOnlyDictionary<Id, List<CastArgs>> args) => effects.All(effect => effect.CanBeCasted(args));
 
-    public override HashSet<Tile> GetTilesForCasting(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public override HashSet<Tile> GetTilesForCasting(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var output = new HashSet<Tile>();
         foreach (var pattern in castingPatterns) output.UnionWith(pattern.GetTiles(source, args));
 
         return output;
     }
-    public override HashSet<Tile> GetAffectedTilesFor(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public override HashSet<Tile> GetAffectedTilesFor(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var tiles = new HashSet<Tile>();
         foreach (var effect in effects) tiles.UnionWith(effect.GetAffectedTiles(source, args));
@@ -41,7 +41,7 @@ public class Spell : SpellBase
         return tiles;
     }
     
-    public override void CastFrom(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public override void CastFrom(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         isDone = true;
 

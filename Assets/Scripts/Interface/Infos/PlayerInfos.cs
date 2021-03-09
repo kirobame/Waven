@@ -28,14 +28,6 @@ public class PlayerInfos : MonoBehaviour
    
     private Vector2 a_playerSpriteRect = new Vector2(270, 575);
     private Vector2 a_playerSpritePos = new Vector2(-21, -140);
-
-    private int a_debuffPadding = 5;
-    private int a_debuffSize = 60;
-
-    private int a_sliderWidth = 190;
-
-    private int a_maxFont = 36;
-    private int a_minFont = 30;
     #endregion
 
     #region Inactive values
@@ -43,14 +35,6 @@ public class PlayerInfos : MonoBehaviour
 
     private Vector2 i_playerSpriteRect = new Vector2(200, 425);
     private Vector2 i_playerSpritePos = new Vector2(-11, -100);
-
-    private int i_debuffPadding = 10;
-    private int i_debuffSize = 40;
-
-    private int i_sliderWidth = 140;
-
-    private int i_maxFont = 28;
-    private int i_minFont = 24;
     #endregion
 
     private void Start()
@@ -138,10 +122,6 @@ public class PlayerInfos : MonoBehaviour
         playerSprite.sizeDelta = a_playerSpriteRect;
         playerSprite.localPosition = a_playerSpritePos;
 
-        debuffZone.padding.left = a_debuffPadding;
-        var debuffHeight = debuffZone.gameObject.GetComponent<RectTransform>().sizeDelta;
-        debuffHeight.y = a_debuffSize;
-
         foreach(GameObject buff in buffs)
         {
             buff.SetActive(true);
@@ -155,12 +135,6 @@ public class PlayerInfos : MonoBehaviour
 
         playerSprite.sizeDelta = i_playerSpriteRect;
         playerSprite.localPosition = i_playerSpritePos;
-
-        playerName.fontSize = i_maxFont;
-
-        debuffZone.padding.left = i_debuffPadding;
-        var debuffHeight = debuffZone.gameObject.GetComponent<RectTransform>().sizeDelta;
-        debuffHeight.y = i_debuffSize;
 
         foreach (GameObject buff in buffs)
         {

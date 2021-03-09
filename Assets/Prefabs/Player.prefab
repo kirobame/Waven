@@ -187,7 +187,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 55b1c2d184dc47c985cb8b8c033975d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupAnchor: {fileID: 8513717027896454508}
+  popupAnchor: {fileID: 1608428444340938154}
   lives:
   - name: Health
     color: {r: 0.2812389, g: 0.754717, b: 0.303109, a: 1}
@@ -291,6 +291,7 @@ MonoBehaviour:
   args:
   - id: 0
   - id: 1
+  popupAnchor: {fileID: 1608428444340938154}
   references:
     version: 1
     00000000:
@@ -314,6 +315,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8513717027896454508}
+  - component: {fileID: 1608428444340938154}
   m_Layer: 0
   m_Name: PopupAnchor
   m_TagString: Untagged
@@ -335,6 +337,18 @@ Transform:
   m_Father: {fileID: 4097353869914120687}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1608428444340938154
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4760753685232279243}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b25ba95ed40485e849c878710640851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &8594391786095481121
 GameObject:
   m_ObjectHideFlags: 0
@@ -470,7 +484,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7f6d9059444125b19e462d12d6c91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 4097353869914120683}
+  root: {fileID: 4097353869914120680}
   anchor: {fileID: 7309983477625180968}
   navigator: {fileID: 8374689325458404287}
 --- !u!1 &8686383773665151399

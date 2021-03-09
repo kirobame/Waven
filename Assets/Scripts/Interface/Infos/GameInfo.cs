@@ -33,7 +33,7 @@ public class GameInfo : MonoBehaviour
         Events.Open(InterfaceEvent.OnSpellTilesAffect);
         Events.Open(InterfaceEvent.OnSpellEnd);
         
-        Events.RelayByValue<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
+        Events.RelayByValue<InfoAnchor,Tileable>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.RelayByVoid(InterfaceEvent.OnHoverEnd, OnHoverEnd);
         Events.RelayByValue<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
         Events.RelayByVoid(InterfaceEvent.OnSpellEnd, Shutdown);
@@ -42,13 +42,13 @@ public class GameInfo : MonoBehaviour
     
     void OnDestroy()
     {
-        Events.BreakValueRelay<InfoAnchor,GameObject>(InterfaceEvent.OnHoverStart, OnHoverStart);
+        Events.BreakValueRelay<InfoAnchor,Tileable>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.BreakVoidRelay(InterfaceEvent.OnHoverEnd, OnHoverEnd);
         Events.BreakValueRelay<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
         Events.BreakVoidRelay(InterfaceEvent.OnSpellEnd, Shutdown);
     }
 
-    private EntityInfo SetupInfoFor(InfoAnchor anchor, GameObject source)
+    private EntityInfo SetupInfoFor(InfoAnchor anchor, TileableBase source)
     {
         var instance = infoPool.CastSingle<EntityInfo>();
         
@@ -58,8 +58,11 @@ public class GameInfo : MonoBehaviour
         return instance;
     }
     
-    void OnHoverStart(InfoAnchor anchor, GameObject source)
+    void OnHoverStart(InfoAnchor anchor, TileableBase source)
     {
+        var check = spellInfos.Exists(info => info.Tile == source.Navigator.Current);
+        if (check) return;
+        
         hasHoverInfo = true;
         hoverInfo = SetupInfoFor(anchor, source);
     }
@@ -73,28 +76,30 @@ public class GameInfo : MonoBehaviour
 
     void OnSpellTilesAffect(Spellcaster caster)
     {
-        HoverSignal.activeId = int.MaxValue;
-        if (hasHoverInfo) OnHoverEnd();
-
+        var endHover = false;
         foreach (var tile in caster.AvailableTiles)
         {
             foreach (var entity in tile.Entities)
             {
+                if (!(entity is TileableBase tileable)) return;
+
                 var component = (Component)entity;
                 if (!component.TryGet<InfoAnchor>(out var anchor)) continue;
-                
-                spellInfos.Add(SetupInfoFor(anchor, component.gameObject));
+
+                if (hasHoverInfo && !endHover && tileable.Navigator.Current == hoverInfo.Tile) endHover = true;
+                spellInfos.Add(SetupInfoFor(anchor, tileable));
             }
         }
+        
+        if (endHover) OnHoverEnd();
     }
     
     void Shutdown()
     {
-        if (hasHoverInfo) OnHoverEnd();
-        
-        HoverSignal.activeId = 0;
-
         foreach (var spellInfo in spellInfos) spellInfo.gameObject.SetActive(false);
         spellInfos.Clear();
+        
+        HoverSignal.activeId = 0;
+        Events.EmptyCall(GameEvent.OnTileChange);
     }
 }

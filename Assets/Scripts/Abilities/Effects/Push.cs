@@ -37,6 +37,13 @@ public class Push : Effect
 
         foreach (var target in targets)
         {
+            var hasDamageable = false;
+            if (target.TryGet<IDamageable>(out var damageable))
+            {
+                if (!damageable.IsAlive) continue;
+                hasDamageable = true;
+            }
+
             var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
             var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
             target.SetOrientation(-orientation);
@@ -47,7 +54,7 @@ public class Push : Effect
             var result = start.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
             if (result.code != 0 && !line.Any())
             {
-                if (target.TryGet<IDamageable>(out var damageable)) RegisterDamageable(damageable);
+                if (hasDamageable) RegisterDamageable(damageable);
                 
                 if (result.code == 3)
                 {

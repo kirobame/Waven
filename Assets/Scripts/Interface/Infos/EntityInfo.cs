@@ -7,6 +7,7 @@ using UnityEngine.UI;
 public class EntityInfo : MonoBehaviour
 {
     public RectTransform RectTransform => (RectTransform)transform;
+    public Tile Tile => source.Navigator.Current;
     
     [SerializeField] private Slider slider;
     [SerializeField] private StatInfo[] infos;
@@ -14,10 +15,12 @@ public class EntityInfo : MonoBehaviour
     [Space, SerializeField] private Color normal;
     [SerializeField] private Color bonus;
     [SerializeField] private Color malus;
+
+    private Component Component => (Component)source;
     
     private bool isActive;
     private InfoAnchor anchor;
-    private GameObject source;
+    private TileableBase source;
 
     void OnEnable() => Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
     void OnDisable()
@@ -34,7 +37,7 @@ public class EntityInfo : MonoBehaviour
         Place();
     }
 
-    public void AssignTo(InfoAnchor anchor, GameObject source)
+    public void AssignTo(InfoAnchor anchor, TileableBase source)
     {
         isActive = true;
 
@@ -57,7 +60,7 @@ public class EntityInfo : MonoBehaviour
         }
 
         var index = 0;
-        if (!source.TryGet<IDamageable>(out var damageable))
+        if (!Component.TryGet<IDamageable>(out var damageable))
         {
             ClearFrom(index);
             return;
@@ -80,7 +83,7 @@ public class EntityInfo : MonoBehaviour
         index++;
 
         var hasAttributes = false;
-        if (source.TryGet<IAttributeHolder>(out var attributes))
+        if (Component.TryGet<IAttributeHolder>(out var attributes))
         {
             hasAttributes = true;
             
@@ -88,7 +91,7 @@ public class EntityInfo : MonoBehaviour
             if (HandleStat(index, attributes, new Id('P', 'S', 'H'), stats.Values[StatType.Force])) index++;
         }
         
-        if (source.TryGet<Moveable>(out var moveable))
+        if (Component.TryGet<Moveable>(out var moveable))
         {
             moveable.Dirty();
             var move = moveable.PM;

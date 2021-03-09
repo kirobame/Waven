@@ -144,7 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0a2caa6fe7f44736a22bde8e2dfda301, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupAnchor: {fileID: 6898879498602373189}
+  popupAnchor: {fileID: 7554223298629231473}
   lives:
   - name: Health
     color: {r: 0.28123888, g: 0.754717, b: 0.30310896, a: 1}
@@ -235,7 +235,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5d7f6d9059444125b19e462d12d6c91f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  root: {fileID: 539701715701859322}
+  root: {fileID: 6990536576719373466}
   anchor: {fileID: 792614379432267295}
   navigator: {fileID: 9207921047016419262}
 --- !u!1 &6214889493750461817
@@ -247,8 +247,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 6898879498602373189}
+  - component: {fileID: 7554223298629231473}
   m_Layer: 0
-  m_Name: PoupAnchor
+  m_Name: PopupAnchor
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -268,3 +269,15 @@ Transform:
   m_Father: {fileID: 539701715701859326}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &7554223298629231473
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6214889493750461817}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b25ba95ed40485e849c878710640851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

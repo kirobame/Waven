@@ -48,6 +48,8 @@ public class Inputs : MonoBehaviour
         Events.Open(InputEvent.OnTileHover);
         Events.Open(InputEvent.OnInputLock);
 
+        Events.RelayByVoid(GameEvent.OnTileChange, OnTileChange);
+        
         isLocked = false;
         
         Routines.Start(Routines.DoAfter(() =>
@@ -67,6 +69,8 @@ public class Inputs : MonoBehaviour
     {
         clickAction.performed -= OnClick;
         mouseMoveAction.performed -= OnMouseMove;
+        
+        Events.BreakVoidRelay(GameEvent.OnTileChange, OnTileChange);
         
         value.Disable();
     }
@@ -92,6 +96,12 @@ public class Inputs : MonoBehaviour
         }
 
         hoveredTile = output;
+    }
+    
+    public void OnTileChange()
+    {
+        if (hasHoveredTile) Events.ZipCall(InputEvent.OnTileHover, hoveredTile);
+        else Events.ZipCall(InputEvent.OnTileHover, false);
     }
 
     void OnClick(InputAction.CallbackContext context)

@@ -614,7 +614,7 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 953432616286709352}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -679,7 +679,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 15982272b5242004599b09d87e8fb530, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  playerTag: Player1
+  player: {fileID: 0}
+  playerTag: 1
+  slider: {fileID: 953432617388301593}
+  lifeText: {fileID: 953432616960792113}
+  buffs:
+  - {fileID: 953432615729970683}
+  - {fileID: 953432616275805282}
+  - {fileID: 953432616195665322}
 --- !u!1 &953432616386025662
 GameObject:
   m_ObjectHideFlags: 0
@@ -1151,8 +1158,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.25}
   m_AnchorMax: {x: 1, y: 0.75}
-  m_AnchoredPosition: {x: -5, y: 0}
-  m_SizeDelta: {x: -20, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: -10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &953432617388301595
 GameObject:
@@ -1238,7 +1245,7 @@ MonoBehaviour:
   m_MinValue: 0
   m_MaxValue: 1
   m_WholeNumbers: 0
-  m_Value: 0.83
+  m_Value: 1
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls: []

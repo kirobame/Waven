@@ -1,4 +1,5 @@
-﻿using Flux.Event;
+﻿using Flux;
+using Flux.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
@@ -37,10 +38,39 @@ public class PlayerInfos : MonoBehaviour
 
     private void Update()
     {
+        Refresh();
+    }
+
+    private void Refresh()
+    {
         var currentLife = playerLife.Get("Health");
         var ratio = currentLife.Ratio;
         slider.value = ratio;
 
         lifeText.text = $"{playerLife.Lives[0].actualValue}/{playerLife.Lives[0].maxValue}";
+
+        if(player.TryGet<IAttributeHolder>(out var attributes))
+        {
+            HandleStats(attributes, new Id('M', 'V', 'T'), 0);
+            HandleStats(attributes, new Id('D', 'M', 'G'), 1);
+            HandleStats(attributes, new Id('P', 'S', 'H'), 2);
+        }
+    }
+
+    private void HandleStats(IAttributeHolder attributes, Id id, int index)
+    {
+        if (attributes.Args.TryGetValue(id, out var baseValue, out var value))
+        {
+            if (value == 0)
+            {
+                buffs[index].gameObject.SetActive(false);
+            }
+            else
+            {
+                buffs[index].gameObject.SetActive(true);
+                buffs[index].transform.GetChild(0).GetComponent<TMP_Text>().text = value.ToString();
+            }
+        }
+        return;
     }
 }

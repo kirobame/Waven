@@ -41,7 +41,7 @@ public class SpellDeck : MonoBehaviour, ILink
         else
         {
             if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
-            deck = spells.GetDeck(6).ToList();
+            deck = spells.GetDeck(3).ToList();
             
             Draw(3);
             hasBeenBootedUp = true;
@@ -80,6 +80,15 @@ public class SpellDeck : MonoBehaviour, ILink
         RefreshHotbar();
     }
 
+    public void Add(SpellBase spell)
+    {
+        if (hand.Count < 4)
+        {
+            hand.Add(spell);
+            RefreshHotbar();
+        }
+        else deck.Add(spell);
+    }
     public void Discard(SpellBase spell)
     {
         hand.Remove(spell);

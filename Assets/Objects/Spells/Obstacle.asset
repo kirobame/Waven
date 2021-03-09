@@ -94,6 +94,7 @@ MonoBehaviour:
   category: 3
   id:
     value: OBT
+  tier: 1
   title: Obstacle
   description: Some decription.
   thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}

@@ -15,6 +15,7 @@ public class Player : Tileable, ITurnbound
     public event Action<Motive> onIntendedTurnStop;
 
     public bool IsBusy => business > 0;
+    public bool WasSuccessful { get; set; }
     
     public string Name => name;
     public int Index => index;
@@ -116,20 +117,27 @@ public class Player : Tileable, ITurnbound
     
     public void Activate()
     {
+        Debug.Log($"----| START FOR : {this}");
+        
         Inputs.isLocked = false;
         
         Active = this;
-        
         isActive = true;
+        
         foreach (var activable in links) activable.Activate();
-        Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
         Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
     }
     
     public void Interrupt(Motive motive)
     {
+        Debug.Log($"----| END FOR : {this}");
+        
         isActive = false;
         foreach (var activable in links) activable.Deactivate();
+        
+        Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.Unregister(GameEvent.OnBaseAttack, OnBaseAttack);
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -168,9 +176,9 @@ public class Player : Tileable, ITurnbound
         if (isActive) animator.SetTrigger("isBaseAttack");
     }
 
-    void OnSpellUsed(EventArgs obj)
+    void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        if (!isActive) return;
+        if (!isActive || isStatic) return;
         
         if (Buffer.consumeTriggerSpell) animator.SetTrigger("isCastingSpell");
         Buffer.consumeTriggerSpell = false;

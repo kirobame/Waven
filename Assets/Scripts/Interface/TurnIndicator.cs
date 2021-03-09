@@ -13,13 +13,7 @@ public class TurnIndicator : MonoBehaviour
     [SerializeField] private TMP_Text timerValue;
 
     private Bootstrapper boot;
-    
-    [Space, SerializeField] private Image subIndicator;
-    [SerializeField] private float heightOffset;
 
-    private bool hasTarget;
-    private Transform target;
-    
     //------------------------------------------------------------------------------------------------------------------/
     
     void Awake()
@@ -35,26 +29,16 @@ public class TurnIndicator : MonoBehaviour
         Events.Unregister(GameEvent.OnTurnTimer, OnTurnTimer);
     }
 
-    void Update()
-    {
-        if (!hasTarget) return;
-
-        var camera = Repository.Get<Camera>(References.Camera);
-        var screenPosition = camera.WorldToScreenPoint(target.position + Vector3.up * heightOffset);
-
-        subIndicator.rectTransform.position = screenPosition;
-    }
-    
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnTurnStart(Turn turn)
     {
-        if (turn.Target is Component component)
+        /*if (turn.Target is Component component)
         {
             hasTarget = true;
             target = component.transform;
         }
-        else hasTarget = false;
+        else hasTarget = false;*/
     }
     void OnTurnTimer(EventArgs args)
     {

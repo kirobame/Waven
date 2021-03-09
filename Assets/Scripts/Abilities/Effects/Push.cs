@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Flux.Event;
 using UnityEngine;
 
 [Serializable]
@@ -70,6 +71,8 @@ public class Push : Effect
             
             line.Insert(0, target.Navigator.Current);
             if (result.code == 3) line.Add(result.tile);
+            
+            Events.ZipCall(ChallengeEvent.OnPush, target);
             target.Navigator.Move(line.ToArray(), speed, true, false);
 
             business++;

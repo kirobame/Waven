@@ -5,7 +5,12 @@ public enum GameEvent : byte
 {
     OnTurnStart,
     OnTurnTimer,
+    OnTurnEnd,
     
+    OnRewardStart,
+    OnRewardTimer,
+    OnRewardEnd,
+
     OnTileChange,
     
     OnBaseAttack,

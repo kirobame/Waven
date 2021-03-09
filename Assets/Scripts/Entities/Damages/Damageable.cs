@@ -84,13 +84,16 @@ public class Damageable : MonoBehaviour, IDamageable
 
                 if (!lives.Any())
                 {
+                    Events.EmptyCall(ChallengeEvent.OnKill);
                     OnDeath();
+                    
                     return 2;
                 }
             }
             else
             {
                 Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+                Events.ZipCall(ChallengeEvent.OnDamage, this);
                 if (IsFeedbackDone)
                 {
                     OnLogicDone();
@@ -102,6 +105,7 @@ public class Damageable : MonoBehaviour, IDamageable
         }
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+        Events.ZipCall(ChallengeEvent.OnDamage, this);
         if (IsFeedbackDone)
         {
             OnLogicDone();

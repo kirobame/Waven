@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Flux.Data;
+using Flux.Event;
 using UnityEngine;
 
 public class Tileable : TileableBase, ITag
@@ -62,7 +63,7 @@ public class Tileable : TileableBase, ITag
             if (time >= speed)
             {
                 navigator.SetCurrent(map.Tilemap.WorldToCell(path[index + 1]).ToTile());
-                
+     
                 if (hasDamageable && index + 1 < path.Length - 1)
                 {
                     var nextTile = map.Tilemap.WorldToCell(path[index + 2]).ToTile();

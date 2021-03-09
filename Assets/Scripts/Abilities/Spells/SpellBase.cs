@@ -16,6 +16,9 @@ public abstract class SpellBase : SerializedScriptableObject, ICastable
 
     public Id Id => id;
     [SerializeField] private Id id;
+
+    public int Tier => tier;
+    [SerializeField] private int tier;
     
     public string Title => title;
     [Space, SerializeField] private string title;

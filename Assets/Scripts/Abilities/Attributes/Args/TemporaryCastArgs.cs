@@ -18,7 +18,7 @@ public abstract class TemporaryCastArgs : CastArgs
         isBounded = ((Component)owner).TryGetComponent<ITurnbound>(out turnbound);
         
         counter = duration;
-        Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnEnd);
+        Events.RelayByValue<Turn>(GameEvent.OnTurnEnd, OnTurnEnd);
     }
 
     void OnTurnEnd(Turn turn)

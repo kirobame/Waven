@@ -3,9 +3,15 @@ using Flux;
 using Flux.Event;
 using UnityEngine;
 
-[Serializable]
+[CreateAssetMenu(fileName = "NewAttackChallenge", menuName = "Waven/Challenges/Damage")]
 public class DamageChallenge : ToggleChallenge
 {
+    public override string GetDescription()
+    {
+        if (execute) return "Causer n'importe quel montant de dommage.";
+        else return "Ne causer aucun dommage.";
+    }
+    
     protected override void OnTurnedOn()
     {
         Events.Register(ChallengeEvent.OnDamage, OnAction);
@@ -20,9 +26,9 @@ public class DamageChallenge : ToggleChallenge
 
     protected override void OnAction(EventArgs args)
     {
-        if (!(args is IWrapper<Damageable> damageable)) return;
+        if (!(args is IWrapper<Damageable> wrapper)) return;
         
-        if (!damageable.Value.IsAlive || !((Component) damageable).TryGetComponent<Player>(out var player) || player == Player.Active) return;
+        if (!wrapper.Value.IsAlive || !wrapper.Value.TryGetComponent<Player>(out var player) || player == Player.Active) return;
         base.OnAction(args);
     }
 }

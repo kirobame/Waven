@@ -1,4 +1,5 @@
 ﻿using System;
+using Flux;
 using Flux.Event;
 using Flux.Feedbacks;
 using UnityEngine;
@@ -21,6 +22,8 @@ public class PlayerDamageable : Damageable
     protected override void OnLogicDone()
     {
         if (tileable.IsMoving) tileable.PauseMove();
+        
+        if (sequencer.IsPlaying && sequencer.Args is ISendback sendback) sendback.End(EventArgs.Empty);
         sequencer.Play(args);
     }
 

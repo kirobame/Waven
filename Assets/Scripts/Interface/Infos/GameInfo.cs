@@ -16,6 +16,8 @@ public class GameInfo : MonoBehaviour
 
     #endregion
 
+    [SerializeField] private Transform infoParent;
+    
     private GenericPool infoPool;
 
     private bool hasHoverInfo;
@@ -35,7 +37,9 @@ public class GameInfo : MonoBehaviour
         
         Events.RelayByValue<InfoAnchor,Tileable>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.RelayByVoid(InterfaceEvent.OnHoverEnd, OnHoverEnd);
+        
         Events.RelayByValue<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
+        Events.RelayByVoid(GameEvent.OnTurnEnd, ExtendedShutdown);
         Events.RelayByVoid(InterfaceEvent.OnSpellEnd, Shutdown);
     }
     void Start() => infoPool = Repository.Get<GenericPool>(Pools.Info);
@@ -44,7 +48,9 @@ public class GameInfo : MonoBehaviour
     {
         Events.BreakValueRelay<InfoAnchor,Tileable>(InterfaceEvent.OnHoverStart, OnHoverStart);
         Events.BreakVoidRelay(InterfaceEvent.OnHoverEnd, OnHoverEnd);
+        
         Events.BreakValueRelay<Spellcaster>(InterfaceEvent.OnSpellTilesAffect, OnSpellTilesAffect);
+        Events.BreakVoidRelay(GameEvent.OnTurnEnd, ExtendedShutdown);
         Events.BreakVoidRelay(InterfaceEvent.OnSpellEnd, Shutdown);
     }
 
@@ -52,7 +58,7 @@ public class GameInfo : MonoBehaviour
     {
         var instance = infoPool.CastSingle<EntityInfo>();
         
-        instance.RectTransform.SetParent(transform);
+        instance.RectTransform.SetParent(infoParent);
         instance.AssignTo(anchor, source);
 
         return instance;
@@ -60,6 +66,8 @@ public class GameInfo : MonoBehaviour
     
     void OnHoverStart(InfoAnchor anchor, TileableBase source)
     {
+        if (hasHoverInfo) return;
+        
         var check = spellInfos.Exists(info => info.Tile == source.Navigator.Current);
         if (check) return;
         
@@ -101,5 +109,14 @@ public class GameInfo : MonoBehaviour
         
         HoverSignal.activeId = 0;
         Events.EmptyCall(GameEvent.OnTileChange);
+    }
+    void ExtendedShutdown()
+    {
+        if (hasHoverInfo) OnHoverEnd();
+        
+        foreach (var spellInfo in spellInfos) spellInfo.gameObject.SetActive(false);
+        spellInfos.Clear();
+        
+        HoverSignal.activeId = 0;
     }
 }

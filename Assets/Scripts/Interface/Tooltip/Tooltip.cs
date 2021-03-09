@@ -12,9 +12,7 @@ public class Tooltip : MonoBehaviour
 {
     private RectTransform RectTransform => (RectTransform)transform;
 
-    [SerializeField] private RectTransform canvas;
-    
-    [Space, SerializeField] private float screenMargin;
+    [SerializeField] private float screenMargin;
     [SerializeField] private TMP_Text tooltip;
 
     private bool onUsed;
@@ -44,13 +42,25 @@ public class Tooltip : MonoBehaviour
     private void Place()
     {
         var position = Mouse.current.position.ReadValue();
+
+        var min = position;
         var max = position + RectTransform.sizeDelta;
 
-        var xMax = canvas.sizeDelta.x - screenMargin;
-        if (max.x > xMax) position.x += max.x - xMax;
+        var xMax = Screen.width - screenMargin;
+        if (max.x > xMax)
+        {
+            var difference = max.x - xMax;
+            position.x -= difference;
+        }
+        else if (min.x < screenMargin) position.x = screenMargin;
 
-        var yMax = canvas.sizeDelta.y - screenMargin;
-        if (max.y > yMax) position.y += max.y - yMax;
+        var yMax =  Screen.height - screenMargin;
+        if (max.y > yMax)
+        {
+            var difference = max.y - yMax;
+            position.y -= difference;
+        }
+        else if (min.y < screenMargin) position.y = screenMargin;
 
         RectTransform.position = position;
     }

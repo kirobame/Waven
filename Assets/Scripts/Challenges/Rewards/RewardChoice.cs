@@ -1,10 +1,11 @@
 ﻿using Flux.Data;
+using Flux.Event;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RewardChoice : MonoBehaviour, IPointerClickHandler
+public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private RewardHandler handler;
     [SerializeField] private SpellCategory category;
@@ -26,4 +27,11 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler
     }
     
     public void OnPointerClick(PointerEventData eventData) => handler.Pick(spell);
+    
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        var message = $"<size=65%>{spell.Description}</size>";
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
+    }
+    public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
 }

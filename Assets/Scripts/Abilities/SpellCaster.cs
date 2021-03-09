@@ -40,10 +40,11 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
-        current = null;
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         
         if (!isActive) return;
+        
+        current = null;
         End();
     }
 
@@ -60,7 +61,7 @@ public class Spellcaster : MonoBehaviour, ILink
     private void End()
     {
         Active = null;
-        
+
         isActive = false;
         Inputs.isLocked = false;
         
@@ -190,7 +191,12 @@ public class Spellcaster : MonoBehaviour, ILink
         if (current.IsDone)
         {
             isActive = false;
-            Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
+            Routines.Start(Routines.DoAfter(() =>
+            {
+                current = null;
+                Inputs.isLocked = false;
+                
+            }, new YieldFrame()));
         }
     }
 }

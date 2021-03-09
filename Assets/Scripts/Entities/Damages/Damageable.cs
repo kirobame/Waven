@@ -132,11 +132,12 @@ public class Damageable : MonoBehaviour, IDamageable
         {
             StopCoroutine(popupRoutine);
             popupRoutine = null;
-            
-            ShowPopup();
         }
         
+        if (history.Count > 0) ShowPopup();
         popupAnchor.Clear();
+        
+        EndFeedback();
         Destroy(gameObject);
     }
     

@@ -53,7 +53,7 @@ public class Moveable : Navigator, ILink
     {
         base.Start();
         
-        PM = movementPoints;
+        trueMovementPoints = movementPoints; 
         hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     }
     void OnDestroy() => onDestroyed?.Invoke(this);

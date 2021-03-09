@@ -1,10 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
 public abstract class UseChallenge : Challenge
 {
-    [SerializeField] private int goal;
+    [SerializeField] protected int goal;
     
     private bool hasFailed;
     private int counter;

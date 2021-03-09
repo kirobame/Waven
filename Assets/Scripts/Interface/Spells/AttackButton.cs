@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class AttackButton : MonoBehaviour, IPointerClickHandler
+public class AttackButton : GameButton
 {
     [SerializeField] private Image button;
     [SerializeField] private SpellBase spell;
@@ -25,7 +25,7 @@ public class AttackButton : MonoBehaviour, IPointerClickHandler
         Events.BreakVoidRelay(ChallengeEvent.OnAttack, OnAttack);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    protected override void OnClick(PointerEventData eventData)
     {
         inUse = true;
         Events.ZipCall(InterfaceEvent.OnSpellSelected, spell, true);
@@ -49,6 +49,8 @@ public class AttackButton : MonoBehaviour, IPointerClickHandler
             var pathfinder = Pathfinder;
             
             pathfinder.AttackCounter--;
+            Events.EmptyCall(ChallengeEvent.OnAttack);
+            
             if (pathfinder.AttackCounter == 0) Deactivate();
         }
         inUse = false;

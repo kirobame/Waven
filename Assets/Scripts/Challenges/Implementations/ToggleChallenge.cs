@@ -1,10 +1,9 @@
 ﻿using System;
 using UnityEngine;
 
-[Serializable]
 public abstract class ToggleChallenge : Challenge
 {
-    [SerializeField] private bool execute;
+    [SerializeField] protected bool execute;
     
     private bool wasDone;
 

@@ -117,8 +117,7 @@ public class Player : Tileable, ITurnbound
     
     public void Activate()
     {
-        Debug.Log($"----| START FOR : {this}");
-        
+        Buffer.isGameTurn = true;
         Inputs.isLocked = false;
         
         Active = this;
@@ -131,7 +130,7 @@ public class Player : Tileable, ITurnbound
     
     public void Interrupt(Motive motive)
     {
-        Debug.Log($"----| END FOR : {this}");
+        Buffer.isGameTurn = false;
         
         isActive = false;
         foreach (var activable in links) activable.Deactivate();

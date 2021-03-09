@@ -1,18 +1,24 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine;
 
-[Serializable]
-public abstract class Challenge
+public abstract class Challenge : ScriptableObject
 {
     public event Action onCompleted;
     public event Action onFailed;
     
     public bool IsActive { get; private set; }
+
+    public Sprite Icon => icon;
+    [SerializeField] private Sprite icon;
+
+    public string Title => title;
+    [SerializeField] private string title;
     
     protected Player target;
-    
-    public ChallengeInfo GetInfo() => new ChallengeInfo();
+
+    public abstract string GetDescription();
     
     public void TurnOn(Player player)
     {

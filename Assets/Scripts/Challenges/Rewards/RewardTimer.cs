@@ -8,10 +8,12 @@ public class RewardTimer : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text texMesh;
+
+    private float counter;
     
     void Awake() => Events.Register(GameEvent.OnRewardTimer, OnTimer);
-    void OnDestroy() => Events.Unregister(GameEvent.OnRewardTimer, OnTimer);
-
+    void OnDestroy() =>  Events.Unregister(GameEvent.OnRewardTimer, OnTimer);
+    
     void OnTimer(EventArgs args)
     {
         if (args is WrapperArgs<bool> boolArgs)
@@ -22,7 +24,9 @@ public class RewardTimer : MonoBehaviour
         else if (args is WrapperArgs<float> floatArgs)
         {
             image.fillAmount = 1.0f - floatArgs.ArgOne;
-            texMesh.text = $"{floatArgs}";
+            
+            counter = 10.0f - floatArgs.ArgOne * 10.0f;
+            texMesh.text = $"{(int)Mathf.RoundToInt(counter)}";
         }
     }
 }

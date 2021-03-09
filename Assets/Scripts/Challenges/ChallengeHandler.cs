@@ -1,5 +1,6 @@
 ﻿using System;
 using Flux.Data;
+using Flux.Event;
 using UnityEngine;
 
 public class ChallengeHandler : MonoBehaviour, ILink
@@ -25,8 +26,8 @@ public class ChallengeHandler : MonoBehaviour, ILink
 
         current.onCompleted += OnCompleted;
         current.onFailed += OnFailed;
-        
-        Debug.Log($"For : {this} - {current}");
+
+        Events.ZipCall(InterfaceEvent.OnChallengeUpdate, current);
     }
     public void Deactivate()
     {
@@ -49,16 +50,16 @@ public class ChallengeHandler : MonoBehaviour, ILink
 
     void OnCompleted()
     {
-        Debug.Log($"For : {this} - Challenge completed");
         target.WasSuccessful = true;
+        Events.EmptyCall(InterfaceEvent.OnChallengeCompleted);
         
         current.TurnOff();
         End();
     }
     void OnFailed()
     {
-        Debug.Log($"For : {this} - Challenge failed");
         target.WasSuccessful = false;
+        Events.EmptyCall(InterfaceEvent.OnChallengeFailed);
         
         current.TurnOff();
         End();

@@ -13,5 +13,5 @@ public enum References : byte
     Players,
     Bootstrapper,
     Challenges,
-    Reward
+    Reward,
 }

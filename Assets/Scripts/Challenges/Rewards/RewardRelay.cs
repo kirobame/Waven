@@ -29,10 +29,9 @@ public class RewardRelay : ITurnbound
 
     public void Activate()
     {
-        Debug.Log($"REWARD START");
         if (!target.WasSuccessful)
         {
-            Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), new YieldFrame()));
+            Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), 1.5f));
             return;
         }
         
@@ -44,8 +43,6 @@ public class RewardRelay : ITurnbound
     }
     public void Interrupt(Motive motive)
     {
-        Debug.Log($"REWARD END");
-        
         var handler = Repository.Get<RewardHandler>(References.Reward);
         handler.onHideStart -= OnHideStart;
         handler.onDone -= OnDone;

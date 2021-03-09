@@ -12,9 +12,9 @@ public class Tooltip : MonoBehaviour
 {
     private RectTransform RectTransform => (RectTransform)transform;
 
-    [SerializeField] private RectTransform canvas;
+    //[SerializeField] private RectTransform canvas;
     
-    [Space, SerializeField] private float screenMargin;
+    //[Space, SerializeField] private float screenMargin;
     [SerializeField] private TMP_Text tooltip;
 
     private bool onUsed;
@@ -38,10 +38,10 @@ public class Tooltip : MonoBehaviour
     void Update()
     {
         if (!onUsed) return;
-        Place();
+        //Place();
     }
 
-    private void Place()
+    /*private void Place()
     {
         var position = Mouse.current.position.ReadValue();
         var max = position + RectTransform.sizeDelta;
@@ -53,7 +53,7 @@ public class Tooltip : MonoBehaviour
         if (max.y > yMax) position.y += max.y - yMax;
 
         RectTransform.position = position;
-    }
+    }*/
 
     public void ShowTooltip(string tooltipString)
     {
@@ -65,7 +65,7 @@ public class Tooltip : MonoBehaviour
         var bgSize = new Vector2(tooltip.preferredWidth, tooltip.preferredHeight);
         
         RectTransform.sizeDelta = bgSize;
-        Place();
+        //Place();
     }
     public void HideTooltip()
     {

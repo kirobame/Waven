@@ -12,11 +12,46 @@ public class PlayerInfos : MonoBehaviour
     [SerializeField] private Player player;
     [SerializeField] private string playerTag;
 
+    [SerializeField] private RectTransform playerSprite;
+    [SerializeField] private TMP_Text playerName;
+
+    [SerializeField] private VerticalLayoutGroup debuffZone;
+
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text lifeText;
     private PlayerDamageable playerLife;
 
     [SerializeField] private List<GameObject> buffs = new List<GameObject>();
+
+    #region Active values
+    private Vector2 a_playerProfileRect = new Vector2(210, 310);
+   
+    private Vector2 a_playerSpriteRect = new Vector2(270, 575);
+    private Vector2 a_playerSpritePos = new Vector2(-21, -140);
+
+    private int a_debuffPadding = 5;
+    private int a_debuffSize = 60;
+
+    private int a_sliderWidth = 190;
+
+    private int a_maxFont = 36;
+    private int a_minFont = 30;
+    #endregion
+
+    #region Inactive values
+    private Vector2 i_playerProfileRect = new Vector2(160, 260);
+
+    private Vector2 i_playerSpriteRect = new Vector2(200, 425);
+    private Vector2 i_playerSpritePos = new Vector2(-11, -100);
+
+    private int i_debuffPadding = 10;
+    private int i_debuffSize = 40;
+
+    private int i_sliderWidth = 140;
+
+    private int i_maxFont = 28;
+    private int i_minFont = 24;
+    #endregion
 
     private void Start()
     {
@@ -28,11 +63,33 @@ public class PlayerInfos : MonoBehaviour
     {
         if (turn.Target.Name.Contains(playerTag))
         {
-            gameObject.SetActive(true); //set scale big
+            if(playerTag == "1")
+            {
+                a_playerSpritePos = new Vector2(-21, -140);
+
+                SetActiveSizes();
+            }
+            else if (playerTag == "2")
+            {
+                a_playerSpritePos = new Vector2(21, -140);
+
+                SetActiveSizes();
+            }
         }
         else
         {
-            gameObject.SetActive(false); //set scale small
+            if (playerTag == "1")
+            {
+                i_playerSpritePos = new Vector2(-11, -100);
+
+                SetInactiveSizes();
+            }
+            else if (playerTag == "2")
+            {
+                i_playerSpritePos = new Vector2(11, -100);
+
+                SetInactiveSizes();
+            }
         }
     }
 
@@ -72,5 +129,42 @@ public class PlayerInfos : MonoBehaviour
             }
         }
         return;
+    }
+
+    private void SetActiveSizes()
+    {
+        gameObject.GetComponent<RectTransform>().sizeDelta = a_playerProfileRect;
+
+        playerSprite.sizeDelta = a_playerSpriteRect;
+        playerSprite.localPosition = a_playerSpritePos;
+
+        debuffZone.padding.left = a_debuffPadding;
+        var debuffHeight = debuffZone.gameObject.GetComponent<RectTransform>().sizeDelta;
+        debuffHeight.y = a_debuffSize;
+
+        foreach(GameObject buff in buffs)
+        {
+            buff.SetActive(true);
+            Refresh();
+        }
+    }
+
+    private void SetInactiveSizes()
+    {
+        gameObject.GetComponent<RectTransform>().sizeDelta = i_playerProfileRect;
+
+        playerSprite.sizeDelta = i_playerSpriteRect;
+        playerSprite.localPosition = i_playerSpritePos;
+
+        playerName.fontSize = i_maxFont;
+
+        debuffZone.padding.left = i_debuffPadding;
+        var debuffHeight = debuffZone.gameObject.GetComponent<RectTransform>().sizeDelta;
+        debuffHeight.y = i_debuffSize;
+
+        foreach (GameObject buff in buffs)
+        {
+            buff.SetActive(false);
+        }
     }
 }

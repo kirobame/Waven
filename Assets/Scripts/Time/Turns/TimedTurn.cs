@@ -1,21 +1,34 @@
-﻿using Flux;
+﻿using System;
+using Flux;
 using Flux.Event;
 using UnityEngine;
 
 public class TimedTurn : Turn
 {
-    public TimedTurn(float duration) => this.duration = duration;
-    
+    public TimedTurn(float duration, Enum startAddress, Enum timerAddress, Enum endAddress)
+    {
+        this.duration = duration;
+        
+        this.startAddress = startAddress;
+        this.timerAddress = timerAddress;
+        this.endAddress = endAddress;
+    }
+
     private float duration;
-    private Coroutine routine;
+    private Enum startAddress;
+    private Enum timerAddress;
+    private Enum endAddress;
     
+    private Coroutine routine;
+
     protected override void OnStart()
     {
-        Events.ZipCall(GameEvent.OnTurnTimer, true);
+        Events.ZipCall(startAddress, (Turn)this);
+        Events.ZipCall(timerAddress, true);
 
         routine = Routines.Start(Routines.RepeatFor(duration, ratio =>
         {
-            Events.ZipCall(GameEvent.OnTurnTimer, ratio);
+            Events.ZipCall(timerAddress, ratio);
             
         }).Chain(Routines.Do(() =>
         {
@@ -25,7 +38,11 @@ public class TimedTurn : Turn
             routine = null;
         })));
     }
-    protected override void OnEnd() => Events.ZipCall(GameEvent.OnTurnTimer, false);
+    protected override void OnEnd()
+    {
+        Events.ZipCall(timerAddress, false);
+        Events.ZipCall(endAddress, (Turn)this);
+    }
 
     public override void Interrupt(Motive motive)
     {

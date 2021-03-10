@@ -11,5 +11,7 @@ public enum References : byte
     Spells,
     Data,
     Players,
-    Bootstrapper
+    Bootstrapper,
+    Challenges,
+    Reward,
 }

@@ -14,7 +14,7 @@ public class Damageable : MonoBehaviour, IDamageable
     public event Action<IDamageable> onFeedbackDone;
 
     public bool IsAlive => lives.Any();
-    public bool IsInvulnerable { get; private set; }
+    public bool IsInvulnerable { get; set; }
     public bool IsFeedbackDone { get; private set; }
 
     public List<Life> Lives => lives;
@@ -26,7 +26,7 @@ public class Damageable : MonoBehaviour, IDamageable
     }
     private new Tag tag;
 
-    [SerializeField] protected Transform popupAnchor;
+    [SerializeField] protected PopupAnchor popupAnchor;
     [SerializeField] private List<Life> lives= new List<Life>()
     {
         new Life("Health", new Color(0.2812389f, 0.754717f, 0.303109f, 1.0f), 10, 10, 0, new List<DamageType>() { DamageType.Base })
@@ -58,9 +58,17 @@ public class Damageable : MonoBehaviour, IDamageable
     public int Inflict(int damage, DamageType type)
     {
         var index = 0;
-        
-        if (IsInvulnerable) return 0;
-        if (!lives.Any()) return 2;
+
+        if (IsInvulnerable)
+        {
+            EndFeedback();
+            return 0;
+        }
+        if (!lives.Any())
+        {
+            EndFeedback();
+            return 2;
+        }
         
         OnDamageTaken(damage, type);
 
@@ -76,13 +84,16 @@ public class Damageable : MonoBehaviour, IDamageable
 
                 if (!lives.Any())
                 {
+                    Events.EmptyCall(ChallengeEvent.OnKill);
                     OnDeath();
+                    
                     return 2;
                 }
             }
             else
             {
                 Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+                Events.ZipCall(ChallengeEvent.OnDamage, this);
                 if (IsFeedbackDone)
                 {
                     OnLogicDone();
@@ -94,6 +105,7 @@ public class Damageable : MonoBehaviour, IDamageable
         }
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
+        Events.ZipCall(ChallengeEvent.OnDamage, this);
         if (IsFeedbackDone)
         {
             OnLogicDone();
@@ -120,11 +132,12 @@ public class Damageable : MonoBehaviour, IDamageable
         {
             StopCoroutine(popupRoutine);
             popupRoutine = null;
-            
-            ShowPopup();
         }
         
-        while (popupAnchor.childCount > 0) popupAnchor.GetChild(0).SetParent(null);
+        if (history.Count > 0) ShowPopup();
+        popupAnchor.Clear();
+        
+        EndFeedback();
         Destroy(gameObject);
     }
     
@@ -140,12 +153,12 @@ public class Damageable : MonoBehaviour, IDamageable
         var pool = Repository.Get<SequencerPool>(Pools.Popup);
         var popup = pool.RequestSinglePoolable() as Popup;
 
-        popup.transform.SetParent(popupAnchor);
+        popup.transform.SetParent(popupAnchor.transform);
         popup.transform.localPosition = Vector3.zero;
 
         var damage = 0;
         foreach (var item in history) damage += item.damage;
-        popup.Play($"-{damage}", StatType.Damage);
+        popup.Play($"-{damage}");
         
         history.Clear();
     }

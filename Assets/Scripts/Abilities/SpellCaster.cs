@@ -40,10 +40,11 @@ public class Spellcaster : MonoBehaviour, ILink
     public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     public void Deactivate()
     {
-        current = null;
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         
         if (!isActive) return;
+        
+        current = null;
         End();
     }
 
@@ -60,7 +61,7 @@ public class Spellcaster : MonoBehaviour, ILink
     private void End()
     {
         Active = null;
-        
+
         isActive = false;
         Inputs.isLocked = false;
         
@@ -86,9 +87,16 @@ public class Spellcaster : MonoBehaviour, ILink
             }
             else
             {
+                
+              
                 if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
                 End();
             }
+        }
+        else if (args is IWrapper<Tile> tileWrapper)
+        {
+            if (!isActive || isWaiting || current.GetTilesForCasting(tileWrapper.Value, castArgs).HasIntersection()) return;
+            End();
         }
         else
         {
@@ -161,6 +169,8 @@ public class Spellcaster : MonoBehaviour, ILink
         if (current.IsDone)
         {
             Events.ZipCall(GameEvent.OnSpellUsed, current, isStatic);
+            Events.ZipCall(ChallengeEvent.OnSpellUse, 1);
+            
             Shutdown();
         }
         else Setup();
@@ -183,12 +193,17 @@ public class Spellcaster : MonoBehaviour, ILink
         current.onCastDone -= OnCastDone;
         
         if (this == null) return; // TO DEBUG
-        
+
         Owner.DecreaseBusiness();
         if (current.IsDone)
         {
             isActive = false;
-            Routines.Start(Routines.DoAfter(() => Inputs.isLocked = false, new YieldFrame()));
+            Routines.Start(Routines.DoAfter(() =>
+            {
+                current = null;
+                Inputs.isLocked = false;
+                
+            }, new YieldFrame()));
         }
     }
 }

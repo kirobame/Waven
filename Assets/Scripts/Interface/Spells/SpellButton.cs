@@ -5,12 +5,12 @@ using Flux.Event;
 using UnityEngine.EventSystems;
 using UnityEngine;
 
-public class SpellButton : MonoBehaviour, IPointerClickHandler
+public class SpellButton : GameButton
 {
     public SpellBase Spell => relay.Value;
     [SerializeField] protected SpellHolder relay;
 
-    public virtual void OnPointerClick(PointerEventData eventData)
+    protected override void OnClick(PointerEventData eventData)
     {
         if (SpellDeck.RemainingUse <= 0) return;
 

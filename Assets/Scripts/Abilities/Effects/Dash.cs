@@ -42,6 +42,9 @@ public class Dash : Effect
             return;
         }
 
+        var damageable = Player.Active.GetComponent<PlayerDamageable>();
+        damageable.IsInvulnerable = true;
+        
         Buffer.consumeTriggerSpell = false;
 
         Player.Active.onMoveDone += OnMoveDone;
@@ -51,6 +54,9 @@ public class Dash : Effect
 
     void OnMoveDone(ITileable tileable)
     {
+        var damageable = Player.Active.GetComponent<PlayerDamageable>();
+        damageable.IsInvulnerable = false;
+        
         Player.Active.onMoveDone -= OnMoveDone;
         End();
     }

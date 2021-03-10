@@ -7,7 +7,7 @@ public class Navigator : MonoBehaviour
     public static float YOffset { get; private set; }
     
     public Tile Current { get; private set; }
-    public Map Map { get; private set; }
+    //public Map Map { get; private set; }
     
     public ITileable Target => target;
     
@@ -17,10 +17,10 @@ public class Navigator : MonoBehaviour
 
     protected virtual void Start()
     {
-        Map = Repository.Get<Map>(References.Map);
-        YOffset = Map.Tilemap.layoutGrid.cellSize.y;
+        var map = Repository.Get<Map>(References.Map);
+        YOffset = map.Tilemap.layoutGrid.cellSize.y;
 
-        var cell = Map.Tilemap.WorldToCell(transform.position).xy();
+        var cell = map.Tilemap.WorldToCell(transform.position).xy();
         Place(cell);
     }
 
@@ -30,13 +30,16 @@ public class Navigator : MonoBehaviour
     {
         if (!position.TryGetTile(out var tile)) return;
 
-        target.Place(Map.Tilemap.CellToWorld(tile.Position));
+        var map = Repository.Get<Map>(References.Map);
+        target.Place(map.Tilemap.CellToWorld(tile.Position));
         SetCurrent(tile);
     }
     public void Move(Tile[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
+        var map = Repository.Get<Map>(References.Map);
+        
         var positions = new Vector2[path.Length];
-        for (var i = 0; i < path.Length; i++) positions[i] = Map.Tilemap.CellToWorld(path[i].Position);
+        for (var i = 0; i < path.Length; i++) positions[i] = map.Tilemap.CellToWorld(path[i].Position);
 
         target.Move(positions, speed, overrideSpeed, processDir);
     }

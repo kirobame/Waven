@@ -6,18 +6,23 @@ using System.Linq;
 using Flux;
 using Flux.Data;
 using Flux.Event;
+using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 
 public class Pathfinder : MonoBehaviour, ILink
 {
-    public event Action<ILink> onDestroyed; 
+    public event Action<ILink> onDestroyed;
+    public event Action<Pathfinder> onDirtied;
     
     public ITurnbound Owner { get; set; }
+    public Tile Tile => nav.Current;
+    
+    public int AttackCounter { get; set; }
+    private int attackCount;
     
     [SerializeField] private Moveable nav;
     
     [Space, SerializeField] private Spell attack;
-    [SerializeField] private int attackCount;
 
     private Tile Current => path[path.Count - 1];
     private List<Tile> path = new List<Tile>();
@@ -27,18 +32,19 @@ public class Pathfinder : MonoBehaviour, ILink
     private bool isWaiting;
 
     private bool shouldAttack;
-    private int attackCounter;
     private Tile tileToAttack;
     
     private bool hasCaster;
     private IAttributeHolder caster;
     private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
-
+    
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate()
     {
-        attackCounter = attackCount;
+        attackCount = 0;
+        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) attackCount +=  bonus;
+        AttackCounter = attackCount;
         
         Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
         Events.RelayByValue<Vector2>(InputEvent.OnMouseMove, OnMouseMove);
@@ -76,6 +82,15 @@ public class Pathfinder : MonoBehaviour, ILink
         Shutdown();
     }
 
+    public void Dirty()
+    {
+        var difference = attackCount - AttackCounter;
+        
+        AttackCounter = 0;
+        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) attackCount += bonus;
+        AttackCounter -= difference;
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnTileSelected(Tile selectedTile)
@@ -94,7 +109,7 @@ public class Pathfinder : MonoBehaviour, ILink
             
             if (shouldAttack)
             {
-                attackCounter--;
+                AttackCounter--;
                 
                 var lastIndex = path.Count - 1;
                 tileToAttack = path[lastIndex];
@@ -124,8 +139,12 @@ public class Pathfinder : MonoBehaviour, ILink
         {
             if (Inputs.isLocked)
             {
-                Events.EmptyCall(InputEvent.OnInterrupt);
-                if (Inputs.isLocked) return;
+                if (nav.Target is Player)
+                {
+                    Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
+                    if (Inputs.isLocked) return;
+                }
+                else return;
             }
             
             Inputs.isLocked = true;
@@ -240,7 +259,7 @@ public class Pathfinder : MonoBehaviour, ILink
             var cell = cellMaker(value);
             if (!cell.TryGetTile(out var tile) || tile is DeathTile) return false;
 
-            if (attackCounter > 0)
+            if (AttackCounter > 0)
             {
                 shouldAttack = false;
                 foreach (var entity in tile.Entities)
@@ -286,6 +305,7 @@ public class Pathfinder : MonoBehaviour, ILink
 
     private void Attack()
     {
+        Events.EmptyCall(ChallengeEvent.OnAttack);
         Player.Active.SetOrientation((tileToAttack.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
         
         attack.Prepare();

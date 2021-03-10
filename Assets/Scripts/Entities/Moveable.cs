@@ -15,6 +15,17 @@ public class Moveable : Navigator, ILink
     [SerializeField, Range(0, 5)] public int movementPoints;
 
     public ITurnbound Owner { get; set; }
+
+    public int Max 
+    {
+        get
+        {
+            var output = movementPoints;
+            if (hasCaster && caster.Args.TryAggregate(new Id('M', 'V', 'T'), out var result)) output += result;
+
+            return output;
+        }
+    }
     public int PM
     {
         get => trueMovementPoints;
@@ -22,6 +33,8 @@ public class Moveable : Navigator, ILink
         {
             var localDifference = value - trueMovementPoints;
             difference += localDifference;
+
+            Events.ZipCall(ChallengeEvent.OnMove, -localDifference);
             
             trueMovementPoints = value;
             Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
@@ -40,7 +53,7 @@ public class Moveable : Navigator, ILink
     {
         base.Start();
         
-        PM = movementPoints;
+        trueMovementPoints = movementPoints; 
         hasCaster = TryGetComponent<IAttributeHolder>(out caster);
     }
     void OnDestroy() => onDestroyed?.Invoke(this);
@@ -54,7 +67,11 @@ public class Moveable : Navigator, ILink
         
         Dirty();
     }
-    public void Deactivate() { }
+    public void Deactivate()
+    {
+        difference = 0;
+        trueMovementPoints = movementPoints;
+    }
     
     //------------------------------------------------------------------------------------------------------------------/
 

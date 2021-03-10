@@ -3,5 +3,5 @@
 [Serializable]
 public class TemporaryIntCastArgs : TemporaryWrapperCastArgs<int>
 {
-    public TemporaryIntCastArgs(int value) : base(value) { }
+    public TemporaryIntCastArgs(int duration, int value) : base(duration, value) { }
 }

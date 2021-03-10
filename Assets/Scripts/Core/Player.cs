@@ -14,7 +14,9 @@ public class Player : Tileable, ITurnbound
     public event Action onFree;
     public event Action<Motive> onIntendedTurnStop;
 
+    public IReadOnlyList<ILink> Links => links;
     public bool IsBusy => business > 0;
+    public bool WasSuccessful { get; set; }
     
     public string Name => name;
     public int Index => index;
@@ -105,6 +107,15 @@ public class Player : Tileable, ITurnbound
         
         this.links.AddRange(links);
     }
+    public void RemoveDependency(GameObject source)
+    {
+        var links = source.GetComponentsInChildren<ILink>();
+        foreach (var link in links)
+        {
+            link.onDestroyed -= OnLinkDestruction;
+            this.links.Remove(link);
+        }
+    }
 
     void OnLinkDestruction(ILink link)
     {
@@ -116,13 +127,14 @@ public class Player : Tileable, ITurnbound
     
     public void Activate()
     {
+        Buffer.isGameTurn = true;
         Inputs.isLocked = false;
         
         Active = this;
-        
         isActive = true;
+        
         foreach (var activable in links) activable.Activate();
-        Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
         Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
 
         if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
@@ -133,8 +145,13 @@ public class Player : Tileable, ITurnbound
     
     public void Interrupt(Motive motive)
     {
+        Buffer.isGameTurn = false;
+        
         isActive = false;
         foreach (var activable in links) activable.Deactivate();
+        
+        Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
+        Events.Unregister(GameEvent.OnBaseAttack, OnBaseAttack);
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -178,10 +195,10 @@ public class Player : Tileable, ITurnbound
         if (isActive) animator.SetTrigger("isBaseAttack");
     }
 
-    void OnSpellUsed(EventArgs obj)
+    void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        if (!isActive) return;
-        
+        if (!isActive || isStatic) return;
+
         if (Buffer.consumeTriggerSpell) animator.SetTrigger("isCastingSpell");
         Buffer.consumeTriggerSpell = false;
     }

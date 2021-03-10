@@ -34,13 +34,6 @@ public class TurnIndicator : MonoBehaviour
     void OnTurnStart(Turn turn)
     {
         timerValue.color = new Color32(77, 77, 77, 255);
-
-        if (turn.Target is Component component)
-        {
-            hasTarget = true;
-            target = component.transform;
-        }
-        else hasTarget = false;*/
     }
     void OnTurnTimer(EventArgs args)
     {

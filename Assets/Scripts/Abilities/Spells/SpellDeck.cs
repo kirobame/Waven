@@ -15,6 +15,7 @@ public class SpellDeck : MonoBehaviour, ILink
     public IEnumerable<SpellBase> Spells => deck.Concat(hand);
     
     [Space, SerializeField] private int maxSpellInHand = 4;
+    [SerializeField] private Spellcaster caster;
     
     private List<SpellBase> deck;
     private List<SpellBase> hand = new List<SpellBase>();
@@ -24,10 +25,13 @@ public class SpellDeck : MonoBehaviour, ILink
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake()
+    void Awake() => player = GetComponent<Player>();
+    void Start()
     {
-        player = GetComponent<Player>();
-        hasBeenBootedUp = false;
+        if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
+        deck = spells.GetDeck(3).ToList();
+        
+        hasBeenBootedUp = true;
     }
 
     public void Activate()
@@ -42,10 +46,15 @@ public class SpellDeck : MonoBehaviour, ILink
             hasBeenBootedUp = true;
         }
         
+        Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, RefreshHotbar);
         Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
-    public void Deactivate() => Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
-    
+    public void Deactivate()
+    {
+        Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, RefreshHotbar);
+        Events.BreakValueRelay<SpellBase, bool>(GameEvent.OnSpellUsed, OnSpellUsed);
+    }
+
     void OnDestroy() => onDestroyed?.Invoke(this);
     
     //------------------------------------------------------------------------------------------------------------------/
@@ -53,8 +62,9 @@ public class SpellDeck : MonoBehaviour, ILink
     public void RefreshHotbar()
     {
         if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
+        
         hotbar.DisplaySpells(hand);
-        hotbar.DisplayPA(RemainingUse);
+        hotbar.DisplayPA(caster.RemainingUse);
     }
 
     public void Draw(int nb)

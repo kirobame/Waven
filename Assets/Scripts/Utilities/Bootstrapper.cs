@@ -33,7 +33,10 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnRewardEnd);
             
         Events.Open(InterfaceEvent.OnSpellSelected);
+        
+        Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
     }
+    void OnDestroy() => Events.BreakVoidRelay(GameEvent.OnTurnStart, OnTurnStart);
     
     void Start()
     {
@@ -59,4 +62,6 @@ public class Bootstrapper : MonoBehaviour
 
         Repository.Get<Map>(References.Map).SpawnBordermap();
     }
+
+    void OnTurnStart() => Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
 }

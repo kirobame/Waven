@@ -30,13 +30,7 @@ public class Tooltip : MonoBehaviour
         Events.Unregister(InterfaceEvent.OnTooltipUsed, OnUsed);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
     }
-
-    void Update()
-    {
-        if (!onUsed) return;
-        Place();
-    }
-
+    
     private void Place()
     {
         var position = Mouse.current.position.ReadValue();

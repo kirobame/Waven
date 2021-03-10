@@ -86,6 +86,8 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         RemainingUse = 0;
         if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) RemainingUse += bonus;
         RemainingUse -= difference;
+        
+        Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -160,7 +162,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     private void Setup()
     {
         current.Prepare();
-
+        
         availableTiles = current.GetTilesForCasting(nav.Current, castArgs);
         availableTiles.Mark(Mark.Inactive);
     }

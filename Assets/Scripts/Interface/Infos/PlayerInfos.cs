@@ -21,6 +21,8 @@ public class PlayerInfos : MonoBehaviour
     [SerializeField] private TMP_Text lifeText;
     private PlayerDamageable playerLife;
 
+    [SerializeField] private TMP_Text deckSize;
+
     [SerializeField] private List<GameObject> buffs = new List<GameObject>();
 
     #region Active values
@@ -136,12 +138,6 @@ public class PlayerInfos : MonoBehaviour
 
         playerSprite.sizeDelta = a_playerSpriteRect;
         playerSprite.localPosition = a_playerSpritePos;
-
-        foreach(GameObject buff in buffs)
-        {
-            buff.SetActive(true);
-            Refresh();
-        }
     }
 
     private void SetInactiveSizes()
@@ -150,11 +146,6 @@ public class PlayerInfos : MonoBehaviour
 
         playerSprite.sizeDelta = i_playerSpriteRect;
         playerSprite.localPosition = i_playerSpritePos;
-
-        foreach (GameObject buff in buffs)
-        {
-            buff.SetActive(false);
-        }
     }
 
 }

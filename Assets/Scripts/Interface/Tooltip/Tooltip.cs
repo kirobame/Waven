@@ -11,10 +11,6 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     private RectTransform RectTransform => (RectTransform)transform;
-
-    //[SerializeField] private RectTransform canvas;
-    
-    //[Space, SerializeField] private float screenMargin;
     [SerializeField] private TMP_Text tooltip;
 
     private bool onUsed;
@@ -61,10 +57,13 @@ public class Tooltip : MonoBehaviour
         gameObject.SetActive(true);
         
         tooltip.text = tooltipString;
-        Canvas.ForceUpdateCanvases();
-        var bgSize = new Vector2(tooltip.preferredWidth, tooltip.preferredHeight);
+        var bgSize = new Vector2(300, tooltip.preferredHeight + 20);
+
+        Debug.Log(tooltip.preferredHeight);
         
         RectTransform.sizeDelta = bgSize;
+
+        Canvas.ForceUpdateCanvases();
         //Place();
     }
     public void HideTooltip()

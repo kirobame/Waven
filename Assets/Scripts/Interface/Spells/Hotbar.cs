@@ -12,7 +12,6 @@ public class Hotbar : MonoBehaviour
     public void DisplaySpells(List<SpellBase> spells)
     {
         ClearSpells();
-        //rectTransform.sizeDelta = new Vector2(200 * (spells.Count), 200);
         
         for (var i = 0; i < spells.Count; i++)
         {

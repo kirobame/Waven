@@ -8,5 +8,6 @@ public enum ChallengeEvent : byte
     OnAttack,
     OnDamage,
     OnKill,
-    OnPush
+    OnPush,
+    OnBarrierDown
 }

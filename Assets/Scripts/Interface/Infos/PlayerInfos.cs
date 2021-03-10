@@ -47,7 +47,7 @@ public class PlayerInfos : MonoBehaviour
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.Register(GameEvent.OnPlayerDeath, OnPlayerDeath);
         playerLife = player.GetComponent<PlayerDamageable>();
-        Refresh();
+        //Refresh();
     }
 
     void OnTurnStart(Turn turn)

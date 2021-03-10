@@ -91,4 +91,4 @@ MonoBehaviour:
   title: Aura
   description: Add an aura of dommage around an entity
   thumbnail: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}
-  glow: {fileID: 21300000, guid: 7774c11f8f3640b4eb5ac91ed44c373f, type: 3}
+  sound: {fileID: 11400000, guid: 5d71ed778fb480d4abd2c3f01b010ee5, type: 2}

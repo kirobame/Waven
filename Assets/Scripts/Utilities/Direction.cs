@@ -5,3 +5,8 @@
     Down, 
     Up
 };
+
+public static class Buffer
+{
+    public static bool consumeTriggerSpell;
+}

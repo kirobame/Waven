@@ -13,12 +13,18 @@ public class Damage : Effect
 
     private int business;
     
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         business = 0;
- 
+
         var amount = this.amount;
-        if (args.TryGet<IWrapper<int>>(new Id('D', 'M', 'G'), out var intArgs)) amount += intArgs.Value;
+        if (args.TryAggregate(new Id('D', 'M', 'G'), out var output)) amount += output;
+        
+        if (amount <= 0)
+        {
+            End();
+            return;
+        }
         
         foreach (var target in tiles.SelectMany(tile => tile.Entities))
         {

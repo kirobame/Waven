@@ -10,7 +10,7 @@ public class Animate : Effect
 {
     [SerializeField] private bool ownership;
 
-    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, CastArgs> args)
+    protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var map = Repository.Get<Map>(References.Map);
         foreach (var tile in tiles)

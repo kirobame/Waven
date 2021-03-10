@@ -1,6 +1,7 @@
 ﻿using Flux.Data;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -9,10 +10,12 @@ public class Hotbar : MonoBehaviour
     private RectTransform rectTransform => (RectTransform)transform;
     [SerializeField] SpellHolder[] relays;
 
+    [SerializeField] private TMP_Text PAText;
+    [SerializeField] private TMP_Text PMText;
+
     public void DisplaySpells(List<SpellBase> spells)
     {
         ClearSpells();
-        //rectTransform.sizeDelta = new Vector2(200 * (spells.Count), 200);
         
         for (var i = 0; i < spells.Count; i++)
         {
@@ -22,4 +25,6 @@ public class Hotbar : MonoBehaviour
     }
 
     public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
+
+    public void DisplayPA(int remainingSpells) { PAText.text = remainingSpells.ToString(); }
 }

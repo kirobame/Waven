@@ -40,8 +40,9 @@ public class SpellDeck : MonoBehaviour, ILink
         if (hasBeenBootedUp) Draw(2);
         else
         {
-            if (Repository.TryGet<Spells>(References.Spells, out var spells)) deck = spells.GetDeck(6).ToList();
-
+            if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
+            deck = spells.GetDeck(6).ToList();
+            
             Draw(3);
             hasBeenBootedUp = true;
         }
@@ -58,6 +59,7 @@ public class SpellDeck : MonoBehaviour, ILink
     {
         if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
         hotbar.DisplaySpells(hand);
+        hotbar.DisplayPA(RemainingUse);
     }
 
     public void Draw(int nb)

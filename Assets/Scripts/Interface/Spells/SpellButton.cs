@@ -13,6 +13,8 @@ public class SpellButton : MonoBehaviour, IPointerClickHandler
     public virtual void OnPointerClick(PointerEventData eventData)
     {
         if (SpellDeck.RemainingUse <= 0) return;
-        Events.ZipCall<SpellBase,bool>(InterfaceEvent.OnSpellSelected, Spell, false);
+
+        if (Spellcaster.Active != null && Spellcaster.Active.Current == Spell) Events.Call(InputEvent.OnInterrupt, new WrapperArgs<bool>(true));
+        else Events.ZipCall<SpellBase, bool>(InterfaceEvent.OnSpellSelected, Spell, false);
     }
 }

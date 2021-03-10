@@ -228,15 +228,69 @@ public static class Extensions
     
     //------------------------------------------------------------------------------------------------------------------/
 
-    public static bool TryGet<T>(this IReadOnlyDictionary<Id, CastArgs> args, Id id, out T output)
+    public static bool TryGet<T>(this IReadOnlyDictionary<Id, List<CastArgs>> args, Id id, out IEnumerable<T> output)
     {
-        if (args.TryGetValue(id, out CastArgs raw) && raw is T castedOutput)
+        var list = new List<T>();
+        if (args.TryGetValue(id, out List<CastArgs> raw))
         {
-            output = castedOutput;
-            return true;
+            foreach (var arg in raw)
+            {
+                if (!(arg is T castedArg)) continue;
+                list.Add(castedArg);
+            }
+
+            output = list;
+            return list.Any();
         }
 
         output = default;
+        return false;
+    }
+    public static bool TryAggregate(this IReadOnlyDictionary<Id, List<CastArgs>> args, Id id, out int output)
+    {
+        output = 0;
+        if (args.TryGetValue(id, out List<CastArgs> raw))
+        {
+            var any = false;
+            foreach (var arg in raw)
+            {
+                if (!(arg is IWrapper<int> wrapper)) continue;
+
+                any = true;
+                output += wrapper.Value;
+            }
+
+            return any;
+        }
+
+        output = default;
+        return false;
+    }
+    public static bool TryGetValue(this IReadOnlyDictionary<Id, List<CastArgs>> args, Id id, out int foundingValue, out int rest)
+    {
+        foundingValue = 0;
+        rest = 0;
+        
+        if (args.TryGetValue(id, out List<CastArgs> raw))
+        {
+            var hasFoundingValue = false;
+            foreach (var arg in raw)
+            {
+                if (arg is FoundingIntCastArgs foundingArgs)
+                {
+                    foundingValue = foundingArgs.Value;
+                    hasFoundingValue = true;
+                    
+                    continue;
+                }
+                
+                if (!(arg is IWrapper<int> wrapper)) continue;
+                rest += wrapper.Value;
+            }
+
+            return hasFoundingValue;
+        }
+        
         return false;
     }
 }

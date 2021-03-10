@@ -14,10 +14,12 @@ public class Player : Tileable, ITurnbound
     public event Action onFree;
     public event Action<Motive> onIntendedTurnStop;
 
+    public bool IsBusy => business > 0;
+    
     public string Name => name;
     public int Index => index;
 
-    public bool IsBusy => business > 0;
+    public Animator Animator => animator;
     
     public Match Match { get; set; }
     public short Initiative => initiative;
@@ -124,7 +126,6 @@ public class Player : Tileable, ITurnbound
         Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
     }
     
-
     public void Interrupt(Motive motive)
     {
         isActive = false;
@@ -169,6 +170,9 @@ public class Player : Tileable, ITurnbound
 
     void OnSpellUsed(EventArgs obj)
     {
-        if (isActive) animator.SetTrigger("isCastingSpell");
+        if (!isActive) return;
+        
+        if (Buffer.consumeTriggerSpell) animator.SetTrigger("isCastingSpell");
+        Buffer.consumeTriggerSpell = false;
     }
 }

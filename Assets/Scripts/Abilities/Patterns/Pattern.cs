@@ -6,5 +6,5 @@ using UnityEngine;
 
 public abstract class Pattern
 {
-    public abstract IEnumerable<Tile> GetTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args);
+    public abstract IEnumerable<Tile> GetTiles(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args);
 }

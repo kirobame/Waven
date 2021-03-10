@@ -11,13 +11,7 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     private RectTransform RectTransform => (RectTransform)transform;
-
-    [SerializeField] private RectTransform canvas;
-    
-    [Space, SerializeField] private float screenMargin;
     [SerializeField] private TMP_Text tooltip;
-
-    private bool onUsed;
 
     void Awake()
     {
@@ -35,41 +29,20 @@ public class Tooltip : MonoBehaviour
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
     }
 
-    void Update()
-    {
-        if (!onUsed) return;
-        Place();
-    }
-
-    private void Place()
-    {
-        var position = Mouse.current.position.ReadValue();
-        var max = position + RectTransform.sizeDelta;
-
-        var xMax = canvas.sizeDelta.x - screenMargin;
-        if (max.x > xMax) position.x += max.x - xMax;
-
-        var yMax = canvas.sizeDelta.y - screenMargin;
-        if (max.y > yMax) position.y += max.y - yMax;
-
-        RectTransform.position = position;
-    }
-
     public void ShowTooltip(string tooltipString)
     {
-        onUsed = true;
         gameObject.SetActive(true);
         
         tooltip.text = tooltipString;
-        Canvas.ForceUpdateCanvases();
-        var bgSize = new Vector2(tooltip.preferredWidth, tooltip.preferredHeight);
+        var bgSize = new Vector2(300, tooltip.preferredHeight + 20);
         
         RectTransform.sizeDelta = bgSize;
-        Place();
+
+        Canvas.ForceUpdateCanvases();
     }
+
     public void HideTooltip()
     {
-        onUsed = false;
         gameObject.SetActive(false);
     }
 

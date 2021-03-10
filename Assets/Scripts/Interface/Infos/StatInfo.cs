@@ -7,8 +7,9 @@ using UnityEngine.UI;
 public class StatInfo : MonoBehaviour, IComparable<StatInfo>
 {
     public RectTransform RectTransform => (RectTransform)transform;
+    public TMP_Text TextMesh => textMesh;
+    
     [SerializeField] private RectTransform background;
-
     [SerializeField] private float spacing;
     
     [Space, SerializeField] private Image image;

@@ -1,4 +1,6 @@
-﻿using Flux.Data;
+﻿using System;
+using Flux;
+using Flux.Data;
 using Flux.Event;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -10,31 +12,35 @@ public class HoverSignal : MonoBehaviour
     [SerializeField] private GameObject root;
 
     [Space, SerializeField] private InfoAnchor anchor;
-    [SerializeField] private SpriteRenderer shape;
+    [SerializeField] private Navigator navigator;
 
     private bool previousOverlap;
 
-    void Awake() => activeId = 0;
+    void Awake()
+    {
+        activeId = 0;
+        Events.Register(InputEvent.OnTileHover, OnTileHover);
+    }
+
     void OnDestroy()
     {
+        Events.Unregister(InputEvent.OnTileHover, OnTileHover);
+        
         if (!previousOverlap) return;
         
         Events.ZipCall(InterfaceEvent.OnHoverEnd, root);
         activeId = 0;
     }
 
-    void Update()
+    void OnTileHover(EventArgs args)
     {
         var id = GetInstanceID();
         if (activeId != 0 && activeId != id) return;
-        
-        var camera = Repository.Get<Camera>(References.Camera);
-        
-        Vector3 mousePosition = Mouse.current.position.ReadValue();
-        mousePosition.z = -camera.transform.position.z;
 
-        var overlap = shape.bounds.Contains(camera.ScreenToWorldPoint(mousePosition));
-
+        bool overlap;
+        if (args is IWrapper<Tile> wrapper) overlap = wrapper.Value == navigator.Current;
+        else overlap = false;
+        
         if (overlap == true && previousOverlap == false)
         {
             Events.ZipCall(InterfaceEvent.OnHoverStart, anchor, root);
@@ -45,7 +51,6 @@ public class HoverSignal : MonoBehaviour
             Events.ZipCall(InterfaceEvent.OnHoverEnd, root);
             activeId = 0;
         }
-
         previousOverlap = overlap;
     }
 }

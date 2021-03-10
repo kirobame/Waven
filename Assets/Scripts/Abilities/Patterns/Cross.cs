@@ -12,15 +12,15 @@ public class Cross : Pattern
     [SerializeField] private bool includeSource;
     [SerializeField] private Vector4Int directions;
     
-    public override IEnumerable<Tile> GetTiles(Tile source, IReadOnlyDictionary<Id, CastArgs> args)
+    public override IEnumerable<Tile> GetTiles(Tile source, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var directions = this.directions;
-        if (allowBoost && args.TryGet<IWrapper<int>>(new Id('E', 'X', 'T'), out var result))
+        if (allowBoost && args.TryAggregate(new Id('E', 'X', 'T'), out var result))
         {
-            directions.down += result.Value;
-            directions.up += result.Value;
-            directions.left += result.Value;
-            directions.right += result.Value;
+            directions.down += result;
+            directions.up += result;
+            directions.left += result;
+            directions.right += result;
         }
         
         var output = source.GetCellsInCross(directions).ToHashSet();

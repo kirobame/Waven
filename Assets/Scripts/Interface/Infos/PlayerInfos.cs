@@ -3,6 +3,7 @@ using Flux.Event;
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -13,9 +14,9 @@ public class PlayerInfos : MonoBehaviour
     [SerializeField] private string playerTag;
 
     [SerializeField] private RectTransform playerSprite;
-    [SerializeField] private TMP_Text playerName;
+    //[SerializeField] private TMP_Text playerName;
 
-    [SerializeField] private VerticalLayoutGroup debuffZone;
+    //[SerializeField] private VerticalLayoutGroup debuffZone;
 
     [SerializeField] private Slider slider;
     [SerializeField] private TMP_Text lifeText;
@@ -46,6 +47,7 @@ public class PlayerInfos : MonoBehaviour
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.Register(GameEvent.OnPlayerDeath, OnPlayerDeath);
         playerLife = player.GetComponent<PlayerDamageable>();
+        Refresh();
     }
 
     void OnTurnStart(Turn turn)
@@ -103,6 +105,9 @@ public class PlayerInfos : MonoBehaviour
             HandleStats(attributes, new Id('D', 'M', 'G'), 1);
             HandleStats(attributes, new Id('P', 'S', 'H'), 2);
         }
+
+        var fullDeck = player.GetComponent<SpellDeck>().Spells.Count();
+        deckSize.text = fullDeck.ToString();
     }
 
     private void HandleStats(IAttributeHolder attributes, Id id, int index)

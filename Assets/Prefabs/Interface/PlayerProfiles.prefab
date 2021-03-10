@@ -515,8 +515,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playerTag: 1
   playerSprite: {fileID: 552777565902361482}
-  playerName: {fileID: 552777564749817484}
-  debuffZone: {fileID: 8119685503612077844}
   slider: {fileID: 552777565160134190}
   lifeText: {fileID: 552777565319175430}
   deckSize: {fileID: 493938674114020558}
@@ -4803,8 +4801,6 @@ MonoBehaviour:
   player: {fileID: 0}
   playerTag: 2
   playerSprite: {fileID: 4275440124590562557}
-  playerName: {fileID: 6279832908446177175}
-  debuffZone: {fileID: 130645122756545992}
   slider: {fileID: 7983783540082060801}
   lifeText: {fileID: 1978181153360792431}
   deckSize: {fileID: 555417559286264053}

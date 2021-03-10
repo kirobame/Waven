@@ -69,6 +69,8 @@ public class TurnIndicator : MonoBehaviour
 
             var remainingTime = (int)(boot.turnDuration - (floatArgs.ArgOne * boot.turnDuration));
             timerValue.text = $"{remainingTime}";
+
+            if(remainingTime <= 10) { timerValue.color = new Color32(221, 0, 43, 255); }
         }
     }
 }

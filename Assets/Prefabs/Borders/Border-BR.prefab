@@ -70,8 +70,8 @@ SpriteRenderer:
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: 157463505
   m_SortingLayer: 2
-  m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 3f15217b5bd97674b9a1d76815f93618, type: 3}
+  m_SortingOrder: 1
+  m_Sprite: {fileID: 21300000, guid: 2152c8ed45e305647b2347c22087566e, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -92,7 +92,7 @@ GameObject:
   m_Component:
   - component: {fileID: 539701715701859326}
   - component: {fileID: 539701715701859319}
-  - component: {fileID: 539701715701859325}
+  - component: {fileID: 859516501516636416}
   - component: {fileID: 9207921047016419262}
   - component: {fileID: 6990536576719373466}
   m_Layer: 0
@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   tag: 2
---- !u!114 &539701715701859325
+--- !u!114 &859516501516636416
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -140,17 +140,19 @@ MonoBehaviour:
   m_GameObject: {fileID: 539701715701859322}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0a2caa6fe7f44736a22bde8e2dfda301, type: 3}
+  m_Script: {fileID: 11500000, guid: bfd64238c58d41ca9235ae2ece9b99f1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   popupAnchor: {fileID: 3584330361880496228}
   lives:
   - name: Health
-    color: {r: 0.28123888, g: 0.754717, b: 0.30310896, a: 1}
+    color: {r: 0.2812389, g: 0.754717, b: 0.303109, a: 1}
     actualValue: 2
     maxValue: 2
     priority: 0
     handledTypes: 00000000
+  renderer: {fileID: 539701715576653237}
+  damagedVersion: {fileID: 21300000, guid: f62164bc13d370a4fa9694928f720081, type: 3}
 --- !u!114 &9207921047016419262
 MonoBehaviour:
   m_ObjectHideFlags: 0

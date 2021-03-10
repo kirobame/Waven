@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using Flux.Event;
 using UnityEngine;
 
-public class Golem : Tileable, ILink
+public class Golem : ExtendedTileable, ILink
 {
     public event Action<ILink> onDestroyed;
 
@@ -35,8 +35,7 @@ public class Golem : Tileable, ILink
     private bool hasAura;
 
     public int activation;
-    [SerializeField] private float speed;
-    [SerializeField] private SpellBase aura;
+    [Space, SerializeField] private SpellBase aura;
 
     private bool hasOwner;
 
@@ -81,8 +80,6 @@ public class Golem : Tileable, ILink
     
     public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
-        if (speed <= 0 || !overrideSpeed) speed = this.speed;
-
         if (hasOwner) Owner.IncreaseBusiness();
         base.Move(path, speed, overrideSpeed, processDir);
     }
@@ -94,6 +91,8 @@ public class Golem : Tileable, ILink
 
     protected override void OnMoveCompleted()
     {
+        base.OnMoveCompleted();
+        
         if (!hasOwner) return;
         Owner.DecreaseBusiness();
     }

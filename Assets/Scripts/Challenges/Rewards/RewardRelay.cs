@@ -31,7 +31,7 @@ public class RewardRelay : ITurnbound
     {
         if (!target.WasSuccessful)
         {
-            Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), 1.5f));
+            Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), 0.6f));
             return;
         }
         

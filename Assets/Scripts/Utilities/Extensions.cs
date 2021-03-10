@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using Flux;
 using Flux.Data;
+using Flux.Feedbacks;
 using Sirenix.Utilities;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,24 @@ using Random = UnityEngine.Random;
 
 public static class Extensions
 {
+    public static void Play(this Sequencer source, EventArgs args, params Sequencer[] others)
+    {
+        if (source.IsPlaying) return;
+
+        foreach (var other in others)
+        {
+            if (other.IsPlaying)
+            {
+                if (other.Args is ISendback sendback) sendback.End(EventArgs.Empty);
+                other.Stop();
+            }
+        }
+        
+        source.Play(args);
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+    
     public static bool HasIntersection(this IEnumerable<Tile> tiles)
     {
         var pathfinders = new List<Pathfinder>();

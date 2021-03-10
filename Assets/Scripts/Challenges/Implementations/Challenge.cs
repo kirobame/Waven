@@ -19,6 +19,8 @@ public abstract class Challenge : ScriptableObject
     protected Player target;
 
     public abstract string GetDescription();
+
+    public void Bootup() => IsActive = false;
     
     public void TurnOn(Player player)
     {

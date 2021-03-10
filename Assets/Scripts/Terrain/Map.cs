@@ -69,7 +69,9 @@ public class Map : MonoBehaviour
                 if (neighbour.IsValidTile() || tiles.ContainsKey(neighbour)) continue;
                 
                 tiles.Add(neighbour, new DeathTile(neighbour, 0));
-                Instantiate(borderPrefab.Value, tilemap.CellToWorld(neighbour.Extend()), Quaternion.identity);
+                
+                var border = Instantiate(borderPrefab.Value);
+                border.transform.position = tilemap.CellToWorld(neighbour.Extend());
             }
         }
     }

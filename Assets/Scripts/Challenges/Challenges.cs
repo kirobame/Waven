@@ -8,6 +8,8 @@ public class Challenges : MonoBehaviour
 
     void Awake()
     {
+        foreach (var challenge in challenges) challenge.Bootup();
+        
         Repository.Register(References.Challenges, this);
         
         Events.Open(ChallengeEvent.OnAttack);
@@ -16,6 +18,7 @@ public class Challenges : MonoBehaviour
         Events.Open(ChallengeEvent.OnMove);
         Events.Open(ChallengeEvent.OnSpellUse);
         Events.Open(ChallengeEvent.OnPush);
+        Events.Open(ChallengeEvent.OnBarrierDown);
     }
     void OnDestroy() => Repository.Unregister(References.Challenges);
     

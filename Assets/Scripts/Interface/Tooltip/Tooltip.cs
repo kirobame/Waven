@@ -13,8 +13,6 @@ public class Tooltip : MonoBehaviour
     private RectTransform RectTransform => (RectTransform)transform;
     [SerializeField] private TMP_Text tooltip;
 
-    private bool onUsed;
-
     void Awake()
     {
         Events.Open(InterfaceEvent.OnTooltipUsed);
@@ -31,44 +29,20 @@ public class Tooltip : MonoBehaviour
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
     }
 
-    void Update()
-    {
-        if (!onUsed) return;
-        //Place();
-    }
-
-    /*private void Place()
-    {
-        var position = Mouse.current.position.ReadValue();
-        var max = position + RectTransform.sizeDelta;
-
-        var xMax = canvas.sizeDelta.x - screenMargin;
-        if (max.x > xMax) position.x += max.x - xMax;
-
-        var yMax = canvas.sizeDelta.y - screenMargin;
-        if (max.y > yMax) position.y += max.y - yMax;
-
-        RectTransform.position = position;
-    }*/
-
     public void ShowTooltip(string tooltipString)
     {
-        onUsed = true;
         gameObject.SetActive(true);
         
         tooltip.text = tooltipString;
         var bgSize = new Vector2(300, tooltip.preferredHeight + 20);
-
-        Debug.Log(tooltip.preferredHeight);
         
         RectTransform.sizeDelta = bgSize;
 
         Canvas.ForceUpdateCanvases();
-        //Place();
     }
+
     public void HideTooltip()
     {
-        onUsed = false;
         gameObject.SetActive(false);
     }
 

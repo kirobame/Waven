@@ -1,5 +1,84 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &3992107179094362228
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1766712578886048210}
+  - component: {fileID: 9108996332597841388}
+  m_Layer: 0
+  m_Name: DashSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1766712578886048210
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992107179094362228}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 4097353869914120687}
+  m_RootOrder: 6
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &9108996332597841388
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3992107179094362228}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8222073adb07b4c9e770fb57695fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root:
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 100
+      width: 73
+      height: 71
+    linkIndices: 00000000
+  effects:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: Animation, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 195
+          y: 103
+          width: 252
+          height: 140
+        linkIndices: 01000000
+        animator: {fileID: 4097353869787670437}
+        triggerName: isDashing
+        outTag: Idle
+    00000001:
+      type: {class: End, ns: Flux.Feedbacks, asm: Flux.Feedbacks}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 499
+          y: 112
+          width: 102
+          height: 71
+        linkIndices: 
 --- !u!1 &4097353869787670438
 GameObject:
   m_ObjectHideFlags: 0
@@ -144,6 +223,7 @@ Transform:
   - {fileID: 1321596531368599233}
   - {fileID: 8057581059865757706}
   - {fileID: 170293412780131497}
+  - {fileID: 1766712578886048210}
   - {fileID: 338698922758196338}
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -276,6 +356,9 @@ MonoBehaviour:
   - key:
       value: ATK
     value: {fileID: 8154930081287898176}
+  - key:
+      value: DSH
+    value: {fileID: 9108996332597841388}
 --- !u!114 &7302012165597437418
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -643,7 +726,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2269610806010129196, guid: 1b2dc7ca878c36b4b9c8fd90c1576fb8, type: 3}
       propertyPath: m_RootOrder
-      value: 6
+      value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 2269610806010129196, guid: 1b2dc7ca878c36b4b9c8fd90c1576fb8, type: 3}
       propertyPath: m_LocalPosition.x

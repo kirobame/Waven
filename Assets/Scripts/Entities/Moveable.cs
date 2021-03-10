@@ -12,7 +12,7 @@ public class Moveable : Navigator, ILink
 {
     public event Action<ILink> onDestroyed;
     
-    [SerializeField, Range(0, 5)] int movementPoints;
+    [SerializeField, Range(0, 5)] public int movementPoints;
 
     public ITurnbound Owner { get; set; }
     public int PM

@@ -37,9 +37,12 @@ public class PlayerInfos : MonoBehaviour
     private Vector2 i_playerSpritePos = new Vector2(-11, -100);
     #endregion
 
+    //------------------------------------------------------------------------------------------------------------------/
+
     private void Start()
     {
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
+        Events.Register(GameEvent.OnPlayerDeath, OnPlayerDeath);
         playerLife = player.GetComponent<PlayerDamageable>();
     }
 
@@ -77,6 +80,8 @@ public class PlayerInfos : MonoBehaviour
         }
     }
 
+    //------------------------------------------------------------------------------------------------------------------/
+
     private void Update()
     {
         Refresh();
@@ -109,11 +114,21 @@ public class PlayerInfos : MonoBehaviour
             else
             {
                 buffs[index].gameObject.SetActive(true);
-                buffs[index].transform.GetChild(0).GetComponent<TMP_Text>().text = value.ToString();
+                buffs[index].transform.GetChild(0).transform.GetChild(0).GetComponent<TMP_Text>().text = value.ToString();
             }
         }
         return;
     }
+
+    //------------------------------------------------------------------------------------------------------------------/
+
+    private void OnPlayerDeath(EventArgs obj)
+    {
+        lifeText.text = $"{0}/{playerLife.Lives[0].maxValue}";
+        slider.value = 0;
+    }
+
+    //------------------------------------------------------------------------------------------------------------------/
 
     private void SetActiveSizes()
     {
@@ -141,4 +156,5 @@ public class PlayerInfos : MonoBehaviour
             buff.SetActive(false);
         }
     }
+
 }

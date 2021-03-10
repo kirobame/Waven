@@ -30,8 +30,16 @@ public class AttackButton : GameButton
 
     protected override void OnClick(PointerEventData eventData)
     {
-        inUse = true;
-        Events.ZipCall(InterfaceEvent.OnSpellSelected, spell, true);
+        if (!inUse)
+        {
+            inUse = true;
+            Events.ZipCall(InterfaceEvent.OnSpellSelected, spell, true);
+        }
+        else
+        {
+            Events.Call(InputEvent.OnInterrupt, new WrapperArgs<bool>(true));
+            inUse = false;
+        }
     }
 
     void OnTurnStart()

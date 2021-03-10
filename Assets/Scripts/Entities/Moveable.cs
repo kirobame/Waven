@@ -8,7 +8,7 @@ using Flux.Data;
 using Flux.Event;
 using Sirenix.Utilities;
 
-public class Moveable : Navigator, ILink
+public class Moveable : Navigator, ILink, IMutable
 {
     public event Action<ILink> onDestroyed;
     

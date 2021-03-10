@@ -9,7 +9,7 @@ using Flux.Event;
 using Sirenix.OdinInspector;
 using Sirenix.Utilities;
 
-public class Pathfinder : MonoBehaviour, ILink
+public class Pathfinder : MonoBehaviour, ILink, IMutable
 {
     public event Action<ILink> onDestroyed;
     public event Action<Pathfinder> onDirtied;
@@ -87,8 +87,10 @@ public class Pathfinder : MonoBehaviour, ILink
         var difference = attackCount - AttackCounter;
         
         AttackCounter = 0;
-        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) attackCount += bonus;
+        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) AttackCounter += bonus;
         AttackCounter -= difference;
+        
+        onDirtied?.Invoke(this);
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -139,12 +141,15 @@ public class Pathfinder : MonoBehaviour, ILink
         {
             if (Inputs.isLocked)
             {
-                if (nav.Target is Player)
+                Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
+                if (Inputs.isLocked) return;
+                
+                /*if (nav.Target is Player)
                 {
                     Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
                     if (Inputs.isLocked) return;
                 }
-                else return;
+                else return;*/
             }
             
             Inputs.isLocked = true;

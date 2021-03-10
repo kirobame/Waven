@@ -10,9 +10,11 @@ public class SpellButton : GameButton
     public SpellBase Spell => relay.Value;
     [SerializeField] protected SpellHolder relay;
 
+    private Spellcaster Spellcaster => Player.Active.GetComponent<Spellcaster>();
+    
     protected override void OnClick(PointerEventData eventData)
     {
-        if (SpellDeck.RemainingUse <= 0) return;
+        if (Spellcaster.RemainingUse <= 0) return;
 
         if (Spellcaster.Active != null && Spellcaster.Active.Current == Spell) Events.Call(InputEvent.OnInterrupt, new WrapperArgs<bool>(true));
         else Events.ZipCall<SpellBase, bool>(InterfaceEvent.OnSpellSelected, Spell, false);

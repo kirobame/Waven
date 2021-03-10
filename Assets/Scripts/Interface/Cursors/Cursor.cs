@@ -12,7 +12,7 @@ public class Cursor : MonoBehaviour, ILink
     public bool IsActive { get; private set; }
     
     [SerializeField] private new SpriteRenderer renderer;
-
+    
     void OnDestroy()
     {
         Deactivate();

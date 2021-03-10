@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Flux.Event;
 using UnityEngine;
 
 [Serializable]
@@ -27,7 +28,7 @@ public class Push : Effect
         }
         
         business = 0;
-        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);
+        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable);
 
         if (!targets.Any())
         {
@@ -37,8 +38,14 @@ public class Push : Effect
 
         foreach (var target in targets)
         {
-            var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
-            var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+            var hasDamageable = false;
+            if (target.TryGet<IDamageable>(out var damageable))
+            {
+                if (!damageable.IsAlive) continue;
+                hasDamageable = true;
+            }
+            
+            var orientation = GetOrientationFor(target, force);
             target.SetOrientation(-orientation);
             
             var cell = target.Navigator.Current.FlatPosition + orientation;
@@ -47,7 +54,7 @@ public class Push : Effect
             var result = start.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
             if (result.code != 0 && !line.Any())
             {
-                if (target.TryGet<IDamageable>(out var damageable)) RegisterDamageable(damageable);
+                if (hasDamageable) RegisterDamageable(damageable);
                 
                 if (result.code == 3)
                 {
@@ -57,12 +64,14 @@ public class Push : Effect
                         RegisterDamageable(damageable);
                     }
                 }
-
+                
                 continue;
             }
             
             line.Insert(0, target.Navigator.Current);
             if (result.code == 3) line.Add(result.tile);
+            
+            Events.ZipCall(ChallengeEvent.OnPush, target);
             target.Navigator.Move(line.ToArray(), speed, true, false);
 
             business++;
@@ -72,6 +81,12 @@ public class Push : Effect
         if (business == 0) End();
     }
 
+    protected virtual Vector2Int GetOrientationFor(ITileable target, int force)
+    {
+        var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+        return direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+    }
+    
     void OnMoveEnd(ITileable tileable)
     {
         tileable.onMoveDone -= OnMoveEnd;

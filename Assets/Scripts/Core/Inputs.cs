@@ -29,10 +29,11 @@ public class Inputs : MonoBehaviour
         var map = Repository.Get<Map>(References.Map);
         return map.Tilemap.WorldToCell(position);
     }
+
+    private bool isActive;
     
     private InputAction clickAction;
     private InputAction mouseMoveAction;
-    
     private InputActionAsset value;
 
     private bool hasHoveredTile;
@@ -48,6 +49,10 @@ public class Inputs : MonoBehaviour
         Events.Open(InputEvent.OnTileHover);
         Events.Open(InputEvent.OnInputLock);
 
+        Events.RelayByVoid(GameEvent.OnTurnStart, Activate);
+        Events.RelayByVoid(GameEvent.OnTurnEnd, Deactivate);
+        Events.RelayByVoid(GameEvent.OnTileChange, OnTileChange);
+        
         isLocked = false;
         
         Routines.Start(Routines.DoAfter(() =>
@@ -68,11 +73,19 @@ public class Inputs : MonoBehaviour
         clickAction.performed -= OnClick;
         mouseMoveAction.performed -= OnMouseMove;
         
+        Events.BreakVoidRelay(GameEvent.OnTurnStart, Activate);
+        Events.BreakVoidRelay(GameEvent.OnTurnEnd, Deactivate);
+        Events.BreakVoidRelay(GameEvent.OnTileChange, OnTileChange);
+        
         value.Disable();
     }
 
+    void Activate() => isActive = true;
+    void Deactivate() => isActive = false;
+    
     void Update()
     {
+        if (!isActive) return;
         Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
         
         var cell = GetCellAt(mousePosition).xy();
@@ -93,9 +106,19 @@ public class Inputs : MonoBehaviour
 
         hoveredTile = output;
     }
+    
+    public void OnTileChange()
+    {
+        if (!isActive) return;
+        
+        if (hasHoveredTile) Events.ZipCall(InputEvent.OnTileHover, hoveredTile);
+        else Events.ZipCall(InputEvent.OnTileHover, false);
+    }
 
     void OnClick(InputAction.CallbackContext context)
     {
+        if (!isActive) return;
+        
         var cell = GetCellAt(mousePosition).xy();
         if (cell.TryGetTile(out var tile)) Events.ZipCall(InputEvent.OnTileSelected, tile);
     }

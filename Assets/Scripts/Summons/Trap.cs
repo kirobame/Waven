@@ -7,10 +7,10 @@ using UnityEngine;
 
 public class Trap : TileableBase
 {
-    [SerializeField] private Spell spell;
-
-    void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
+    [SerializeField] protected Spell spell;
     
+    void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -22,10 +22,10 @@ public class Trap : TileableBase
     void OnTileChange(ITileable source)
     {
         if (source.Navigator.Current != Navigator.Current) return;
-        Apply();
+        Apply(source);
     }
 
-    protected virtual void Apply()
+    protected virtual void Apply(ITileable source)
     {
         var map = Repository.Get<Map>(References.Map);
         var tile = map.Tilemap.WorldToCell(transform.position).ToTile();

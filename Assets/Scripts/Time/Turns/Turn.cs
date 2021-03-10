@@ -25,8 +25,6 @@ public abstract class Turn : IComparable<Turn>
     public void Start()
     {
         hasBeenInterrupted = false;
-        
-        Events.ZipCall(GameEvent.OnTurnStart, this);
         Target.Activate();
         
         OnStart();

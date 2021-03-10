@@ -19,24 +19,39 @@ public class Bootstrapper : MonoBehaviour
     {
         if (!Repository.Exists(References.Data)) Repository.Register(References.Data, new PlayerData[2] { PlayerData.Empty, PlayerData.Empty });
         Repository.Register(References.Players, new Player[2]);
-        
+
         Events.Open(GameEvent.OnPlayerDeath);
-        Events.Open(GameEvent.OnTurnStart);
-        Events.Open(GameEvent.OnTurnTimer);
         Events.Open(GameEvent.OnTileChange);
         Events.Open(GameEvent.OnSpellUsed);
+        
+        Events.Open(GameEvent.OnTurnStart);
+        Events.Open(GameEvent.OnTurnTimer);
+        Events.Open(GameEvent.OnTurnEnd);
+        
+        Events.Open(GameEvent.OnRewardStart);
+        Events.Open(GameEvent.OnRewardTimer);
+        Events.Open(GameEvent.OnRewardEnd);
             
         Events.Open(InterfaceEvent.OnSpellSelected);
     }
     
     void Start()
     {
+        Repository.Get<Spells>(References.Spells).Bootup();
+        
         var match = new Match();
         foreach (var player in players)
         {
-            var turn = new TimedTurn(turnDuration);
+            var turn = new TimedTurn(turnDuration, GameEvent.OnTurnStart, GameEvent.OnTurnTimer, GameEvent.OnTurnEnd);
             turn.AssignTarget(player);
             match.Insert(turn);
+            
+            var rewardRelay = new RewardRelay((short)(player.Initiative + 1));
+            rewardRelay.SetTarget(player);
+            
+            var rewardTurn = new TimedTurn(10.0f, GameEvent.OnRewardStart, GameEvent.OnRewardTimer, GameEvent.OnRewardEnd);
+            rewardTurn.AssignTarget(rewardRelay);
+            match.Insert(rewardTurn);
         }
         
         session = new Session();

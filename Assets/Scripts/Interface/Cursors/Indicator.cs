@@ -5,13 +5,38 @@ using UnityEngine;
 
 public class Indicator : MonoBehaviour
 {
-    void Awake() => Events.Register(InputEvent.OnTileHover, OnTileHover);
-    void OnDestroy() => Events.Unregister(InputEvent.OnTileHover, OnTileHover);
+    void Awake()
+    {
+        Events.RelayByVoid(GameEvent.OnTurnStart, Activate);
+        Events.RelayByVoid(GameEvent.OnTurnEnd, Deactivate);
+        Events.Register(InputEvent.OnTileHover, OnTileHover);
+    }
+    void OnDestroy()
+    {
+        Events.BreakVoidRelay(GameEvent.OnTurnStart, Activate);
+        Events.BreakVoidRelay(GameEvent.OnTurnEnd, Deactivate);
+        Events.Unregister(InputEvent.OnTileHover, OnTileHover);
+    }
 
     [SerializeField] private new SpriteRenderer renderer;
+
+    private bool isActive;
+
+    void Activate()
+    {
+        isActive = true;
+        renderer.enabled = true;
+    }
+    void Deactivate()
+    {
+        isActive = false;
+        renderer.enabled = false;
+    }
     
     void OnTileHover(EventArgs args)
     {
+        if (!isActive) return;
+
         if (args is IWrapper<Tile> wrapper)
         {
             foreach (var entity in wrapper.Value.Entities)

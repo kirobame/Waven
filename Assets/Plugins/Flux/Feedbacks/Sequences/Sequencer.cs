@@ -10,6 +10,9 @@ namespace Flux.Feedbacks
     {
         [HideInInspector, SerializeField] private Empty root = new Empty();
         [HideInInspector, SerializeReference] private List<Effect> effects = new List<Effect>();
+
+        public EventArgs Args => args;
+        public bool IsPlaying => isPlaying;
         
         private EventArgs args;
         private bool isPlaying;

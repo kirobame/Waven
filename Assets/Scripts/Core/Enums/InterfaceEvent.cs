@@ -13,4 +13,8 @@ public enum InterfaceEvent : byte
     OnHoverEnd,
     
     OnInfoRefresh,
+    
+    OnChallengeUpdate,
+    OnChallengeCompleted,
+    OnChallengeFailed
 }

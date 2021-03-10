@@ -39,7 +39,7 @@ MonoBehaviour:
       Data: false
     - Name: radius
       Entry: 3
-      Data: 2
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -94,6 +94,7 @@ MonoBehaviour:
   category: 3
   id:
     value: BMB
+  tier: 1
   title: Bomb
   description: Some decription.
   thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}

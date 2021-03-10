@@ -563,8 +563,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   timer: {fileID: 7113845220893532771}
   timerValue: {fileID: 553753930443749278}
-  subIndicator: {fileID: 0}
-  heightOffset: 1.6
 --- !u!114 &6570340661039105383
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -731,6 +729,7 @@ GameObject:
   - component: {fileID: 6602528446932361893}
   - component: {fileID: 6602528446932361888}
   - component: {fileID: 6602528446932361891}
+  - component: {fileID: 2115942390431876399}
   m_Layer: 5
   m_Name: Panel
   m_TagString: Untagged
@@ -2064,6 +2063,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f2eb755d607574044ad6495b9769b695, type: 3}
+--- !u!224 &4393702914104056325 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 518886209192903831, guid: f2eb755d607574044ad6495b9769b695, type: 3}
+  m_PrefabInstance: {fileID: 4308508638845050514}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &5469365944144188822 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8083383669661289220, guid: f2eb755d607574044ad6495b9769b695, type: 3}
@@ -2075,11 +2079,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec42dd8a61f44738aa54b1e0eafb31c7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!224 &4393702914104056325 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 518886209192903831, guid: f2eb755d607574044ad6495b9769b695, type: 3}
-  m_PrefabInstance: {fileID: 4308508638845050514}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6670834791933113189
 PrefabInstance:
   m_ObjectHideFlags: 0

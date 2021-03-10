@@ -1,9 +1,12 @@
 ﻿using System.Collections;
 using Flux.Data;
+using Flux.Event;
 using UnityEngine;
 
 public class Tileable : TileableBase, ITag
 {
+    public Vector2 LastDirection { get; private set; }
+    
     public TeamTag Team
     {
         get => tag.Team;
@@ -48,7 +51,8 @@ public class Tileable : TileableBase, ITag
         var index = 0;
         var time = 0.0f;
 
-        if (processDir) ProcessMoveDirection((path[index + 1] - path[index]).normalized);
+        LastDirection = (path[index + 1] - path[index]).normalized;
+        if (processDir) ProcessMoveDirection(LastDirection);
         
         while (true)
         {
@@ -62,6 +66,7 @@ public class Tileable : TileableBase, ITag
             if (time >= speed)
             {
                 navigator.SetCurrent(map.Tilemap.WorldToCell(path[index + 1]).ToTile());
+                ProcessNewTile(navigator.Current);
                 
                 if (hasDamageable && index + 1 < path.Length - 1)
                 {
@@ -94,7 +99,8 @@ public class Tileable : TileableBase, ITag
                     time -= speed;
                     index++;
 
-                    if (processDir) ProcessMoveDirection((path[index + 1] - path[index]).normalized);
+                    LastDirection = (path[index + 1] - path[index]).normalized;
+                    if (processDir) ProcessMoveDirection(LastDirection);
                 }
             }
 
@@ -114,6 +120,7 @@ public class Tileable : TileableBase, ITag
     }
     
     protected virtual void OnMoveCompleted() { }
+    protected virtual void ProcessNewTile(Tile tile) { }
     protected virtual void ProcessMoveDirection(Vector2 direction) { }
 
     public void PauseMove() => isPaused = true;

@@ -11,6 +11,8 @@ using UnityEngine.UI;
 public class Tooltip : MonoBehaviour
 {
     private RectTransform RectTransform => (RectTransform)transform;
+
+    [SerializeField] private float screenMargin;
     [SerializeField] private TMP_Text tooltip;
 
     void Awake()
@@ -27,6 +29,38 @@ public class Tooltip : MonoBehaviour
     {
         Events.Unregister(InterfaceEvent.OnTooltipUsed, OnUsed);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
+    }
+
+    void Update()
+    {
+        if (!onUsed) return;
+        Place();
+    }
+
+    private void Place()
+    {
+        var position = Mouse.current.position.ReadValue();
+
+        var min = position;
+        var max = position + RectTransform.sizeDelta;
+
+        var xMax = Screen.width - screenMargin;
+        if (max.x > xMax)
+        {
+            var difference = max.x - xMax;
+            position.x -= difference;
+        }
+        else if (min.x < screenMargin) position.x = screenMargin;
+
+        var yMax =  Screen.height - screenMargin;
+        if (max.y > yMax)
+        {
+            var difference = max.y - yMax;
+            position.y -= difference;
+        }
+        else if (min.y < screenMargin) position.y = screenMargin;
+
+        RectTransform.position = position;
     }
 
     public void ShowTooltip(string tooltipString)

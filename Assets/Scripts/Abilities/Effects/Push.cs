@@ -28,7 +28,7 @@ public class Push : Effect
         }
         
         business = 0;
-        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team);
+        var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable);
 
         if (!targets.Any())
         {
@@ -44,9 +44,8 @@ public class Push : Effect
                 if (!damageable.IsAlive) continue;
                 hasDamageable = true;
             }
-
-            var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
-            var orientation = direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+            
+            var orientation = GetOrientationFor(target, force);
             target.SetOrientation(-orientation);
             
             var cell = target.Navigator.Current.FlatPosition + orientation;
@@ -65,7 +64,7 @@ public class Push : Effect
                         RegisterDamageable(damageable);
                     }
                 }
-
+                
                 continue;
             }
             
@@ -82,6 +81,12 @@ public class Push : Effect
         if (business == 0) End();
     }
 
+    protected virtual Vector2Int GetOrientationFor(ITileable target, int force)
+    {
+        var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+        return direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
+    }
+    
     void OnMoveEnd(ITileable tileable)
     {
         tileable.onMoveDone -= OnMoveEnd;

@@ -244,7 +244,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 8374689325458404287}
   attack: {fileID: 11400000, guid: 412913623ccdb9f4fb151fb55611c77b, type: 2}
-  attackCount: 1
 --- !u!114 &4097353869914120685
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -305,6 +304,7 @@ MonoBehaviour:
   args:
   - id: 0
   - id: 1
+  - id: 2
   popupAnchor: {fileID: 1608428444340938154}
   references:
     version: 1
@@ -319,6 +319,12 @@ MonoBehaviour:
       data:
         id:
           value: DMG
+        value: 1
+    00000002:
+      type: {class: FoundingIntCastArgs, ns: , asm: Assembly-CSharp}
+      data:
+        id:
+          value: ATK
         value: 1
 --- !u!1 &4760753685232279243
 GameObject:
@@ -413,10 +419,11 @@ MonoBehaviour:
       y: 100
       width: 73
       height: 71
-    linkIndices: 00000000
+    linkIndices: 02000000
   effects:
   - id: 0
   - id: 1
+  - id: 2
   references:
     version: 1
     00000000:
@@ -424,8 +431,8 @@ MonoBehaviour:
       data:
         rect:
           serializedVersion: 2
-          x: 227
-          y: 100
+          x: 551
+          y: 73
           width: 252
           height: 140
         linkIndices: 01000000
@@ -437,11 +444,23 @@ MonoBehaviour:
       data:
         rect:
           serializedVersion: 2
-          x: 555
-          y: 99
+          x: 879
+          y: 72
           width: 102
           height: 71
         linkIndices: 
+    00000002:
+      type: {class: ResetTrigger, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 232
+          y: 137
+          width: 252
+          height: 119
+        linkIndices: 00000000
+        animator: {fileID: 4097353869787670437}
+        triggerName: isCastingSpell
 --- !u!1 &8630868908528105579
 GameObject:
   m_ObjectHideFlags: 0

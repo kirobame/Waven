@@ -14,6 +14,7 @@ public class Player : Tileable, ITurnbound
     public event Action onFree;
     public event Action<Motive> onIntendedTurnStop;
 
+    public IReadOnlyList<ILink> Links => links;
     public bool IsBusy => business > 0;
     public bool WasSuccessful { get; set; }
     
@@ -106,6 +107,15 @@ public class Player : Tileable, ITurnbound
         
         this.links.AddRange(links);
     }
+    public void RemoveDependency(GameObject source)
+    {
+        var links = source.GetComponentsInChildren<ILink>();
+        foreach (var link in links)
+        {
+            link.onDestroyed -= OnLinkDestruction;
+            this.links.Remove(link);
+        }
+    }
 
     void OnLinkDestruction(ILink link)
     {
@@ -178,7 +188,7 @@ public class Player : Tileable, ITurnbound
     void OnSpellUsed(SpellBase spell, bool isStatic)
     {
         if (!isActive || isStatic) return;
-        
+
         if (Buffer.consumeTriggerSpell) animator.SetTrigger("isCastingSpell");
         Buffer.consumeTriggerSpell = false;
     }

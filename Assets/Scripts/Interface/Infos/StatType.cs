@@ -3,5 +3,7 @@
     Health,
     Damage,
     Movement,
-    Force
+    Force,
+    Attack,
+    Spells
 }

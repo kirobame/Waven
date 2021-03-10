@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using Flux;
 using Flux.Data;
@@ -11,6 +12,20 @@ using Random = UnityEngine.Random;
 
 public static class Extensions
 {
+    public static bool HasIntersection(this IEnumerable<Tile> tiles)
+    {
+        var pathfinders = new List<Pathfinder>();
+        foreach (var link in Player.Active.Links)
+        {
+            if (!(link is Pathfinder pathfinder)) continue;
+            pathfinders.Add(pathfinder);
+        }
+
+        return tiles.Any(tile => pathfinders.Any(pathfinder => pathfinder.Tile == tile));
+    }
+    
+    //------------------------------------------------------------------------------------------------------------------/
+
     public static void Shuffle<T>(this IList<T> collection)
     {
         var n = collection.Count;

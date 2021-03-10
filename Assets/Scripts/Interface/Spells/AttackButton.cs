@@ -1,4 +1,5 @@
-﻿using Flux.Event;
+﻿using Flux;
+using Flux.Event;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,19 +10,21 @@ public class AttackButton : GameButton
     [SerializeField] private SpellBase spell;
     
     private Pathfinder Pathfinder => Player.Active.GetComponent<Pathfinder>();
-
+    
     private bool inUse;
     
     void Awake()
     {
         Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
         Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
+        Events.RelayByVoid(GameEvent.OnTurnEnd, OnTurnEnd);
         Events.RelayByVoid(ChallengeEvent.OnAttack, OnAttack);
     }
     void OnDestroy()
     {
         Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, OnTurnStart);
+        Events.RelayByVoid(GameEvent.OnTurnEnd, OnTurnEnd);
         Events.BreakVoidRelay(ChallengeEvent.OnAttack, OnAttack);
     }
 
@@ -33,10 +36,19 @@ public class AttackButton : GameButton
 
     void OnTurnStart()
     {
+        Routines.Start(Routines.DoAfter(() => Pathfinder.onDirtied += OnDirtied, new YieldFrame()));
+        
         inUse = false;
         Activate();
     }
+    void OnTurnEnd() => Pathfinder.onDirtied -= OnDirtied;
+    
 
+    void OnDirtied(Pathfinder source)
+    {
+        if (Pathfinder.AttackCounter <= 0) Deactivate();
+        else Activate();
+    }
     void OnAttack()
     {
         if (Pathfinder.AttackCounter == 0) Deactivate();

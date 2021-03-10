@@ -67,7 +67,11 @@ public class Moveable : Navigator, ILink
         
         Dirty();
     }
-    public void Deactivate() { }
+    public void Deactivate()
+    {
+        difference = 0;
+        trueMovementPoints = movementPoints;
+    }
     
     //------------------------------------------------------------------------------------------------------------------/
 

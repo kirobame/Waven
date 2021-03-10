@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using Flux;
 using Flux.Data;
 using UnityEngine;
@@ -7,8 +8,8 @@ using UnityEngine;
 [Serializable]
 public class Boost : Effect
 {
-    [SerializeField] private CastArgs value;
-    [SerializeField] private StatType type;
+    [SerializeField] protected CastArgs value;
+    [SerializeField] protected StatType type;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
@@ -16,7 +17,7 @@ public class Boost : Effect
         {
             foreach (var entity in tile.Entities)
             {
-                if (!((Component) entity).TryGetComponent<IAttributeHolder>(out var caster)) continue;
+                if (!((Component)entity).TryGetComponent<IAttributeHolder>(out var caster)) continue;
 
                 if (value is IWrapper<int> wrapper && wrapper.Value != 0)
                 {
@@ -28,6 +29,7 @@ public class Boost : Effect
                     var prefix = wrapper.Value < 0 ? '-' : '+';
                     popup.Play($"{prefix}{Mathf.Abs(wrapper.Value)}", type);
                 }
+                
                 caster.Add(value);
             }
         }

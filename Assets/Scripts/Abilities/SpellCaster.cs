@@ -87,9 +87,16 @@ public class Spellcaster : MonoBehaviour, ILink
             }
             else
             {
+                
+              
                 if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
                 End();
             }
+        }
+        else if (args is IWrapper<Tile> tileWrapper)
+        {
+            if (!isActive || isWaiting || current.GetTilesForCasting(tileWrapper.Value, castArgs).HasIntersection()) return;
+            End();
         }
         else
         {
@@ -186,7 +193,7 @@ public class Spellcaster : MonoBehaviour, ILink
         current.onCastDone -= OnCastDone;
         
         if (this == null) return; // TO DEBUG
-        
+
         Owner.DecreaseBusiness();
         if (current.IsDone)
         {

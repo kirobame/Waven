@@ -11,15 +11,18 @@ using Sirenix.Utilities;
 
 public class Pathfinder : MonoBehaviour, ILink
 {
-    public event Action<ILink> onDestroyed; 
+    public event Action<ILink> onDestroyed;
+    public event Action<Pathfinder> onDirtied;
     
     public ITurnbound Owner { get; set; }
-    [ShowInInspector] public int AttackCounter { get; set; }
+    public Tile Tile => nav.Current;
+    
+    public int AttackCounter { get; set; }
+    private int attackCount;
     
     [SerializeField] private Moveable nav;
     
     [Space, SerializeField] private Spell attack;
-    [SerializeField] private int attackCount;
 
     private Tile Current => path[path.Count - 1];
     private List<Tile> path = new List<Tile>();
@@ -39,6 +42,8 @@ public class Pathfinder : MonoBehaviour, ILink
     
     public void Activate()
     {
+        attackCount = 0;
+        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) attackCount +=  bonus;
         AttackCounter = attackCount;
         
         Events.RelayByValue<Tile>(InputEvent.OnTileSelected, OnTileSelected);
@@ -75,6 +80,15 @@ public class Pathfinder : MonoBehaviour, ILink
         
         Inputs.isLocked = false;
         Shutdown();
+    }
+
+    public void Dirty()
+    {
+        var difference = attackCount - AttackCounter;
+        
+        AttackCounter = 0;
+        if (caster.Args.TryAggregate(new Id('A','T','K'), out var bonus)) attackCount += bonus;
+        AttackCounter -= difference;
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -125,8 +139,12 @@ public class Pathfinder : MonoBehaviour, ILink
         {
             if (Inputs.isLocked)
             {
-                Events.EmptyCall(InputEvent.OnInterrupt);
-                if (Inputs.isLocked) return;
+                if (nav.Target is Player)
+                {
+                    Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
+                    if (Inputs.isLocked) return;
+                }
+                else return;
             }
             
             Inputs.isLocked = true;

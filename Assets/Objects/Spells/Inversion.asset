@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: Obstacle
+  m_Name: Inversion
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 6990536576719373466, guid: 5de11ab10ef1cb841874acd5805d004f, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -39,7 +38,7 @@ MonoBehaviour:
       Data: false
     - Name: radius
       Entry: 3
-      Data: 2
+      Data: 4
     - Name: 
       Entry: 8
       Data: 
@@ -57,7 +56,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|Spawn, Assembly-CSharp
+      Data: 3|Inversion, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -76,12 +75,6 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: prefab
-      Entry: 10
-      Data: 0
-    - Name: ownership
-      Entry: 5
-      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -91,10 +84,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  category: 3
+  category: 2
   id:
-    value: OBT
-  tier: 1
-  title: Obstacle
-  description: Some decription.
-  thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}
+    value: INV
+  tier: 0
+  title: Inversion
+  description: Some description.
+  thumbnail: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}

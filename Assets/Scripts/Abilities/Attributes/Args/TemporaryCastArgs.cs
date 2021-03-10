@@ -5,6 +5,8 @@ using UnityEngine;
 [Serializable]
 public abstract class TemporaryCastArgs : CastArgs
 {
+    public TemporaryCastArgs(int duration) => this.duration = duration;
+    
     [SerializeField] private int duration;
     
     private int counter;
@@ -23,10 +25,14 @@ public abstract class TemporaryCastArgs : CastArgs
 
     void OnTurnEnd(Turn turn)
     {
-        if (isBounded && turn.Target == turnbound)
+        if (isBounded)
         {
-            counter--;
-            if (counter > 0) return;
+            if (turn.Target == turnbound)
+            {
+                counter--;
+                if (counter > 0) return;
+            }
+            else return;
         }
         
         Events.BreakValueRelay<Turn>(GameEvent.OnTurnStart, OnTurnEnd);

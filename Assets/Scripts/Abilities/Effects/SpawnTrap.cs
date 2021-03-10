@@ -15,8 +15,12 @@ public class SpawnTrap : Effect
     {
         foreach (var tile in tiles)
         {
-            if (!tile.Entities.Any(tileable => tileable is Trap)) SpawnAt(tile);
-            else
+            if (!tile.Entities.Any(tileable => tileable is Trap))
+            {
+                var direction = Vector3.Normalize(source.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+                SpawnAt(tile, direction.xy().ComputeOrientation());
+            }
+            else if (tile.Entities.Any(tileable => tileable.GetType() == prefab.GetType()))
             {
                 TryFindSpawnPoint(tile, Vector2Int.down);
                 TryFindSpawnPoint(tile, Vector2Int.right);
@@ -33,20 +37,22 @@ public class SpawnTrap : Effect
         var match = (source.FlatPosition + direction).TryGetTile(out var tile);
         while (match)
         {
+            if (tile.Entities.Any(tileable => tileable is Trap && tileable.GetType() != prefab.GetType())) break;
+            
             if (!tile.Entities.Any(tileable => tileable is Trap))
             {
-                SpawnAt(tile);
+                SpawnAt(tile, direction);
                 break;
             }
             
             match = (tile.FlatPosition + direction).TryGetTile(out tile);
         }
     }
-    private void SpawnAt(Tile tile)
+    protected virtual Trap SpawnAt(Tile tile, Vector2Int direction)
     {
         var map = Repository.Get<Map>(References.Map);
         
         var position = map.Tilemap.CellToWorld(tile.Position);
-        Object.Instantiate(prefab, position, Quaternion.identity);
+        return Object.Instantiate(prefab, position, Quaternion.identity);
     }
 }

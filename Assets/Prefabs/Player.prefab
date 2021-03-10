@@ -388,6 +388,7 @@ MonoBehaviour:
   - id: 0
   - id: 1
   - id: 2
+  - id: 3
   popupAnchor: {fileID: 1608428444340938154}
   references:
     version: 1
@@ -409,6 +410,12 @@ MonoBehaviour:
         id:
           value: ATK
         value: 1
+    00000003:
+      type: {class: FoundingIntCastArgs, ns: , asm: Assembly-CSharp}
+      data:
+        id:
+          value: SPL
+        value: 2
 --- !u!1 &4760753685232279243
 GameObject:
   m_ObjectHideFlags: 0

@@ -9,15 +9,12 @@ using UnityEngine;
 
 public class SpellDeck : MonoBehaviour, ILink
 {
-    public static int RemainingUse { get; private set; }
-    
     public event Action<ILink> onDestroyed;
     
     public ITurnbound Owner { get; set; }
     public IEnumerable<SpellBase> Spells => deck.Concat(hand);
-
-    [Space, SerializeField] private int maxUse;
-    [SerializeField] private int maxSpellInHand = 4;
+    
+    [Space, SerializeField] private int maxSpellInHand = 4;
     
     private List<SpellBase> deck;
     private List<SpellBase> hand = new List<SpellBase>();
@@ -35,8 +32,6 @@ public class SpellDeck : MonoBehaviour, ILink
 
     public void Activate()
     {
-        RemainingUse = maxUse;
-        
         if (hasBeenBootedUp) Draw(2);
         else
         {
@@ -101,10 +96,6 @@ public class SpellDeck : MonoBehaviour, ILink
 
     void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        if (!isStatic)
-        {
-            RemainingUse--;
-            Discard(spell);
-        }
+        if (!isStatic) Discard(spell);
     }
 }

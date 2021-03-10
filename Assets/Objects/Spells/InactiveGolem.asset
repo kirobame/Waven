@@ -115,12 +115,15 @@ MonoBehaviour:
     - Name: temporary
       Entry: 5
       Data: true
+    - Name: duration
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 9|Boost, Assembly-CSharp
+      Data: 9|SimpleBoost, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 10|Pattern[], Assembly-CSharp
@@ -139,7 +142,7 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: value
+    - Name: boost
       Entry: 7
       Data: 12|TemporaryIntCastArgs, Assembly-CSharp
     - Name: id

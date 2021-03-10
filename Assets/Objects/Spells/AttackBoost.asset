@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|Boost, Assembly-CSharp
+      Data: 3|AttackBoost, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -76,29 +76,14 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: value
-      Entry: 7
-      Data: 6|TemporaryIntCastArgs, Assembly-CSharp
-    - Name: id
-      Entry: 7
-      Data: Flux.Id, Flux
-    - Name: value
-      Entry: 1
-      Data: ATK
-    - Name: 
-      Entry: 8
-      Data: 
+      Entry: 3
+      Data: 1
+    - Name: temporary
+      Entry: 5
+      Data: true
     - Name: duration
       Entry: 3
       Data: 1
-    - Name: value
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 4
     - Name: 
       Entry: 8
       Data: 

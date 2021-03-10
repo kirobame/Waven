@@ -6,7 +6,7 @@ using Flux.Data;
 using Flux.Event;
 using UnityEngine;
 
-public class Spellcaster : MonoBehaviour, ILink
+public class Spellcaster : MonoBehaviour, ILink, IMutable
 {
     public static Spellcaster Active { get; private set; }
     public static IReadOnlyDictionary<Id, List<CastArgs>> EmptyArgs { get; } = new Dictionary<Id, List<CastArgs>>();
@@ -15,6 +15,7 @@ public class Spellcaster : MonoBehaviour, ILink
     
     public ITurnbound Owner { get; set; }
 
+    public int RemainingUse { get; private set; }
     public SpellBase Current => current;
     public IEnumerable<Tile> AvailableTiles => availableTiles;
     
@@ -22,6 +23,8 @@ public class Spellcaster : MonoBehaviour, ILink
 
     private bool isActive;
     private bool isWaiting;
+
+    private int totalUse;
 
     private bool isStatic;
     private SpellBase current;
@@ -37,7 +40,15 @@ public class Spellcaster : MonoBehaviour, ILink
     
     //------------------------------------------------------------------------------------------------------------------/
     
-    public void Activate() => Events.RelayByValue<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+    public void Activate()
+    {
+        totalUse = 0;
+        if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) totalUse +=  bonus;
+        RemainingUse = totalUse;
+        
+        Events.RelayByValue<SpellBase, bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
+    }
+
     public void Deactivate()
     {
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
@@ -66,6 +77,15 @@ public class Spellcaster : MonoBehaviour, ILink
         Inputs.isLocked = false;
         
         Shutdown();
+    }
+
+    public void Dirty()
+    {
+        var difference = totalUse - RemainingUse;
+        
+        RemainingUse = 0;
+        if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) RemainingUse += bonus;
+        RemainingUse -= difference;
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -168,6 +188,8 @@ public class Spellcaster : MonoBehaviour, ILink
 
         if (current.IsDone)
         {
+            RemainingUse--;
+            
             Events.ZipCall(GameEvent.OnSpellUsed, current, isStatic);
             Events.ZipCall(ChallengeEvent.OnSpellUse, 1);
             

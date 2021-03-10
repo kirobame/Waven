@@ -59,6 +59,7 @@ public class SpellDeck : MonoBehaviour, ILink
     {
         if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
         hotbar.DisplaySpells(hand);
+        hotbar.DisplayPA(RemainingUse);
     }
 
     public void Draw(int nb)

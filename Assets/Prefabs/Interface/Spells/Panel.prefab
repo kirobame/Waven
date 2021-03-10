@@ -797,6 +797,8 @@ MonoBehaviour:
   - {fileID: 870410289048606121}
   - {fileID: 6466627810117294479}
   - {fileID: 5469365944144188822}
+  PAText: {fileID: 3622995149281552361}
+  PMText: {fileID: 2881340893274327941}
 --- !u!222 &6602528446932361888
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -1389,9 +1391,9 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Tooltip
+  m_text: '<size=100%><b>Tooltip</size></b>
 
-    This is a tooltip'
+    <size=65%>Some decription.</size>'
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

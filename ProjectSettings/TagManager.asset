@@ -50,3 +50,6 @@ TagManager:
   - name: Entities
     uniqueID: 157463505
     locked: 0
+  - name: Front
+    uniqueID: 3583655291
+    locked: 0

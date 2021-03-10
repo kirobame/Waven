@@ -33,6 +33,9 @@ MonoBehaviour:
     - Name: allowBoost
       Entry: 5
       Data: true
+    - Name: includeSource
+      Entry: 5
+      Data: false
     - Name: radius
       Entry: 3
       Data: 2
@@ -90,4 +93,4 @@ MonoBehaviour:
   title: Animate
   description: Transform a rock to a golem
   thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
-  consumeSpellRemainingUse: 1
+  glow: {fileID: 21300000, guid: 7774c11f8f3640b4eb5ac91ed44c373f, type: 3}

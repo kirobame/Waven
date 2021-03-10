@@ -24,7 +24,9 @@ public class Hotbar : MonoBehaviour
         }
     }
 
-    public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
-
     public void DisplayPA(int remainingSpells) { PAText.text = remainingSpells.ToString(); }
+
+    public void DisplayPM(int remainingMovements) { PMText.text = remainingMovements.ToString(); }
+
+    public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
 }

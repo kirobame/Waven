@@ -124,6 +124,11 @@ public class Player : Tileable, ITurnbound
         foreach (var activable in links) activable.Activate();
         Events.Register(GameEvent.OnSpellUsed, OnSpellUsed);
         Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
+
+        if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
+        if (!gameObject.TryGet<Moveable>(out var moveable)) return;
+        moveable.Dirty();
+        hotbar.DisplayPM(moveable.PM);
     }
     
     public void Interrupt(Motive motive)
@@ -157,6 +162,11 @@ public class Player : Tileable, ITurnbound
 
     protected override void OnMoveCompleted()
     {
+        if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
+        if (!gameObject.TryGet<Moveable>(out var moveable)) return;
+        moveable.Dirty();
+        hotbar.DisplayPM(moveable.PM);
+
         DecreaseBusiness();
         animator.SetBool("isMoving", false);
     }

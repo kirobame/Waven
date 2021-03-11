@@ -43,7 +43,13 @@ public class Golem : ExtendedTileable, ILink
     protected override void Awake()
     {
         base.Awake();
-        hasOwner = true;
+
+        if (activation > 0)
+        {
+            hasOwner = true;
+            Animator.SetBool("isAwoken", true);
+        }
+        else hasOwner = false;
     }
     
     protected override void OnDestroy()
@@ -65,8 +71,6 @@ public class Golem : ExtendedTileable, ILink
         }
         else Animator.SetBool("isAwoken", true);
         
-        Debug.Log($"Setting owner !");
-        
         hasOwner = true;
         player.AddDependency(gameObject);
     }
@@ -77,13 +81,9 @@ public class Golem : ExtendedTileable, ILink
         activation--;
         if (activation <= 0)
         {
-            Debug.Log($"Trying to deactivate !");
-            
             activation = 0;
             if (hasOwner)
             {
-                Debug.Log($"Deactivating !");
-                
                 Animator.SetBool("isAwoken", false);
                 Team = TeamTag.Neutral;
 

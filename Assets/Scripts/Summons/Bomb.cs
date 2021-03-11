@@ -1,33 +1,42 @@
 ﻿using System.Collections;
 using Flux;
+using Flux.Event;
+using Flux.Feedbacks;
 using UnityEngine;
 
-public class Bomb : Damageable
+public class Bomb : EntityDamageable
 {
-    [SerializeField] private TileableBase tileable;
-    [SerializeField] private Spell spell;
-    [SerializeField] private SpriteRenderer graph;
-    
+    [Space, SerializeField] private Spell spell;
+    [SerializeField] private Sequencer explosionSequencer;
+
     protected override void OnDeath()
     {
-        graph.enabled = false;
-        StartCoroutine(WaitRoutine());
-    }
+        if (tileable.Navigator.Current is DeathTile deathTile)
+        {
+            FallArgs args;
 
+            if (deathTile.IsTop) args = new FallArgs("Default", -2);
+            else args = new FallArgs("Entities", 2);
+            
+            args.onDone += OnDeathFeedbackDone;
+            BeginSequence(fallSequencer, args);
+        }
+        else
+        {
+            StartCoroutine(WaitRoutine());
+            
+            var sendback = new SendbackArgs();
+            sendback.onDone += OnDeathFeedbackDone;
+            
+            BeginSequence(explosionSequencer, sendback);
+        }
+    }
+    
     private IEnumerator WaitRoutine()
     {
         for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
         
         spell.Prepare();
-        spell.onCastDone += Die;
         spell.CastFrom(tileable.Navigator.Current, Spellcaster.EmptyArgs);
-    }
-
-    void Die()
-    {
-        spell.onCastDone -= Die;
-        EndFeedback();
-        
-        base.OnDeath();
     }
 }

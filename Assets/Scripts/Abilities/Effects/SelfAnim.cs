@@ -17,7 +17,7 @@ public class SelfAnim : Effect
         sendback = new SendbackArgs();
         sendback.onDone += OnFeedbackDone;
         
-        var relay = Player.Active.GetComponent<SequenceRelay>();
+        var relay = Buffer.caster.GetComponent<SequenceRelay>();
         if (!relay.TryPlay(id, sendback)) OnFeedbackDone(EventArgs.Empty);
     }
 

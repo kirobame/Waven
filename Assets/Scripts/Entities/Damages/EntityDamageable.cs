@@ -6,11 +6,11 @@ using UnityEngine;
 
 public class EntityDamageable : Damageable
 {
-    [SerializeField] private Sequencer hitSequencer;
-    [SerializeField] private Sequencer deathSequencer;
-    [SerializeField] private Sequencer fallSequencer;
+    [SerializeField] protected Sequencer hitSequencer;
+    [SerializeField] protected Sequencer deathSequencer;
+    [SerializeField] protected Sequencer fallSequencer;
     
-    [Space, SerializeField] private Tileable tileable;
+    [Space, SerializeField] protected Tileable tileable;
 
     private SendbackArgs args;
     private SendbackArgs deathArgs;
@@ -48,16 +48,16 @@ public class EntityDamageable : Damageable
         else BeginSequence(deathSequencer, deathArgs);
     }
 
-    private void BeginSequence(Sequencer sequencer, EventArgs args)
+    protected void BeginSequence(Sequencer sequencer, EventArgs args)
     {
         if (sequencer.IsPlaying && sequencer.Args is ISendback sendback) sendback.End(EventArgs.Empty);
         sequencer.Play(args);
     }
     
-    void OnFeedbackDone(EventArgs args)
+    protected void OnFeedbackDone(EventArgs args)
     {
         tileable.ResumeMove();
         EndFeedback();
     }
-    void OnDeathFeedbackDone(EventArgs args) => base.OnDeath();
+    protected void OnDeathFeedbackDone(EventArgs args) => base.OnDeath();
 }

@@ -1,0 +1,13 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!221 &22100000
+AnimatorOverrideController:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: Inversion
+  m_Controller: {fileID: 9100000, guid: c4a6a1ba547621944addf374c1c8758d, type: 2}
+  m_Clips:
+  - m_OriginalClip: {fileID: 7400000, guid: 23f6f5a48c0759c4e8c1bfe4d5df04e5, type: 2}
+    m_OverrideClip: {fileID: 7400000, guid: ed2d0a1bb7c8010449db5bda8b58dd03, type: 2}

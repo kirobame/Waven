@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: true
     - Name: includeSource
       Entry: 5
-      Data: false
+      Data: true
     - Name: radius
       Entry: 3
       Data: 2
@@ -53,10 +53,10 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 7
-      Data: 3|SimpleBoost, Assembly-CSharp
+      Data: 3|VfxEffect, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -75,12 +75,42 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: key
+      Entry: 3
+      Data: 2
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|SimpleBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 7|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: delay
       Entry: 4
       Data: 0
+    - Name: target
+      Entry: 3
+      Data: 3
     - Name: boost
       Entry: 7
-      Data: 6|TemporaryIntCastArgs, Assembly-CSharp
+      Data: 9|TemporaryIntCastArgs, Assembly-CSharp
     - Name: id
       Entry: 7
       Data: Flux.Id, Flux
@@ -107,16 +137,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 7|Animate, Assembly-CSharp
+      Data: 10|Animate, Assembly-CSharp
     - Name: patterns
       Entry: 7
-      Data: 8|Pattern[], Assembly-CSharp
+      Data: 11|Pattern[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 9|Point, Assembly-CSharp
+      Data: 12|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -137,16 +167,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 10|MovementBoost, Assembly-CSharp
+      Data: 13|MovementBoost, Assembly-CSharp
     - Name: patterns
       Entry: 7
-      Data: 11|Pattern[], Assembly-CSharp
+      Data: 14|Pattern[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 12|Point, Assembly-CSharp
+      Data: 15|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -159,6 +189,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0.3
+    - Name: target
+      Entry: 3
+      Data: 2
     - Name: value
       Entry: 3
       Data: 1

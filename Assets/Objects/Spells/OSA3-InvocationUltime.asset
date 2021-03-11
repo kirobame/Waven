@@ -15,7 +15,8 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects: []
+    ReferencedUnityObjects:
+    - {fileID: 6569037010772259353, guid: f0006cc88608e8d4092a592eaf05061b, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -76,8 +77,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: prefab
-      Entry: 6
-      Data: 
+      Entry: 10
+      Data: 0
     - Name: ownership
       Entry: 5
       Data: true
@@ -111,6 +112,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0
+    - Name: target
+      Entry: 3
+      Data: 2
     - Name: boost
       Entry: 7
       Data: 9|IntCastArgs, Assembly-CSharp
@@ -159,6 +163,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0.3
+    - Name: target
+      Entry: 3
+      Data: 2
     - Name: value
       Entry: 3
       Data: 1

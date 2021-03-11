@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigator: {fileID: 5750444421011796199}
   spell: {fileID: 11400000, guid: 5ae91c74887b6a64f828cc759d83e60d, type: 2}
+  animator: {fileID: 6925797896904800228}
 --- !u!1001 &6925797897059607314
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -21,21 +22,29 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 390780150, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 7fa84f02bca3352428aaa2f5463f9161, type: 2}
     - target: {fileID: 3445481064324813813, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: target
       value: 
       objectReference: {fileID: 2103010836}
     - target: {fileID: 7793877521459326936, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: 8bc818664c4708c4f8da5f0fa3ecee2f, type: 3}
+    - target: {fileID: 7793877521459326936, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_Color.b
-      value: 0.14440192
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7793877521459326936, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_Color.g
-      value: 0.14440192
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7793877521459326936, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_Color.r
-      value: 0.5188679
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7793877521601505683, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_RootOrder
@@ -47,7 +56,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7793877521601505683, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.5765
+      value: -0.614
       objectReference: {fileID: 0}
     - target: {fileID: 7793877521601505683, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
       propertyPath: m_LocalPosition.z
@@ -104,3 +113,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 690ab2552f184ba4688ca71ab8d8d8a2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!95 &6925797896904800228 stripped
+Animator:
+  m_CorrespondingSourceObject: {fileID: 390780150, guid: 8da6fbc3ff713564d8c5f2e133d16a0b, type: 3}
+  m_PrefabInstance: {fileID: 6925797897059607314}
+  m_PrefabAsset: {fileID: 0}

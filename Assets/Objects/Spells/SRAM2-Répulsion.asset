@@ -35,7 +35,7 @@ MonoBehaviour:
       Data: true
     - Name: includeSource
       Entry: 5
-      Data: false
+      Data: true
     - Name: radius
       Entry: 3
       Data: 2
@@ -78,6 +78,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0
+    - Name: target
+      Entry: 3
+      Data: 3
     - Name: boost
       Entry: 7
       Data: 6|TemporaryIntCastArgs, Assembly-CSharp
@@ -159,6 +162,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0.3
+    - Name: target
+      Entry: 3
+      Data: 2
     - Name: boost
       Entry: 7
       Data: 13|TemporaryIntCastArgs, Assembly-CSharp
@@ -210,6 +216,9 @@ MonoBehaviour:
     - Name: delay
       Entry: 4
       Data: 0.6
+    - Name: target
+      Entry: 3
+      Data: 2
     - Name: value
       Entry: 3
       Data: 1

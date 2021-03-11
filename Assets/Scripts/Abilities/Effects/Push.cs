@@ -3,6 +3,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Flux.Data;
 using Flux.Event;
 using UnityEngine;
 
@@ -12,7 +13,11 @@ public class Push : Effect
     [SerializeField] int force;
     [SerializeField] private int direction;
     [SerializeField] private float speed;
+    
     [SerializeField] private bool allowBoost;
+
+    [SerializeField] private bool playVfx;
+    [SerializeField] private VfxKey vfxKey;
 
     private int business;
 
@@ -37,11 +42,13 @@ public class Push : Effect
             return;
         }
 
+        var pool = Repository.Get<VfxPool>(Pools.Vfx);
         foreach (var target in targets)
         {
             var hasDamageable = false;
             if (target.TryGet<IDamageable>(out var damageable))
             {
+                
                 if (!damageable.IsAlive) continue;
                 hasDamageable = true;
             }
@@ -51,6 +58,18 @@ public class Push : Effect
             
             var cell = target.Navigator.Current.FlatPosition + orientation;
             if (!cell.TryGetTile(out var start)) continue;
+
+            if (playVfx)
+            {
+                var vfxGiver = Repository.Get<VfxGiver>(vfxKey);
+                var givenOrientation = vfxKey == VfxKey.Push ? orientation : -orientation;
+
+                var poolableVfx = vfxGiver.Get(new WrapperArgs<Vector2Int>(givenOrientation));
+
+                var instance = pool.RequestSinglePoolable(poolableVfx);
+                instance.transform.position = target.Navigator.Current.GetWorldPosition();
+                instance.Play();
+            }
 
             var result = start.GetCellsInLine(Mathf.Abs(force), orientation, out var line);
             if (result.code != 0 && !line.Any())

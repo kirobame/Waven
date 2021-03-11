@@ -9,28 +9,26 @@ using UnityEngine;
 public class TargetAnim : Effect
 {
     [SerializeField] private Id id;
+    [SerializeField] private float duration = 0.75f;
 
-    private int business;
-    
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
-        foreach (var entity in tiles.SelectMany(tile => tile.Entities))
+        var targets = tiles.SelectMany(tile => tile.Entities);
+        if (!targets.Any())
+        {
+            End();
+            return;
+        }
+        
+        foreach (var entity in targets)
         {
             var component = (Component)entity;
             if (!component.TryGetComponent<SequenceRelay>(out var relay)) continue;
             
             var sendback = new SendbackArgs();
-            sendback.onDone += OnFeedbackDone;
-
-            if (relay.TryPlay(id, sendback)) business++;
+            relay.TryPlay(id, sendback);
         }
-        
-        if (business == 0) End();
-    }
 
-    void OnFeedbackDone(EventArgs args)
-    {
-        business--;
-        if (business == 0) End();
+        Routines.Start(Routines.DoAfter(End, duration));
     }
 }

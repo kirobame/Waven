@@ -72,6 +72,9 @@ MonoBehaviour:
     - Name: temporary
       Entry: 5
       Data: true
+    - Name: duration
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -87,4 +90,4 @@ MonoBehaviour:
   tier: 1
   title: MoveBoost
   description: Some decription.
-  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
+  thumbnail: {fileID: 21300000, guid: 521b7609d1b08e646b4241ef79799032, type: 3}

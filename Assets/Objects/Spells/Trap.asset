@@ -94,5 +94,4 @@ MonoBehaviour:
   tier: 1
   title: Trap
   description: Some decription.
-  thumbnail: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}
-  glow: {fileID: 21300000, guid: 7774c11f8f3640b4eb5ac91ed44c373f, type: 3}
+  thumbnail: {fileID: 21300000, guid: d52682d6d24aa0a41a16f6cc307420e5, type: 3}

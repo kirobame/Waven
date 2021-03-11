@@ -90,4 +90,4 @@ MonoBehaviour:
   tier: 1
   title: SpellBoost
   description: Some decription.
-  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
+  thumbnail: {fileID: 21300000, guid: 0ed4cfac2f896c249a99dd6ff90a31e9, type: 3}

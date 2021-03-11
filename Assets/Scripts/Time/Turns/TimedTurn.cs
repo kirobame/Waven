@@ -23,6 +23,8 @@ public class TimedTurn : Turn
 
     protected override void OnStart()
     {
+        if (Buffer.hasStopped) return;
+        
         Events.ZipCall(startAddress, (Turn)this);
         Events.ZipCall(timerAddress, true);
 

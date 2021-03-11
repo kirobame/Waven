@@ -28,7 +28,7 @@ public class Banner : MonoBehaviour
 
     public void Display(Challenge challenge)
     {
-        titleMesh.text = $"Au tour du joueur 0{Player.Active.Index} !";
+        titleMesh.text = $"Au tour du joueur 0{Player.Active.Index + 1} !";
         challengeMesh.text = $"Challenge : {challenge.Title}";
         textMesh.text = challenge.GetDescription();
         icon.sprite = challenge.Icon;

@@ -21,8 +21,16 @@ namespace Flux
             hook.onDestroyed += () => hasHook = false;
         }
 
+        public static void Clear()
+        {
+            Debug.Log("CLEAR");
+            hook.StopAllCoroutines();
+        }
+
         public static Coroutine Start(IEnumerator routine)
         {
+            Debug.Log("REQUEST");
+            
             if (!hasHook) return null;
             return hook.StartCoroutine(routine);
         }

@@ -2,6 +2,7 @@
 using Flux.Event;
 using System.Collections;
 using System.Collections.Generic;
+using Flux;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -40,6 +41,10 @@ public class PauseMenu : MonoBehaviour
 
     public void NewGame()
     {
+        Buffer.hasStopped = true;
+        Time.timeScale = 0;
+        
+        Routines.Clear();
         Events.Clear();
         Repository.Clear();
 

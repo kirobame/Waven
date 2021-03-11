@@ -123,6 +123,9 @@ MonoBehaviour:
     - Name: duration
       Entry: 3
       Data: 1
+    - Name: self
+      Entry: 5
+      Data: true
     - Name: value
       Entry: 3
       Data: 1

@@ -28,6 +28,6 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerExit(PointerEventData eventData)
     {
         onExit?.Invoke(this);
-        Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
+        Events.EmptyCall(InterfaceEvent.OnHideTooltip);
     }
 }

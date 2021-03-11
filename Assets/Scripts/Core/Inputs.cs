@@ -85,7 +85,7 @@ public class Inputs : MonoBehaviour
     
     void Update()
     {
-        if (!isActive) return;
+        if (!isActive || Buffer.hasStopped) return;
         Events.ZipCall(InputEvent.OnMouseMove, mousePosition);
         
         var cell = GetCellAt(mousePosition).xy();

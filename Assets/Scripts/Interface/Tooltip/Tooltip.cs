@@ -20,6 +20,7 @@ public class Tooltip : MonoBehaviour
         Events.Open(InterfaceEvent.OnTooltipUsed);
         
         Events.RelayByValue<string, RectTransform, int>(InterfaceEvent.OnTooltipUsed, OnUsed);
+        Events.RelayByVoid(InterfaceEvent.OnHideTooltip, HideTooltip);
         Events.RelayByVoid(GameEvent.OnTurnStart, HideTooltip);
 
         var tr = new RectTransform();
@@ -29,6 +30,7 @@ public class Tooltip : MonoBehaviour
     void OnDestroy()
     {
         Events.BreakValueRelay<string, RectTransform, int>(InterfaceEvent.OnTooltipUsed, OnUsed);
+        Events.BreakVoidRelay(InterfaceEvent.OnHideTooltip, HideTooltip);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
     }
     
@@ -97,7 +99,6 @@ public class Tooltip : MonoBehaviour
     void OnUsed(string text, RectTransform transform, int index)
     {
         if (text == null) HideTooltip();
-
         ShowTooltip(text, transform, index);
     }
 }

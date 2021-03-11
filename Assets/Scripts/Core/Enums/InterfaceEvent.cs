@@ -4,6 +4,7 @@
 public enum InterfaceEvent : byte
 {
     OnTooltipUsed,
+    OnHideTooltip,
     
     OnSpellSelected,
     OnSpellTilesAffect,

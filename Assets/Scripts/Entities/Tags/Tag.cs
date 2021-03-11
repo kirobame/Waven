@@ -15,8 +15,8 @@ public class Tag : MonoBehaviour, ITag
     [SerializeField] private new TeamTag tag;
     
     [Space, SerializeField] private new SpriteRenderer renderer;
-    [SerializeField] private Sprite blueTeam;
-    [SerializeField] private Sprite redTeam;
+    [SerializeField] private Color blueTeam;
+    [SerializeField] private Color redTeam;
 
     void Start() => Refresh();
     
@@ -25,12 +25,12 @@ public class Tag : MonoBehaviour, ITag
         if (tag == TeamTag.Player1)
         {
             renderer.enabled = true;
-            renderer.sprite = blueTeam;
+            renderer.color = blueTeam;
         }
         else if (tag == TeamTag.Player2)
         {
             renderer.enabled = true;
-            renderer.sprite = redTeam;
+            renderer.color = redTeam;
         }
         else renderer.enabled = false;
     }

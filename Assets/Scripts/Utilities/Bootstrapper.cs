@@ -17,6 +17,9 @@ public class Bootstrapper : MonoBehaviour
 
     void Awake()
     {
+        Buffer.hasStopped = false;
+        Time.timeScale = 1;
+        
         if (!Repository.Exists(References.Data)) Repository.Register(References.Data, new PlayerData[2] { PlayerData.Empty, PlayerData.Empty });
         Repository.Register(References.Players, new Player[2]);
 
@@ -32,6 +35,7 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnRewardTimer);
         Events.Open(GameEvent.OnRewardEnd);
             
+        Events.Open(InterfaceEvent.OnHideTooltip);
         Events.Open(InterfaceEvent.OnSpellSelected);
         
         Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
@@ -41,7 +45,7 @@ public class Bootstrapper : MonoBehaviour
     void Start()
     {
         Repository.Get<Spells>(References.Spells).Bootup();
-        
+
         var match = new Match();
         foreach (var player in players)
         {
@@ -56,9 +60,13 @@ public class Bootstrapper : MonoBehaviour
             rewardTurn.AssignTarget(rewardRelay);
             match.Insert(rewardTurn);
         }
-        
-        session = new Session();
-        session.Add(match);
+
+        Routines.Start(Routines.DoAfter(() =>
+        {
+            session = new Session();
+            session.Add(match);
+
+        }, new YieldFrame()));
 
         Repository.Get<Map>(References.Map).SpawnBordermap();
     }

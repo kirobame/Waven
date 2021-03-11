@@ -8,5 +8,6 @@ public enum VfxKey : byte
     Iop,
     Debuff,
     Inversion,
-    Sram
+    Sram,
+    Aura
 }

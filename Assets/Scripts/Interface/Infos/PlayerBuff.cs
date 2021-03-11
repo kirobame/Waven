@@ -32,11 +32,11 @@ public class PlayerBuff : MonoBehaviour
         icon.sprite = info.Icon;
     }
 
-    public void Refresh(int value) => textMesh.text = value.ToString();
+    public void Refresh(int value) => textMesh.text = value < 10 ? $"0{value}" : value.ToString();
     
     public void Show(int value)
     {
-        textMesh.text = value.ToString();
+        Refresh(value);
         
         show.Play(new WrapperArgs<string>($"Show{suffix}"), hide);
         IsActive = true;

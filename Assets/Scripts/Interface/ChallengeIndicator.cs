@@ -35,7 +35,7 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
         var message = $"<size=100%><b>{current.Title}</size></b>\n<size=65%>{current.GetDescription()}</size>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, position, 1);
     }
-    public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
+    public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnHideTooltip);
 
     void Refresh(Challenge challenge)
     {

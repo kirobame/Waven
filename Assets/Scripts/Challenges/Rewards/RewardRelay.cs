@@ -29,6 +29,8 @@ public class RewardRelay : ITurnbound
 
     public void Activate()
     {
+        Debug.Log("START REWARD");
+        
         if (!target.WasSuccessful)
         {
             Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), 0.6f));
@@ -43,6 +45,8 @@ public class RewardRelay : ITurnbound
     }
     public void Interrupt(Motive motive)
     {
+        Debug.Log("END REWARD");
+        
         var handler = Repository.Get<RewardHandler>(References.Reward);
         handler.onHideStart -= OnHideStart;
         handler.onDone -= OnDone;

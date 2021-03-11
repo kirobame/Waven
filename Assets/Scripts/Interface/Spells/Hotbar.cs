@@ -17,16 +17,8 @@ public class Hotbar : MonoBehaviour
     
     private Moveable moveable;
 
-    void Awake()
-    {
-        Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
-        Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
-    }
-    void OnDestroy()
-    {
-        Events.BreakVoidRelay(GameEvent.OnTurnStart, OnTurnStart);
-        Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
-    }
+    void Awake() => Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
+    void OnDestroy() => Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
 
     public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
     public void DisplaySpells(List<SpellBase> spells)
@@ -39,10 +31,8 @@ public class Hotbar : MonoBehaviour
             relays[i].Set(spells[i]);
         }
     }
-
-    void OnTurnStart() => moveable = (Moveable)Player.Active.Navigator;
-
-    void Refresh() => DisplayPM(moveable.PM);
+    
+    void Refresh() => DisplayPM(((Moveable)Player.Active.Navigator).PM);
 
     public void DisplayPA(int remainingSpells) { PAText.text = remainingSpells.ToString(); }
     public void DisplayPM(int remainingMovements) { PMText.text = remainingMovements.ToString(); }

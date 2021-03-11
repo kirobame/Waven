@@ -213,6 +213,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     void OnCastDone()
     {
         isWaiting = false;
+
         current.onCastDone -= OnCastDone;
         if (this == null) return; // TO DEBUG
 

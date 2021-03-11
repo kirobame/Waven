@@ -5593,6 +5593,7 @@ MonoBehaviour:
   icon: {fileID: 1622971174}
   complete: {fileID: 2031437692}
   fail: {fileID: 1739358634}
+  challengeSeq: {fileID: 0}
 --- !u!1 &1895620566
 GameObject:
   m_ObjectHideFlags: 0
@@ -7934,6 +7935,54 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1734895684}
     m_Modifications:
+    - target: {fileID: 6348043254989267676, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043254989267676, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043254989267676, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043254989267676, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255125335972, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255125335972, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255125335972, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255125335972, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255976952384, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255976952384, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255976952384, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6348043255976952384, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 6348043256527112692, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
       propertyPath: m_Name
       value: PauseMenu

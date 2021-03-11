@@ -10,6 +10,8 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     [SerializeField] private RewardHandler handler;
     [SerializeField] private SpellCategory category;
 
+    [SerializeField] private RectTransform tooltipPos;
+
     [Space, SerializeField] private TMP_Text title;
     [SerializeField] private Image thumbnail;
 
@@ -30,8 +32,8 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     
     public void OnPointerEnter(PointerEventData eventData)
     {
-        var message = $"<size=65%>{spell.Description}</size>";
-        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
+        var message = $"<size=100%><b>{spell.Title}</size></b>\n<size=65%>{spell.Description}</size>";
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 1);
     }
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
 }

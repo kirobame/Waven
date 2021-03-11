@@ -37,7 +37,7 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
     private bool hasCaster;
     private IAttributeHolder caster;
     private IReadOnlyDictionary<Id, List<CastArgs>> castArgs => hasCaster ? caster.Args : Spellcaster.EmptyArgs;
-    
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate()
@@ -97,10 +97,26 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
 
     void OnTileSelected(Tile selectedTile)
     {
-        if (nav.PM <= 0) return;
+        if (nav.PM <= 0 && AttackCounter <= 0) return;
         
         if (isActive && Inputs.isLocked)
         {
+            if (nav.PM <= 0)
+            {
+                if (shouldAttack)
+                {
+                    AttackCounter--;
+                    
+                    Attack();
+                    shouldAttack = false;
+                }
+                
+                Inputs.isLocked = false;
+                Shutdown();
+                
+                return;
+            }
+            
             if (selectedTile == nav.Current || !availableTiles.Contains(selectedTile))
             {
                 Inputs.isLocked = false;
@@ -143,13 +159,6 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
             {
                 Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
                 if (Inputs.isLocked) return;
-                
-                /*if (nav.Target is Player)
-                {
-                    Events.ZipCall(InputEvent.OnInterrupt, selectedTile);
-                    if (Inputs.isLocked) return;
-                }
-                else return;*/
             }
             
             Inputs.isLocked = true;
@@ -158,17 +167,29 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
             isWaiting = false;
             shouldAttack = false;
 
-            availableTiles = selectedTile.GetCellsAround(nav.PM).ToHashSet();
-            availableTiles.Mark(Mark.Inactive);
+            if (nav.PM > 0)
+            {
+                availableTiles = selectedTile.GetCellsAround(nav.PM).ToHashSet();
+                availableTiles.Mark(Mark.Inactive); 
+                
+                path.Add(nav.Current);
+            }
+            else
+            {
+                availableTiles = selectedTile.GetCellsAround(1).ToHashSet();
+                availableTiles.Remove(nav.Current);
+                
+                nav.Current.Mark(Mark.None);
+                availableTiles.Mark(Mark.Inactive); 
+            }
             
-            path.Add(nav.Current);
             isActive = true;
         }
     }
 
     void OnMouseMove(Vector2 mousePosition)
     {
-        if (Inputs.isLocked && !isActive || nav.PM <= 0) return;
+        if (Inputs.isLocked && !isActive || nav.PM <= 0 && AttackCounter <= 0) return;
         
         if (nav.Target.IsMoving) return;
         var cell = Inputs.GetCellAt(mousePosition);
@@ -180,22 +201,41 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
         }
         else 
         {
-            if (cell == nav.Current.Position)
+            if (nav.PM > 0)
             {
-                path.Clear();
-                path.Add(nav.Current);
-                
-                Refresh();
-            }
-            else if (TryGetTile(cell, out var tile))
-            {
-                for (var i = 0; i < path.Count; i++)
+                if (cell == nav.Current.Position)
                 {
-                    if (i != 0 && !path[i].IsFree() || !TryReconstructionBetween(i, tile)) continue;
+                    path.Clear();
+                    path.Add(nav.Current);
                 
                     Refresh();
-                    break;
                 }
+                else if (TryGetTile(cell, out var tile))
+                {
+                    for (var i = 0; i < path.Count; i++)
+                    {
+                        if (i != 0 && !path[i].IsFree() || !TryReconstructionBetween(i, tile)) continue;
+                
+                        Refresh();
+                        break;
+                    }
+                }
+            }
+            else
+            {
+                availableTiles.Mark(Mark.Inactive);
+                if (!cell.xy().TryGetTile(out var tile) || !availableTiles.Contains(tile))
+                {
+                    shouldAttack = false;
+                    tileToAttack = null;
+                    
+                    return;
+                }
+
+                shouldAttack = true;
+                tileToAttack = tile;
+                
+                tile.Mark(Mark.Active);
             }
         }
     }
@@ -311,9 +351,9 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
     private void Attack()
     {
         Events.Call(ChallengeEvent.OnAttack, EventArgs.Empty);
-        Player.Active.SetOrientation((tileToAttack.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        if (nav.Target is Tileable tileable) tileable.SetOrientation((tileToAttack.GetWorldPosition() - tileable.transform.position).xy().ComputeOrientation());
         
-        Buffer.caster = gameObject;
+        Buffer.caster = nav;
         
         attack.Prepare();
         attack.CastFrom(tileToAttack, castArgs);

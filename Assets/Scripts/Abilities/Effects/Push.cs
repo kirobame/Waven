@@ -103,7 +103,7 @@ public class Push : Effect
 
     protected virtual Vector2Int GetOrientationFor(ITileable target, int force)
     {
-        var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Player.Active.Navigator.Current.GetWorldPosition());
+        var direction = Vector3.Normalize(target.Navigator.Current.GetWorldPosition() - Buffer.caster.Current.GetWorldPosition());
         return direction.xy().ComputeOrientation() * (int)Mathf.Sign(force);
     }
     

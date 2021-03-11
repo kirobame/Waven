@@ -3,7 +3,7 @@ using UnityEngine;
 
 public static class Buffer
 {
-    public static GameObject caster;
+    public static Navigator caster;
     public static bool consumeTriggerSpell;
     
     public static bool isGameTurn;

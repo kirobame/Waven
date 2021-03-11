@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Flux;
 using UnityEngine;
 
+
 [Serializable, Path("Animations")] // Specifies the creation path like a MenuItem once in the SequenceEditor
 public class Animation : Flux.Feedbacks.Effect
 {
@@ -28,7 +29,10 @@ public class Animation : Flux.Feedbacks.Effect
     {
         if (!triggerActivated) // Execute the trigger
         {
-            animator.SetTrigger(triggerName);
+            var trigger = triggerName;
+            if (args is IWrapper<string> stringWrapper) trigger = stringWrapper.Value;
+            
+            animator.SetTrigger(trigger);
             triggerActivated = true;
 
             return;

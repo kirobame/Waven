@@ -7,7 +7,7 @@ using Flux.Event;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class Player : Tileable, ITurnbound
+public class Player : ExtendedTileable, ITurnbound
 {
     public static Player Active { get; private set; }
     
@@ -20,18 +20,12 @@ public class Player : Tileable, ITurnbound
     
     public string Name => name;
     public int Index => index;
-
-    public Animator Animator => animator;
     
     public Match Match { get; set; }
     public short Initiative => initiative;
 
     [Space, SerializeField] private int index;
     [SerializeField] private short initiative;
-    
-    [Space, SerializeField] private Animator animator;
-    [SerializeField] private float speed;
-    [SerializeField] private Vector2Int orientation;
 
     private InputAction spacebarAction;
     
@@ -41,8 +35,8 @@ public class Player : Tileable, ITurnbound
     private bool isActive;
 
     //------------------------------------------------------------------------------------------------------------------/
-    
-    void Start()
+
+    protected override void Start()
     {
         Repository.SetAt(References.Players, index, this);
         
@@ -54,13 +48,12 @@ public class Player : Tileable, ITurnbound
         spacebarAction = inputs["Core/Spacebar"];
         spacebarAction.performed += OnSpacebarPressed;
         
-        SetOrientation(orientation);
+        base.Start();
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
-        Events.ZipCall(GameEvent.OnPlayerDeath, index);
         
         Match.Remove(this);
         foreach (var link in links) link.Owner = null;
@@ -135,7 +128,6 @@ public class Player : Tileable, ITurnbound
         
         foreach (var activable in links) activable.Activate();
         Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
-        Events.Register(GameEvent.OnBaseAttack, OnBaseAttack);
 
         if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
         if (!gameObject.TryGet<Moveable>(out var moveable)) return;
@@ -151,7 +143,6 @@ public class Player : Tileable, ITurnbound
         foreach (var activable in links) activable.Deactivate();
         
         Events.BreakValueRelay<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
-        Events.Unregister(GameEvent.OnBaseAttack, OnBaseAttack);
     }
 
     //------------------------------------------------------------------------------------------------------------------/
@@ -159,47 +150,21 @@ public class Player : Tileable, ITurnbound
     public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
         IncreaseBusiness();
-        
-        if (speed <= 0 || !overrideSpeed) speed = this.speed;
         base.Move(path, speed, overrideSpeed, processDir);
-
-        if (processDir) animator.SetBool("isMoving", true);
     }
-
-    protected override void ProcessMoveDirection(Vector2 direction)
-    {
-        var orientation = direction.ComputeOrientation();
-        SetOrientation(orientation);
-    }
-    public override void SetOrientation(Vector2Int direction)
-    {
-        animator.SetFloat("X", direction.x);
-        animator.SetFloat("Y", direction.y);
-    }
-
     protected override void OnMoveCompleted()
     {
-        if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
-        if (!gameObject.TryGet<Moveable>(out var moveable)) return;
-        moveable.Dirty();
-        hotbar.DisplayPM(moveable.PM);
-
         DecreaseBusiness();
-        animator.SetBool("isMoving", false);
+        base.OnMoveCompleted();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
-
-    void OnBaseAttack(EventArgs obj)
-    {
-        if (isActive) animator.SetTrigger("isBaseAttack");
-    }
 
     void OnSpellUsed(SpellBase spell, bool isStatic)
     {
         if (!isActive || isStatic) return;
 
-        if (Buffer.consumeTriggerSpell) animator.SetTrigger("isCastingSpell");
+        if (Buffer.consumeTriggerSpell) Animator.SetTrigger("isCastingSpell");
         Buffer.consumeTriggerSpell = false;
     }
 }

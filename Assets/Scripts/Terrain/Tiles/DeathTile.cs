@@ -2,16 +2,17 @@
 
 public class DeathTile : Tile
 {
-    public DeathTile(Vector2Int position, int height) : base(position, height) { }
+    public DeathTile(Vector2Int position, int height, bool isTop) : base(position, height) => IsTop = isTop;
 
+    public bool IsTop { get; private set; }
+    
     public override void Register(ITileable entity)
     {
         base.Register(entity);
+
+        if (!(entity is Tileable tileable) || tileable.Team == TeamTag.Immutable || !tileable.TryGetComponent<IDamageable>(out var damageable)) return;
         
-        if (!(entity is Player player)) return;
-        
-        player.InterruptMove();
-        var damageable = player.GetComponent<IDamageable>();
+        tileable.InterruptMove();
         damageable.Inflict(10, DamageType.Base);
     }
 }

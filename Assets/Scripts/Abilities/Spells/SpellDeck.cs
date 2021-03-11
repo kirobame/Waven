@@ -25,13 +25,15 @@ public class SpellDeck : MonoBehaviour, ILink
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => player = GetComponent<Player>();
+    void Awake()
+    {
+        player = GetComponent<Player>();
+        hasBeenBootedUp = false;
+    }
     void Start()
     {
         if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
         deck = spells.GetDeck(3).ToList();
-        
-        hasBeenBootedUp = true;
     }
 
     public void Activate()
@@ -39,9 +41,6 @@ public class SpellDeck : MonoBehaviour, ILink
         if (hasBeenBootedUp) Draw(2);
         else
         {
-            if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
-            deck = spells.GetDeck(3).ToList();
-            
             Draw(3);
             hasBeenBootedUp = true;
         }

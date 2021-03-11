@@ -1,10 +1,11 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Flux;
 using Flux.Event;
 using UnityEngine;
 
-public class Golem : Tileable, ILink
+public class Golem : ExtendedTileable, ILink
 {
     public event Action<ILink> onDestroyed;
 
@@ -35,11 +36,16 @@ public class Golem : Tileable, ILink
     private bool hasAura;
 
     public int activation;
-    [SerializeField] private float speed;
-    [SerializeField] private SpellBase aura;
+    [Space, SerializeField] private SpellBase aura;
 
     private bool hasOwner;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        hasOwner = true;
+    }
+    
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -57,6 +63,9 @@ public class Golem : Tileable, ILink
             this.player.RemoveDependency(gameObject);
             Team = TeamTag.Neutral;
         }
+        else Animator.SetBool("isAwoken", true);
+        
+        Debug.Log($"Setting owner !");
         
         hasOwner = true;
         player.AddDependency(gameObject);
@@ -68,11 +77,17 @@ public class Golem : Tileable, ILink
         activation--;
         if (activation <= 0)
         {
+            Debug.Log($"Trying to deactivate !");
+            
             activation = 0;
             if (hasOwner)
             {
-                player.RemoveDependency(gameObject);
+                Debug.Log($"Deactivating !");
+                
+                Animator.SetBool("isAwoken", false);
                 Team = TeamTag.Neutral;
+
+                Routines.Start(Routines.DoAfter(() => player.RemoveDependency(gameObject), new YieldFrame()));
                 
                 hasOwner = false;
             }
@@ -81,8 +96,6 @@ public class Golem : Tileable, ILink
     
     public override void Move(Vector2[] path, float speed = -1.0f, bool overrideSpeed = false, bool processDir = true)
     {
-        if (speed <= 0 || !overrideSpeed) speed = this.speed;
-
         if (hasOwner) Owner.IncreaseBusiness();
         base.Move(path, speed, overrideSpeed, processDir);
     }
@@ -94,6 +107,8 @@ public class Golem : Tileable, ILink
 
     protected override void OnMoveCompleted()
     {
+        base.OnMoveCompleted();
+        
         if (!hasOwner) return;
         Owner.DecreaseBusiness();
     }

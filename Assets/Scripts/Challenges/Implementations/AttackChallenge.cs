@@ -15,7 +15,6 @@ public class AttackChallenge : ToggleChallenge
     {
         Events.Register(ChallengeEvent.OnAttack, OnAction);
         base.OnTurnedOn();
-        
     }
     protected override void OnTurnedOff()
     {

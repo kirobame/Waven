@@ -1,6 +1,7 @@
 ﻿using Flux.Data;
 using System.Collections;
 using System.Collections.Generic;
+using Flux.Event;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -8,11 +9,26 @@ using UnityEngine.UI;
 public class Hotbar : MonoBehaviour
 {
     private RectTransform rectTransform => (RectTransform)transform;
+    
     [SerializeField] SpellHolder[] relays;
 
-    [SerializeField] private TMP_Text PAText;
+    [Space, SerializeField] private TMP_Text PAText;
     [SerializeField] private TMP_Text PMText;
+    
+    private Moveable moveable;
 
+    void Awake()
+    {
+        Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
+        Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
+    }
+    void OnDestroy()
+    {
+        Events.BreakVoidRelay(GameEvent.OnTurnStart, OnTurnStart);
+        Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
+    }
+
+    public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
     public void DisplaySpells(List<SpellBase> spells)
     {
         ClearSpells();
@@ -24,9 +40,10 @@ public class Hotbar : MonoBehaviour
         }
     }
 
+    void OnTurnStart() => moveable = (Moveable)Player.Active.Navigator;
+
+    void Refresh() => DisplayPM(moveable.PM);
+
     public void DisplayPA(int remainingSpells) { PAText.text = remainingSpells.ToString(); }
-
     public void DisplayPM(int remainingMovements) { PMText.text = remainingMovements.ToString(); }
-
-    public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
 }

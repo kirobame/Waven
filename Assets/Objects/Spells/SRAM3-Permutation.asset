@@ -38,7 +38,7 @@ MonoBehaviour:
       Data: false
     - Name: radius
       Entry: 3
-      Data: 4
+      Data: 10
     - Name: 
       Entry: 8
       Data: 

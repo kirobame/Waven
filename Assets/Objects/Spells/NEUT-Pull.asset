@@ -147,4 +147,4 @@ MonoBehaviour:
   tier: 1
   title: Pull
   description: Some description.
-  thumbnail: {fileID: 21300000, guid: 27b88dd5cb3d1f64785aaa649050357a, type: 3}
+  thumbnail: {fileID: 21300000, guid: 4f751be8fffb4c743acec7aa20755427, type: 3}

@@ -99,4 +99,4 @@ MonoBehaviour:
   tier: 2
   title: Foulure
   description: Some description.
-  thumbnail: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}
+  thumbnail: {fileID: 21300000, guid: dc51675526ab5c342a7491ab3e1ad0a0, type: 3}

@@ -17,10 +17,11 @@ public class DelayedBoost<T> : Effect where T : IMutable
         {
             foreach (var entity in tile.Entities)
             {
-                var component = (Component)entity;
-                if (!component.TryGetComponent<IAttributeHolder>(out var attributes)) continue;
+                if (!(entity is Player player)) continue;
+                
+                if (!player.TryGetComponent<IAttributeHolder>(out var attributes)) continue;
 
-                if (!component.TryGetComponent<T>(out var mutable)) continue;
+                if (!player.TryGetComponent<T>(out var mutable)) continue;
                 
                 var boost = new DelayedIntCastArgs(value, mutable);
                 boost.SetId(id);

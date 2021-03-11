@@ -12,6 +12,7 @@ public abstract class Boost : Effect
     public abstract StatType Type { get; }
 
     [SerializeField] private float delay;
+    [SerializeField] private BoostTarget target;
     
     public abstract CastArgs GetBoost();
     
@@ -27,6 +28,19 @@ public abstract class Boost : Effect
         {
             foreach (var entity in tile.Entities)
             {
+                var foundTarget = false;
+                if ((target | BoostTarget.Golem) == target)
+                {
+                    foundTarget = entity is Golem;
+                }
+                
+                if (!foundTarget && (target | BoostTarget.Player) == target)
+                {
+                    foundTarget = entity is Player;
+                }
+                
+                if (!foundTarget) continue;
+
                 if (!((Component)entity).TryGetComponent<IAttributeHolder>(out var caster)) continue;
                 HandleTarget(entity, caster);
             }

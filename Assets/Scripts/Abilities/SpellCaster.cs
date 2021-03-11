@@ -213,11 +213,20 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     void OnCastDone()
     {
         isWaiting = false;
+        
+        if (current == null || this == null)
+        {
+            isActive = false;
+            Inputs.isLocked = false;
+            
+            Owner.DecreaseBusiness();
 
+            return;
+        }
+        
         current.onCastDone -= OnCastDone;
-        if (this == null) return; // TO DEBUG
-
         Owner.DecreaseBusiness();
+        
         if (current.IsDone)
         {
             isActive = false;

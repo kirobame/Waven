@@ -99,6 +99,15 @@ MonoBehaviour:
     - Name: speed
       Entry: 4
       Data: 0.125
+    - Name: allowBoost
+      Entry: 5
+      Data: false
+    - Name: playVfx
+      Entry: 5
+      Data: true
+    - Name: vfxKey
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 
@@ -132,6 +141,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: duration
+      Entry: 4
+      Data: 0.5
     - Name: 
       Entry: 8
       Data: 

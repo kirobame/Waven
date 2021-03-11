@@ -35,7 +35,8 @@ public class StatInfo : MonoBehaviour, IComparable<StatInfo>
         image.color = source.Color;
         textMesh.text = text;
         
-        RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, image.preferredWidth + textMesh.preferredWidth + spacing);
+        RectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, image.flexibleWidth + textMesh.preferredWidth + spacing);
+        Debug.Log(image.preferredWidth);
     }
 
     public void Clear()

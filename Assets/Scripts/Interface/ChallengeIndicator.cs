@@ -12,7 +12,8 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private GameObject complete;
     [SerializeField] private GameObject fail;
 
-    [SerializeField] private Sequencer challengeSeq;
+    [SerializeField] private Sequencer challengeDone;
+    [SerializeField] private Sequencer challengeFailed;
 
     private Challenge current;
     
@@ -47,8 +48,12 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     void OnCompletion() 
     {
-        challengeSeq.Play(EventArgs.Empty);
+        challengeDone.Play(EventArgs.Empty);
         complete.SetActive(true); 
     }
-    void OnFail() => fail.SetActive(true);
+    void OnFail()
+    {
+        challengeFailed.Play(EventArgs.Empty);
+        fail.SetActive(true);
+    }
 }

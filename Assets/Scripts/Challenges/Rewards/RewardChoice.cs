@@ -1,5 +1,6 @@
 ﻿using Flux.Data;
 using Flux.Event;
+using Flux.Audio;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
@@ -12,6 +13,7 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     [Space, SerializeField] private TMP_Text title;
     [SerializeField] private Image thumbnail;
+    [SerializeField] private AudioClipPackage spellChoosenSound;
 
     private SpellBase spell;
     private int tier;
@@ -25,11 +27,17 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         title.text = spell.Title;
         thumbnail.sprite = spell.Thumbnail;
     }
-    
-    public void OnPointerClick(PointerEventData eventData) => handler.Pick(spell);
+
+    public void OnPointerClick(PointerEventData eventData)
+    {
+        AudioHandler.Play(spellChoosenSound);
+        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseClickOnClickableUI));
+        handler.Pick(spell);
+    }
     
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
         var message = $"<size=65%>{spell.Description}</size>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
     }

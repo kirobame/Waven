@@ -297,6 +297,7 @@ MonoBehaviour:
   animator: {fileID: 4097353869787670437}
   speed: 0.175
   orientation: {x: 0, y: 0}
+  endTurnSound: {fileID: 11400000, guid: 6e3355c9e81586b44a464a4e815dbb96, type: 2}
 --- !u!114 &4351303761828844956
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -8,5 +8,5 @@ public enum AudioReferences : byte
     MouseClickOnLockedUI,
     MouseHoverClickableUI,
     Collision,
-
+    EndTurn,
 }

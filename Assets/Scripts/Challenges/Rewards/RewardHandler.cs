@@ -74,7 +74,6 @@ public class RewardHandler : MonoBehaviour
     }
     public void Hide()
     {
-        Debug.Log("HIDING REWARDS");
         if (IsHiding) return;
         
         onHideStart?.Invoke();

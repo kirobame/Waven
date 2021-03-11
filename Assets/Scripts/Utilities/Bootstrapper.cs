@@ -17,8 +17,6 @@ public class Bootstrapper : MonoBehaviour
 
     void Awake()
     {
-        Debug.Log("AWAKE");
-        
         Buffer.hasStopped = false;
         Time.timeScale = 1;
         

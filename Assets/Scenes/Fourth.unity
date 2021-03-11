@@ -1872,6 +1872,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7066485009296558204, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
+      propertyPath: effects.Array.data[1].rect.width
+      value: 139
+      objectReference: {fileID: 0}
     - target: {fileID: 8289557310462749557, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0

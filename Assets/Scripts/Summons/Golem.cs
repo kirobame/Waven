@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using Flux;
 using Flux.Event;
+using Flux.Feedbacks;
 using UnityEngine;
 
 public class Golem : ExtendedTileable, ILink
@@ -24,6 +25,10 @@ public class Golem : ExtendedTileable, ILink
             if (value && !hasAura)
             {
                 Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
+                
+                //auraShow.Play(EventArgs.Empty);
+                //Animator.SetTrigger("playAura");
+                
                 ActivateAuraFully();
             }
             else if (!value && hasAura)
@@ -37,6 +42,7 @@ public class Golem : ExtendedTileable, ILink
 
     public int activation;
     [Space, SerializeField] private SpellBase aura;
+    //[SerializeField] private Sequencer auraShow;
 
     private bool hasOwner;
 

@@ -23,6 +23,7 @@ public class Spawn : Effect
             var instance = Object.Instantiate(prefab, position, Quaternion.identity);
 
             instance.Navigator.Place(tile.FlatPosition);
+            instance.Navigator.hasBeenBootedUp = true;
             
             if (ownership && instance.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
             if (link) Player.Active.AddDependency(instance.gameObject);

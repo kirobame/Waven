@@ -78,9 +78,9 @@ MonoBehaviour:
     - Name: ownership
       Entry: 5
       Data: true
-    - Name: activation
-      Entry: 3
-      Data: 1000
+    - Name: temporary
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -146,7 +146,7 @@ MonoBehaviour:
       Data: 
     - Name: delay
       Entry: 4
-      Data: 0.3
+      Data: 0.6
     - Name: target
       Entry: 3
       Data: 2

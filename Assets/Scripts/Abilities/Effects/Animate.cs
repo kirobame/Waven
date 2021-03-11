@@ -8,7 +8,7 @@ using Object = UnityEngine.Object;
 public class Animate : Effect
 {
     [SerializeField] private bool ownership;
-    [SerializeField] private int activation;
+    [SerializeField] private bool temporary;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
@@ -20,7 +20,9 @@ public class Animate : Effect
             {
                 if (!entity.TryGet<Golem>(out var golem)) continue;
                 
-                golem.activation += activation;
+                if (temporary) golem.tempOwnership.Activate(Player.Active);
+                else golem.definitiveOwnership.Activate(Player.Active);
+                
                 golem.LinkTo(Player.Active);
                     
                 if (ownership && golem.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;

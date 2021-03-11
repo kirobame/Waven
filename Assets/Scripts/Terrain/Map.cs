@@ -42,6 +42,8 @@ public class Map : MonoBehaviour
             if (tilemap.HasTile(localPosition))
             {
                 var tile = tilemap.GetTile(localPosition);
+                if (tile.name == string.Empty) continue;
+                
                 var prefix = tile.name.Substring(0, 2).ToUpper();
                 TileBase implementation = default;
                 

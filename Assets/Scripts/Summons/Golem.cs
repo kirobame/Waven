@@ -6,6 +6,26 @@ using Flux.Event;
 using Flux.Feedbacks;
 using UnityEngine;
 
+[Serializable]
+public class GolemOwnership
+{
+    public Player Owner { get; set; }
+    
+    public bool State => state;
+    [SerializeField] private bool state;
+
+    public void Activate(Player player)
+    {
+        Owner = player;
+        state = true;
+    }
+    public void Deactivate()
+    {
+        Owner = null;
+        state = false;
+    }
+}
+
 public class Golem : ExtendedTileable, ILink
 {
     public event Action<ILink> onDestroyed;
@@ -25,10 +45,6 @@ public class Golem : ExtendedTileable, ILink
             if (value && !hasAura)
             {
                 Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);
-                
-                //auraShow.Play(EventArgs.Empty);
-                //Animator.SetTrigger("playAura");
-                
                 ActivateAuraFully();
             }
             else if (!value && hasAura)
@@ -40,9 +56,9 @@ public class Golem : ExtendedTileable, ILink
     }
     private bool hasAura;
 
-    public int activation;
+    public GolemOwnership tempOwnership;
+    public GolemOwnership definitiveOwnership;
     [Space, SerializeField] private SpellBase aura;
-    //[SerializeField] private Sequencer auraShow;
 
     private bool hasOwner;
 
@@ -50,14 +66,14 @@ public class Golem : ExtendedTileable, ILink
     {
         base.Awake();
 
-        if (activation > 0)
+        if (tempOwnership.State || definitiveOwnership.State)
         {
             hasOwner = true;
             Animator.SetBool("isAwoken", true);
         }
         else hasOwner = false;
     }
-    
+
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -78,25 +94,28 @@ public class Golem : ExtendedTileable, ILink
         else Animator.SetBool("isAwoken", true);
         
         hasOwner = true;
+        
         player.AddDependency(gameObject);
+        Team = player.Team;
     }
 
     public void Activate() { }
     public void Deactivate()
     {
-        activation--;
-        if (activation <= 0)
+        if (tempOwnership.State)
         {
-            activation = 0;
-            if (hasOwner)
+            if (definitiveOwnership.State) Routines.Start(Routines.DoAfter(() =>  LinkTo(definitiveOwnership.Owner), new YieldFrame()));
+            else
             {
                 Animator.SetBool("isAwoken", false);
                 Team = TeamTag.Neutral;
-
+                
                 Routines.Start(Routines.DoAfter(() => player.RemoveDependency(gameObject), new YieldFrame()));
                 
                 hasOwner = false;
             }
+            
+            tempOwnership.Deactivate();
         }
     }
     

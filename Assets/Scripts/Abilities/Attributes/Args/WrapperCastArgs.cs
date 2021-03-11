@@ -10,5 +10,11 @@ public class WrapperCastArgs<T> : CastArgs, IWrapper<T>
     public T Value => value;
     [SerializeField] private T value;
     
-    public override CastArgs Copy() => new WrapperCastArgs<T>(value);
+    public override CastArgs Copy()
+    {
+        var args = new WrapperCastArgs<T>(value);
+        args.SetId(id);
+
+        return args;
+    }
 }

@@ -53,7 +53,7 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 4
+      Data: 3
     - Name: 
       Entry: 7
       Data: 3|VfxEffect, Assembly-CSharp
@@ -117,6 +117,9 @@ MonoBehaviour:
     - Name: duration
       Entry: 3
       Data: 1
+    - Name: self
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -144,63 +147,9 @@ MonoBehaviour:
     - Name: ownership
       Entry: 5
       Data: true
-    - Name: activation
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 12|SimpleBoost, Assembly-CSharp
-    - Name: patterns
-      Entry: 7
-      Data: 13|Pattern[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 14|Point, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: delay
-      Entry: 4
-      Data: 0.3
-    - Name: target
-      Entry: 3
-      Data: 2
-    - Name: boost
-      Entry: 7
-      Data: 15|TemporaryIntCastArgs, Assembly-CSharp
-    - Name: id
-      Entry: 7
-      Data: Flux.Id, Flux
-    - Name: value
-      Entry: 1
-      Data: DMG
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: duration
-      Entry: 3
-      Data: 1
-    - Name: value
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 1
+    - Name: temporary
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 

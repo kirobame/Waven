@@ -175,6 +175,9 @@ MonoBehaviour:
     - Name: duration
       Entry: 3
       Data: 0
+    - Name: self
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 

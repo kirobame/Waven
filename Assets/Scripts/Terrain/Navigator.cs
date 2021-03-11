@@ -6,13 +6,12 @@ public class Navigator : MonoBehaviour
 {
     public static float YOffset { get; private set; }
     
+    public bool hasBeenBootedUp { get; set; }
     public Tile Current { get; private set; }
-    //public Map Map { get; private set; }
-    
     public ITileable Target => target;
     
     [SerializeReference] private TileableBase target;
-    
+
     //------------------------------------------------------------------------------------------------------------------/
 
     protected virtual void Start()
@@ -20,8 +19,12 @@ public class Navigator : MonoBehaviour
         var map = Repository.Get<Map>(References.Map);
         YOffset = map.Tilemap.layoutGrid.cellSize.y;
 
+        if (hasBeenBootedUp) return;
+        
         var cell = map.Tilemap.WorldToCell(transform.position).xy();
         Place(cell);
+        
+        hasBeenBootedUp = true; 
     }
 
     //------------------------------------------------------------------------------------------------------------------/

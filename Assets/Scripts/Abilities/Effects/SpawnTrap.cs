@@ -34,19 +34,9 @@ public class SpawnTrap : Effect
 
     private void TryFindSpawnPoint(Tile source, Vector2Int direction)
     {
-        var match = (source.FlatPosition + direction).TryGetTile(out var tile);
-        while (match)
-        {
-            if (tile.Entities.Any(tileable => tileable is Trap && tileable.GetType() != prefab.GetType())) break;
-            
-            if (!tile.Entities.Any(tileable => tileable is Trap))
-            {
-                SpawnAt(tile, direction);
-                break;
-            }
-            
-            match = (tile.FlatPosition + direction).TryGetTile(out tile);
-        }
+        if (!(source.FlatPosition + direction).TryGetTile(out var tile) || tile.Entities.Any(tileable => tileable is Trap && tileable.GetType() != prefab.GetType())) return;
+
+        if (!(tile is DeathTile) && !tile.Entities.Any(tileable => tileable is Trap)) SpawnAt(tile, direction);
     }
     protected virtual Trap SpawnAt(Tile tile, Vector2Int direction)
     {

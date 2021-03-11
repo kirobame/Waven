@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
+    [SerializeField] private RectTransform position;
     [SerializeField] private Image icon;
     [SerializeField] private GameObject complete;
     [SerializeField] private GameObject fail;
@@ -27,7 +28,7 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
     public void OnPointerEnter(PointerEventData eventData)
     {
         var message = $"<size=100%><b>{current.Title}</size></b>\n<size=65%>{current.GetDescription()}</size>";
-        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, position, 1);
     }
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
 

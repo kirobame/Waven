@@ -174,4 +174,4 @@ MonoBehaviour:
   tier: 2
   title: Activation
   description: Transform a rock to a golem
-  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
+  thumbnail: {fileID: 21300000, guid: 04c6074d74aee7d4992e01118f0bbd51, type: 3}

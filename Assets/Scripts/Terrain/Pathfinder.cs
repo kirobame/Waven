@@ -313,6 +313,8 @@ public class Pathfinder : MonoBehaviour, ILink, IMutable
         Events.Call(ChallengeEvent.OnAttack, EventArgs.Empty);
         Player.Active.SetOrientation((tileToAttack.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
         
+        Buffer.caster = gameObject;
+        
         attack.Prepare();
         attack.CastFrom(tileToAttack, castArgs);
     }

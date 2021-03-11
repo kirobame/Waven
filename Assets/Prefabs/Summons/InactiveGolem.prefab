@@ -111,7 +111,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4808416801280885075
 MonoBehaviour:
@@ -277,6 +277,7 @@ GameObject:
   - component: {fileID: 6566219122458013161}
   - component: {fileID: 9207921047016419262}
   - component: {fileID: 3917707982563241014}
+  - component: {fileID: 1783021231022072417}
   - component: {fileID: 5486990869701027628}
   m_Layer: 0
   m_Name: InactiveGolem
@@ -300,6 +301,7 @@ Transform:
   - {fileID: 7678237446377970807}
   - {fileID: 4714109178391613868}
   - {fileID: 1607029857}
+  - {fileID: 2855491204266101163}
   - {fileID: 5972216467522921931}
   - {fileID: 4096878758499435905}
   - {fileID: 2295236246160361655}
@@ -389,6 +391,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   nav: {fileID: 9207921047016419262}
   attack: {fileID: 11400000, guid: 0b9a49195893ebe4aa83ea8ecad22211, type: 2}
+--- !u!114 &1783021231022072417
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 539701715701859322}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: afe40757208549b8ba43819e623c26b6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  pairs:
+  - key:
+      value: DMG
+    value: {fileID: 8459966875893368783}
+  - key:
+      value: ATK
+    value: {fileID: 4013766295305547938}
 --- !u!114 &5486990869701027628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -426,6 +447,85 @@ MonoBehaviour:
         id:
           value: ATK
         value: 1
+--- !u!1 &3094710693223634263
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2855491204266101163}
+  - component: {fileID: 4013766295305547938}
+  m_Layer: 0
+  m_Name: AttackSequence
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2855491204266101163
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094710693223634263}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 539701715701859326}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &4013766295305547938
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3094710693223634263}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8222073adb07b4c9e770fb57695fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root:
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 100
+      width: 73
+      height: 71
+    linkIndices: 00000000
+  effects:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: Animation, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 256
+          y: 143
+          width: 252
+          height: 140
+        linkIndices: 01000000
+        animator: {fileID: 824015133}
+        triggerName: isBaseAttack
+        outTag: Idle
+    00000001:
+      type: {class: End, ns: Flux.Feedbacks, asm: Flux.Feedbacks}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 566
+          y: 90
+          width: 102
+          height: 71
+        linkIndices: 
 --- !u!1 &5053220333100714486
 GameObject:
   m_ObjectHideFlags: 0
@@ -455,7 +555,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &4951150353276343322
 MonoBehaviour:
@@ -675,7 +775,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &8459966875893368783
 MonoBehaviour:

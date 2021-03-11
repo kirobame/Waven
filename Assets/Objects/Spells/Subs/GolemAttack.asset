@@ -68,10 +68,10 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
-      Data: 3|Damage, Assembly-CSharp
+      Data: 3|SelfAnim, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -81,6 +81,39 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 5|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: id
+      Entry: 7
+      Data: Flux.Id, Flux
+    - Name: value
+      Entry: 1
+      Data: ATK
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|Damage, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 7|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -104,16 +137,16 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|Push, Assembly-CSharp
+      Data: 9|Push, Assembly-CSharp
     - Name: patterns
       Entry: 7
-      Data: 7|Pattern[], Assembly-CSharp
+      Data: 10|Pattern[], Assembly-CSharp
     - Name: 
       Entry: 12
       Data: 1
     - Name: 
       Entry: 7
-      Data: 8|Point, Assembly-CSharp
+      Data: 11|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 

@@ -109,8 +109,6 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
             }
             else
             {
-                
-              
                 if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
                 End();
             }
@@ -186,6 +184,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         current.onCastDone += OnCastDone;
         
         if (Player.Active.Navigator.Current != tile) Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
+        Buffer.caster = gameObject;
         current.CastFrom(tile, castArgs);
 
         if (current.IsDone)

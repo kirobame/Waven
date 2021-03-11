@@ -9,8 +9,12 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 539701715701859322, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: m_Name
-      value: InactiveGolem
+      value: ActiveGolem
       objectReference: {fileID: 0}
+    - target: {fileID: 539701715701859325, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 008214f12aa996a4c9d0c124d01015ff, type: 2}
     - target: {fileID: 539701715701859326, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: m_RootOrder
       value: 0

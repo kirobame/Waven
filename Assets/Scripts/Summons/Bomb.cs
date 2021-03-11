@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using Flux;
+using Flux.Audio;
 using UnityEngine;
 
 public class Bomb : Damageable
@@ -7,7 +8,8 @@ public class Bomb : Damageable
     [SerializeField] private TileableBase tileable;
     [SerializeField] private Spell spell;
     [SerializeField] private SpriteRenderer graph;
-    
+    [SerializeField] private AudioClipPackage explosionSound;
+
     protected override void OnDeath()
     {
         graph.enabled = false;
@@ -17,7 +19,9 @@ public class Bomb : Damageable
     private IEnumerator WaitRoutine()
     {
         for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
-        
+
+        AudioHandler.Play(explosionSound);
+
         spell.Prepare();
         spell.onCastDone += Die;
         spell.CastFrom(tileable.Navigator.Current, Spellcaster.EmptyArgs);

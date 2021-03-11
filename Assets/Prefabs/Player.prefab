@@ -276,6 +276,7 @@ MonoBehaviour:
     maxValue: 10
     priority: 0
     handledTypes: 00000000
+  hurtSound: {fileID: 11400000, guid: 0c5f39e323a74b04b856548e009ce0fc, type: 2}
   sequencer: {fileID: 6422497535397277062}
   tileable: {fileID: 4097353869914120680}
 --- !u!114 &4097353869914120680

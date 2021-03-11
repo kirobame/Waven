@@ -154,6 +154,7 @@ MonoBehaviour:
     maxValue: 2
     priority: 0
     handledTypes: 00000000
+  hurtSound: {fileID: 11400000, guid: 9f1dcf440b18b834799fdc59201e21a7, type: 2}
 --- !u!114 &6566219122458013161
 MonoBehaviour:
   m_ObjectHideFlags: 0

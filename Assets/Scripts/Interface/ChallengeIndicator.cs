@@ -1,4 +1,6 @@
 ﻿using Flux.Event;
+using Flux.Data;
+using Flux.Audio;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -7,7 +9,10 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
 {
     [SerializeField] private Image icon;
     [SerializeField] private GameObject complete;
+    [SerializeField] private AudioClipPackage completeSound;
     [SerializeField] private GameObject fail;
+    [SerializeField] private AudioClipPackage failSound;
+
 
     private Challenge current;
     
@@ -26,6 +31,8 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
     
     public void OnPointerEnter(PointerEventData eventData)
     {
+        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
+
         var message = $"<size=100%><b>{current.Title}</size></b>\n<size=65%>{current.GetDescription()}</size>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
     }
@@ -40,6 +47,14 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
         icon.sprite = challenge.Icon;
     }
 
-    void OnCompletion() => complete.SetActive(true);
-    void OnFail() => fail.SetActive(true);
+    void OnCompletion()
+    {
+        AudioHandler.Play(completeSound);
+        complete.SetActive(true);
+    }
+    void OnFail()
+    {
+        AudioHandler.Play(failSound);
+        fail.SetActive(true);
+    }
 }

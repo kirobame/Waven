@@ -4,4 +4,9 @@
 public enum AudioReferences : byte
 {
     Placeholder,
+    MouseClickOnClickableUI,
+    MouseClickOnLockedUI,
+    MouseHoverClickableUI,
+    Collision,
+
 }

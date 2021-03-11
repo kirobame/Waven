@@ -43,6 +43,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Border-BL
       objectReference: {fileID: 0}
+    - target: {fileID: 539701715701859325, guid: 86b5b34c6a179d244b18defd638ef61c, type: 3}
+      propertyPath: hurtSound
+      value: 
+      objectReference: {fileID: 11400000, guid: 9f1dcf440b18b834799fdc59201e21a7, type: 2}
     - target: {fileID: 539701715701859326, guid: 86b5b34c6a179d244b18defd638ef61c, type: 3}
       propertyPath: m_RootOrder
       value: 0

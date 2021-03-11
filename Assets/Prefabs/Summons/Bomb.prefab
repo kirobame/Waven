@@ -113,6 +113,7 @@ MonoBehaviour:
     maxValue: 1
     priority: 0
     handledTypes: 00000000
+  hurtSound: {fileID: 11400000, guid: 9f1dcf440b18b834799fdc59201e21a7, type: 2}
   tileable: {fileID: 2158062817916909005}
   spell: {fileID: 11400000, guid: efce6fca2bebf594495a6733a7617b33, type: 2}
   graph: {fileID: 3911202999612518530}

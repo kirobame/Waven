@@ -56,7 +56,7 @@ public class Spell : SpellBase
         
         foreach (var effect in effects) effect.PlayOn(source, args);
 
-        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.Placeholder));
+        if (sound) AudioHandler.Play(sound);
     }
 
     void OnEffectDone(Effect effect)

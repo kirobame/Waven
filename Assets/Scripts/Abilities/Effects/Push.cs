@@ -4,6 +4,8 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Flux.Event;
+using Flux.Data;
+using Flux.Audio;
 using UnityEngine;
 
 [Serializable]
@@ -26,7 +28,9 @@ public class Push : Effect
             End();
             return;
         }
-        
+
+        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.PushPull));
+
         business = 0;
         var targets = tiles.SelectMany(tile => tile.Entities).Where(entity => entity is Tileable);
 

@@ -1594,6 +1594,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: StillGolem - 03
       objectReference: {fileID: 0}
+    - target: {fileID: 5033566847319681433, guid: 083ad5ac28b6445488a3ee3204e9ab6c, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5033566847319681437, guid: 083ad5ac28b6445488a3ee3204e9ab6c, type: 3}
       propertyPath: m_RootOrder
       value: 19
@@ -2431,6 +2435,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 7b83fd46ca212474e93d35e837ac56d7, type: 2}
   - {fileID: 11400000, guid: 34e06e0b9e57c464dabb98a454b5c7ac, type: 2}
   - {fileID: 11400000, guid: 049a0bff22b018741b878832d77629f3, type: 2}
+  - {fileID: 11400000, guid: cc8cfe23a7628764996f75a67233dc19, type: 2}
 --- !u!1 &1179181481
 GameObject:
   m_ObjectHideFlags: 0

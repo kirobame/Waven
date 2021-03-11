@@ -36,8 +36,14 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
 
     //------------------------------------------------------------------------------------------------------------------/
 
-    void Awake() => hasCaster = TryGetComponent<IAttributeHolder>(out caster);
-    
+    void Awake()
+    {
+        isStatic = false;
+        isWaiting = false;
+        
+        hasCaster = TryGetComponent<IAttributeHolder>(out caster);
+    }
+
     //------------------------------------------------------------------------------------------------------------------/
     
     public void Activate()
@@ -191,7 +197,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
 
         if (current.IsDone)
         {
-            RemainingUse--;
+            if (!isStatic) RemainingUse--;
             
             Events.ZipCall(GameEvent.OnSpellUsed, current, isStatic);
             Events.ZipCall(ChallengeEvent.OnSpellUse, 1);
@@ -215,17 +221,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     void OnCastDone()
     {
         isWaiting = false;
-        
-        if (current == null || this == null)
-        {
-            isActive = false;
-            Inputs.isLocked = false;
-            
-            Owner.DecreaseBusiness();
 
-            return;
-        }
-        
         current.onCastDone -= OnCastDone;
         Owner.DecreaseBusiness();
         

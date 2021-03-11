@@ -192,7 +192,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         current.onCastDone += OnCastDone;
         
         if (Player.Active.Navigator.Current != tile) Player.Active.SetOrientation((tile.GetWorldPosition() - Player.Active.transform.position).xy().ComputeOrientation());
-        Buffer.caster = gameObject;
+        Buffer.caster = nav;
         current.CastFrom(tile, castArgs);
 
         if (current.IsDone)

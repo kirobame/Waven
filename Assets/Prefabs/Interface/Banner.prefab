@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Challenge Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 83c6f7d46012e4240b61f36cc10efd77, type: 2}
+  m_sharedMaterial: {fileID: -7951928315701162151, guid: 83c6f7d46012e4240b61f36cc10efd77, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -471,8 +471,8 @@ MonoBehaviour:
   m_text: This is the description of a challenge you will need to undertake. Are
     you ready ?
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: c8a98c9253e97c54f8b731810afb81bf, type: 2}
+  m_sharedMaterial: {fileID: -2468884053207844491, guid: c8a98c9253e97c54f8b731810afb81bf, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -605,8 +605,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Au tour du joueur 01 !
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30a4bfff15015474b8d268c42ca04520, type: 2}
+  m_sharedMaterial: {fileID: -166023157322220729, guid: 30a4bfff15015474b8d268c42ca04520, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []

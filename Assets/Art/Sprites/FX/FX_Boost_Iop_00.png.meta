@@ -1,7 +1,19 @@
 fileFormatVersion: 2
-guid: 7e1c12d37cc669143a42b540e3e3906d
+guid: e36d639317451c1489d043f074dc8fb5
 TextureImporter:
-  internalIDToNameTable: []
+  internalIDToNameTable:
+  - first:
+      213: 4880406663740910635
+    second: FX_Boost_Iop_00_0
+  - first:
+      213: 4208627387421022945
+    second: FX_Boost_Iop_00_1
+  - first:
+      213: -1664126647200645293
+    second: FX_Boost_Iop_00_2
+  - first:
+      213: -280142002932691472
+    second: FX_Boost_Iop_00_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -135,7 +147,91 @@ TextureImporter:
     forceMaximumCompressionQuality_BC6H_BC7: 0
   spriteSheet:
     serializedVersion: 2
-    sprites: []
+    sprites:
+    - serializedVersion: 2
+      name: FX_Boost_Iop_00_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 928.5
+        height: 1156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2ce9bfc000bab340800000000000000
+      internalID: 4880406663740910635
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Boost_Iop_00_1
+      rect:
+        serializedVersion: 2
+        x: 928
+        y: 0
+        width: 928.5
+        height: 1156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1ead5338f4c086a30800000000000000
+      internalID: 4208627387421022945
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Boost_Iop_00_2
+      rect:
+        serializedVersion: 2
+        x: 1856
+        y: 0
+        width: 928.5
+        height: 1156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35ff75c91a5d7e8e0800000000000000
+      internalID: -1664126647200645293
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FX_Boost_Iop_00_3
+      rect:
+        serializedVersion: 2
+        x: 2784
+        y: 0
+        width: 928.5
+        height: 1156
+      alignment: 9
+      pivot: {x: 0.5, y: 0.4}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0fdc784255cbc1cf0800000000000000
+      internalID: -280142002932691472
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
     outline: []
     physicsShape: []
     bones: []

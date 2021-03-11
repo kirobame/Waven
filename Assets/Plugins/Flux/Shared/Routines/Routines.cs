@@ -18,19 +18,23 @@ namespace Flux
             hook = hookObject.AddComponent<Hook>();
 
             hasHook = true;
-            hook.onDestroyed += () => hasHook = false;
+            hook.onDestroyed += OnHookDestroyed;
         }
+
+        private static void OnHookDestroyed() => hasHook = false;
 
         public static void Clear()
         {
-            Debug.Log("CLEAR");
             hook.StopAllCoroutines();
+
+            hook.onDestroyed -= OnHookDestroyed;
+            Object.Destroy(hook.gameObject);
+
+            Bootup();
         }
 
         public static Coroutine Start(IEnumerator routine)
         {
-            Debug.Log("REQUEST");
-            
             if (!hasHook) return null;
             return hook.StartCoroutine(routine);
         }

@@ -17,6 +17,8 @@ public class Bootstrapper : MonoBehaviour
 
     void Awake()
     {
+        Debug.Log("AWAKE");
+        
         Buffer.hasStopped = false;
         Time.timeScale = 1;
         
@@ -60,8 +62,8 @@ public class Bootstrapper : MonoBehaviour
             rewardTurn.AssignTarget(rewardRelay);
             match.Insert(rewardTurn);
         }
-
-        Routines.Start(Routines.DoAfter(() =>
+        
+        StartCoroutine(Routines.DoAfter(() =>
         {
             session = new Session();
             session.Add(match);

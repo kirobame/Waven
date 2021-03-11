@@ -55,7 +55,7 @@ public class Player : ExtendedTileable, ITurnbound
     {
         base.OnDestroy();
         
-        Match.Remove(this);
+        //Match.Remove(this);
         foreach (var link in links) link.Owner = null;
         links.Clear();
         

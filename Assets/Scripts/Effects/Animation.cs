@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Flux;
 using UnityEngine;
 
+
 [Serializable, Path("Animations")] // Specifies the creation path like a MenuItem once in the SequenceEditor
 public class Animation : Flux.Feedbacks.Effect
 {

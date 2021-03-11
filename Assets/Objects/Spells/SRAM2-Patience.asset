@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: Enracinement
+  m_Name: SRAM2-Patience
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
@@ -29,16 +29,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
-    - Name: allowBoost
-      Entry: 5
-      Data: true
-    - Name: includeSource
-      Entry: 5
-      Data: false
-    - Name: radius
-      Entry: 3
-      Data: 2
+      Data: 1|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -56,7 +47,7 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 3|MovementBoost, Assembly-CSharp
+      Data: 3|SpellBoost, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -77,7 +68,7 @@ MonoBehaviour:
       Data: 
     - Name: value
       Entry: 3
-      Data: -2
+      Data: 1
     - Name: temporary
       Entry: 5
       Data: true
@@ -93,10 +84,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  category: 1
+  category: 2
   id:
-    value: SLW
-  tier: 1
-  title: Enracinement
-  description: Some description.
-  thumbnail: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}
+    value: SPL
+  tier: 2
+  title: Patience
+  description: Some decription.
+  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}

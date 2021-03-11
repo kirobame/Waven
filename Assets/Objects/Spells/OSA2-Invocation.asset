@@ -10,13 +10,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: Bomb
+  m_Name: OSA2-Invocation
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
     ReferencedUnityObjects:
-    - {fileID: 2158062817916909005, guid: 815a876f750b84a4e916a31e1dba1e10, type: 3}
+    - {fileID: 6566219122458013161, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -39,7 +39,7 @@ MonoBehaviour:
       Data: false
     - Name: radius
       Entry: 3
-      Data: 1
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -54,7 +54,7 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 3
     - Name: 
       Entry: 7
       Data: 3|Spawn, Assembly-CSharp
@@ -81,10 +81,91 @@ MonoBehaviour:
       Data: 0
     - Name: ownership
       Entry: 5
-      Data: false
+      Data: true
     - Name: link
       Entry: 5
-      Data: false
+      Data: true
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|MovementBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 7|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: value
+      Entry: 3
+      Data: 1
+    - Name: temporary
+      Entry: 5
+      Data: true
+    - Name: duration
+      Entry: 3
+      Data: 0
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|SimpleBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 10|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 11|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: boost
+      Entry: 7
+      Data: 12|TemporaryIntCastArgs, Assembly-CSharp
+    - Name: id
+      Entry: 7
+      Data: Flux.Id, Flux
+    - Name: value
+      Entry: 1
+      Data: DMG
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: duration
+      Entry: 3
+      Data: 1
+    - Name: value
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -96,9 +177,8 @@ MonoBehaviour:
       Data: 
   category: 3
   id:
-    value: BMB
-  tier: 1
-  title: Bomb
-  description: Some decription.
-  thumbnail: {fileID: 21300000, guid: c28502dbad2c2c14b9907f6f7ead1525, type: 3}
-  glow: {fileID: 21300000, guid: 7774c11f8f3640b4eb5ac91ed44c373f, type: 3}
+    value: RCK
+  tier: 2
+  title: Invocation
+  description: Can be transformed to a golem
+  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}

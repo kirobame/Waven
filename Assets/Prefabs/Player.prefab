@@ -50,10 +50,13 @@ MonoBehaviour:
       y: 100
       width: 73
       height: 71
-    linkIndices: 00000000
+    linkIndices: 0000000002000000
   effects:
   - id: 0
   - id: 1
+  - id: 2
+  - id: 3
+  - id: 4
   references:
     version: 1
     00000000:
@@ -79,6 +82,42 @@ MonoBehaviour:
           width: 102
           height: 71
         linkIndices: 
+    00000002:
+      type: {class: Wait, ns: Flux.Feedbacks, asm: Flux.Feedbacks}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 247
+          y: -15
+          width: 156
+          height: 99
+        linkIndices: 03000000
+        time: 0.075
+    00000003:
+      type: {class: SpriteSorting, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 473
+          y: -65
+          width: 278
+          height: 140
+        linkIndices: 04000000
+        renderer: {fileID: 4097353869787670436}
+        layer: Empty
+        order: 0
+    00000004:
+      type: {class: Activate, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 828
+          y: -37
+          width: 263
+          height: 117
+        linkIndices: 
+        component: {fileID: 8225046367189312999}
+        value: 0
 --- !u!1 &3992107179094362228
 GameObject:
   m_ObjectHideFlags: 0
@@ -360,7 +399,7 @@ MonoBehaviour:
   hitSequencer: {fileID: 6422497535397277062}
   deathSequencer: {fileID: 376772125762524341}
   fallSequencer: {fileID: 8193113928748318709}
-  player: {fileID: 4097353869914120680}
+  tileable: {fileID: 4097353869914120680}
 --- !u!114 &4097353869914120680
 MonoBehaviour:
   m_ObjectHideFlags: 0

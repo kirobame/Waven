@@ -10,13 +10,12 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6cc5af6f869bb90449283f79793d8fb4, type: 3}
-  m_Name: ActiveGolem
+  m_Name: IOP1-Dash
   m_EditorClassIdentifier: 
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 6569037010772259353, guid: f0006cc88608e8d4092a592eaf05061b, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -30,16 +29,31 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
+      Data: 1|Cross, Assembly-CSharp
     - Name: allowBoost
       Entry: 5
       Data: true
     - Name: includeSource
       Entry: 5
       Data: false
-    - Name: radius
+    - Name: directions
+      Entry: 7
+      Data: Vector4Int, Assembly-CSharp
+    - Name: left
       Entry: 3
-      Data: 2
+      Data: 3
+    - Name: right
+      Entry: 3
+      Data: 3
+    - Name: up
+      Entry: 3
+      Data: 3
+    - Name: down
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 
@@ -54,10 +68,10 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 3
+      Data: 2
     - Name: 
       Entry: 7
-      Data: 3|Spawn, Assembly-CSharp
+      Data: 3|Dash, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -76,21 +90,18 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: prefab
-      Entry: 10
-      Data: 0
-    - Name: ownership
-      Entry: 5
-      Data: true
-    - Name: link
-      Entry: 5
-      Data: true
+    - Name: range
+      Entry: 3
+      Data: 2
+    - Name: speed
+      Entry: 4
+      Data: 0.125
     - Name: 
       Entry: 8
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|MovementBoost, Assembly-CSharp
+      Data: 6|SelfAnim, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 7|Pattern[], Assembly-CSharp
@@ -109,60 +120,15 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: value
-      Entry: 3
-      Data: 1
-    - Name: temporary
-      Entry: 5
-      Data: false
-    - Name: duration
-      Entry: 3
-      Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|SimpleBoost, Assembly-CSharp
-    - Name: patterns
-      Entry: 7
-      Data: 10|Pattern[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 11|Point, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: boost
-      Entry: 7
-      Data: 12|IntCastArgs, Assembly-CSharp
     - Name: id
       Entry: 7
       Data: Flux.Id, Flux
     - Name: value
       Entry: 1
-      Data: DMG
+      Data: DSH
     - Name: 
       Entry: 8
       Data: 
-    - Name: value
-      Entry: 3
-      Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: type
-      Entry: 3
-      Data: 1
     - Name: 
       Entry: 8
       Data: 
@@ -172,10 +138,10 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-  category: 3
+  category: 1
   id:
-    value: RCK
+    value: DSH
   tier: 1
-  title: Rock
-  description: Can be transformed to a golem
+  title: Dash
+  description: Some decription.
   thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}

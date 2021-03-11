@@ -8,7 +8,11 @@ namespace Flux.Feedbacks
     {
         protected override void OnUpdate(EventArgs args)
         {
-            if (args is ISendback sendback) sendback.End(EventArgs.Empty);
+            if (args is ISendback sendback)
+            {
+                Debug.Log($"END !!!");
+                sendback.End(EventArgs.Empty);
+            }
             IsDone = true;
         }
     }

@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections;
 using System.Collections.Generic;
+using Flux;
 using Flux.Event;
 using UnityEngine;
 
@@ -39,6 +40,12 @@ public class Golem : ExtendedTileable, ILink
 
     private bool hasOwner;
 
+    protected override void Awake()
+    {
+        base.Awake();
+        hasOwner = true;
+    }
+    
     protected override void OnDestroy()
     {
         base.OnDestroy();
@@ -56,6 +63,9 @@ public class Golem : ExtendedTileable, ILink
             this.player.RemoveDependency(gameObject);
             Team = TeamTag.Neutral;
         }
+        else Animator.SetBool("isAwoken", true);
+        
+        Debug.Log($"Setting owner !");
         
         hasOwner = true;
         player.AddDependency(gameObject);
@@ -67,11 +77,17 @@ public class Golem : ExtendedTileable, ILink
         activation--;
         if (activation <= 0)
         {
+            Debug.Log($"Trying to deactivate !");
+            
             activation = 0;
             if (hasOwner)
             {
-                player.RemoveDependency(gameObject);
+                Debug.Log($"Deactivating !");
+                
+                Animator.SetBool("isAwoken", false);
                 Team = TeamTag.Neutral;
+
+                Routines.Start(Routines.DoAfter(() => player.RemoveDependency(gameObject), new YieldFrame()));
                 
                 hasOwner = false;
             }

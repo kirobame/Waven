@@ -24,12 +24,11 @@ public class Spells : ScriptableObject, IBootable
     {
         all = new Dictionary<SpellKey, List<SpellBase>>();
         foreach (var spell in rest) Register(spell);
+        foreach (var spell in source) Register(spell);
         
         registry = new Dictionary<Id, SpellBase>();
         foreach (var spell in source.Concat(mustHave))
         {
-            Register(spell);
-            
             if (registry.ContainsKey(spell.Id)) continue;
             registry.Add(spell.Id, spell);
         }

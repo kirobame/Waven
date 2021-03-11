@@ -95,6 +95,8 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     void OnDestroy()
     {
         Deactivate();
+
+        if (current != null) current.onCastDone -= OnCastDone;
         onDestroyed?.Invoke(this);
     }
 

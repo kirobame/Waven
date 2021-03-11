@@ -15,8 +15,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 6569037010772259353, guid: f0006cc88608e8d4092a592eaf05061b, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -77,8 +76,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: prefab
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: ownership
       Entry: 5
       Data: true
@@ -178,4 +177,4 @@ MonoBehaviour:
   tier: 3
   title: InvocationUltime
   description: Can be transformed to a golem
-  thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
+  thumbnail: {fileID: 21300000, guid: 2cc9b5948d96c934b8fdeb8c6ea3ec02, type: 3}

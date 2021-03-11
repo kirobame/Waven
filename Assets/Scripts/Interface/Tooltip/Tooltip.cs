@@ -19,15 +19,16 @@ public class Tooltip : MonoBehaviour
     {
         Events.Open(InterfaceEvent.OnTooltipUsed);
         
-        Events.Register(InterfaceEvent.OnTooltipUsed, OnUsed);
+        Events.RelayByValue<string, RectTransform, int>(InterfaceEvent.OnTooltipUsed, OnUsed);
         Events.RelayByVoid(GameEvent.OnTurnStart, HideTooltip);
-        
-        ShowTooltip("Random Tooltip");
+
+        var tr = new RectTransform();
+        ShowTooltip("Random Tooltip", tr, 0);
     }
 
     void OnDestroy()
     {
-        Events.Unregister(InterfaceEvent.OnTooltipUsed, OnUsed);
+        Events.BreakValueRelay<string, RectTransform, int>(InterfaceEvent.OnTooltipUsed, OnUsed);
         Events.BreakVoidRelay(GameEvent.OnTurnStart, HideTooltip);
     }
     
@@ -57,9 +58,28 @@ public class Tooltip : MonoBehaviour
         RectTransform.position = position;
     }
 
-    public void ShowTooltip(string tooltipString)
+    public void ShowTooltip(string tooltipString, RectTransform transform, int index)
     {
         gameObject.SetActive(true);
+
+        switch (index)
+        {
+            case 1:
+                RectTransform.anchorMin = new Vector2(0.5f, 1);
+                RectTransform.anchorMax = new Vector2(0.5f, 1);
+                RectTransform.pivot = new Vector2(0.5f, 1);
+
+                RectTransform.position = transform.position;
+                break;
+
+            case 2:
+                RectTransform.anchorMin = new Vector2(0.5f, 0);
+                RectTransform.anchorMax = new Vector2(0.5f, 0);
+                RectTransform.pivot = new Vector2(0.5f, 0);
+
+                RectTransform.position = transform.position;
+                break;
+        }
         
         tooltip.text = tooltipString;
         var bgSize = new Vector2(300, tooltip.preferredHeight + 20);
@@ -74,9 +94,10 @@ public class Tooltip : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    void OnUsed(EventArgs args)
+    void OnUsed(string text, RectTransform transform, int index)
     {
-        if (args is WrapperArgs<string> stringArgs) ShowTooltip(stringArgs.ArgOne);
-        else HideTooltip();
+        if (text == null) HideTooltip();
+
+        ShowTooltip(text, transform, index);
     }
 }

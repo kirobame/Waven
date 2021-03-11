@@ -29,7 +29,16 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Point, Assembly-CSharp
+      Data: 1|Circle, Assembly-CSharp
+    - Name: allowBoost
+      Entry: 5
+      Data: true
+    - Name: includeSource
+      Entry: 5
+      Data: false
+    - Name: radius
+      Entry: 3
+      Data: 2
     - Name: 
       Entry: 8
       Data: 
@@ -44,7 +53,7 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 1
+      Data: 4
     - Name: 
       Entry: 7
       Data: 3|SimpleBoost, Assembly-CSharp
@@ -66,6 +75,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0
     - Name: boost
       Entry: 7
       Data: 6|TemporaryIntCastArgs, Assembly-CSharp
@@ -90,6 +102,123 @@ MonoBehaviour:
     - Name: type
       Entry: 3
       Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 7|Animate, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 8|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 9|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ownership
+      Entry: 5
+      Data: true
+    - Name: activation
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|SimpleBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 11|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 12|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0.3
+    - Name: boost
+      Entry: 7
+      Data: 13|TemporaryIntCastArgs, Assembly-CSharp
+    - Name: id
+      Entry: 7
+      Data: Flux.Id, Flux
+    - Name: value
+      Entry: 1
+      Data: DMG
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: duration
+      Entry: 3
+      Data: 1
+    - Name: value
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
+      Entry: 3
+      Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 14|MovementBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 15|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 16|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0.6
+    - Name: value
+      Entry: 3
+      Data: 1
+    - Name: temporary
+      Entry: 5
+      Data: true
+    - Name: duration
+      Entry: 3
+      Data: 1
     - Name: 
       Entry: 8
       Data: 

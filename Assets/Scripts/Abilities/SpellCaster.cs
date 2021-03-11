@@ -45,7 +45,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         totalUse = 0;
         if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) totalUse +=  bonus;
         RemainingUse = totalUse;
-        
+
         Events.RelayByValue<SpellBase, bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
 

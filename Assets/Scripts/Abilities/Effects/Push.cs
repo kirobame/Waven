@@ -12,13 +12,14 @@ public class Push : Effect
     [SerializeField] int force;
     [SerializeField] private int direction;
     [SerializeField] private float speed;
+    [SerializeField] private bool allowBoost;
 
     private int business;
 
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
         var force = this.force;
-        if (args.TryAggregate(new Id('P', 'S', 'H'), out var output)) force += output;
+        if (allowBoost && args.TryAggregate(new Id('P', 'S', 'H'), out var output)) force += output;
         force *= direction;
 
         if (force == 0)

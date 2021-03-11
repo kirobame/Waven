@@ -6,8 +6,8 @@ public class BarrierChallenge : ToggleChallenge
 {
     public override string GetDescription()
     {
-        if (execute) return "Détruire au moins une barrière.";
-        else return "Ne détruire aucune barrière.";
+        if (execute) return "Endommager au moins une barrière.";
+        else return "N'endommager aucune barrière.";
     }
 
     protected override void OnTurnedOn()

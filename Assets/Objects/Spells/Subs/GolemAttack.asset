@@ -165,6 +165,9 @@ MonoBehaviour:
     - Name: speed
       Entry: 4
       Data: 0.125
+    - Name: allowBoost
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 

@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9910edb938a544528fb9a38a29419542, type: 3}
   m_Name: DamageChallenge
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: edf94046bfdf13f46bb1779e9cb58348, type: 3}
+  icon: {fileID: 21300000, guid: 134c15572f6d55243ae77a1f829df8ea, type: 3}
   title: Pacifiste
   execute: 0

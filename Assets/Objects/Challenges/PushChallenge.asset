@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a94fc09d6dd24fafab63c3f5e252fd20, type: 3}
   m_Name: PushChallenge
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: edf94046bfdf13f46bb1779e9cb58348, type: 3}
+  icon: {fileID: 21300000, guid: ae76d441744c4e64380dde20e2031d5a, type: 3}
   title: O.C.D
   execute: 0

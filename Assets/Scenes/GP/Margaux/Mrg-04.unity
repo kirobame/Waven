@@ -2587,6 +2587,17 @@ MonoBehaviour:
     type: References, Assembly-CSharp, Version=0.0.0.0, Culture=neutral, PublicKeyToken=null
     value: 1
   value: {fileID: 1562323001}
+--- !u!114 &1586704589 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8427774059630969434, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
+  m_PrefabInstance: {fileID: 3932300586603547721}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8222073adb07b4c9e770fb57695fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1606044107
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -4203,6 +4214,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1734895684}
     m_Modifications:
+    - target: {fileID: 3932300587827579701, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3932300587951442736, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -4290,6 +4305,14 @@ PrefabInstance:
     - target: {fileID: 3932300587951442737, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
       propertyPath: m_Name
       value: Challenge
+      objectReference: {fileID: 0}
+    - target: {fileID: 3932300587951442741, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
+      propertyPath: challengeSeq
+      value: 
+      objectReference: {fileID: 1586704589}
+    - target: {fileID: 3932300588124736995, guid: ec1f32c14831acd4489ca39665672c10, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ec1f32c14831acd4489ca39665672c10, type: 3}

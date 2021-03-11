@@ -33,7 +33,7 @@ public class TurnIndicator : MonoBehaviour
 
     void OnTurnStart(Turn turn)
     {
-        timerValue.color = new Color32(77, 77, 77, 255);
+        timerValue.color = new Color32(255, 255, 255, 255);
     }
     void OnTurnTimer(EventArgs args)
     {

@@ -1123,13 +1123,13 @@ MonoBehaviour:
     color: {r: 0.7019608, g: 0.37254903, b: 0.4784314, a: 1}
   - type: 1
     icon: {fileID: 21300000, guid: 9023ba7af7e96844088d1657e629abeb, type: 3}
-    color: {r: 0.8078432, g: 0.40000004, b: 0.2627451, a: 1}
+    color: {r: 0.80784315, g: 0.31015062, b: 0.26274508, a: 1}
   - type: 2
     icon: {fileID: 21300000, guid: d4a1b379e00898745bc9f5cf611e38f7, type: 3}
-    color: {r: 0.58431375, g: 0.627451, b: 0.22352943, a: 1}
+    color: {r: 0.627451, g: 0.4270795, b: 0.22352941, a: 1}
   - type: 3
     icon: {fileID: 21300000, guid: a32890bb94119ca488e4cf0806ea4278, type: 3}
-    color: {r: 0.43921572, g: 0.3254902, b: 0.5764706, a: 1}
+    color: {r: 0.5814458, g: 0.43787825, b: 0.754717, a: 1}
   - type: 4
     icon: {fileID: 10913, guid: 0000000000000000f000000000000000, type: 0}
     color: {r: 0.8396226, g: 0.40792987, b: 0.819872, a: 1}
@@ -1316,11 +1316,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6602528446932361892, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_SizeDelta.x
-      value: 500
+      value: 900
       objectReference: {fileID: 0}
     - target: {fileID: 6602528446932361892, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 100
+      value: 160
       objectReference: {fileID: 0}
     - target: {fileID: 6602528446932361892, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_LocalPosition.x

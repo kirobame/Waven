@@ -1,0 +1,610 @@
+fileFormatVersion: 2
+guid: 6bf46ed942288de4094cd699ec52a9ec
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -6934196023094247063
+    second: golem_summon_FL_01_0
+  - first:
+      213: -4551453569408106142
+    second: golem_summon_FL_01_1
+  - first:
+      213: 3174000132156085458
+    second: golem_summon_FL_01_2
+  - first:
+      213: 2340526715115747667
+    second: golem_summon_FL_01_3
+  - first:
+      213: 904463555745746663
+    second: golem_summon_FL_01_4
+  - first:
+      213: 231477123601717495
+    second: golem_summon_FL_01_5
+  - first:
+      213: 791852723158237492
+    second: golem_summon_FL_01_6
+  - first:
+      213: -6078810965047968270
+    second: golem_summon_FL_01_7
+  - first:
+      213: -8922779442449898528
+    second: golem_summon_FL_01_8
+  - first:
+      213: -5653960231673567502
+    second: golem_summon_FL_01_9
+  - first:
+      213: 2985158379639973086
+    second: golem_summon_FL_01_10
+  - first:
+      213: 9120060031575722366
+    second: golem_summon_FL_01_11
+  - first:
+      213: 4006539824020324994
+    second: golem_summon_FL_01_12
+  - first:
+      213: -2597258839309031835
+    second: golem_summon_FL_01_13
+  - first:
+      213: 5633452028700734519
+    second: golem_summon_FL_01_14
+  - first:
+      213: 4737925610639385301
+    second: golem_summon_FL_01_15
+  - first:
+      213: 5880398910105110154
+    second: golem_summon_FL_01_16
+  - first:
+      213: 5350853779679015346
+    second: golem_summon_FL_01_17
+  - first:
+      213: -7981408977580845705
+    second: golem_summon_FL_01_18
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: 2
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: golem_summon_FL_01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9618a88b479c4cf90800000000000000
+      internalID: -6934196023094247063
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_1
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2610fbfd71df5d0c0800000000000000
+      internalID: -4551453569408106142
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_2
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2d4d43abd405c0c20800000000000000
+      internalID: 3174000132156085458
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_3
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 35939c195a83b7020800000000000000
+      internalID: 2340526715115747667
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_4
+      rect:
+        serializedVersion: 2
+        x: 2232
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7ee0388dfcc4d8c00800000000000000
+      internalID: 904463555745746663
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_5
+      rect:
+        serializedVersion: 2
+        x: 2790
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7f8d8eda73f563300800000000000000
+      internalID: 231477123601717495
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_6
+      rect:
+        serializedVersion: 2
+        x: 3348
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 431c5463bd93dfa00800000000000000
+      internalID: 791852723158237492
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_7
+      rect:
+        serializedVersion: 2
+        x: 3906
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2fdf09b52a9b3aba0800000000000000
+      internalID: -6078810965047968270
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_8
+      rect:
+        serializedVersion: 2
+        x: 4464
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e3ad9b3f5beb2480800000000000000
+      internalID: -8922779442449898528
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_9
+      rect:
+        serializedVersion: 2
+        x: 5022
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2f669e010291981b0800000000000000
+      internalID: -5653960231673567502
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_10
+      rect:
+        serializedVersion: 2
+        x: 5580
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ed4a8b0fab96d6920800000000000000
+      internalID: 2985158379639973086
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_11
+      rect:
+        serializedVersion: 2
+        x: 6138
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e790f405746f09e70800000000000000
+      internalID: 9120060031575722366
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_12
+      rect:
+        serializedVersion: 2
+        x: 6696
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 282003d0eb61a9730800000000000000
+      internalID: 4006539824020324994
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_13
+      rect:
+        serializedVersion: 2
+        x: 7254
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 566ed35b8dea4fbd0800000000000000
+      internalID: -2597258839309031835
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_14
+      rect:
+        serializedVersion: 2
+        x: 7812
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 73439e5d5ca0e2e40800000000000000
+      internalID: 5633452028700734519
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_15
+      rect:
+        serializedVersion: 2
+        x: 8370
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5d2e2628d3e70c140800000000000000
+      internalID: 4737925610639385301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_16
+      rect:
+        serializedVersion: 2
+        x: 8928
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a86c86e27af5b9150800000000000000
+      internalID: 5880398910105110154
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_17
+      rect:
+        serializedVersion: 2
+        x: 9486
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2b1f2de992d024a40800000000000000
+      internalID: 5350853779679015346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golem_summon_FL_01_18
+      rect:
+        serializedVersion: 2
+        x: 10044
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7751e2c72d65c3190800000000000000
+      internalID: -7981408977580845705
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

@@ -1,0 +1,559 @@
+fileFormatVersion: 2
+guid: 91b9e2ae9657f0441b47004c0d19f3d3
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: 6854823374329000208
+    second: golemRed_summon_FL_01_0
+  - first:
+      213: -822849703277435242
+    second: golemRed_summon_FL_01_1
+  - first:
+      213: 7824288224520956889
+    second: golemRed_summon_FL_01_2
+  - first:
+      213: -2749373400918329828
+    second: golemRed_summon_FL_01_3
+  - first:
+      213: -8597290919647057538
+    second: golemRed_summon_FL_01_4
+  - first:
+      213: 1399761211458606514
+    second: golemRed_summon_FL_01_5
+  - first:
+      213: 6186459481406633836
+    second: golemRed_summon_FL_01_6
+  - first:
+      213: 5832147841655665203
+    second: golemRed_summon_FL_01_7
+  - first:
+      213: 580433742105879176
+    second: golemRed_summon_FL_01_8
+  - first:
+      213: 3280761590669226673
+    second: golemRed_summon_FL_01_9
+  - first:
+      213: -7951668497850830744
+    second: golemRed_summon_FL_01_10
+  - first:
+      213: 2345268216745375583
+    second: golemRed_summon_FL_01_11
+  - first:
+      213: 3642689134404843133
+    second: golemRed_summon_FL_01_12
+  - first:
+      213: 7853393117177439885
+    second: golemRed_summon_FL_01_13
+  - first:
+      213: -795685308300794905
+    second: golemRed_summon_FL_01_14
+  - first:
+      213: -307833927159964236
+    second: golemRed_summon_FL_01_0
+  - first:
+      213: -4702280974071967501
+    second: golemRed_summon_FL_01_1
+  - first:
+      213: -7483579309730590534
+    second: golemRed_summon_FL_01_2
+  - first:
+      213: -2342079043314378305
+    second: golemRed_summon_FL_01_3
+  - first:
+      213: -1493152108813627963
+    second: golemRed_summon_FL_01_4
+  - first:
+      213: -4233064916483603590
+    second: golemRed_summon_FL_01_5
+  - first:
+      213: -3352705531949632922
+    second: golemRed_summon_FL_01_6
+  - first:
+      213: -6022402182261810314
+    second: golemRed_summon_FL_01_7
+  - first:
+      213: 8362452783340005888
+    second: golemRed_summon_FL_01_8
+  - first:
+      213: 690682067535755205
+    second: golemRed_summon_FL_01_9
+  - first:
+      213: 313757450747992045
+    second: golemRed_summon_FL_01_10
+  - first:
+      213: 3778702168847569783
+    second: golemRed_summon_FL_01_11
+  - first:
+      213: -3824060517680383632
+    second: golemRed_summon_FL_01_12
+  - first:
+      213: 7992232435352438606
+    second: golemRed_summon_FL_01_13
+  - first:
+      213: -5946754762064523301
+    second: golemRed_summon_FL_01_14
+  externalObjects: {}
+  serializedVersion: 11
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: -1
+    aniso: 2
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Windows Store Apps
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: WebGL
+    maxTextureSize: 8192
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4bd11d99caa5abbf0800000000000000
+      internalID: -307833927159964236
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_1
+      rect:
+        serializedVersion: 2
+        x: 558
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f0dc5a2e542ebeb0800000000000000
+      internalID: -4702280974071967501
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_2
+      rect:
+        serializedVersion: 2
+        x: 1116
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ab09b0b744cf42890800000000000000
+      internalID: -7483579309730590534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_3
+      rect:
+        serializedVersion: 2
+        x: 1674
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: fb91c5bd4834f7fd0800000000000000
+      internalID: -2342079043314378305
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_4
+      rect:
+        serializedVersion: 2
+        x: 2232
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5cdc98e6112474be0800000000000000
+      internalID: -1493152108813627963
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_5
+      rect:
+        serializedVersion: 2
+        x: 2790
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a7383ddd2e12145c0800000000000000
+      internalID: -4233064916483603590
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_6
+      rect:
+        serializedVersion: 2
+        x: 3348
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 662b7a3051cc871d0800000000000000
+      internalID: -3352705531949632922
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_7
+      rect:
+        serializedVersion: 2
+        x: 3906
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67b5fbf8f112c6ca0800000000000000
+      internalID: -6022402182261810314
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_8
+      rect:
+        serializedVersion: 2
+        x: 4464
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00a25f110866d0470800000000000000
+      internalID: 8362452783340005888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_9
+      rect:
+        serializedVersion: 2
+        x: 5022
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5c773385eabc59900800000000000000
+      internalID: 690682067535755205
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_10
+      rect:
+        serializedVersion: 2
+        x: 5580
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de757753db0ba5400800000000000000
+      internalID: 313757450747992045
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_11
+      rect:
+        serializedVersion: 2
+        x: 6138
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 77358262a95a07430800000000000000
+      internalID: 3778702168847569783
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_12
+      rect:
+        serializedVersion: 2
+        x: 6696
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 079701c48353eeac0800000000000000
+      internalID: -3824060517680383632
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_13
+      rect:
+        serializedVersion: 2
+        x: 7254
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e4789872e0d1aee60800000000000000
+      internalID: 7992232435352438606
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: golemRed_summon_FL_01_14
+      rect:
+        serializedVersion: 2
+        x: 7812
+        y: 0
+        width: 558
+        height: 1024
+      alignment: 9
+      pivot: {x: 0.5, y: 0.16}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bdf08c81d02e87da0800000000000000
+      internalID: -5946754762064523301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

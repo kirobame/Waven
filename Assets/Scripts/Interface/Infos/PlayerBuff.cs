@@ -31,6 +31,8 @@ public class PlayerBuff : MonoBehaviour
         image.color = info.Color;
         icon.sprite = info.Icon;
     }
+
+    public void Refresh(int value) => textMesh.text = value.ToString();
     
     public void Show(int value)
     {
@@ -41,6 +43,8 @@ public class PlayerBuff : MonoBehaviour
     }
     public void Hide()
     {
+        textMesh.text = "0";
+        
         hide.Play(new WrapperArgs<string>($"Hide{suffix}"), show);
         IsActive = false;
     }

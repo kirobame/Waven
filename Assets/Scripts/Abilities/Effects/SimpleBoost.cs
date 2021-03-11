@@ -9,5 +9,5 @@ public class SimpleBoost : Boost
     [SerializeField] private CastArgs boost;
     [SerializeField] private StatType type;
 
-    public override CastArgs GetBoost() => boost;
+    public override CastArgs GetBoost() => boost.Copy();
 }

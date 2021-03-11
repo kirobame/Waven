@@ -33,8 +33,12 @@ public class Trap : TileableBase
         var tile = map.Tilemap.WorldToCell(transform.position).ToTile();
         
         if (tile.Entities.Any(tileable => tileable is Tileable)) animator.SetTrigger("Explode");
-        
-        spell.Prepare();
-        spell.CastFrom(tile, Spellcaster.EmptyArgs);
+
+        Routines.Start(Routines.DoAfter(() =>
+        {
+            spell.Prepare();
+            spell.CastFrom(tile, Spellcaster.EmptyArgs);
+
+        }, new YieldTime()));
     }
 }

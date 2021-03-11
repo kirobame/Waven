@@ -25,7 +25,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 396236155}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.594, z: 0}
+  m_LocalPosition: {x: 0, y: 0.565, z: 0}
   m_LocalScale: {x: 0.08943211, y: 0.08943211, z: 0.08943211}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
@@ -107,7 +107,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1607029856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.625, z: 0}
+  m_LocalPosition: {x: 0, y: 0.596, z: 0}
   m_LocalScale: {x: 0.084847435, y: 0.084847435, z: 0.084847435}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
@@ -269,7 +269,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 539701715576653239}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.875, z: 0}
+  m_LocalPosition: {x: 0, y: 0.81200004, z: 0}
   m_LocalScale: {x: 0.165, y: 0.165, z: 0.165}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
@@ -447,7 +447,10 @@ MonoBehaviour:
   animator: {fileID: 824015133}
   orientation: {x: 1, y: 0}
   speed: 0.3
-  activation: 1
+  tempOwnership:
+    state: 1
+  definitiveOwnership:
+    state: 0
   aura: {fileID: 11400000, guid: 4512cb4886247c7468bcf08c14400712, type: 2}
 --- !u!114 &9207921047016419262
 MonoBehaviour:
@@ -756,7 +759,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5871852456705160652}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 1.375, z: 0}
+  m_LocalPosition: {x: 0, y: 2.038, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 539701715701859326}
@@ -814,7 +817,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7605526225981094457}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.8175, z: 0}
+  m_LocalPosition: {x: 0, y: 1.439, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 539701715701859326}

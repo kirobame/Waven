@@ -22,13 +22,21 @@ public class DelayedIntCastArgs : CastArgs, IWrapper<int>
     private bool state;
     private int value;
     
-    public override CastArgs Copy() => new DelayedIntCastArgs(value, target);
-    
-    public override void Initialize(IAttributeHolder owner)
+    public override CastArgs Copy()
     {
-        base.Initialize(owner);
+        var args = new DelayedIntCastArgs(value, target);
+        args.SetId(id);
+
+        return args;
+    }
+
+    public override void Initialize(float time, IAttributeHolder owner)
+    {
+        base.Initialize(time, owner);
+
+        isBounded = true;
+        turnbound = Player.Active;
         
-        isBounded = ((Component)owner).TryGetComponent<ITurnbound>(out turnbound);
         Events.RelayByValue<Turn>(GameEvent.OnTurnStart, OnTurnStart);
         Events.RelayByValue<Turn>(GameEvent.OnTurnEnd, OnTurnEnd);
         

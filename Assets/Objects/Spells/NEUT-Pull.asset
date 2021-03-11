@@ -41,16 +41,16 @@ MonoBehaviour:
       Data: Vector4Int, Assembly-CSharp
     - Name: left
       Entry: 3
-      Data: 3
+      Data: 4
     - Name: right
       Entry: 3
-      Data: 3
+      Data: 4
     - Name: up
       Entry: 3
-      Data: 3
+      Data: 4
     - Name: down
       Entry: 3
-      Data: 3
+      Data: 4
     - Name: 
       Entry: 8
       Data: 

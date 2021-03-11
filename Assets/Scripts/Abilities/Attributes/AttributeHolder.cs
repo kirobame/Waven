@@ -23,8 +23,9 @@ public class AttributeHolder : MonoBehaviour, IAttributeHolder
     }
     private void AddToRegistry(CastArgs arg)
     {
-        arg.Initialize(this);
-            
+        var copy = Time.time;
+        arg.Initialize(copy, this);
+
         if (registry.ContainsKey(arg.Id)) registry[arg.Id].Add(arg);
         else registry.Add(arg.Id, new List<CastArgs>() { arg });
     }
@@ -33,7 +34,10 @@ public class AttributeHolder : MonoBehaviour, IAttributeHolder
     {
         if (!registry.ContainsKey(args.Id)) return false;
         
-        registry[args.Id].Remove(args);
+        var hashCode = args.GetHashCode();
+        var index = registry[args.Id].FindIndex(item => hashCode == item.GetHashCode());
+        registry[args.Id].RemoveAt(index);
+        
         if (!registry[args.Id].Any()) registry.Remove(args.Id);
         
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);

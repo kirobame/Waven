@@ -56,7 +56,7 @@ MonoBehaviour:
       Data: 2
     - Name: 
       Entry: 7
-      Data: 3|MovementBoost, Assembly-CSharp
+      Data: 3|VfxEffect, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 4|Pattern[], Assembly-CSharp
@@ -66,6 +66,33 @@ MonoBehaviour:
     - Name: 
       Entry: 7
       Data: 5|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: key
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 6|MovementBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 7|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 8|Point, Assembly-CSharp
     - Name: 
       Entry: 8
       Data: 
@@ -90,33 +117,9 @@ MonoBehaviour:
     - Name: duration
       Entry: 3
       Data: 1
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 6|VfxEffect, Assembly-CSharp
-    - Name: patterns
-      Entry: 7
-      Data: 7|Pattern[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 8|Point, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: key
-      Entry: 3
-      Data: 3
+    - Name: self
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 

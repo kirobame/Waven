@@ -20,8 +20,8 @@ public class RewardHandler : MonoBehaviour
         get
         {
             var tier = 1;
-            if (start > limits.x) tier++;
-            if (start > limits.y) tier++;
+            if (start >= limits.x) tier++;
+            if (start >= limits.y) tier++;
 
             return tier;
         }

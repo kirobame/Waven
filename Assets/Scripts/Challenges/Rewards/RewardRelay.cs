@@ -2,6 +2,7 @@
 using Flux;
 using Flux.Data;
 using UnityEngine;
+using System.Linq;
 
 public class RewardRelay : ITurnbound
 {
@@ -29,7 +30,7 @@ public class RewardRelay : ITurnbound
 
     public void Activate()
     {
-        if (!target.WasSuccessful)
+        if (!target.WasSuccessful || target.GetComponent<SpellDeck>().Spells.ToArray().Length >= 9)
         {
             Routines.Start(Routines.DoAfter(() => onIntendedTurnStop?.Invoke(new IntendedStopMotive()), 0.6f));
             return;

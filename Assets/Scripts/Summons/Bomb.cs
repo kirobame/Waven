@@ -34,7 +34,7 @@ public class Bomb : EntityDamageable
     
     private IEnumerator WaitRoutine()
     {
-        for (var i = 0; i < 2; i++) yield return new WaitForEndOfFrame();
+        for (var i = 0; i < 2; i++) yield return new WaitForSeconds(0.5f);
         
         spell.Prepare();
         spell.CastFrom(tileable.Navigator.Current, Spellcaster.EmptyArgs);

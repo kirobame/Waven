@@ -21,6 +21,8 @@ namespace Flux.Feedbacks
         
         void Awake()
         {
+            isPlaying = false;
+            
             Initialize(root);
             foreach (var effect in effects) Initialize(effect);
         }

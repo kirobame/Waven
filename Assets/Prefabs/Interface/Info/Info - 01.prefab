@@ -275,6 +275,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   background: {fileID: 0}
-  spacing: 4.5
+  spacing: 20
   image: {fileID: 3224969038763411444}
   textMesh: {fileID: 3224969040050741453}

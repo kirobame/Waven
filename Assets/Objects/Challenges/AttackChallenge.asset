@@ -12,6 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f7eb77297e07430db0d427556145664d, type: 3}
   m_Name: AttackChallenge
   m_EditorClassIdentifier: 
-  icon: {fileID: 21300000, guid: edf94046bfdf13f46bb1779e9cb58348, type: 3}
+  icon: {fileID: 21300000, guid: 011051e5ec83fb74bbb72b40164ed30b, type: 3}
   title: Poing faible
   execute: 0

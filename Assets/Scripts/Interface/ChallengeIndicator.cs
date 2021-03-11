@@ -1,4 +1,6 @@
 ﻿using Flux.Event;
+using Flux.Feedbacks;
+using System;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -9,6 +11,8 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
     [SerializeField] private Image icon;
     [SerializeField] private GameObject complete;
     [SerializeField] private GameObject fail;
+
+    [SerializeField] private Sequencer challengeSeq;
 
     private Challenge current;
     
@@ -41,6 +45,10 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
         icon.sprite = challenge.Icon;
     }
 
-    void OnCompletion() => complete.SetActive(true);
+    void OnCompletion() 
+    {
+        challengeSeq.Play(EventArgs.Empty);
+        complete.SetActive(true); 
+    }
     void OnFail() => fail.SetActive(true);
 }

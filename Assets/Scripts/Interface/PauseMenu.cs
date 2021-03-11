@@ -1,18 +1,55 @@
-﻿using System.Collections;
+﻿using Flux.Data;
+using Flux.Event;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    [SerializeField] private GameObject menu;
+    private bool isOpen = false;
+
+    private InputAction escapeAction;
+
+    private void Start()
     {
-        
+        var inputs = Repository.Get<InputActionAsset>(References.Inputs);
+        escapeAction = inputs["Core/Escape"];
+        escapeAction.performed += OnEscapePressed;
     }
 
-    // Update is called once per frame
-    void Update()
+    void OnEscapePressed(InputAction.CallbackContext context)
     {
-        
+        if (isOpen) CloseMenu();
+        else OpenMenu(); 
+    }
+
+    public void OpenMenu()
+    {
+        isOpen = true;
+        menu.SetActive(true);
+    }
+
+    public void CloseMenu()
+    {
+        isOpen = false;
+        menu.SetActive(false);
+    }
+
+    public void NewGame()
+    {
+        Events.Clear();
+        Repository.Clear();
+
+        Scene scene = SceneManager.GetActiveScene();
+        SceneManager.LoadScene(scene.name);
+    }
+
+    public void Leave()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
     }
 }

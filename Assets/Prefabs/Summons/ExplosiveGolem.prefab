@@ -91,12 +91,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 02581c04a50443eab56b03af6a947098, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  popupAnchor: {fileID: 0}
+  popupAnchor: {fileID: 691256602174041127}
   lives:
   - name: Health
     color: {r: 0.2812389, g: 0.754717, b: 0.303109, a: 1}
-    actualValue: 2
-    maxValue: 2
+    actualValue: 1
+    maxValue: 1
     priority: 0
     handledTypes: 00000000
   hitSequencer: {fileID: 955125509895866912}
@@ -112,6 +112,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 824015133, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 9100000, guid: 394844e8d8af14946bda571e35073121, type: 2}
+    - target: {fileID: 539701715576653237, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 4737999174200786649, guid: 722c284efe2af5943a4e2b7b4611da91, type: 3}
     - target: {fileID: 539701715701859322, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: m_Name
       value: ExplosiveGolem
@@ -193,6 +201,17 @@ Animator:
   m_CorrespondingSourceObject: {fileID: 824015133, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
   m_PrefabInstance: {fileID: 8657781718942731759}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &691256602174041127 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 8192409107736158664, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+  m_PrefabInstance: {fileID: 8657781718942731759}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6b25ba95ed40485e849c878710640851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &955125509895866912 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8459966875893368783, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}

@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Flux;
@@ -9,11 +10,19 @@ using UnityEngine;
 public abstract class Boost : Effect
 {
     public abstract StatType Type { get; }
+
+    [SerializeField] private float delay;
     
     public abstract CastArgs GetBoost();
     
     protected override void ApplyTo(Tile source, IEnumerable<Tile> tiles, IReadOnlyDictionary<Id, List<CastArgs>> args)
     {
+        Routines.Start(Routine(tiles));
+    }
+    private IEnumerator Routine(IEnumerable<Tile> tiles)
+    {
+        yield return new WaitForSeconds(delay);
+        
         foreach (var tile in tiles)
         {
             foreach (var entity in tile.Entities)

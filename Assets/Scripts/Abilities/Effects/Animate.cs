@@ -19,12 +19,11 @@ public class Animate : Effect
             
             foreach (var entity in tile.Entities)
             {
-                if (entity.TryGet<Golem>(out var golem))
-                {
-                    golem.activation += activation;
-                    golem.LinkTo(Player.Active);
-                }
+                if (!entity.TryGet<Golem>(out var golem)) continue;
                 
+                golem.activation += activation;
+                golem.LinkTo(Player.Active);
+                    
                 if (ownership && golem.TryGetComponent<Tag>(out var tag)) tag.Team = Player.Active.Team;
             }
         }

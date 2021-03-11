@@ -31,7 +31,12 @@ public class SequenceRelay : MonoBehaviour
     {
         if (registry.TryGetValue(id, out var sequencer))
         {
-            if (sequencer.IsPlaying && sequencer.Args is ISendback sendback) sendback.End(EventArgs.Empty);
+            //Debug.Log($"Playing : {id} on {this}");
+            if (sequencer.IsPlaying && sequencer.Args is ISendback sendback)
+            {
+                //Debug.Log($"Interrupting previous sequence");
+                sendback.End(EventArgs.Empty);
+            }
             
             sequencer.Play(args);
             return true;

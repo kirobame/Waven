@@ -7,7 +7,7 @@ public abstract class MutableBoost<T> : Boost where T : IMutable
 {
     public abstract Id Id { get; }
     
-    [SerializeField] private int value;
+    [SerializeField] protected int value;
     [SerializeField] private bool temporary;
     [SerializeField] private int duration;
 

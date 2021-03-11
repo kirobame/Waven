@@ -165,6 +165,9 @@ MonoBehaviour:
     - Name: speed
       Entry: 4
       Data: 0.125
+    - Name: allowBoost
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 
@@ -181,4 +184,3 @@ MonoBehaviour:
   title: BaseAttack
   description: Basic Damage and push
   thumbnail: {fileID: 21300000, guid: a28243ed88b27b14288ad74dff24e0cf, type: 3}
-  glow: {fileID: 21300000, guid: 7774c11f8f3640b4eb5ac91ed44c373f, type: 3}

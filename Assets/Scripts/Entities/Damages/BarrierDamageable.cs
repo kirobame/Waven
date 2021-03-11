@@ -8,6 +8,8 @@ public class BarrierDamageable : Damageable
 
     protected override void OnLogicDone()
     {
+        Events.EmptyCall(ChallengeEvent.OnBarrierDown);
+        
         var life = Get("Health");
         if (life.actualValue == 1) renderer.sprite = damagedVersion;
         

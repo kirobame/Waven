@@ -66,13 +66,19 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: id
+      Entry: 7
+      Data: Flux.Id, Flux
     - Name: value
+      Entry: 1
+      Data: SPL
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: type
       Entry: 3
-      Data: 1
-    - Name: temporary
-      Entry: 5
-      Data: true
-    - Name: duration
+      Data: 5
+    - Name: value
       Entry: 3
       Data: 1
     - Name: 

@@ -15,8 +15,7 @@ MonoBehaviour:
   serializationData:
     SerializedFormat: 2
     SerializedBytes: 
-    ReferencedUnityObjects:
-    - {fileID: 6566219122458013161, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+    ReferencedUnityObjects: []
     SerializedBytesString: 
     Prefab: {fileID: 0}
     PrefabModificationsReferencedUnityObjects: []
@@ -77,8 +76,8 @@ MonoBehaviour:
       Entry: 8
       Data: 
     - Name: prefab
-      Entry: 10
-      Data: 0
+      Entry: 6
+      Data: 
     - Name: ownership
       Entry: 5
       Data: true
@@ -90,7 +89,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|MovementBoost, Assembly-CSharp
+      Data: 6|SimpleBoost, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 7|Pattern[], Assembly-CSharp
@@ -109,42 +108,12 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
-    - Name: value
-      Entry: 3
-      Data: 1
-    - Name: temporary
-      Entry: 5
-      Data: true
-    - Name: duration
-      Entry: 3
+    - Name: delay
+      Entry: 4
       Data: 0
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 7
-      Data: 9|SimpleBoost, Assembly-CSharp
-    - Name: patterns
-      Entry: 7
-      Data: 10|Pattern[], Assembly-CSharp
-    - Name: 
-      Entry: 12
-      Data: 1
-    - Name: 
-      Entry: 7
-      Data: 11|Point, Assembly-CSharp
-    - Name: 
-      Entry: 8
-      Data: 
-    - Name: 
-      Entry: 13
-      Data: 
-    - Name: 
-      Entry: 8
-      Data: 
     - Name: boost
       Entry: 7
-      Data: 12|TemporaryIntCastArgs, Assembly-CSharp
+      Data: 9|TemporaryIntCastArgs, Assembly-CSharp
     - Name: id
       Entry: 7
       Data: Flux.Id, Flux
@@ -166,6 +135,42 @@ MonoBehaviour:
     - Name: type
       Entry: 3
       Data: 1
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 10|MovementBoost, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 11|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 12|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0.3
+    - Name: value
+      Entry: 3
+      Data: 1
+    - Name: temporary
+      Entry: 5
+      Data: true
+    - Name: duration
+      Entry: 3
+      Data: 0
     - Name: 
       Entry: 8
       Data: 

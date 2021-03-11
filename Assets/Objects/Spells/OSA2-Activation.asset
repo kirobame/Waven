@@ -105,6 +105,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0
     - Name: value
       Entry: 3
       Data: 2
@@ -138,6 +141,9 @@ MonoBehaviour:
     - Name: 
       Entry: 8
       Data: 
+    - Name: delay
+      Entry: 4
+      Data: 0.3
     - Name: boost
       Entry: 7
       Data: 12|IntCastArgs, Assembly-CSharp

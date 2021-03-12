@@ -6,26 +6,6 @@ using Flux.Event;
 using Flux.Feedbacks;
 using UnityEngine;
 
-[Serializable]
-public class GolemOwnership
-{
-    public Player Owner { get; set; }
-    
-    public bool State => state;
-    [SerializeField] private bool state;
-
-    public void Activate(Player player)
-    {
-        Owner = player;
-        state = true;
-    }
-    public void Deactivate()
-    {
-        Owner = null;
-        state = false;
-    }
-}
-
 public class Golem : ExtendedTileable, ILink
 {
     public event Action<ILink> onDestroyed;
@@ -37,6 +17,7 @@ public class Golem : ExtendedTileable, ILink
     }
     private Player player;
 
+    public bool HasJustSpawned { get; private set; }
     public bool HasAura
     {
         get => hasAura;
@@ -72,12 +53,27 @@ public class Golem : ExtendedTileable, ILink
             Animator.SetBool("isAwoken", true);
         }
         else hasOwner = false;
+
+        HasJustSpawned = true;
+        Routines.Start(Routines.DoAfter(() => HasJustSpawned = false, 0.5f));
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+        
+        var player = this.player;
+        if (player != null)
+        {
+            if (tempOwnership.State) tempOwnership.Owner = player;
+            else if (definitiveOwnership.State) definitiveOwnership.Owner = player;
+        }
     }
 
     protected override void OnDestroy()
     {
         base.OnDestroy();
-
+        
         hasAura = false;
         if (!hasOwner) return;
         
@@ -104,7 +100,11 @@ public class Golem : ExtendedTileable, ILink
     {
         if (tempOwnership.State)
         {
-            if (definitiveOwnership.State) Routines.Start(Routines.DoAfter(() =>  LinkTo(definitiveOwnership.Owner), new YieldFrame()));
+            if (definitiveOwnership.State)
+            {
+                Debug.Log($"Reverting back to : {definitiveOwnership.Owner}");
+                Routines.Start(Routines.DoAfter(() =>  LinkTo(definitiveOwnership.Owner), new YieldFrame()));
+            }
             else
             {
                 Animator.SetBool("isAwoken", false);

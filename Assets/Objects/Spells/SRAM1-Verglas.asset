@@ -30,16 +30,31 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
+      Data: 1|Cross, Assembly-CSharp
     - Name: allowBoost
       Entry: 5
       Data: true
     - Name: includeSource
       Entry: 5
       Data: false
-    - Name: radius
+    - Name: directions
+      Entry: 7
+      Data: Vector4Int, Assembly-CSharp
+    - Name: left
       Entry: 3
-      Data: 2
+      Data: 3
+    - Name: right
+      Entry: 3
+      Data: 3
+    - Name: up
+      Entry: 3
+      Data: 3
+    - Name: down
+      Entry: 3
+      Data: 3
+    - Name: 
+      Entry: 8
+      Data: 
     - Name: 
       Entry: 8
       Data: 

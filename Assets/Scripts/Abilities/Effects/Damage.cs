@@ -22,7 +22,7 @@ public class Damage : Effect
         
         if (amount <= 0)
         {
-            Debug.Log($"No damage to do");
+            //Debug.Log($"No damage to do");
             
             End();
             return;

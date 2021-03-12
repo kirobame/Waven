@@ -86,7 +86,7 @@ MonoBehaviour:
       Data: 
     - Name: 
       Entry: 7
-      Data: 6|VfxEffect, Assembly-CSharp
+      Data: 6|GolemVfxEffect, Assembly-CSharp
     - Name: patterns
       Entry: 7
       Data: 7|Pattern[], Assembly-CSharp

@@ -22,7 +22,8 @@ public class Popup : PoolableSequencer
         
         textMesh.text = text;
         textMesh.color = info.Color;
-
+        
+        //Debug.Break();
         return Play();
     }
 

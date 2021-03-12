@@ -13,6 +13,14 @@ public class SlideTrap : Trap
             SlideDirection = Vector2Int.zero;
             return;
         }
+
+        foreach (var entity in Navigator.Current.Entities)
+        {
+            if (entity is Golem golem)
+            {
+                if (golem.HasJustSpawned) return;
+            }
+        }
         
         if (source is Tileable tileable)
         {

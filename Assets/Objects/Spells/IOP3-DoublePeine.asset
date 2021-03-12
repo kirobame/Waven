@@ -38,7 +38,7 @@ MonoBehaviour:
       Data: true
     - Name: radius
       Entry: 3
-      Data: 2
+      Data: 10
     - Name: 
       Entry: 8
       Data: 
@@ -53,7 +53,7 @@ MonoBehaviour:
       Data: 2|System.Collections.Generic.List`1[[Effect, Assembly-CSharp]], mscorlib
     - Name: 
       Entry: 12
-      Data: 2
+      Data: 3
     - Name: 
       Entry: 7
       Data: 3|VfxEffect, Assembly-CSharp
@@ -120,6 +120,36 @@ MonoBehaviour:
     - Name: self
       Entry: 5
       Data: false
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 7
+      Data: 9|Animate, Assembly-CSharp
+    - Name: patterns
+      Entry: 7
+      Data: 10|Pattern[], Assembly-CSharp
+    - Name: 
+      Entry: 12
+      Data: 1
+    - Name: 
+      Entry: 7
+      Data: 11|Point, Assembly-CSharp
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: 
+      Entry: 13
+      Data: 
+    - Name: 
+      Entry: 8
+      Data: 
+    - Name: ownership
+      Entry: 5
+      Data: true
+    - Name: temporary
+      Entry: 5
+      Data: true
     - Name: 
       Entry: 8
       Data: 

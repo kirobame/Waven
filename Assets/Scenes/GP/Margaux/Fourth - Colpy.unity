@@ -1620,6 +1620,10 @@ PrefabInstance:
       propertyPath: m_Enabled
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2339079025915591856, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
+      propertyPath: m_Color.a
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 2339079025938446512, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
       propertyPath: player
       value: 

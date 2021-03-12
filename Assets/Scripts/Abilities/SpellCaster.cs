@@ -48,15 +48,21 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     
     public void Activate()
     {
+        Active = this;
+        
         totalUse = 0;
         if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) totalUse +=  bonus;
         RemainingUse = totalUse;
 
+        var hotbar = Repository.Get<Hotbar>(References.Hotbar);
+        hotbar.DisplayPA(RemainingUse);
+        
         Events.RelayByValue<SpellBase, bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
 
     public void Deactivate()
     {
+        Active = null;
         Events.BreakValueRelay<SpellBase,bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
         
         if (!isActive) return;
@@ -77,8 +83,8 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
     }
     private void End()
     {
-        Active = null;
-
+        current = null;
+        
         isActive = false;
         Inputs.isLocked = false;
         
@@ -113,22 +119,30 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
             if (wrapper.Value)
             {
                 if (!isActive || isWaiting) return;
+                
+                Events.EmptyCall(InterfaceEvent.OnSpellInterruption);
                 End();
             }
             else
             {
                 if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+                
+                Events.EmptyCall(InterfaceEvent.OnSpellInterruption);
                 End();
             }
         }
         else if (args is IWrapper<Tile> tileWrapper)
         {
             if (!isActive || isWaiting || current.GetTilesForCasting(tileWrapper.Value, castArgs).HasIntersection()) return;
+            
+            Events.EmptyCall(InterfaceEvent.OnSpellInterruption);
             End();
         }
         else
         {
             if (!isActive || isWaiting || current.CastingPatterns.Any(pattern => pattern is Point)) return;
+            
+            Events.EmptyCall(InterfaceEvent.OnSpellInterruption);
             End();
         }
     }
@@ -147,8 +161,7 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
 
         Inputs.isLocked = true;
         Extensions.ClearMarks();
-
-        Active = this;
+        
         current = spell;
         Setup();
         

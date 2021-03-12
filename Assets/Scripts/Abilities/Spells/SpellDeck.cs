@@ -52,15 +52,11 @@ public class SpellDeck : MonoBehaviour, ILink
             Draw(3);
             hasBeenBootedUp = true;
         }
-        
-        Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, RefreshHotbar);
+
         Events.RelayByValue<SpellBase,bool>(GameEvent.OnSpellUsed, OnSpellUsed);
     }
-    public void Deactivate()
-    {
-        Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, RefreshHotbar);
-        Events.BreakValueRelay<SpellBase, bool>(GameEvent.OnSpellUsed, OnSpellUsed);
-    }
+    public void Deactivate() => Events.BreakValueRelay<SpellBase, bool>(GameEvent.OnSpellUsed, OnSpellUsed);
+    
 
     void OnDestroy() => onDestroyed?.Invoke(this);
     
@@ -70,12 +66,6 @@ public class SpellDeck : MonoBehaviour, ILink
     {
         hotbar.DisplaySpells(hand);
         hotbar.DisplayPA(caster.RemainingUse);
-
-        for (int i = 0; i < hand.Count; i++)
-        {
-            if (caster.RemainingUse <= 0) values.GetChild(i).GetComponent<Image>().color = greyscale;
-            else values.GetChild(i).GetComponent<Image>().color = Color.white;
-        }
     }
 
     public void Draw(int nb)
@@ -99,24 +89,23 @@ public class SpellDeck : MonoBehaviour, ILink
 
     public void Add(SpellBase spell)
     {
-        if (hand.Count < 4)
-        {
-            hand.Add(spell);
-            RefreshHotbar();
-        }
+        if (hand.Count < 4) hand.Add(spell);
         else deck.Add(spell);
     }
     public void Discard(SpellBase spell)
     {
         hand.Remove(spell);
         deck.Add(spell);
-        RefreshHotbar();
     }
 
     //------------------------------------------------------------------------------------------------------------------/
 
     void OnSpellUsed(SpellBase spell, bool isStatic)
     {
-        if (!isStatic) Discard(spell);
+        if (!isStatic)
+        {
+            Discard(spell);
+            hotbar.DisplayPA(caster.RemainingUse);
+        }
     }
 }

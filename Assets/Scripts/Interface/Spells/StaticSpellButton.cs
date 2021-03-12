@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 using UnityEngine;
 using System;
 
-public class StaticSpellButton : SpellButton, IPointerClickHandler
+public class StaticSpellButton : SpellButton
 {
     private void Start()
     {
@@ -19,7 +19,7 @@ public class StaticSpellButton : SpellButton, IPointerClickHandler
         if (Spell == spell) gameObject.SetActive(false);
     }
 
-    public override void OnPointerClick(PointerEventData eventData)
+    protected override void OnClick()
     {
         Events.ZipCall<SpellBase,bool>(InterfaceEvent.OnSpellSelected, Spell, true);
     }

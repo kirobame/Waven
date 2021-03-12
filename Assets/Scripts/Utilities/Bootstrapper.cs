@@ -35,6 +35,7 @@ public class Bootstrapper : MonoBehaviour
         Events.Open(GameEvent.OnRewardTimer);
         Events.Open(GameEvent.OnRewardEnd);
             
+        Events.Open(InterfaceEvent.OnSpellInterruption);
         Events.Open(InterfaceEvent.OnHideTooltip);
         Events.Open(InterfaceEvent.OnSpellSelected);
         

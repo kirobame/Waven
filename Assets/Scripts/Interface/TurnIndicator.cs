@@ -10,7 +10,12 @@ using UnityEngine.UI;
 public class TurnIndicator : MonoBehaviour
 {
     [SerializeField] private Image timer;
-    [SerializeField] private TMP_Text timerValue;
+    
+    [Space, SerializeField] private TMP_Text timerValue;
+    [SerializeField] private Vector2Int dangerZone;
+    [SerializeField] private Color textStart;
+    [SerializeField] private Color fillStart;
+    [SerializeField] private Color end;
 
     private Bootstrapper boot;
 
@@ -49,7 +54,9 @@ public class TurnIndicator : MonoBehaviour
             var remainingTime = (int)(boot.turnDuration - (floatArgs.ArgOne * boot.turnDuration));
             timerValue.text = $"{remainingTime}";
 
-            if(remainingTime <= 10) { timerValue.color = new Color32(221, 0, 43, 255); }
+            var ratio = Mathf.InverseLerp(dangerZone.x, dangerZone.y, remainingTime);
+            timerValue.color = Color.Lerp(end, textStart, ratio);
+            timer.color = Color.Lerp(end, fillStart, ratio);
         }
     }
 }

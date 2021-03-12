@@ -8,6 +8,7 @@ public enum InterfaceEvent : byte
     
     OnSpellSelected,
     OnSpellTilesAffect,
+    OnSpellInterruption,
     OnSpellEnd,
 
     OnHoverStart,

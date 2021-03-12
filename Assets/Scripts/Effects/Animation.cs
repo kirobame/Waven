@@ -21,8 +21,7 @@ public class Animation : Flux.Feedbacks.Effect
         base.Ready();
         triggerActivated = false; // Before each sequence execution, reset this state to execute the trigger only once
     }
-
-        
+    
     // Update is the first flow method to be called on an effect
     // As long as IsDone is true, OnUpdate will be called each tick and all linked effects will not receive any flow
     protected override void OnUpdate(EventArgs args)

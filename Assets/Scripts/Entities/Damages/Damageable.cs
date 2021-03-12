@@ -122,7 +122,7 @@ public class Damageable : MonoBehaviour, IDamageable
     protected virtual void OnDamageTaken(int damage, DamageType type)
     {
         if (history.Count == 0 && popupRoutine == null) StartCoroutine(PopupRoutine());
-        AudioHandler.Play(hurtSound);
+        //AudioHandler.Play(hurtSound);
         history.Add((damage, type));
     }
 

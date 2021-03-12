@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using Flux;
 using Flux.Data;
-using Flux.Editor;
 using Sirenix.Utilities;
 using UnityEngine;
 

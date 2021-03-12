@@ -17,7 +17,9 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     private SpellBase spell;
     private int tier;
-    
+
+    [SerializeField] private RectTransform tooltipPos;
+
     public void Initialize(int tier)
     {
         var key = new SpellKey(category, tier);
@@ -38,8 +40,8 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
     public void OnPointerEnter(PointerEventData eventData)
     {
         AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
-        var message = $"<size=65%>{spell.Description}</size>";
-        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message);
+        var message = $"<size=100%><b>{spell.Title}</size></b>\n<size=65%>{spell.Description}</size>";
+        Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 1);
     }
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
 }

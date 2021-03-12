@@ -36,6 +36,8 @@ public class Trap : TileableBase
         
         if (tile.Entities.Any(tileable => tileable is Tileable)) animator.SetTrigger("Explode");
 
+        AudioHandler.Play(trapSound);
+
         Routines.Start(Routines.DoAfter(() =>
         {
             spell.Prepare();

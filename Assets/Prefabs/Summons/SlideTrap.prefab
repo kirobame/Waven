@@ -14,6 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigator: {fileID: 5750444421011796199}
   spell: {fileID: 11400000, guid: 5ae91c74887b6a64f828cc759d83e60d, type: 2}
+  trapSound: {fileID: 11400000, guid: 59626c6761d8b6c4d8c13093c5a153a3, type: 2}
   animator: {fileID: 6925797896904800228}
 --- !u!1001 &6925797897059607314
 PrefabInstance:

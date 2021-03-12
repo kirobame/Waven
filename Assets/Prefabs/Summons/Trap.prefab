@@ -149,6 +149,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   navigator: {fileID: 3445481064324813813}
   spell: {fileID: 11400000, guid: 84ff3311bc529d24bae83ae03fafcb43, type: 2}
+  trapSound: {fileID: 11400000, guid: 59626c6761d8b6c4d8c13093c5a153a3, type: 2}
   animator: {fileID: 390780150}
 --- !u!114 &3445481064324813813
 MonoBehaviour:

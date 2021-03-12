@@ -99,10 +99,12 @@ MonoBehaviour:
     maxValue: 1
     priority: 0
     handledTypes: 00000000
+  hurtSound: {fileID: 11400000, guid: 008214f12aa996a4c9d0c124d01015ff, type: 2}
   hitSequencer: {fileID: 955125509895866912}
   deathSequencer: {fileID: 4223376998433410236}
   fallSequencer: {fileID: 4364159123187948021}
   tileable: {fileID: 2538195219200827398}
+  explosionSound: {fileID: 11400000, guid: 3d5f6f5f5cc5b664fa75a7153b7d9d58, type: 2}
   spell: {fileID: 11400000, guid: efce6fca2bebf594495a6733a7617b33, type: 2}
   explosionSequencer: {fileID: 1109056314}
 --- !u!1001 &8657781718942731759
@@ -112,6 +114,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 396236156, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+      propertyPath: m_RootOrder
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 824015133, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: m_Controller
       value: 
@@ -167,6 +173,10 @@ PrefabInstance:
     - target: {fileID: 539701715701859326, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3084430436323382416, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
+      propertyPath: m_RootOrder
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 6566219122458013161, guid: b352708a4abf0e84e98b7c3f81063979, type: 3}
       propertyPath: activation

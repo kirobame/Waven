@@ -428,6 +428,7 @@ MonoBehaviour:
     maxValue: 2
     priority: 0
     handledTypes: 00000000
+  hurtSound: {fileID: 11400000, guid: 008214f12aa996a4c9d0c124d01015ff, type: 2}
   hitSequencer: {fileID: 8459966875893368783}
   deathSequencer: {fileID: 4808416801280885075}
   fallSequencer: {fileID: 4951150353276343322}

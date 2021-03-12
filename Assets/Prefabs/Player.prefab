@@ -437,6 +437,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   maxSpellInHand: 4
   caster: {fileID: 4097353869914120685}
+  greyscale:
+    serializedVersion: 2
+    rgba: 4282137660
 --- !u!114 &4097353869914120684
 MonoBehaviour:
   m_ObjectHideFlags: 0

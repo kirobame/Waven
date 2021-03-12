@@ -6,6 +6,7 @@ using Flux.Data;
 using Flux.Event;
 using Sirenix.OdinInspector;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class SpellDeck : MonoBehaviour, ILink
 {
@@ -23,6 +24,10 @@ public class SpellDeck : MonoBehaviour, ILink
     private Player player;
     private bool hasBeenBootedUp;
 
+    private Hotbar hotbar;
+    private Transform values;
+    [SerializeField] private Color32 greyscale;
+
     //------------------------------------------------------------------------------------------------------------------/
 
     void Awake()
@@ -34,6 +39,9 @@ public class SpellDeck : MonoBehaviour, ILink
     {
         if (!Repository.TryGet<Spells>(References.Spells, out var spells)) return;
         deck = spells.GetDeck(3).ToList();
+
+        hotbar = Repository.Get<Hotbar>(References.Hotbar);
+        values = hotbar.transform.GetChild(0).transform;
     }
 
     public void Activate()
@@ -60,10 +68,14 @@ public class SpellDeck : MonoBehaviour, ILink
     
     public void RefreshHotbar()
     {
-        if (!Repository.TryGet<Hotbar>(References.Hotbar, out var hotbar)) return;
-        
         hotbar.DisplaySpells(hand);
         hotbar.DisplayPA(caster.RemainingUse);
+
+        for (int i = 0; i < hand.Count; i++)
+        {
+            if (caster.RemainingUse <= 0) values.GetChild(i).GetComponent<Image>().color = greyscale;
+            else values.GetChild(i).GetComponent<Image>().color = Color.white;
+        }
     }
 
     public void Draw(int nb)

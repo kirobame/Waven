@@ -17,6 +17,8 @@ public class Popup : PoolableSequencer
         var stats = Repository.Get<Stats>(References.Stats);
         var info = stats.Values[type];
 
+        Debug.Log(info);
+
         icon.enabled = true;
         icon.sprite = info.Icon;
         

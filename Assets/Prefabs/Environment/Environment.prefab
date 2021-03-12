@@ -44,6 +44,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6612303983469259551}
   - component: {fileID: 6612303983469259550}
+  - component: {fileID: 3462720095402077519}
   m_Layer: 0
   m_Name: AnimWater_01
   m_TagString: Untagged
@@ -116,6 +117,25 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!95 &3462720095402077519
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6612303983469259549}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 142ae6272b0ab3841ba4eb61879d95ba, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &6612303984094236625
 GameObject:
   m_ObjectHideFlags: 0

@@ -43,5 +43,5 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         var message = $"<size=100%><b>{spell.Title}</size></b>\n<size=65%>{spell.Description}</size>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 1);
     }
-    public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnTooltipUsed);
+    public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnHideTooltip);
 }

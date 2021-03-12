@@ -1,4 +1,7 @@
-﻿using Flux.Event;
+﻿using System;
+using Flux.Audio;
+using Flux.Event;
+using Flux.Feedbacks;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
@@ -50,14 +53,16 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
 
     void OnCompletion() 
     {
+        AudioHandler.Play(completeSound);
+        
         challengeDone.Play(EventArgs.Empty);
         complete.SetActive(true); 
     }
     void OnFail()
     {
+        AudioHandler.Play(failSound);
+        
         challengeFailed.Play(EventArgs.Empty);
         fail.SetActive(true);
     }
-        AudioHandler.Play(completeSound);
-        AudioHandler.Play(failSound);
 }

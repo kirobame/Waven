@@ -3,12 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using Flux.Event;
 using Flux.Data;
+using Flux.Audio;
 using Sirenix.OdinInspector;
 using UnityEngine;
 
 public class Trap : TileableBase
 {
     [SerializeField] protected Spell spell;
+    [SerializeField] private AudioClipPackage trapSound;
     [SerializeField] protected Animator animator;
     
     void Awake() => Events.RelayByValue<ITileable>(GameEvent.OnTileChange, OnTileChange);

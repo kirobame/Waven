@@ -189,6 +189,7 @@ MonoBehaviour:
   category: 3
   title: {fileID: 8629154480968293978}
   thumbnail: {fileID: 8629154479883025339}
+  spellChoosenSound: {fileID: 11400000, guid: f227e2b7de134d54f9f3ec8ea803d6e0, type: 2}
 --- !u!1 &8629154479883025333
 GameObject:
   m_ObjectHideFlags: 0

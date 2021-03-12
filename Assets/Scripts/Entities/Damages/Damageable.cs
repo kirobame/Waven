@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Flux;
 using Flux.Data;
-using Flux.Event;
+using Flux.Audio;
 using Flux.Feedbacks;
 using UnityEngine;
 
@@ -34,7 +34,9 @@ public class Damageable : MonoBehaviour, IDamageable
 
     private Coroutine popupRoutine;
     private List<(int damage, DamageType type)> history = new List<(int damage, DamageType type)>();
-    
+
+    [SerializeField] private AudioClipPackage hurtSound;
+
     //------------------------------------------------------------------------------------------------------------------/
 
     protected virtual void Awake()
@@ -120,6 +122,7 @@ public class Damageable : MonoBehaviour, IDamageable
     protected virtual void OnDamageTaken(int damage, DamageType type)
     {
         if (history.Count == 0 && popupRoutine == null) StartCoroutine(PopupRoutine());
+        AudioHandler.Play(hurtSound);
         history.Add((damage, type));
     }
 

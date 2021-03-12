@@ -1,6 +1,7 @@
 ﻿using System;
 using Flux.Data;
 using Flux.Event;
+using Flux.Audio;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -20,7 +21,9 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
     public void OnPointerEnter(PointerEventData eventData)
     {
         onEnter?.Invoke(this);
-        
+
+        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
+
         var message = $"<size=100%><b>{Spell.Title}</size></b>\n<size=65%>{Spell.Description}</size>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 2);
     }

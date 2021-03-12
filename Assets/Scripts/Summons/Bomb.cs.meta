@@ -1,3 +1,17 @@
-﻿fileFormatVersion: 2
+fileFormatVersion: 2
 guid: 02581c04a50443eab56b03af6a947098
-timeCreated: 1614888147
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - popupAnchor: {instanceID: 0}
+  - hurtSound: {fileID: 11400000, guid: 9f1dcf440b18b834799fdc59201e21a7, type: 2}
+  - tileable: {instanceID: 0}
+  - spell: {instanceID: 0}
+  - graph: {instanceID: 0}
+  - explosionSound: {fileID: 11400000, guid: 3d5f6f5f5cc5b664fa75a7153b7d9d58, type: 2}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

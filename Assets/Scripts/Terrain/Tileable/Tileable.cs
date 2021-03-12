@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using Flux.Data;
 using Flux.Event;
+using Flux.Audio;
 using UnityEngine;
 
 public class Tileable : TileableBase, ITag
@@ -79,7 +80,8 @@ public class Tileable : TileableBase, ITag
                             if (!entity.TryGet<IDamageable>(out damageable)) continue;
                             damageable.Inflict(1, DamageType.Base);
                         }
-                        
+                        AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.Collision));
+
                         if (!IsMoving) yield break;
                         LocalEnd();
                     

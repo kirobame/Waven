@@ -8,8 +8,8 @@ public class DamageChallenge : ToggleChallenge
 {
     public override string GetDescription()
     {
-        if (execute) return "Causer n'importe quel montant de dommage.";
-        else return "Ne causer aucun dommage.";
+        if (execute) return "Causer n'importe quel montant de dommage à l'adversaire.";
+        else return "Ne causer aucun dommage à l'adversaire.";
     }
     
     protected override void OnTurnedOn()

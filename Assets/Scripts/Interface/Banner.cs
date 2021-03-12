@@ -16,6 +16,9 @@ public class Banner : MonoBehaviour
     [SerializeField] private TMP_Text textMesh;
     [SerializeField] private Image icon;
 
+    [Space, SerializeField] private TMP_FontAsset redFont;
+    [SerializeField] private TMP_FontAsset blueFont;
+
     void Awake()
     {
         Events.Open(InterfaceEvent.OnChallengeUpdate);
@@ -29,6 +32,8 @@ public class Banner : MonoBehaviour
     public void Display(Challenge challenge)
     {
         titleMesh.text = $"Au tour du joueur 0{Player.Active.Index + 1} !";
+        titleMesh.font = Player.Active.Index == 0 ? blueFont : redFont;
+        
         challengeMesh.text = $"Challenge : {challenge.Title}";
         textMesh.text = challenge.GetDescription();
         icon.sprite = challenge.Icon;

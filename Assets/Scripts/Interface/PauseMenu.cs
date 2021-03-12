@@ -3,6 +3,7 @@ using Flux.Event;
 using System.Collections;
 using System.Collections.Generic;
 using Flux;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
@@ -10,7 +11,12 @@ using UnityEngine.SceneManagement;
 public class PauseMenu : MonoBehaviour
 {
     [SerializeField] private GameObject menu;
-    [SerializeField] private GameObject reprendre;
+
+    [Space, SerializeField] private GameObject victoryPanel;
+    [SerializeField] private TMP_Text title;
+    
+    [Space, SerializeField] private TMP_FontAsset redFont;
+    [SerializeField] private TMP_FontAsset blueFont;
     
     private bool isOpen = false;
     private bool isLocked;
@@ -24,9 +30,9 @@ public class PauseMenu : MonoBehaviour
 
         escapeAction.performed += OnEscapePressed;
 
-        Events.RelayByVoid(GameEvent.OnPlayerDeath, Interrupt);
+        Events.RelayByValue<Player>(GameEvent.OnPlayerDeath, Interrupt);
     }
-    void OnDestroy() => Events.BreakVoidRelay(GameEvent.OnPlayerDeath, Interrupt);
+    void OnDestroy() => Events.BreakValueRelay<Player>(GameEvent.OnPlayerDeath, Interrupt);
     
     void OnEscapePressed(InputAction.CallbackContext context)
     {
@@ -50,10 +56,33 @@ public class PauseMenu : MonoBehaviour
         menu.SetActive(false);
     }
 
-    void Interrupt()
+    void Interrupt(Player player)
     {
+        int index;
+        if (player.Index == 1)
+        {
+            index = 0;
+            title.font = blueFont;
+        }
+        else
+        {
+            index = 1;
+            title.font = redFont;
+        }
+
+        title.text = $"Le joueur 0{index + 1} est victorieux !";
+
         isLocked = true;
-        StartCoroutine(Routines.DoAfter(OpenMenu, 1.0f));
+        
+        var inputs = Repository.Get<InputActionAsset>(References.Inputs);
+        inputs.Disable();
+        
+        StartCoroutine(Routines.DoAfter(() =>
+        {
+            Time.timeScale = 0;
+            victoryPanel.SetActive(true);
+            
+        }, 1.0f));
     }
     
     public void NewGame()

@@ -37,10 +37,14 @@ public class Damageable : MonoBehaviour, IDamageable
 
     [SerializeField] private AudioClipPackage hurtSound;
 
+    private bool hasPlayer;
+
     //------------------------------------------------------------------------------------------------------------------/
 
     protected virtual void Awake()
     {
+        hasPlayer = TryGetComponent<Player>(out var player);
+        
         tag = GetComponent<Tag>();
         lives.Sort();
 
@@ -86,7 +90,9 @@ public class Damageable : MonoBehaviour, IDamageable
 
                 if (!lives.Any())
                 {
+                    if (hasPlayer) Events.ZipCall(ChallengeEvent.OnDamage, this);
                     Events.EmptyCall(ChallengeEvent.OnKill);
+                    
                     OnDeath();
                     
                     return 2;
@@ -95,7 +101,8 @@ public class Damageable : MonoBehaviour, IDamageable
             else
             {
                 Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
-                Events.ZipCall(ChallengeEvent.OnDamage, this);
+                if (hasPlayer) Events.ZipCall(ChallengeEvent.OnDamage, this);
+                
                 if (IsFeedbackDone)
                 {
                     OnLogicDone();
@@ -107,7 +114,8 @@ public class Damageable : MonoBehaviour, IDamageable
         }
 
         Events.EmptyCall(InterfaceEvent.OnInfoRefresh);
-        Events.ZipCall(ChallengeEvent.OnDamage, this);
+        if (hasPlayer) Events.ZipCall(ChallengeEvent.OnDamage, this);
+        
         if (IsFeedbackDone)
         {
             OnLogicDone();
@@ -122,7 +130,8 @@ public class Damageable : MonoBehaviour, IDamageable
     protected virtual void OnDamageTaken(int damage, DamageType type)
     {
         if (history.Count == 0 && popupRoutine == null) StartCoroutine(PopupRoutine());
-        //AudioHandler.Play(hurtSound);
+        
+        AudioHandler.Play(hurtSound);
         history.Add((damage, type));
     }
 

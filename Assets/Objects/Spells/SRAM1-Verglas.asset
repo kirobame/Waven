@@ -93,5 +93,7 @@ MonoBehaviour:
     value: SLT
   tier: 1
   title: Verglas
-  description: Some decription.
+  description: "Transforme une case en \"verglas\". Tous les joueurs et Golems passant
+    dessus sont propuls\xE9s d'une case dans le prolongement de leur case d'arriv\xE9e."
   thumbnail: {fileID: 21300000, guid: dcdca38255e18544daf75bf3f0af3a9d, type: 3}
+  sound: {fileID: 0}

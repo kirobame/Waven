@@ -157,6 +157,7 @@ MonoBehaviour:
   id:
     value: PSH
   tier: 1
-  title: Push
-  description: Some description.
+  title: "Pouss\xE9e"
+  description: Repousse la cible, Golem ou joueur adverse, de 1 case.
   thumbnail: {fileID: 21300000, guid: 81398f47056f21b4dae3bf53cd13d559, type: 3}
+  sound: {fileID: 0}

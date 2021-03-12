@@ -93,5 +93,8 @@ MonoBehaviour:
     value: TRP
   tier: 1
   title: "Pi\xE8ge"
-  description: Some decription.
+  description: "Pi\xE8ge une case de fa\xE7on d\xE9finitive. Provoque 1 point de
+    d\xE9g\xE2t aux joueurs et Golems qui passent dessus. Peut \xEAtre plac\xE9e
+    sous un joueur ou un Golem. "
   thumbnail: {fileID: 21300000, guid: d52682d6d24aa0a41a16f6cc307420e5, type: 3}
+  sound: {fileID: 0}

@@ -157,6 +157,7 @@ MonoBehaviour:
   id:
     value: PLL
   tier: 1
-  title: Pull
-  description: Some description.
+  title: Attraction
+  description: Attire la cible, Golem ou joueur adverse, de 1 case.
   thumbnail: {fileID: 21300000, guid: 4f751be8fffb4c743acec7aa20755427, type: 3}
+  sound: {fileID: 0}

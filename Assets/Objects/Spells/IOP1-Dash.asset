@@ -143,5 +143,7 @@ MonoBehaviour:
     value: DSH
   tier: 1
   title: Dash
-  description: Some decription.
+  description: "D\xE9place le joueur jusqu'\xE0 2 cases dans la direction cibl\xE9e.
+    Permet de passer \xE0 travers une case pi\xE9g\xE9e sans l'activer."
   thumbnail: {fileID: 21300000, guid: ac8bce10dc90c39489c3d3dd2a12c9a3, type: 3}
+  sound: {fileID: 0}

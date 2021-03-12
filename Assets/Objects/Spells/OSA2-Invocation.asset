@@ -198,6 +198,7 @@ MonoBehaviour:
     value: RCK
   tier: 2
   title: Invocation
-  description: Can be transformed to a golem
+  description: "Invoque un Golem sur le terrain de 2PV, 1PM et 1 point d'attaque.
+    Le joueur contr\xF4le le Golem pendant ce tour seulement."
   thumbnail: {fileID: 21300000, guid: 0eada6fad8a3dd549a819db9921c47f1, type: 3}
   sound: {fileID: 0}

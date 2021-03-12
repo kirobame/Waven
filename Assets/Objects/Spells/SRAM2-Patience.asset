@@ -122,5 +122,6 @@ MonoBehaviour:
     value: SPL
   tier: 2
   title: Patience
-  description: Some decription.
+  description: Augmente le nombre de sorts jouables de 1 au prochain tour.
   thumbnail: {fileID: 21300000, guid: 0ed4cfac2f896c249a99dd6ff90a31e9, type: 3}
+  sound: {fileID: 0}

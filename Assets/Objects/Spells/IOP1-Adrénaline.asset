@@ -179,5 +179,8 @@ MonoBehaviour:
     value: DMG
   tier: 1
   title: "Adr\xE9naline"
-  description: Some decription.
+  description: "Augmente de 1 les d\xE9g\xE2ts de l'attaque de la cible, joueur ou
+    Golem (active le Golem pendant ce tour si inactif, ou en prend le contr\xF4le
+    temporaire)."
   thumbnail: {fileID: 21300000, guid: 528efd9672d5e2c4a8e23e3e32df42db, type: 3}
+  sound: {fileID: 0}

@@ -191,7 +191,8 @@ MonoBehaviour:
   id:
     value: RCM
   tier: 3
-  title: InvocationUltime
-  description: Can be transformed to a golem
+  title: Invocation Ultime
+  description: "Invoque un Golem sur le terrain de 2PV, 1PM et 1 point d'attaque.
+    Le joueur contr\xF4le le Golem de fa\xE7on permanente."
   thumbnail: {fileID: 21300000, guid: 2cc9b5948d96c934b8fdeb8c6ea3ec02, type: 3}
   sound: {fileID: 0}

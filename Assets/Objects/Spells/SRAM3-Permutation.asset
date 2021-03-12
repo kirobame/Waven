@@ -89,5 +89,7 @@ MonoBehaviour:
     value: INV
   tier: 3
   title: Permutation
-  description: Some description.
+  description: "Permet d'\xE9changer sa place avec le joueur ou n'importe quel Golem
+    pr\xE9sent sur le terrain."
   thumbnail: {fileID: 21300000, guid: 26ca4b3434ff0e64f8fa9870a98253e9, type: 3}
+  sound: {fileID: 0}

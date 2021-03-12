@@ -120,6 +120,9 @@ MonoBehaviour:
     - Name: duration
       Entry: 3
       Data: 0
+    - Name: self
+      Entry: 5
+      Data: false
     - Name: 
       Entry: 8
       Data: 
@@ -185,5 +188,8 @@ MonoBehaviour:
     value: ANM
   tier: 2
   title: Activation
-  description: Transform a rock to a golem
+  description: "Prend le contr\xF4le d\xE9finitif d'un Golem actif ou inactif et
+    lui ajoute 1 PM et 1 point d'attaque. Le joueur qui contr\xF4le le Golem peut
+    le d\xE9placer et attaquer \xE0 chaque tour."
   thumbnail: {fileID: 21300000, guid: 04c6074d74aee7d4992e01118f0bbd51, type: 3}
+  sound: {fileID: 0}

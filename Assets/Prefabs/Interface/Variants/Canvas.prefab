@@ -995,6 +995,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954d80e7b75486e8f1f14e87e7605c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUnscaled: 0
   table:
     segments:
     - id: 0
@@ -1162,6 +1163,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9954d80e7b75486e8f1f14e87e7605c2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  isUnscaled: 0
   table:
     segments:
     - id: 0
@@ -1861,7 +1863,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 54579504341206009, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_Color.a
-      value: 0.69803923
+      value: 0.7
       objectReference: {fileID: 0}
     - target: {fileID: 553753930443749278, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: m_text

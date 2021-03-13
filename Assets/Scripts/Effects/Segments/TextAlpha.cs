@@ -1,22 +1,20 @@
 ﻿using System;
-using System.Collections;
-using System.Collections.Generic;
 using Flux;
 using Flux.Feedbacks;
+using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 [Serializable, Path("UI")]
-public class ImageAlpha : Segment
+public class TextAlpha : Segment
 {
-    [SerializeField] private Image image;
+    [SerializeField] private TMP_Text textMesh;
     [SerializeField] private float start;
     [SerializeField] private float end;
 
     protected override void Execute(float ratio)
     {
-        var color = image.color;
+        var color = textMesh.color;
         color.a = Mathf.Lerp(start, end, ratio);
-        image.color = color;
+        textMesh.color = color;
     }
 }

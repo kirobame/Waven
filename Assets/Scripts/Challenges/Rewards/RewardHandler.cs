@@ -2,6 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using Flux;
 using Flux.Data;
 using Flux.Event;
 using Flux.Feedbacks;
@@ -41,6 +42,8 @@ public class RewardHandler : MonoBehaviour
 
     private SpellDeck current;
     private int start;
+    
+    private bool hasPicked;
 
     void Awake()
     {
@@ -69,10 +72,11 @@ public class RewardHandler : MonoBehaviour
 
         var tier = Tier;
         foreach (var choice in choices) choice.Initialize(tier);
-        
+
+        hasPicked = false;
         entry.Play(showArgs);
     }
-    public void Hide()
+    public void Hide(float hideTime)
     {
         if (IsHiding) return;
         
@@ -80,15 +84,21 @@ public class RewardHandler : MonoBehaviour
         IsHiding = true;
         
         group.blocksRaycasts = false;
-        exit.Play(hideArgs);
+        if (hideTime > 0.0f) Routines.Start(Routines.DoAfter(() => exit.Play(hideArgs), hideTime));
+        else exit.Play(hideArgs);
     }
 
     public void Pick(SpellBase spell)
     {
+        if (hasPicked) return;
+        hasPicked = true;
+
+        foreach (var choice in choices) choice.TryHide(spell);
+        
         marks[start].Show();
         current.Add(spell);
         
-        Hide();
+        Hide(0.75f);
     }
 
     void OnShown(EventArgs args) => group.blocksRaycasts = true;

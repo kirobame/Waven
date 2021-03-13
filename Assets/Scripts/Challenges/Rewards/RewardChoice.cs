@@ -1,16 +1,21 @@
-﻿using Flux.Data;
+﻿using System;
+using Flux.Data;
 using Flux.Event;
 using Flux.Audio;
+using Flux.Feedbacks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHandler, IPointerExitHandler
+public class RewardChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler
 {
     [SerializeField] private RewardHandler handler;
     [SerializeField] private SpellCategory category;
 
+    [Space, SerializeField] private Sequencer hide;
+    [SerializeField] private SimpleButton button;
+    
     [Space, SerializeField] private TMP_Text title;
     [SerializeField] private Image thumbnail;
     [SerializeField] private AudioClipPackage spellChoosenSound;
@@ -20,6 +25,17 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
 
     [SerializeField] private RectTransform tooltipPos;
 
+    void Awake() => button.onClick += OnClick;
+    void OnDestroy() => button.onClick -= OnClick;
+    
+    public void TryHide(SpellBase spell)
+    {
+        if (this.spell == spell) return;
+
+        button.IsOperational = false;
+        hide.Play(EventArgs.Empty);
+    }
+    
     public void Initialize(int tier)
     {
         var key = new SpellKey(category, tier);
@@ -28,9 +44,18 @@ public class RewardChoice : MonoBehaviour, IPointerClickHandler, IPointerEnterHa
         spell = spells.GetRandom(key);
         title.text = spell.Title;
         thumbnail.sprite = spell.Thumbnail;
+
+        button.IsOperational = true;
+        
+        var color = thumbnail.color;
+        color.a = 0.8f;
+        thumbnail.color = color;
+        
+        thumbnail.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Horizontal, 122.5f);
+        thumbnail.rectTransform.SetSizeWithCurrentAnchors(RectTransform.Axis.Vertical, 122.5f);
     }
 
-    public void OnPointerClick(PointerEventData eventData)
+    public void OnClick(SimpleButton button)
     {
         AudioHandler.Play(spellChoosenSound);
         AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseClickOnClickableUI));

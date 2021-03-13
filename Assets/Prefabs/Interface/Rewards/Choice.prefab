@@ -34,7 +34,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 9.4}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &8629154478883497991
@@ -67,8 +67,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Osamodas
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 30a4bfff15015474b8d268c42ca04520, type: 2}
+  m_sharedMaterial: {fileID: -166023157322220729, guid: 30a4bfff15015474b8d268c42ca04520, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -92,8 +92,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
@@ -144,6 +144,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8629154479496922617}
   - component: {fileID: 8629154479496922622}
+  - component: {fileID: 7398317137035414568}
   m_Layer: 5
   m_Name: Choice
   m_TagString: Untagged
@@ -187,9 +188,115 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   handler: {fileID: 0}
   category: 3
+  hide: {fileID: 7398317137035414568}
+  button: {fileID: 7426624880101918404}
   title: {fileID: 8629154480968293978}
   thumbnail: {fileID: 8629154479883025339}
   spellChoosenSound: {fileID: 11400000, guid: f227e2b7de134d54f9f3ec8ea803d6e0, type: 2}
+  tooltipPos: {fileID: 0}
+--- !u!114 &7398317137035414568
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629154479496922616}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8222073adb07b4c9e770fb57695fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root:
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 100
+      width: 73
+      height: 71
+    linkIndices: 0000000001000000
+  effects:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: Scale, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 280
+          y: -97
+          width: 278
+          height: 222
+        linkIndices: 
+        target: {fileID: 8629154479883025338}
+        time: 0.8
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        startX: 122.5
+        startY: 122.5
+        endX: 0
+        endY: 0
+    00000001:
+      type: {class: SetAlpha, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 279
+          y: 155
+          width: 252
+          height: 180
+        linkIndices: 
+        target: {fileID: 8629154479883025339}
+        time: 0.65
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        start: 0.8
+        end: 0
 --- !u!1 &8629154479883025333
 GameObject:
   m_ObjectHideFlags: 0
@@ -201,6 +308,8 @@ GameObject:
   - component: {fileID: 8629154479883025338}
   - component: {fileID: 8629154479883025336}
   - component: {fileID: 8629154479883025339}
+  - component: {fileID: 7426624880101918404}
+  - component: {fileID: 2493519214774009793}
   m_Layer: 5
   m_Name: Image
   m_TagString: Untagged
@@ -222,10 +331,10 @@ RectTransform:
   m_Father: {fileID: 8629154480267567318}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -50.469627, y: -31.392578}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -0.000045776367, y: 0}
+  m_SizeDelta: {x: 122.54063, y: 122.540596}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8629154479883025336
 CanvasRenderer:
@@ -255,7 +364,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: db0ad2c3f63d5ba4091daa7d5b124c46, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 4f751be8fffb4c743acec7aa20755427, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -265,6 +374,173 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &7426624880101918404
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629154479883025333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9954d80e7b75486e8f1f14e87e7605c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  table:
+    segments:
+    - id: 0
+    - id: 1
+    duration: 0.4
+    isLooping: 0
+  click: {fileID: 2493519214774009793}
+  references:
+    version: 1
+    00000000:
+      type: {class: ImageAlpha, ns: , asm: Assembly-CSharp}
+      data:
+        span: {x: 0, y: 1}
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        image: {fileID: 8629154479883025339}
+        start: 0.8
+        end: 1
+    00000001:
+      type: {class: Scale, ns: Flux.Feedbacks, asm: Flux.Feedbacks}
+      data:
+        span: {x: 0, y: 1}
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 1
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        target: {fileID: 8629154479883025338}
+        start: {x: 1, y: 1, z: 1}
+        end: {x: 1.075, y: 1.075, z: 1.075}
+--- !u!114 &2493519214774009793
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8629154479883025333}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de8222073adb07b4c9e770fb57695fd5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  root:
+    rect:
+      serializedVersion: 2
+      x: 100
+      y: 100
+      width: 73
+      height: 71
+    linkIndices: 00000000
+  effects:
+  - id: 0
+  - id: 1
+  references:
+    version: 1
+    00000000:
+      type: {class: Scale, ns: , asm: Assembly-CSharp}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 226
+          y: 30
+          width: 278
+          height: 222
+        linkIndices: 01000000
+        target: {fileID: 8629154479883025338}
+        time: 0.4
+        curve:
+          serializedVersion: 2
+          m_Curve:
+          - serializedVersion: 3
+            time: 0
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          - serializedVersion: 3
+            time: 0.5
+            value: 1
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0.33333334
+            outWeight: 0.33333334
+          - serializedVersion: 3
+            time: 1
+            value: 0
+            inSlope: 0
+            outSlope: 0
+            tangentMode: 0
+            weightedMode: 0
+            inWeight: 0
+            outWeight: 0
+          m_PreInfinity: 2
+          m_PostInfinity: 2
+          m_RotationOrder: 4
+        startX: 122.5
+        startY: 122.5
+        endX: 135
+        endY: 135
+    00000001:
+      type: {class: End, ns: Flux.Feedbacks, asm: Flux.Feedbacks}
+      data:
+        rect:
+          serializedVersion: 2
+          x: 570
+          y: 73
+          width: 102
+          height: 71
+        linkIndices: 
 --- !u!1 &8629154480267567313
 GameObject:
   m_ObjectHideFlags: 0
@@ -301,7 +577,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 0, y: 171.30884}
+  m_SizeDelta: {x: 0, y: 171.5074}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &8629154480267567316
 CanvasRenderer:
@@ -324,15 +600,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.1792453, g: 0.1792453, b: 0.1792453, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 10905, guid: 0000000000000000f000000000000000, type: 0}
-  m_Type: 1
+  m_Sprite: {fileID: 21300000, guid: 5730ff088a4ec4c4e9f953bab348dc6c, type: 3}
+  m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 4
@@ -375,7 +651,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: -2.699997}
   m_SizeDelta: {x: 0, y: 50}
   m_Pivot: {x: 0.5, y: 1}
 --- !u!222 &8629154480968293979
@@ -408,8 +684,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Title
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
-  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 83c6f7d46012e4240b61f36cc10efd77, type: 2}
+  m_sharedMaterial: {fileID: -7951928315701162151, guid: 83c6f7d46012e4240b61f36cc10efd77, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -433,8 +709,8 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 25
-  m_fontSizeBase: 25
+  m_fontSize: 30
+  m_fontSizeBase: 30
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18

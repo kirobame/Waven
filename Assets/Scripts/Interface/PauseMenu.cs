@@ -10,9 +10,11 @@ using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
 {
+    [SerializeField] private GameObject blockingPanel;
     [SerializeField] private GameObject menu;
 
     [Space, SerializeField] private GameObject victoryPanel;
+    [SerializeField] private Animator banner;
     [SerializeField] private TMP_Text title;
     
     [Space, SerializeField] private TMP_FontAsset redFont;
@@ -45,6 +47,8 @@ public class PauseMenu : MonoBehaviour
     public void OpenMenu()
     {
         isOpen = true;
+        
+        blockingPanel.SetActive(true);
         menu.SetActive(true);
     }
 
@@ -53,11 +57,15 @@ public class PauseMenu : MonoBehaviour
         if (isLocked) return;
         
         isOpen = false;
+        
+        blockingPanel.SetActive(false);
         menu.SetActive(false);
     }
 
     void Interrupt(Player player)
     {
+        blockingPanel.SetActive(true);
+        
         int index;
         if (player.Index == 1)
         {
@@ -81,6 +89,8 @@ public class PauseMenu : MonoBehaviour
         {
             Time.timeScale = 0;
             victoryPanel.SetActive(true);
+            
+            banner.SetTrigger("In");
             
         }, 1.0f));
     }

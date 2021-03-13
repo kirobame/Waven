@@ -8,6 +8,11 @@ public class RewardTimer : MonoBehaviour
 {
     [SerializeField] private Image image;
     [SerializeField] private TMP_Text texMesh;
+    
+    [Space, SerializeField] private Vector2Int dangerZone;
+    [SerializeField] private Color textStart;
+    [SerializeField] private Color fillStart;
+    [SerializeField] private Color end;
 
     private float counter;
     
@@ -26,7 +31,12 @@ public class RewardTimer : MonoBehaviour
             image.fillAmount = 1.0f - floatArgs.ArgOne;
             
             counter = 10.0f - floatArgs.ArgOne * 10.0f;
-            texMesh.text = $"{(int)Mathf.RoundToInt(counter)}";
+            var remainingTime = Mathf.RoundToInt(counter);
+            texMesh.text = remainingTime < 10 ? $"0{remainingTime}" : remainingTime.ToString();
+
+            var ratio = Mathf.InverseLerp(dangerZone.x, dangerZone.y, remainingTime);
+            texMesh.color = Color.Lerp(end, textStart, ratio);
+            image.color = Color.Lerp(end, fillStart, ratio);
         }
     }
 }

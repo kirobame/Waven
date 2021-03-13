@@ -49,7 +49,7 @@ public class RewardRelay : ITurnbound
         handler.onDone -= OnDone;
         
         if (IsBusy) return;
-        handler.Hide();
+        handler.Hide(0.0f);
     }
 
     void OnHideStart() => IsBusy = true;

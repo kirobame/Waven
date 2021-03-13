@@ -52,12 +52,16 @@ public class AttackButton : ButtonFeedback
         inUse = false;
     }
     void OnTurnEnd() => Pathfinder.onDirtied -= OnDirtied;
-    
+
+    protected override void OnHoverStart() => AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
+
     protected override void OnClick()
     {
         if (!inUse)
         {
             inUse = true;
+            
+            AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseClickOnClickableUI));
             Events.ZipCall(InterfaceEvent.OnSpellSelected, spell, true);
         }
         else

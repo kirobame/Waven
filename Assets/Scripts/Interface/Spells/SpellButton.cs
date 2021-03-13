@@ -94,6 +94,15 @@ public class SpellButton : ButtonFeedback
             isActive = false;
         }
     }
+
+    void OnSpellCastImpossible(SpellBase spell)
+    {
+        if (isActive && Spell != spell)
+        {
+            TurnOff();
+            isActive = false;
+        }
+    }
     void OnSpellUsed(SpellBase spell, bool isStatic)
     {
         if (isStatic) return;

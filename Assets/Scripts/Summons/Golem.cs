@@ -55,7 +55,7 @@ public class Golem : ExtendedTileable, ILink
         else hasOwner = false;
 
         HasJustSpawned = true;
-        Routines.Start(Routines.DoAfter(() => HasJustSpawned = false, 0.5f));
+        StartCoroutine(Routines.DoAfter(() => HasJustSpawned = false, 0.4f));
     }
 
     protected override void Start()

@@ -39,6 +39,8 @@ public class SlideTrap : Trap
         {
             spell.Prepare();
             spell.CastFrom(Navigator.Current, Spellcaster.EmptyArgs);
+            
+            navigator.Current.Mark(Mark.None);
 
         }, new YieldFrame()));
     }

@@ -29,7 +29,13 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
+      Data: 1|ExtendedCircle, Assembly-CSharp
+    - Name: constraints
+      Entry: 3
+      Data: 2
+    - Name: removals
+      Entry: 3
+      Data: 0
     - Name: allowBoost
       Entry: 5
       Data: true
@@ -125,4 +131,3 @@ MonoBehaviour:
   description: "Inflige 1 point de d\xE9g\xE2t sur les cases adjacentes au Golem
     cibl\xE9."
   thumbnail: {fileID: 21300000, guid: 445815e7d206eeb4ca8312927d009931, type: 3}
-  sound: {fileID: 0}

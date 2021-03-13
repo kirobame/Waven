@@ -29,7 +29,13 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
+      Data: 1|ExtendedCircle, Assembly-CSharp
+    - Name: constraints
+      Entry: 3
+      Data: 49
+    - Name: removals
+      Entry: 3
+      Data: 64
     - Name: allowBoost
       Entry: 5
       Data: true
@@ -165,7 +171,6 @@ MonoBehaviour:
   tier: 3
   title: Double Peine
   description: "Permet de lancer une attaque en plus ce tour-ci. Attribuable \xE0
-    un joueur ou un Golem (active le Golem pendant ce tour si inactif, ou en prend
-    le contr\xF4le temporaire)."
+    un joueur ou un Golem <color=#e6e6e6><size=55%>(active le Golem pendant ce tour
+    si inactif, ou en prend le contr\xF4le temporaire).</size></color>"
   thumbnail: {fileID: 21300000, guid: 684652137988a9748b2a9df9745d912b, type: 3}
-  sound: {fileID: 0}

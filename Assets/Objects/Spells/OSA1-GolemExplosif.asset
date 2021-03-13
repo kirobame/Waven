@@ -30,7 +30,13 @@ MonoBehaviour:
       Data: 1
     - Name: 
       Entry: 7
-      Data: 1|Circle, Assembly-CSharp
+      Data: 1|ExtendedCircle, Assembly-CSharp
+    - Name: constraints
+      Entry: 3
+      Data: 8
+    - Name: removals
+      Entry: 3
+      Data: 0
     - Name: allowBoost
       Entry: 5
       Data: true
@@ -103,4 +109,3 @@ MonoBehaviour:
     provoquant 1 point de d\xE9g\xE2t sur les cases adjacentes \xE0 lui quand ses
     PV atteignent 0."
   thumbnail: {fileID: 21300000, guid: 2757597f5d890f947bafa3751a4c8e0a, type: 3}
-  sound: {fileID: 0}

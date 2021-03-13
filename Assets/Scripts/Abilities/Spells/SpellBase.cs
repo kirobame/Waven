@@ -24,7 +24,7 @@ public abstract class SpellBase : SerializedScriptableObject, ICastable
     [Space, SerializeField] private string title;
 
     public string Description => description;
-    [SerializeField, TextArea] private string description;
+    [SerializeField, TextArea(5, 50)] private string description;
 
     public Sprite Thumbnail => thumbnail;
     [SerializeField] private Sprite thumbnail;

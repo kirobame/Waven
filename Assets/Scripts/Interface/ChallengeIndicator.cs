@@ -37,7 +37,7 @@ public class ChallengeIndicator : MonoBehaviour, IPointerEnterHandler, IPointerE
     {
         //AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
 
-        var message = $"<size=100%><b>{current.Title}</size></b>\n<size=65%>{current.GetDescription()}</size>";
+        var message = $"<size=100%><b>{current.Title}</size></b>\n<color=#f7f7f7><size=65%>{current.GetDescription()}</size></color>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, position, 1);
     }
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnHideTooltip);

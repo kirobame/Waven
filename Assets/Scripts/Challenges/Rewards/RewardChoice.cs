@@ -65,7 +65,7 @@ public class RewardChoice : MonoBehaviour, IPointerEnterHandler, IPointerExitHan
     public void OnPointerEnter(PointerEventData eventData)
     {
         AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
-        var message = $"<size=100%><b>{spell.Title}</size></b>\n<size=65%>{spell.Description}</size>";
+        var message = $"<size=100%><b>{spell.Title}</size></b>\n<color=#f7f7f7><size=65%>{spell.Description}</size></color>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 1);
     }
     public void OnPointerExit(PointerEventData eventData) => Events.EmptyCall(InterfaceEvent.OnHideTooltip);

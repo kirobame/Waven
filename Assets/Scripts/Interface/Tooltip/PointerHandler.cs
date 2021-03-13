@@ -24,7 +24,7 @@ public class PointerHandler : MonoBehaviour, IPointerEnterHandler, IPointerExitH
 
         AudioHandler.Play(Repository.Get<AudioClipPackage>(AudioReferences.MouseHoverClickableUI));
 
-        var message = $"<size=100%><b>{Spell.Title}</size></b>\n<size=65%>{Spell.Description}</size>";
+        var message = $"<size=100%><b>{Spell.Title}</size></b>\n<color=#f7f7f7><size=65%>{Spell.Description}</size></color>";
         Events.ZipCall(InterfaceEvent.OnTooltipUsed, message, tooltipPos, 2);
     }
 

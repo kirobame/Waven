@@ -54,8 +54,12 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         if (caster.Args.TryAggregate(new Id('S','P','L'), out var bonus)) totalUse +=  bonus;
         RemainingUse = totalUse;
 
-        var hotbar = Repository.Get<Hotbar>(References.Hotbar);
-        hotbar.DisplayPA(RemainingUse);
+        Routines.Start(Routines.DoAfter(() =>
+        {
+            var hotbar = Repository.Get<Hotbar>(References.Hotbar);
+            hotbar.DisplayPA(RemainingUse);
+            
+        }, new YieldFrame()));
         
         Events.RelayByValue<SpellBase, bool>(InterfaceEvent.OnSpellSelected, OnSpellSelected);
     }
@@ -194,7 +198,9 @@ public class Spellcaster : MonoBehaviour, ILink, IMutable
         
         if (!availableTiles.Contains(tile))
         {
+            Events.EmptyCall(InterfaceEvent.OnSpellInterruption);
             End();
+            
             return;
         }
 

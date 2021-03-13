@@ -14,7 +14,6 @@ public class Spell : SpellBase
     
     [Space, SerializeField] private List<Pattern> castingPatterns = new List<Pattern>();
     [SerializeField] private List<Effect> effects = new List<Effect>();
-    [SerializeField] private AudioClipPackage sound;
 
     private int lastingEffects;
     private bool isDone;
@@ -55,8 +54,6 @@ public class Spell : SpellBase
         }
         
         foreach (var effect in effects) effect.PlayOn(source, args);
-
-        if (sound) AudioHandler.Play(sound);
     }
 
     void OnEffectDone(Effect effect)

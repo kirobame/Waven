@@ -14,12 +14,31 @@ public class Hotbar : MonoBehaviour
 
     [Space, SerializeField] private TMP_Text PAText;
     [SerializeField] private TMP_Text PMText;
+
+    [Space, SerializeField] private Image playerIndication;
+    [SerializeField] private Color blueColor;
+    [SerializeField] private Color redColor;
     
     private Moveable moveable;
 
-    void Awake() => Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
-    void OnDestroy() => Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
+    void Awake()
+    {
+        Events.RelayByVoid(GameEvent.OnTurnStart, OnTurnStart);
+        Events.RelayByVoid(InterfaceEvent.OnInfoRefresh, Refresh);
+    }
 
+    void OnDestroy()
+    {
+        Events.BreakVoidRelay(GameEvent.OnTurnStart, OnTurnStart);
+        Events.BreakVoidRelay(InterfaceEvent.OnInfoRefresh, Refresh);
+    }
+
+    void OnTurnStart()
+    {
+        if (Player.Active.Index == 0) playerIndication.color = blueColor;
+        else playerIndication.color = redColor;
+    }
+    
     public void ClearSpells() { foreach(var relay in relays) relay.gameObject.SetActive(false); }
     public void DisplaySpells(List<SpellBase> spells)
     {

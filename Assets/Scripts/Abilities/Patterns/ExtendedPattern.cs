@@ -20,9 +20,10 @@ public abstract class ExtendedPattern : Pattern
             
             if (constraints.HasFlag(CastTarget.Player)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Player)));
             if (constraints.HasFlag(CastTarget.Golem)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Golem)));
-            if (constraints.HasFlag(CastTarget.Trap)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Trap)));
+            if (constraints.HasFlag(CastTarget.Trap)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity.GetType() == typeof(Trap))));
+            if (constraints.HasFlag(CastTarget.Verglas)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity.GetType() == typeof(SlideTrap))));
             if (constraints.HasFlag(CastTarget.Free)) temp = temp.Concat(tiles.Where(tile => tile.IsFree()));
-            if (constraints.HasFlag(CastTarget.Self)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team == TeamTag.Neutral)));
+            if (constraints.HasFlag(CastTarget.Neutral)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team == TeamTag.Neutral)));
             if (constraints.HasFlag(CastTarget.Self)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team == Player.Active.Team)));
             if (constraints.HasFlag(CastTarget.Enemy)) temp = temp.Concat(tiles.Where(tile => tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team != Player.Active.Team)));
         }
@@ -31,7 +32,8 @@ public abstract class ExtendedPattern : Pattern
         
         if (removals.HasFlag(CastTarget.Player)) temp = temp.Where(tile => !tile.Entities.Any(entity => entity is Player));
         if (removals.HasFlag(CastTarget.Golem)) temp = temp.Where(tile => !tile.Entities.Any(entity => entity is Golem));
-        if (removals.HasFlag(CastTarget.Trap)) temp = temp.Where(tile => !tile.Entities.Any(entity => entity is Trap));
+        if (removals.HasFlag(CastTarget.Trap)) temp = temp.Where(tile => tile.Entities.All(entity => entity.GetType() != typeof(Trap)));
+        if (removals.HasFlag(CastTarget.Verglas)) temp = temp.Where(tile => tile.Entities.All(entity => entity.GetType() != typeof(SlideTrap)));
         if (removals.HasFlag(CastTarget.Free)) temp = temp.Where(tile => !tile.IsFree());
         if (removals.HasFlag(CastTarget.Neutral)) temp = temp.Where(tile => !tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team == TeamTag.Neutral));
         if (removals.HasFlag(CastTarget.Self)) temp = temp.Where(tile => !tile.Entities.Any(entity => entity is Tileable tileable && tileable.Team == Player.Active.Team));

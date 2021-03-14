@@ -8,9 +8,10 @@ public enum CastTarget
     Player = 1,
     Golem = 2,
     Trap = 4,
-    Free = 8,
+    Verglas = 8,
+    Free = 16,
     
-    Neutral = 16,
-    Self = 32,
-    Enemy = 64
+    Neutral = 32,
+    Self = 64,
+    Enemy = 128
 }

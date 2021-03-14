@@ -36,7 +36,7 @@ MonoBehaviour:
       Data: 0
     - Name: removals
       Entry: 3
-      Data: 4
+      Data: 8
     - Name: allowBoost
       Entry: 5
       Data: true

@@ -791,11 +791,15 @@ PrefabInstance:
     - target: {fileID: 4097353869787670436, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_Sprite
       value: 
-      objectReference: {fileID: -6967848337759946730, guid: ff82a0e9732221f4e823aed78831b7d7, type: 3}
+      objectReference: {fileID: -5086693185110409833, guid: 867df71f74492a646b578a5e9b0ab734, type: 3}
     - target: {fileID: 4097353869787670436, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: m_WasSpriteAssigned
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 4097353869787670437, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
+      propertyPath: m_Controller
+      value: 
+      objectReference: {fileID: 22100000, guid: 604152a1beed5eb4bb115b2f5e19de54, type: 2}
     - target: {fileID: 4097353869914120680, guid: 945f93567e63b794e915e7f547db2a9e, type: 3}
       propertyPath: index
       value: 1
@@ -5523,7 +5527,7 @@ PrefabInstance:
     - target: {fileID: 1633596915, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: animator
       value: 
-      objectReference: {fileID: 2103530878, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
+      objectReference: {fileID: 1397334363}
     - target: {fileID: 1633596915, guid: b81308b9058015b4480e6e2e628a0c7c, type: 3}
       propertyPath: table.duration
       value: 0.4
@@ -6396,7 +6400,7 @@ PrefabInstance:
     - target: {fileID: 6348043256833981242, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
       propertyPath: title
       value: 
-      objectReference: {fileID: 497054808, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
+      objectReference: {fileID: 864583805}
     - target: {fileID: 6348043256833981242, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
       propertyPath: banner
       value: 
@@ -6412,7 +6416,7 @@ PrefabInstance:
     - target: {fileID: 6348043256833981242, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
       propertyPath: victoryPanel
       value: 
-      objectReference: {fileID: 1967284560, guid: 756f8dbc5dae3464b9147fadef14eab2, type: 3}
+      objectReference: {fileID: 1533711733}
     - target: {fileID: 6348043256833981242, guid: 5e9962db0b286df4984ba82ecb026cea, type: 3}
       propertyPath: blockingPanel
       value: 

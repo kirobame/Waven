@@ -32,10 +32,10 @@ MonoBehaviour:
       Data: 1|ExtendedCircle, Assembly-CSharp
     - Name: constraints
       Entry: 3
-      Data: 49
+      Data: 96
     - Name: removals
       Entry: 3
-      Data: 64
+      Data: 128
     - Name: allowBoost
       Entry: 5
       Data: true
